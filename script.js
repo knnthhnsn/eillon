@@ -8,6 +8,66 @@
 
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const finePointer    = window.matchMedia('(pointer: fine)').matches;
+  const mobileLayout   = window.matchMedia('(max-width: 900px)');
+
+  const isIOS = () =>
+    /iPhone|iPad|iPod/i.test(navigator.userAgent) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+  const canPlayWebmVp9 = () => {
+    const probe = document.createElement('video');
+    return probe.canPlayType('video/webm; codecs="vp9"') !== '';
+  };
+
+  /* iOS and other browsers without VP9 WebM need flat fallbacks (no alpha). */
+  const needsFlatVideoFallback = () => isIOS() || !canPlayWebmVp9();
+
+  const addVideoSource = (video, src, type) => {
+    const source = document.createElement('source');
+    source.src = src;
+    source.type = type;
+    video.appendChild(source);
+  };
+
+  const configureBottleVideo = (video) => {
+    if (!(video instanceof HTMLVideoElement)) return { mode: 'none' };
+
+    const webm   = video.dataset.webm;
+    const mp4    = video.dataset.mp4;
+    const mobile = video.dataset.mobile;
+    const useFlat = needsFlatVideoFallback();
+
+    video.innerHTML = '';
+    video.muted = true;
+    video.defaultMuted = true;
+    video.setAttribute('playsinline', '');
+    video.setAttribute('webkit-playsinline', '');
+
+    if (useFlat && mobile) {
+      addVideoSource(video, mobile, 'video/mp4');
+      video.load();
+      return { mode: 'mobile' };
+    }
+
+    if (webm) addVideoSource(video, webm, 'video/webm');
+    if (mp4)  addVideoSource(video, mp4, 'video/mp4');
+    video.load();
+    return { mode: 'alpha' };
+  };
+
+  const playVideoSafe = (video, retries = 2) => {
+    if (!(video instanceof HTMLVideoElement)) return;
+    video.muted = true;
+    const attempt = (left) => {
+      const playPromise = video.play();
+      if (!playPromise || typeof playPromise.catch !== 'function') return;
+      playPromise.catch(() => {
+        if (left > 0) setTimeout(() => attempt(left - 1), 160);
+      });
+    };
+    if (video.readyState >= HTMLMediaElement.HAVE_METADATA) attempt(retries);
+    else video.addEventListener('loadeddata', () => attempt(retries), { once: true });
+  };
 
   /* ---------- 1. CINEMATIC INTRO VEIL ---------- */
   // The veil holds the screen while typography reveals, then curtains slide
@@ -429,21 +489,28 @@
   document.querySelectorAll('.hero__bottle').forEach((video) => {
     if (!(video instanceof HTMLVideoElement)) return;
 
+    const link = video.closest('.hero__bottle-link');
+    const { mode } = configureBottleVideo(video);
+
     video.pause();
     video.currentTime = 0;
     video.removeAttribute('autoplay');
 
     if (prefersReduced) return;
 
-    let heroVideoStarted = false;
+    /* Over photo backgrounds, flat mobile encodes show a cream box — use still. */
+    if (mode === 'mobile' && link) {
+      link.classList.add('is-static-fallback');
+      return;
+    }
 
-    const playVideo = () => { video.play().catch(() => {}); };
+    let heroVideoStarted = false;
 
     const beginHeroVideo = () => {
       if (heroVideoStarted) return;
       heroVideoStarted = true;
       video.currentTime = 0;
-      playVideo();
+      playVideoSafe(video);
     };
 
     if (document.body.classList.contains('is-loaded')) {
@@ -455,7 +522,7 @@
     document.addEventListener('visibilitychange', () => {
       if (!heroVideoStarted) return;
       if (document.hidden) video.pause();
-      else playVideo();
+      else playVideoSafe(video);
     });
   });
 
@@ -465,12 +532,14 @@
   const craftVideo   = document.querySelector('.craft__video');
 
   if (craftSection && craftMedia && craftVideo instanceof HTMLVideoElement) {
+    configureBottleVideo(craftVideo);
     craftVideo.loop = false;
     craftVideo.pause();
     craftVideo.currentTime = 0;
 
     if (!prefersReduced) {
       let craftAtEnd = false;
+      let resetTimer   = 0;
 
       const holdLastFrame = () => {
         craftAtEnd = true;
@@ -490,21 +559,18 @@
         const start = () => {
           if (craftAtEnd) return;
           craftVideo.removeAttribute('poster');
-          craftVideo.play().catch(() => {});
+          playVideoSafe(craftVideo, 3);
         };
 
         if (craftVideo.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
           start();
         } else {
           craftVideo.addEventListener('canplay', start, { once: true });
+          craftVideo.load();
         }
       };
 
       craftVideo.addEventListener('ended', holdLastFrame);
-
-      craftVideo.addEventListener('play', () => {
-        if (craftAtEnd) craftVideo.pause();
-      });
 
       craftVideo.addEventListener('timeupdate', () => {
         const d = craftVideo.duration;
@@ -513,19 +579,28 @@
         }
       });
 
-      /* Play when the bottle frame enters view — not the whole section */
+      const mediaObsOpts = mobileLayout.matches
+        ? { threshold: 0.12, rootMargin: '48px 0px 0px 0px' }
+        : { threshold: 0.25, rootMargin: '0px 0px -5% 0px' };
+
       const mediaObserver = new IntersectionObserver(
         ([entry]) => {
           if (entry.isIntersecting) playCraftVideo();
           else if (!craftAtEnd) craftVideo.pause();
         },
-        { threshold: 0.25, rootMargin: '0px 0px -5% 0px' }
+        mediaObsOpts
       );
 
-      /* Reset only after scrolling fully past or above the section */
       const sectionObserver = new IntersectionObserver(
         ([entry]) => {
-          if (!entry.isIntersecting) resetCraftVideo();
+          if (entry.isIntersecting) return;
+          clearTimeout(resetTimer);
+          const delay = mobileLayout.matches ? 320 : 0;
+          resetTimer = window.setTimeout(() => {
+            const rect = craftSection.getBoundingClientRect();
+            const gone = rect.bottom <= 0 || rect.top >= window.innerHeight;
+            if (gone) resetCraftVideo();
+          }, delay);
         },
         { threshold: 0 }
       );
