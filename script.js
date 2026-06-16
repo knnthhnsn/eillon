@@ -538,8 +538,8 @@
     craftVideo.pause();
     craftVideo.currentTime = 0;
 
-    /* iOS / no-WebM: flat encodes show a box — use still like hero. */
-    if (mode === 'mobile' && craftInner) {
+    /* Mobile: still bottle like hero. Desktop: transparent wings video. */
+    if (craftInner && (mode === 'mobile' || mobileLayout.matches)) {
       craftInner.classList.add('is-static-fallback');
     } else if (!prefersReduced) {
       let craftAtEnd = false;

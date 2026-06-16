@@ -1856,13 +1856,13 @@ body.is-loaded .hero__cta { opacity: 1; transform: translateY(0); }
   object-fit: cover;
   object-position: center;
 }
+.shop__image-layer--bottle {
+  z-index: 1;
+}
 .shop__image-layer--setting {
   opacity: 0;
-  transform: scale(0.98);
-}
-.shop__image:hover .shop__image-layer--bottle {
-  opacity: 0;
-  transform: scale(0.98);
+  transform: scale(1.02);
+  z-index: 0;
 }
 .shop__image:hover .shop__image-layer--setting {
   opacity: 1;
