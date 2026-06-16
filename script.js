@@ -538,8 +538,8 @@
     craftVideo.pause();
     craftVideo.currentTime = 0;
 
-    /* Mobile: still bottle like hero. Desktop: transparent wings video. */
-    if (craftInner && (mode === 'mobile' || mobileLayout.matches)) {
+    /* iOS / no-WebM: still bottle. Android + desktop: transparent wings video. */
+    if (craftInner && mode === 'mobile') {
       craftInner.classList.add('is-static-fallback');
     } else if (!prefersReduced) {
       let craftAtEnd = false;
