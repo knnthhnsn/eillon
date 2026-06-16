@@ -2,36 +2,37 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Elli Hansen — Asmara · Eau de Parfum</title>
-  <meta name="description" content="Asmara by Elli Hansen — A petrichor fragrance shaped by rain-washed stone, mineral air, and quiet earth. Composed in Copenhagen." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>EILLON — Asmara · Eau de Parfum</title>
+  <meta name="description" content="Asmara by EILLON — A petrichor fragrance shaped by rain-washed stone, mineral air, and quiet earth. Composed in Copenhagen." />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#F3ECDC" />
   <meta name="color-scheme" content="light" />
 
   <meta property="og:type" content="product" />
-  <meta property="og:site_name" content="Elli Hansen" />
+  <meta property="og:site_name" content="EILLON" />
   <meta property="og:title" content="Asmara · Eau de Parfum" />
   <meta property="og:description" content="A mineral, rain-washed fragrance capturing petrichor: wet stone, green air, and quiet earth." />
-  <meta property="og:image" content="bottle-wide.png" />
-  <meta property="product:brand" content="Elli Hansen" />
+  <meta property="og:image" content="images/hero-backgrund.png" />
+  <meta property="product:brand" content="EILLON" />
   <meta property="product:price:amount" content="240" />
   <meta property="product:price:currency" content="EUR" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Asmara · Eau de Parfum" />
   <meta name="twitter:description" content="A petrichor eau de parfum composed in Copenhagen." />
-  <meta name="twitter:image" content="bottle-wide.png" />
+  <meta name="twitter:image" content="images/hero-backgrund.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" as="image" href="bottle-wide.png" fetchpriority="high" />
+  <link rel="preload" as="image" href="images/hero-backgrund.png" fetchpriority="high" />
+  <link rel="preload" as="video" href="images/leopard-bottle-sneak-alpha.webm?v=8" type="video/webm" />
   <link
     href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=swap"
     rel="stylesheet"
   />
 
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=22" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -39,12 +40,12 @@
       "name": "Asmara Eau de Parfum",
       "brand": {
         "@type": "Brand",
-        "name": "Elli Hansen"
+        "name": "EILLON"
       },
       "description": "A petrichor eau de parfum composed in Copenhagen, shaped around rain-washed stone, mineral air, and quiet earth.",
       "image": [
-        "bottle-wide.png",
-        "bottle-shop.png"
+        "images/hero-backgrund.png",
+        "images/beles-no-background.png"
       ],
       "offers": [
         {
@@ -87,6 +88,12 @@
       .reveal { opacity: 1 !important; transform: none !important; }
       .veil   { display: none !important; }
       .hero__bg-img { transform: scale(1) !important; filter: none !important; }
+      .hero__bottle-stage { opacity: 1 !important; transform: none !important; }
+      .hero__bottle { transform: scale(1.04) !important; filter: none !important; }
+      @media (min-width: 901px) {
+        .hero__bottle-stage { transform: translateY(-50%) !important; }
+        .hero__bottle { transform: scale(1.05) !important; }
+      }
       .hero__brand,
       .hero__tagline,
       .hero__cta,
@@ -106,11 +113,9 @@
     <span class="veil__panel veil__panel--bottom"></span>
     <div class="veil__content">
       <span class="veil__rule veil__rule--top"></span>
-      <span class="veil__caption">Home of Elli Hansen — Copenhagen</span>
-      <div class="veil__title">
-        <em>
-          <span>A</span><span>s</span><span>m</span><span>a</span><span>r</span><span>a</span>
-        </em>
+      <span class="veil__caption">Home of EILLON — Copenhagen</span>
+      <div class="veil__logo">
+        <img src="images/eillon_logo_transparent.png" width="640" height="200" alt="EILLON" />
       </div>
       <span class="veil__sub">A fragrance shaped by rain.</span>
       <span class="veil__rule veil__rule--bottom"></span>
@@ -120,8 +125,8 @@
   <!-- ============ NAVIGATION ============ -->
   <header class="nav" id="nav">
     <div class="nav__inner">
-      <a href="#top" class="nav__brand" aria-label="Elli Hansen home">
-        <span class="nav__brand-name">Elli Hansen</span>
+      <a href="#top" class="nav__brand" aria-label="EILLON home">
+        <img class="nav__brand-logo" src="images/eillon_logo_transparent.png" width="200" height="64" alt="EILLON" />
       </a>
 
       <nav class="nav__links" aria-label="Primary">
@@ -242,7 +247,7 @@
         <strong id="cartSubtotal">€ 0</strong>
       </div>
       <button class="cart-panel__clear" type="button" id="cartClear" hidden>Clear bag</button>
-      <a class="btn btn--primary btn--block cart-panel__checkout" id="cartCheckout" href="mailto:care@ellihansen.com?subject=Asmara%20order%20request">
+      <a class="btn btn--primary btn--block cart-panel__checkout" id="cartCheckout" href="mailto:care@eillon.maison?subject=Asmara%20order%20request">
         <span class="btn__label">Request Purchase</span>
       </a>
       <button class="cart-panel__continue" type="button" data-cart-close>Continue shopping</button>
@@ -253,7 +258,9 @@
     <!-- ============ HERO ============ -->
     <section class="hero" id="hero">
       <div class="hero__bg" data-parallax="0.18">
-        <img class="hero__bg-img" src="bottle-wide.png" width="1536" height="1024" alt="Asmara flacon in a refined architectural setting" fetchpriority="high" />
+        <div class="hero__scene">
+          <img class="hero__bg-img hero__bg-img--scene" src="images/hero-backgrund.png" width="1920" height="1080" alt="" aria-hidden="true" fetchpriority="high" />
+        </div>
       </div>
       <div class="hero__spotlight" aria-hidden="true"></div>
       <div class="hero__scrim" aria-hidden="true"></div>
@@ -261,9 +268,9 @@
       <div class="hero__content">
         
 
-        <h1 class="hero__title" aria-label="Asmara">
+        <h1 class="hero__title" aria-label="EILLON">
           <span class="hero__title-word"><em>
-            <span class="ltr">A</span><span class="ltr">s</span><span class="ltr">m</span><span class="ltr">a</span><span class="ltr">r</span><span class="ltr">a</span>
+            <span class="ltr">E</span><span class="ltr">I</span><span class="ltr">L</span><span class="ltr">L</span><span class="ltr">O</span><span class="ltr">N</span>
           </em></span>
         </h1>
 
@@ -277,10 +284,28 @@
             <span class="btn__label">Shop Now</span>
           </a>
           <a class="btn btn--ghost magnetic" href="#story">
-            <span>Discover Asmara</span>
+            <span>Discover EILLON</span>
             <span class="arrow">→</span>
           </a>
         </div>
+      </div>
+
+      <div class="hero__bottle-stage">
+        <div class="hero__bottle-glow" aria-hidden="true"></div>
+        <a class="hero__bottle-link" href="#shop" aria-label="Shop EILLON">
+          <video
+            class="hero__bottle"
+            muted
+            loop
+            playsinline
+            preload="auto"
+            poster="images/plain-bottle-with-logo.png"
+            aria-hidden="true"
+          >
+            <source src="images/leopard-bottle-sneak-alpha.webm?v=8" type="video/webm" />
+            <source src="images/leopard-bottle-sneak.mp4" type="video/mp4" />
+          </video>
+        </a>
       </div>
 
     </section>
@@ -288,14 +313,14 @@
     <!-- ============ GIANT MARQUEE ============ -->
     <section class="bigtext" aria-hidden="true">
       <div class="bigtext__track" data-marquee>
-        <span class="bigtext__word bigtext__word--fill"><em>Asmara</em></span>
-        <span class="bigtext__sep">✦</span>
-        <span class="bigtext__word bigtext__word--outline"><em>Asmara</em></span>
-        <span class="bigtext__sep">✦</span>
-        <span class="bigtext__word bigtext__word--fill"><em>Asmara</em></span>
-        <span class="bigtext__sep">✦</span>
-        <span class="bigtext__word bigtext__word--outline"><em>Asmara</em></span>
-        <span class="bigtext__sep">✦</span>
+        <span class="bigtext__word bigtext__word--fill"><em>EILLON</em></span>
+        <span class="bigtext__sep"><img src="images/logo.png" width="80" height="80" alt="" /></span>
+        <span class="bigtext__word bigtext__word--outline"><em>EILLON</em></span>
+        <span class="bigtext__sep"><img src="images/logo.png" width="80" height="80" alt="" /></span>
+        <span class="bigtext__word bigtext__word--fill"><em>EILLON</em></span>
+        <span class="bigtext__sep"><img src="images/logo.png" width="80" height="80" alt="" /></span>
+        <span class="bigtext__word bigtext__word--outline"><em>EILLON</em></span>
+        <span class="bigtext__sep"><img src="images/logo.png" width="80" height="80" alt="" /></span>
       </div>
     </section>
 
@@ -437,8 +462,17 @@
       <div class="craft__grid">
         <figure class="craft__image" data-reveal="image">
           <div class="craft__image-inner">
-            <img class="img-base" src="perfume-bottle.png" width="1024" height="1536" loading="lazy" decoding="async" alt="Asmara bottle — close study" />
-            <img class="img-hover" src="perfume-bottle-hover.png" width="1024" height="1535" loading="lazy" decoding="async" alt="" aria-hidden="true" />
+            <video
+              class="craft__video"
+              muted
+              playsinline
+              preload="auto"
+              poster="images/beles-no-background.png"
+              aria-label="EILLON bottle — winged leopard emblem"
+            >
+              <source src="images/leopard-bottle-wings-alpha.webm?v=8" type="video/webm" />
+              <source src="images/leopard-bottle-wings-4.5.mp4" type="video/mp4" />
+            </video>
           </div>
         </figure>
 
@@ -461,7 +495,7 @@
           <li class="detail">
             <span class="detail__num">— 04</span>
             <h4>The Inscription</h4>
-            <p>Set in minimal type: <em>Elli Hansen</em> — Asmara — Eau de Parfum.</p>
+            <p>Set in minimal type: <em>EILLON</em> — Asmara — Eau de Parfum.</p>
           </li>
         </ol>
       </div>
@@ -469,11 +503,9 @@
 
     <!-- ============ MOOD / EDITORIAL ============ -->
     <section class="mood">
-      <div class="mood__bottle" aria-hidden="true">
-        <div class="mood__bottle-reveal" data-reveal="scale" data-delay="400">
-          <div class="mood__bottle-float">
-            <img src="bottle.png" width="1024" height="1536" loading="lazy" decoding="async" alt="" />
-          </div>
+      <div class="mood__splash" aria-hidden="true">
+        <div class="mood__splash-reveal" data-reveal="scale" data-delay="400">
+          <img src="images/cactus-mood.jpg" width="1920" height="1280" loading="lazy" decoding="async" alt="" />
         </div>
       </div>
 
@@ -539,10 +571,10 @@
         <figure class="shop__image" data-reveal="image" data-selected-volume="100 ML">
           <div class="shop__image-inner">
             <span class="shop__image-layer shop__image-layer--bottle">
-              <img class="img-base" src="bottle-shop.png" width="1024" height="1536" loading="lazy" decoding="async" alt="Asmara 100 ml — available now" />
+              <img src="images/beles-no-background.png" width="1024" height="1536" loading="lazy" decoding="async" alt="EILLON Beles 100 ml — available now" />
             </span>
             <span class="shop__image-layer shop__image-layer--setting" aria-hidden="true">
-              <img class="img-hover" src="bottle-settings.png" width="1402" height="1122" loading="lazy" decoding="async" alt="" />
+              <img src="images/cactus-mood.jpg" width="1920" height="1280" loading="lazy" decoding="async" alt="" />
             </span>
           </div>
         </figure>
@@ -601,7 +633,7 @@
           </button>
           <noscript>
             <p class="shop__noscript">
-              To order Asmara, email <a href="mailto:care@ellihansen.com?subject=Asmara%20order%20request">care@ellihansen.com</a>.
+              To order Asmara, email <a href="mailto:care@eillon.maison?subject=Asmara%20order%20request">care@eillon.maison</a>.
             </p>
           </noscript>
           <p class="sr-only" id="bagStatus" aria-live="polite"></p>
@@ -706,7 +738,7 @@
     <div class="footer__top">
       <div class="footer__news" data-reveal="left">
         <span class="eyebrow">The Letter</span>
-        <h3 class="footer__news-title">News from the Elli,<br />sent slowly.</h3>
+        <h3 class="footer__news-title">News from EILLON,<br />sent slowly.</h3>
         <form class="footer__form" id="newsletterForm">
           <input type="email" placeholder="Your email" aria-label="Email address" required />
           <button type="submit">Subscribe <span class="arrow">→</span></button>
@@ -716,7 +748,7 @@
         <div class="footer__visit" id="stockists">
           <span class="footer__visit-label">Copenhagen studio</span>
           <p>Private fragrance appointments, Thursday to Saturday, 12-18.</p>
-          <a href="mailto:care@ellihansen.com?subject=Asmara%20studio%20appointment">Request an appointment <span class="arrow">→</span></a>
+          <a href="mailto:care@eillon.maison?subject=Asmara%20studio%20appointment">Request an appointment <span class="arrow">→</span></a>
         </div>
       </div>
 
@@ -724,7 +756,7 @@
         <div>
           <h5>Maison</h5>
           <ul>
-            <li><a href="#story">About Elli Hansen</a></li>
+            <li><a href="#story">About EILLON</a></li>
             <li><a href="#craft">Craftsmanship</a></li>
             <li><a href="#story">Editorial Journal</a></li>
             <li><a href="#shop">Sustainability</a></li>
@@ -742,7 +774,7 @@
         <div>
           <h5>Care</h5>
           <ul>
-            <li><a href="mailto:care@ellihansen.com">Contact</a></li>
+            <li><a href="mailto:care@eillon.maison">Contact</a></li>
             <li><a href="#shop">Shipping</a></li>
             <li><a href="#shop">Returns</a></li>
             <li><a href="#faq">FAQ</a></li>
@@ -751,18 +783,20 @@
         <div>
           <h5>Follow</h5>
           <ul>
-            <li><a href="https://www.instagram.com/ellihansen" target="_blank" rel="noopener noreferrer" aria-label="Instagram, opens in a new tab">Instagram</a></li>
-            <li><a href="https://www.pinterest.com/ellihansen" target="_blank" rel="noopener noreferrer" aria-label="Pinterest, opens in a new tab">Pinterest</a></li>
-            <li><a href="https://open.spotify.com/search/elli%20hansen%20asmara" target="_blank" rel="noopener noreferrer" aria-label="Spotify, opens in a new tab">Spotify</a></li>
+            <li><a href="https://www.instagram.com/eillon" target="_blank" rel="noopener noreferrer" aria-label="Instagram, opens in a new tab">Instagram</a></li>
+            <li><a href="https://www.pinterest.com/eillon" target="_blank" rel="noopener noreferrer" aria-label="Pinterest, opens in a new tab">Pinterest</a></li>
+            <li><a href="https://open.spotify.com/search/EILLON%20asmara" target="_blank" rel="noopener noreferrer" aria-label="Spotify, opens in a new tab">Spotify</a></li>
           </ul>
         </div>
       </div>
     </div>
 
-    <div class="footer__brand" aria-hidden="true" data-reveal="mask-h">ELLI HANSEN</div>
+    <div class="footer__brand" aria-hidden="true" data-reveal="mask-h">
+      <img src="images/eillon_logo_transparent.png" width="640" height="200" alt="" />
+    </div>
 
     <div class="footer__legal">
-      <span>© Elli Hansen — Copenhagen</span>
+      <span>© EILLON — Copenhagen</span>
       <span class="footer__legal-links">
         <a href="#privacy">Privacy</a> · <a href="#terms">Terms</a> · <a href="#imprint">Imprint</a>
       </span>
@@ -771,7 +805,7 @@
     <div class="footer__fineprint" aria-label="Legal information">
       <details id="privacy">
         <summary>Privacy</summary>
-        <p>Email addresses are used only for Elli Hansen letters and appointment replies. No resale, no shared lists.</p>
+        <p>Email addresses are used only for EILLON letters and appointment replies. No resale, no shared lists.</p>
       </details>
       <details id="terms">
         <summary>Terms</summary>
@@ -779,11 +813,11 @@
       </details>
       <details id="imprint">
         <summary>Imprint</summary>
-        <p>Elli Hansen Studio, Copenhagen. For care, press, and appointment requests: care@ellihansen.com.</p>
+        <p>EILLON studio, Copenhagen. For care, press, and appointment requests: care@eillon.maison.</p>
       </details>
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=17"></script>
 </body>
 </html>

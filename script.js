@@ -1,5 +1,5 @@
 /* =====================================================
-   ELLI HANSEN — ASMARA · interactive layer
+   EILLON — ASMARA · interactive layer
    Cinematic loader, scroll motion, hero spotlight,
    magnetic CTAs, marquee, shop logic.
    ===================================================== */
@@ -14,7 +14,11 @@
   // apart vertically to expose the hero.
   // Timing is anchored to performance.timeOrigin so every visit gets the full
   // sequence regardless of font cache state or script-parse latency.
-  const dropVeil = () => document.body.classList.add('is-loaded');
+  const afterVeil = [];
+  const dropVeil = () => {
+    document.body.classList.add('is-loaded');
+    afterVeil.forEach((fn) => fn());
+  };
   const minHold = prefersReduced ? 1100 : 2700;
 
   let dropped = false;
@@ -393,24 +397,17 @@
   }
 
   /* ---------- 7. INFINITE MARQUEE ---------- */
-  // Loop the giant ASMARA strip horizontally; pause on hover.
   const marquee = document.querySelector('[data-marquee]');
   if (marquee && !prefersReduced) {
-    // Duplicate content once for seamless wrap.
     marquee.innerHTML += marquee.innerHTML;
 
     let offset = 0;
-    let speed  = 0.35;          // px/frame
+    let speed  = 0.35;
     let halfW  = 0;
     const measure = () => { halfW = marquee.scrollWidth / 2; };
     measure();
     window.addEventListener('resize', measure);
 
-    let paused = false;
-    marquee.parentElement.addEventListener('pointerenter', () => paused = true);
-    marquee.parentElement.addEventListener('pointerleave', () => paused = false);
-
-    // Bias direction with scroll for a subtle scroll-driven feel.
     let lastY = window.scrollY;
     window.addEventListener('scroll', () => {
       const dy = window.scrollY - lastY;
@@ -419,15 +416,134 @@
     }, { passive: true });
 
     const step = () => {
-      if (!paused) {
-        offset -= speed;
-        if (offset <= -halfW) offset += halfW;
-        if (offset > 0)       offset -= halfW;
-        marquee.style.transform = `translate3d(${offset}px, 0, 0)`;
-      }
+      offset -= speed;
+      if (offset <= -halfW) offset += halfW;
+      if (offset > 0)       offset -= halfW;
+      marquee.style.transform = `translate3d(${offset}px, 0, 0)`;
       requestAnimationFrame(step);
     };
     step();
+  }
+
+  /* ---------- 7b. HERO BOTTLE VIDEO — start after intro veil ---------- */
+  document.querySelectorAll('.hero__bottle').forEach((video) => {
+    if (!(video instanceof HTMLVideoElement)) return;
+
+    video.pause();
+    video.currentTime = 0;
+    video.removeAttribute('autoplay');
+
+    if (prefersReduced) return;
+
+    let heroVideoStarted = false;
+
+    const playVideo = () => { video.play().catch(() => {}); };
+
+    const beginHeroVideo = () => {
+      if (heroVideoStarted) return;
+      heroVideoStarted = true;
+      video.currentTime = 0;
+      playVideo();
+    };
+
+    if (document.body.classList.contains('is-loaded')) {
+      beginHeroVideo();
+    } else {
+      afterVeil.push(beginHeroVideo);
+    }
+
+    document.addEventListener('visibilitychange', () => {
+      if (!heroVideoStarted) return;
+      if (document.hidden) video.pause();
+      else playVideo();
+    });
+  });
+
+  /* ---------- 7c. CRAFT WINGS VIDEO — play when visible, hold last frame, reset on section leave ---------- */
+  const craftSection = document.getElementById('craft');
+  const craftMedia   = document.querySelector('.craft__image');
+  const craftVideo   = document.querySelector('.craft__video');
+
+  if (craftSection && craftMedia && craftVideo instanceof HTMLVideoElement) {
+    craftVideo.loop = false;
+    craftVideo.pause();
+    craftVideo.currentTime = 0;
+
+    if (!prefersReduced) {
+      let craftAtEnd = false;
+
+      const holdLastFrame = () => {
+        craftAtEnd = true;
+        craftVideo.removeAttribute('poster');
+        craftVideo.pause();
+      };
+
+      const resetCraftVideo = () => {
+        craftAtEnd = false;
+        craftVideo.pause();
+        craftVideo.currentTime = 0;
+      };
+
+      const playCraftVideo = () => {
+        if (craftAtEnd) return;
+
+        const start = () => {
+          if (craftAtEnd) return;
+          craftVideo.removeAttribute('poster');
+          craftVideo.play().catch(() => {});
+        };
+
+        if (craftVideo.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
+          start();
+        } else {
+          craftVideo.addEventListener('canplay', start, { once: true });
+        }
+      };
+
+      craftVideo.addEventListener('ended', holdLastFrame);
+
+      craftVideo.addEventListener('play', () => {
+        if (craftAtEnd) craftVideo.pause();
+      });
+
+      craftVideo.addEventListener('timeupdate', () => {
+        const d = craftVideo.duration;
+        if (!craftAtEnd && Number.isFinite(d) && d > 0 && craftVideo.currentTime >= d - 0.05) {
+          holdLastFrame();
+        }
+      });
+
+      /* Play when the bottle frame enters view — not the whole section */
+      const mediaObserver = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) playCraftVideo();
+          else if (!craftAtEnd) craftVideo.pause();
+        },
+        { threshold: 0.25, rootMargin: '0px 0px -5% 0px' }
+      );
+
+      /* Reset only after scrolling fully past or above the section */
+      const sectionObserver = new IntersectionObserver(
+        ([entry]) => {
+          if (!entry.isIntersecting) resetCraftVideo();
+        },
+        { threshold: 0 }
+      );
+
+      mediaObserver.observe(craftMedia);
+      sectionObserver.observe(craftSection);
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          craftVideo.pause();
+        } else {
+          const mediaRect = craftMedia.getBoundingClientRect();
+          const inMedia = mediaRect.bottom > 0 && mediaRect.top < window.innerHeight * 0.95;
+          if (inMedia) playCraftVideo();
+          else if (craftAtEnd) craftVideo.pause();
+        }
+      });
+    }
   }
 
   /* ---------- 8. SHOP — SIZE SELECTOR ---------- */
@@ -468,8 +584,8 @@
     '100': 'Daily wear, gifting, and the fullest expression of the petrichor accord.',
     'refill': 'For returning wearers who want to keep the rain-washed trail in rotation.',
   };
-  const cartStorageKey = 'elli-hansen-asmara-cart';
-  const cartOptionsStorageKey = 'elli-hansen-asmara-cart-options';
+  const cartStorageKey = 'eillon-asmara-cart';
+  const cartOptionsStorageKey = 'eillon-asmara-cart-options';
   const cartItems = new Map();
 
   const updateEngravingCount = () => {
@@ -534,7 +650,7 @@
     const engraving = engravingText?.value.trim();
     const gift = giftWrap?.checked;
     const body = [
-      'Hello Elli Hansen,',
+      'Hello EILLON,',
       '',
       'I would like to request a purchase for:',
       ...lines,
@@ -544,7 +660,7 @@
       '',
       `Subtotal: € ${getCartSubtotal()}`,
     ].join('\n');
-    cartCheckout.href = `mailto:care@ellihansen.com?subject=${encodeURIComponent('Asmara order request')}&body=${encodeURIComponent(body)}`;
+    cartCheckout.href = `mailto:care@eillon.maison?subject=${encodeURIComponent('Asmara order request')}&body=${encodeURIComponent(body)}`;
   };
 
   const updateBagLabel = () => {
@@ -583,7 +699,7 @@
       const thumb = document.createElement('div');
       thumb.className = 'cart-item__thumb';
       const img = document.createElement('img');
-      img.src = 'bottle-shop.png';
+      img.src = 'images/beles-no-background.png';
       img.alt = '';
       thumb.appendChild(img);
 
@@ -750,7 +866,7 @@
   /* ---------- 10. NEWSLETTER ---------- */
   const newsletterForm = document.getElementById('newsletterForm');
   const newsletterStatus = document.getElementById('newsletterStatus');
-  const newsletterStorageKey = 'elli-hansen-newsletter-subscribed';
+  const newsletterStorageKey = 'eillon-newsletter-subscribed';
   const setNewsletterSubscribed = () => {
     const button = newsletterForm?.querySelector('button');
     const input = newsletterForm?.querySelector('input[type="email"]');
