@@ -532,12 +532,16 @@
   const craftVideo   = document.querySelector('.craft__video');
 
   if (craftSection && craftMedia && craftVideo instanceof HTMLVideoElement) {
-    configureBottleVideo(craftVideo);
+    const craftInner = craftVideo.closest('.craft__image-inner');
+    const { mode } = configureBottleVideo(craftVideo);
     craftVideo.loop = false;
     craftVideo.pause();
     craftVideo.currentTime = 0;
 
-    if (!prefersReduced) {
+    /* iOS / no-WebM: flat encodes show a box — use still like hero. */
+    if (mode === 'mobile' && craftInner) {
+      craftInner.classList.add('is-static-fallback');
+    } else if (!prefersReduced) {
       let craftAtEnd = false;
       let resetTimer   = 0;
 
