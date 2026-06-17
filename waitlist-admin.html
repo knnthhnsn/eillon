@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>EILLON — Waitlist</title>
+  <link rel="stylesheet" href="styles.css?v=39" />
+  <style>
+    body { padding: 48px 24px 80px; background: var(--bg); color: var(--ink); }
+    .admin { max-width: 920px; margin: 0 auto; }
+    .admin__head { margin-bottom: 32px; }
+    .admin__head h1 {
+      font-family: var(--serif);
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 300;
+      margin: 0 0 8px;
+    }
+    .admin__head p { margin: 0; color: var(--ink-soft); font-family: var(--serif); font-style: italic; }
+    .admin__gate {
+      display: flex;
+      gap: 12px;
+      align-items: end;
+      max-width: 520px;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+    .admin__gate label {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+    .admin__gate input {
+      border: 0;
+      border-bottom: 1px solid var(--line);
+      background: transparent;
+      font: inherit;
+      font-size: 15px;
+      padding: 8px 0;
+      color: var(--ink);
+      outline: none;
+    }
+    .admin__gate button {
+      padding: 10px 16px;
+      border: 1px solid var(--ink);
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+    .admin__status { min-height: 24px; color: var(--ink-soft); font-family: var(--serif); font-style: italic; }
+    .admin__meta { margin: 0 0 16px; font-size: 13px; color: var(--ink-soft); }
+    .admin__table-wrap { overflow-x: auto; border: 1px solid var(--line); }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th, td { padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+    th {
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      font-weight: 500;
+    }
+    tr:last-child td { border-bottom: 0; }
+    .admin__empty { padding: 32px 16px; text-align: center; color: var(--ink-soft); font-family: var(--serif); font-style: italic; }
+  </style>
+</head>
+<body>
+  <main class="admin">
+    <div class="admin__head">
+      <span class="eyebrow">EILLON studio</span>
+      <h1>Beles waitlist</h1>
+      <p>Private view of signups from the boutique and newsletter.</p>
+    </div>
+
+    <form class="admin__gate" id="gateForm">
+      <label>
+        Admin key
+        <input type="password" id="adminKey" autocomplete="current-password" required />
+      </label>
+      <button type="submit">Load</button>
+    </form>
+
+    <p class="admin__status" id="status" aria-live="polite"></p>
+    <p class="admin__meta" id="meta" hidden></p>
+
+    <div class="admin__table-wrap" id="tableWrap" hidden>
+      <table>
+        <thead>
+          <tr>
+            <th>Email</th>
+            <th>Source</th>
+            <th>Size</th>
+            <th>Signed up</th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <script>
+    const storageKey = 'eillon-waitlist-admin-key';
+    const gateForm = document.getElementById('gateForm');
+    const adminKeyInput = document.getElementById('adminKey');
+    const statusEl = document.getElementById('status');
+    const metaEl = document.getElementById('meta');
+    const tableWrap = document.getElementById('tableWrap');
+    const rowsEl = document.getElementById('rows');
+
+    const formatDate = (value) => {
+      try {
+        return new Intl.DateTimeFormat('en-GB', {
+          dateStyle: 'medium',
+          timeStyle: 'short',
+          timeZone: 'Europe/Copenhagen',
+        }).format(new Date(value));
+      } catch {
+        return value;
+      }
+    };
+
+    const renderRows = (signups) => {
+      rowsEl.replaceChildren();
+      if (!signups.length) {
+        tableWrap.hidden = false;
+        const row = document.createElement('tr');
+        const cell = document.createElement('td');
+        cell.colSpan = 4;
+        cell.className = 'admin__empty';
+        cell.textContent = 'No signups yet.';
+        row.appendChild(cell);
+        rowsEl.appendChild(row);
+        return;
+      }
+
+      signups.forEach((signup) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${signup.email}</td>
+          <td>${signup.source}</td>
+          <td>${signup.size || '—'}</td>
+          <td>${formatDate(signup.created_at)}</td>
+        `;
+        rowsEl.appendChild(row);
+      });
+      tableWrap.hidden = false;
+    };
+
+    const loadSignups = async (key) => {
+      statusEl.textContent = 'Loading…';
+      metaEl.hidden = true;
+      tableWrap.hidden = true;
+
+      const res = await fetch(`/api/waitlist-admin?key=${encodeURIComponent(key)}`);
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        statusEl.textContent = data.error === 'Unauthorized'
+          ? 'Wrong admin key.'
+          : 'Could not load signups.';
+        return;
+      }
+
+      try {
+        sessionStorage.setItem(storageKey, key);
+      } catch {
+        // Ignore storage failures.
+      }
+
+      statusEl.textContent = '';
+      metaEl.textContent = `${data.count} signup${data.count === 1 ? '' : 's'}`;
+      metaEl.hidden = false;
+      renderRows(data.signups || []);
+    };
+
+    gateForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      loadSignups(adminKeyInput.value.trim());
+    });
+
+    try {
+      const saved = sessionStorage.getItem(storageKey);
+      if (saved) {
+        adminKeyInput.value = saved;
+        loadSignups(saved);
+      }
+    } catch {
+      // Gate still works without storage.
+    }
+  </script>
+</body>
+</html>

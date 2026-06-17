@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /images/
+
+# Google Search Console HTML verification (backup method)
+Allow: /google1e0ac9f411569d83.html
+
+Sitemap: https://eillon.maison/sitemap.xml
+
+# AI / LLM context (optional)
+Allow: /llms.txt

@@ -1,5 +1,5 @@
 /* =====================================================
-   EILLON — ASMARA · interactive layer
+   EILLON — BELES · interactive layer
    Cinematic loader, scroll motion, hero spotlight,
    magnetic CTAs, marquee, shop logic.
    ===================================================== */
@@ -79,7 +79,7 @@
     document.body.classList.add('is-loaded');
     afterVeil.forEach((fn) => fn());
   };
-  const minHold = prefersReduced ? 1100 : 2700;
+  const minHold = prefersReduced ? 800 : 1200;
 
   let dropped = false;
   const releaseVeil = () => {
@@ -189,15 +189,37 @@
     updateProgress();
   }
 
-  /* ---------- 3. NAV BACKGROUND ON SCROLL ---------- */
+  /* ---------- 3. NAV BACKGROUND + HIDE ON SCROLL DOWN ---------- */
   const nav = document.getElementById('nav');
   let navTicking = false;
+  let lastNavScrollY = window.scrollY;
+  const navHideThreshold = 72;
+  const navScrollDelta = 6;
+
+  const isNavOverlayOpen = () => (
+    document.getElementById('searchPanel')?.classList.contains('is-open')
+    || document.getElementById('mobileNav')?.classList.contains('is-open')
+  );
+
   const onNavScroll = () => {
-    if (navTicking) return;
+    if (navTicking || !nav) return;
     navTicking = true;
     requestAnimationFrame(() => {
-      if (window.scrollY > 24) nav.classList.add('is-scrolled');
-      else                     nav.classList.remove('is-scrolled');
+      const y = window.scrollY;
+      const delta = y - lastNavScrollY;
+
+      if (y > 24) nav.classList.add('is-scrolled');
+      else nav.classList.remove('is-scrolled');
+
+      if (isNavOverlayOpen() || y <= navHideThreshold) {
+        nav.classList.remove('is-hidden');
+      } else if (delta > navScrollDelta) {
+        nav.classList.add('is-hidden');
+      } else if (delta < -navScrollDelta) {
+        nav.classList.remove('is-hidden');
+      }
+
+      lastNavScrollY = y;
       navTicking = false;
     });
   };
@@ -210,19 +232,7 @@
   const searchInput = document.getElementById('siteSearch');
   const searchItems = searchPanel ? Array.from(searchPanel.querySelectorAll('[data-search-item]')) : [];
   const searchEmpty = document.getElementById('searchEmpty');
-  const bagToggle = document.getElementById('bagToggle');
-  const cartPanel = document.getElementById('cartPanel');
-  const cartBody = document.getElementById('cartBody');
-  const cartSummary = document.getElementById('cartSummary');
-  const cartSubtotal = document.getElementById('cartSubtotal');
-  const cartCheckout = document.getElementById('cartCheckout');
-  const cartClear = document.getElementById('cartClear');
-  const cartPersonalize = document.getElementById('cartPersonalize');
-  const engravingText = document.getElementById('engravingText');
-  const engravingCount = document.getElementById('engravingCount');
-  const giftWrap = document.getElementById('giftWrap');
   let searchReturnFocus = null;
-  let cartReturnFocus = null;
   const focusableSelector = 'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])';
   let activeOverlay = null;
 
@@ -262,7 +272,6 @@
   const openSearch = () => {
     if (!searchPanel || !searchToggle || !searchInput) return;
     if (typeof closeMenu === 'function') closeMenu({ restoreFocus: false });
-    if (typeof closeCart === 'function') closeCart({ restoreFocus: false });
     searchReturnFocus = document.activeElement;
     activeOverlay = 'search';
     searchPanel.classList.add('is-open');
@@ -302,47 +311,6 @@
     });
   }
 
-  /* ---------- 3c. BAG PANEL ---------- */
-  const openCart = () => {
-    if (!bagToggle || !cartPanel) return;
-    if (typeof closeSearch === 'function') closeSearch({ restoreFocus: false });
-    if (typeof closeMenu === 'function') closeMenu({ restoreFocus: false });
-    cartReturnFocus = document.activeElement;
-    activeOverlay = 'cart';
-    cartPanel.classList.add('is-open');
-    cartPanel.setAttribute('aria-hidden', 'false');
-    cartPanel.inert = false;
-    bagToggle.setAttribute('aria-expanded', 'true');
-    setPageLocked(true);
-    const closeButton = cartPanel.querySelector('[data-cart-close]:not([tabindex="-1"])');
-    setTimeout(() => closeButton?.focus(), 80);
-  };
-
-  const closeCart = ({ restoreFocus = true } = {}) => {
-    if (!bagToggle || !cartPanel) return;
-    cartPanel.classList.remove('is-open');
-    cartPanel.setAttribute('aria-hidden', 'true');
-    cartPanel.inert = true;
-    bagToggle.setAttribute('aria-expanded', 'false');
-    if (activeOverlay === 'cart') activeOverlay = null;
-    setPageLocked(Boolean(activeOverlay));
-    if (restoreFocus && cartReturnFocus && typeof cartReturnFocus.focus === 'function') {
-      cartReturnFocus.focus();
-    }
-  };
-
-  if (bagToggle && cartPanel) {
-    bagToggle.addEventListener('click', openCart);
-    cartPanel.querySelectorAll('[data-cart-close]').forEach((el) => {
-      el.addEventListener('click', closeCart);
-    });
-    document.addEventListener('keydown', (e) => {
-      if (!cartPanel.classList.contains('is-open')) return;
-      if (e.key === 'Escape') closeCart();
-      keepFocusInside(cartPanel, e);
-    });
-  }
-
   /* ---------- 3d. MOBILE MENU ---------- */
   const menuToggle = document.getElementById('menuToggle');
   const mobileNav = document.getElementById('mobileNav');
@@ -351,7 +319,6 @@
   const openMenu = () => {
     if (!menuToggle || !mobileNav) return;
     if (typeof closeSearch === 'function') closeSearch({ restoreFocus: false });
-    if (typeof closeCart === 'function') closeCart({ restoreFocus: false });
     menuReturnFocus = document.activeElement;
     activeOverlay = 'menu';
     menuToggle.classList.add('is-open');
@@ -510,6 +477,7 @@
       if (heroVideoStarted) return;
       heroVideoStarted = true;
       video.currentTime = 0;
+      video.addEventListener('playing', () => link?.classList.add('is-video-playing'), { once: true });
       playVideoSafe(video);
     };
 
@@ -625,6 +593,51 @@
     }
   }
 
+  /* ---------- 7d. MODEL SHOWCASE — play when section in view ---------- */
+  const modelShowcase = document.querySelector('.model-showcase');
+  const modelVideos = document.querySelectorAll('[data-model-video]');
+
+  if (modelShowcase && modelVideos.length) {
+    const syncModelShowcaseInView = (inView) => {
+      modelShowcase.classList.toggle('is-inview', inView);
+    };
+
+    if (!prefersReduced) {
+      const showcaseObserver = new IntersectionObserver(
+        ([entry]) => {
+          const inView = entry.isIntersecting;
+          syncModelShowcaseInView(inView);
+          modelVideos.forEach((video) => {
+            if (!(video instanceof HTMLVideoElement)) return;
+            if (inView) playVideoSafe(video);
+            else video.pause();
+          });
+        },
+        { threshold: 0.18, rootMargin: '0px 0px -6% 0px' }
+      );
+
+      showcaseObserver.observe(modelShowcase);
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          modelVideos.forEach((video) => video.pause());
+          return;
+        }
+        const rect = modelShowcase.getBoundingClientRect();
+        const inView = rect.bottom > 0 && rect.top < window.innerHeight * 0.92;
+        syncModelShowcaseInView(inView);
+        if (inView) modelVideos.forEach((video) => playVideoSafe(video));
+      });
+    } else {
+      syncModelShowcaseInView(true);
+      modelVideos.forEach((video) => {
+        if (!(video instanceof HTMLVideoElement)) return;
+        video.pause();
+        video.currentTime = 0;
+      });
+    }
+  }
+
   /* ---------- 8. SHOP — SIZE SELECTOR ---------- */
   const sizes = document.querySelectorAll('.size');
   const priceEl = document.querySelector('[data-price]');
@@ -632,219 +645,77 @@
   const shopImage = document.querySelector('.shop__image');
   const guideButtons = document.querySelectorAll('[data-guide-size]');
   const guideText = document.getElementById('sizeGuideText');
+  const canHover = window.matchMedia('(hover: hover) and (pointer: fine)');
   let selectedSize = '100';
   const volumeMap = {
     'sample': '2 ml · discovery vial',
     '50':     '50 ml · 1.7 fl. oz.',
     '100':    '100 ml · 3.4 fl. oz.',
-    'refill': '100 ml · refill cartridge',
   };
   const sizeLabelMap = {
     'sample': '2 ml sample',
     '50': '50 ml',
     '100': '100 ml',
-    'refill': 'Refill',
   };
   const priceMap = {
     'sample': 28,
     '50': 170,
     '100': 240,
-    'refill': 180,
   };
   const imageLabelMap = {
     'sample': 'SAMPLE',
     '50': '50 ML',
     '100': '100 ML',
-    'refill': 'REFILL',
+  };
+  const shopImageMap = {
+    sample: {
+      webp: 'images/samples.webp',
+      png: 'images/samples.png',
+      alt: 'EILLON Beles · Fico d\'India 2 ml discovery sample vials',
+    },
+    '50': {
+      webp: 'images/beles-no-background.webp',
+      png: 'images/beles-no-background.png',
+      alt: 'EILLON Beles · Fico d\'India 50 ml parfum',
+    },
+    '100': {
+      webp: 'images/beles-no-background.webp',
+      png: 'images/beles-no-background.png',
+      alt: 'EILLON Beles · Fico d\'India 100 ml parfum',
+    },
+  };
+  const shopImageWebp = shopImage?.querySelector('[data-shop-webp]');
+  const shopImageImg = shopImage?.querySelector('[data-shop-img]');
+  const shopImageInner = shopImage?.querySelector('.shop__image-inner');
+  const shopSplashSizes = new Set(['50', '100']);
+
+  const applySplashProgress = (progress) => {
+    if (!shopImage) return;
+    const clamped = Math.min(1, Math.max(0, progress));
+    shopImage.style.setProperty('--splash-progress', clamped.toFixed(3));
+    shopImage.classList.toggle('is-splash-visible', clamped > 0.35);
+  };
+
+  const setShopSplash = (visible) => {
+    applySplashProgress(visible ? 1 : 0);
+  };
+
+  const updateShopImage = (size) => {
+    const asset = shopImageMap[size];
+    if (!asset || !shopImage) return;
+    if (shopImageWebp) shopImageWebp.srcset = asset.webp;
+    if (shopImageImg) {
+      shopImageImg.src = asset.png;
+      shopImageImg.alt = asset.alt;
+    }
+    shopImage.dataset.productSize = size;
+    applySplashProgress(0);
+    if (!canHover.matches) window.dispatchEvent(new Event('scroll'));
   };
   const guideCopyMap = {
-    'sample': 'A first encounter with the rain-washed accord before choosing a bottle.',
-    '50': 'A considered introduction to Asmara, ideal for travel or a first bottle.',
-    '100': 'Daily wear, gifting, and the fullest expression of the petrichor accord.',
-    'refill': 'For returning wearers who want to keep the rain-washed trail in rotation.',
-  };
-  const cartStorageKey = 'eillon-asmara-cart';
-  const cartOptionsStorageKey = 'eillon-asmara-cart-options';
-  const cartItems = new Map();
-
-  const updateEngravingCount = () => {
-    if (!engravingText || !engravingCount) return;
-    const remaining = engravingText.maxLength - engravingText.value.length;
-    engravingCount.textContent = `${remaining} character${remaining === 1 ? '' : 's'} remaining`;
-  };
-
-  const saveCart = () => {
-    try {
-      const payload = Array.from(cartItems.entries());
-      window.localStorage.setItem(cartStorageKey, JSON.stringify(payload));
-      window.localStorage.setItem(cartOptionsStorageKey, JSON.stringify({
-        engraving: engravingText?.value || '',
-        giftWrap: Boolean(giftWrap?.checked),
-      }));
-    } catch {
-      // Storage can be disabled; the bag still works for the current page.
-    }
-  };
-
-  const loadCart = () => {
-    try {
-      const raw = window.localStorage.getItem(cartStorageKey);
-      if (!raw) return;
-      const payload = JSON.parse(raw);
-      if (!Array.isArray(payload)) return;
-      payload.forEach(([size, item]) => {
-        if (!priceMap[size] || !item || typeof item.quantity !== 'number') return;
-        cartItems.set(size, {
-          label: sizeLabelMap[size],
-          price: priceMap[size],
-          quantity: Math.max(1, Math.floor(item.quantity)),
-        });
-      });
-      const optionsRaw = window.localStorage.getItem(cartOptionsStorageKey);
-      if (optionsRaw) {
-        const options = JSON.parse(optionsRaw);
-        if (engravingText && typeof options.engraving === 'string') engravingText.value = options.engraving.slice(0, engravingText.maxLength);
-        if (giftWrap) giftWrap.checked = Boolean(options.giftWrap);
-        updateEngravingCount();
-      }
-    } catch {
-      try {
-        window.localStorage.removeItem(cartStorageKey);
-        window.localStorage.removeItem(cartOptionsStorageKey);
-      } catch {
-        // Ignore storage cleanup failures.
-      }
-    }
-  };
-
-  const getCartCount = () => Array.from(cartItems.values()).reduce((sum, item) => sum + item.quantity, 0);
-  const getCartSubtotal = () => Array.from(cartItems.values())
-    .reduce((sum, item) => sum + item.quantity * item.price, 0);
-
-  const updateCheckoutLink = () => {
-    if (!cartCheckout) return;
-    const lines = Array.from(cartItems.values()).map((item) => (
-      `${item.quantity} x Asmara ${item.label} - € ${item.price * item.quantity}`
-    ));
-    const engraving = engravingText?.value.trim();
-    const gift = giftWrap?.checked;
-    const body = [
-      'Hello EILLON,',
-      '',
-      'I would like to request a purchase for:',
-      ...lines,
-      '',
-      `Engraving: ${engraving || 'None'}`,
-      `Gift wrap: ${gift ? 'Yes' : 'No'}`,
-      '',
-      `Subtotal: € ${getCartSubtotal()}`,
-    ].join('\n');
-    cartCheckout.href = `mailto:care@eillon.maison?subject=${encodeURIComponent('Asmara order request')}&body=${encodeURIComponent(body)}`;
-  };
-
-  const updateBagLabel = () => {
-    const totalCount = getCartCount();
-    if (bagCountEl) bagCountEl.textContent = `(${totalCount})`;
-    if (bagToggle) bagToggle.setAttribute('aria-label', `Open bag, ${totalCount} item${totalCount === 1 ? '' : 's'}`);
-  };
-
-  const syncCart = () => {
-    saveCart();
-    updateBagLabel();
-    renderCart();
-  };
-
-  const renderCart = () => {
-    if (!cartBody || !cartSummary || !cartSubtotal || !cartCheckout) return;
-    cartBody.replaceChildren();
-    if (!cartItems.size) {
-      const empty = document.createElement('p');
-      empty.className = 'cart-panel__empty';
-      empty.textContent = 'Your bag is empty.';
-      cartBody.appendChild(empty);
-      cartSummary.hidden = true;
-      if (cartPersonalize) cartPersonalize.hidden = true;
-      if (cartClear) cartClear.hidden = true;
-      cartCheckout.setAttribute('aria-disabled', 'true');
-      cartCheckout.tabIndex = -1;
-      updateCheckoutLink();
-      return;
-    }
-
-    cartItems.forEach((item, size) => {
-      const row = document.createElement('div');
-      row.className = 'cart-item';
-
-      const thumb = document.createElement('div');
-      thumb.className = 'cart-item__thumb';
-      const img = document.createElement('img');
-      img.src = 'images/beles-no-background.png';
-      img.alt = '';
-      thumb.appendChild(img);
-
-      const info = document.createElement('div');
-      info.className = 'cart-item__info';
-      const top = document.createElement('div');
-      top.className = 'cart-item__top';
-      const name = document.createElement('span');
-      name.className = 'cart-item__name';
-      name.textContent = 'Asmara';
-      const price = document.createElement('span');
-      price.className = 'cart-item__price';
-      price.textContent = `€ ${item.price * item.quantity}`;
-      top.append(name, price);
-
-      const meta = document.createElement('span');
-      meta.className = 'cart-item__meta';
-      meta.textContent = item.label;
-      const controls = document.createElement('div');
-      controls.className = 'cart-item__controls';
-      controls.setAttribute('aria-label', `Quantity for Asmara ${item.label}`);
-      const minus = document.createElement('button');
-      minus.type = 'button';
-      minus.setAttribute('aria-label', `Remove one Asmara ${item.label}`);
-      minus.textContent = '−';
-      const quantity = document.createElement('span');
-      quantity.textContent = item.quantity;
-      const plus = document.createElement('button');
-      plus.type = 'button';
-      plus.setAttribute('aria-label', `Add one Asmara ${item.label}`);
-      plus.textContent = '+';
-      minus.addEventListener('click', () => {
-        item.quantity -= 1;
-        if (item.quantity <= 0) cartItems.delete(size);
-        else cartItems.set(size, item);
-        syncCart();
-        if (bagStatus) bagStatus.textContent = `Bag updated. ${getCartCount()} item${getCartCount() === 1 ? '' : 's'} remaining.`;
-      });
-      plus.addEventListener('click', () => {
-        item.quantity += 1;
-        cartItems.set(size, item);
-        syncCart();
-        if (bagStatus) bagStatus.textContent = `${item.label} Asmara quantity increased to ${item.quantity}.`;
-      });
-      controls.append(minus, quantity, plus);
-      const remove = document.createElement('button');
-      remove.className = 'cart-item__remove';
-      remove.type = 'button';
-      remove.textContent = 'Remove';
-      remove.addEventListener('click', () => {
-        cartItems.delete(size);
-        syncCart();
-        if (bagStatus) bagStatus.textContent = `${item.label} Asmara removed from bag.`;
-      });
-      info.append(top, meta, controls, remove);
-      row.append(thumb, info);
-      cartBody.appendChild(row);
-    });
-
-    cartSubtotal.textContent = `€ ${getCartSubtotal()}`;
-    cartSummary.hidden = false;
-    if (cartPersonalize) cartPersonalize.hidden = false;
-    if (cartClear) cartClear.hidden = false;
-    cartCheckout.setAttribute('aria-disabled', 'false');
-    cartCheckout.tabIndex = 0;
-    updateCheckoutLink();
+    'sample': 'A first encounter with the sun-warmed accord before choosing a bottle.',
+    '50': 'A considered introduction to Beles, ideal for travel or a first bottle.',
+    '100': 'Daily wear, gifting, and the fullest expression of the Beles accord.',
   };
 
   const selectSize = (btn) => {
@@ -862,6 +733,7 @@
     if (priceEl  && amount)              priceEl.textContent  = `€ ${amount}`;
     if (volumeEl && volumeMap[size])     volumeEl.textContent = volumeMap[size];
     if (shopImage && imageLabelMap[size]) shopImage.dataset.selectedVolume = imageLabelMap[size];
+    updateShopImage(size);
     if (guideText && guideCopyMap[size])  guideText.textContent = guideCopyMap[size];
     guideButtons.forEach((guide) => {
       guide.classList.toggle('is-active', guide.dataset.guideSize === size);
@@ -893,54 +765,179 @@
     });
   });
 
-  /* ---------- 9. ADD TO BAG ---------- */
-  const addBtn = document.getElementById('addBag');
-  const bagCountEl = document.querySelector('.nav__bag-count');
-  const bagStatus = document.getElementById('bagStatus');
-  if (addBtn && bagCountEl) {
-    addBtn.addEventListener('click', () => {
-      const item = cartItems.get(selectedSize) || {
-        label: sizeLabelMap[selectedSize],
-        price: priceMap[selectedSize],
-        quantity: 0,
-      };
-      item.quantity += 1;
-      cartItems.set(selectedSize, item);
-      syncCart();
-      const label = addBtn.querySelector('.btn__label');
-      const original = label.textContent;
-      label.textContent = 'Added ✓';
-      addBtn.disabled = true;
-      const count = getCartCount();
-      if (bagStatus) bagStatus.textContent = `${item.label} Asmara added to bag. Bag now contains ${count} item${count === 1 ? '' : 's'}.`;
-      openCart();
-      setTimeout(() => {
-        label.textContent = original;
-        addBtn.disabled = false;
-      }, 1600);
+  /* ---------- 8d. TOUCH UI — mobile alternatives to hover ---------- */
+  if (!canHover.matches) {
+    let splashManual = null;
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    const supportsSplash = () => shopSplashSizes.has(shopImage?.dataset.productSize);
+
+    const updateSplashFromScroll = () => {
+      if (!shopImage || !supportsSplash()) {
+        applySplashProgress(0);
+        return;
+      }
+      if (splashManual !== null) return;
+
+      const rect = shopImage.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const centerY = rect.top + rect.height * 0.45;
+      const progress = Math.min(1, Math.max(0, (vh * 0.72 - centerY) / (vh * 0.32)));
+      applySplashProgress(progress);
+    };
+
+    let splashTick = false;
+    const queueSplashScroll = () => {
+      if (splashTick) return;
+      splashTick = true;
+      requestAnimationFrame(() => {
+        splashManual = null;
+        updateSplashFromScroll();
+        splashTick = false;
+      });
+    };
+
+    window.addEventListener('scroll', queueSplashScroll, { passive: true });
+    window.addEventListener('resize', queueSplashScroll);
+    queueSplashScroll();
+
+    if (shopImageInner) {
+      shopImageInner.addEventListener('touchstart', (e) => {
+        if (!supportsSplash() || e.touches.length !== 1) return;
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      }, { passive: true });
+
+      shopImageInner.addEventListener('touchend', (e) => {
+        if (!supportsSplash()) return;
+        const touch = e.changedTouches[0];
+        const dx = touch.clientX - touchStartX;
+        const dy = touch.clientY - touchStartY;
+        if (Math.abs(dx) < 36 || Math.abs(dx) < Math.abs(dy)) return;
+
+        splashManual = dx < 0 ? 1 : 0;
+        applySplashProgress(splashManual);
+      }, { passive: true });
+    }
+
+    const accordCells = document.querySelectorAll('.accord-profile__list > div');
+    accordCells.forEach((cell) => {
+      cell.setAttribute('role', 'button');
+      cell.setAttribute('tabindex', '0');
+      cell.addEventListener('click', () => {
+        const wasFocused = cell.classList.contains('is-focused');
+        accordCells.forEach((item) => item.classList.remove('is-focused'));
+        if (!wasFocused) cell.classList.add('is-focused');
+      });
+      cell.addEventListener('keydown', (e) => {
+        if (e.key !== 'Enter' && e.key !== ' ') return;
+        e.preventDefault();
+        cell.click();
+      });
+    });
+
+    if ('IntersectionObserver' in window) {
+      const noteIO = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            entry.target.classList.toggle(
+              'is-inview',
+              entry.isIntersecting && entry.intersectionRatio >= 0.42
+            );
+          });
+        },
+        { threshold: [0, 0.42, 0.55] }
+      );
+      document.querySelectorAll('.note').forEach((note) => noteIO.observe(note));
+    }
+  }
+
+  /* ---------- 9. WAITLIST ---------- */
+  const waitlistStorageKey = 'eillon-beles-waitlist';
+  const waitlistForm = document.getElementById('waitlistForm');
+  const waitlistStatus = document.getElementById('waitlistStatus');
+  const waitlistSubmit = document.getElementById('waitlistSubmit');
+
+  const setWaitlistJoined = ({ emailInput, submitButton, statusEl, message }) => {
+    if (emailInput) {
+      emailInput.value = '';
+      emailInput.disabled = true;
+    }
+    if (submitButton) {
+      submitButton.disabled = true;
+      const label = submitButton.querySelector('.btn__label');
+      if (label) label.textContent = 'On the list ✓';
+    }
+    if (statusEl) statusEl.textContent = message;
+  };
+
+  const submitWaitlistSignup = async ({ email, source, size }) => {
+    const res = await fetch('/api/waitlist', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, source, size }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.error || 'Signup failed');
+    return data;
+  };
+
+  if (waitlistForm && waitlistStatus) {
+    try {
+      if (window.localStorage.getItem(waitlistStorageKey) === 'true') {
+        setWaitlistJoined({
+          emailInput: waitlistForm.querySelector('input[type="email"]'),
+          submitButton: waitlistSubmit,
+          statusEl: waitlistStatus,
+          message: 'You are on the Beles waitlist. We will write when the next release opens.',
+        });
+      }
+    } catch {
+      // Waitlist still submits if storage is unavailable.
+    }
+
+    waitlistForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const emailInput = waitlistForm.querySelector('input[type="email"]');
+      const honeypot = waitlistForm.querySelector('input[name="website"]');
+      const label = waitlistSubmit?.querySelector('.btn__label');
+      if (!emailInput || !label) return;
+      if (honeypot?.value) return;
+      if (!emailInput.checkValidity()) {
+        emailInput.reportValidity();
+        return;
+      }
+
+      const originalLabel = label.textContent;
+      label.textContent = 'Joining…';
+      if (waitlistSubmit) waitlistSubmit.disabled = true;
+      waitlistStatus.textContent = '';
+
+      try {
+        await submitWaitlistSignup({
+          email: emailInput.value.trim(),
+          source: 'waitlist',
+          size: selectedSize,
+        });
+        try {
+          window.localStorage.setItem(waitlistStorageKey, 'true');
+        } catch {
+          // Ignore storage failures.
+        }
+        setWaitlistJoined({
+          emailInput,
+          submitButton: waitlistSubmit,
+          statusEl: waitlistStatus,
+          message: 'You are on the Beles waitlist. We will write when the next release opens.',
+        });
+      } catch {
+        label.textContent = originalLabel;
+        if (waitlistSubmit) waitlistSubmit.disabled = false;
+        waitlistStatus.textContent = 'Something went wrong. Please try again or email care@eillon.maison.';
+      }
     });
   }
-  cartClear?.addEventListener('click', () => {
-    cartItems.clear();
-    if (engravingText) engravingText.value = '';
-    if (giftWrap) giftWrap.checked = false;
-    updateEngravingCount();
-    syncCart();
-    if (bagStatus) bagStatus.textContent = 'Bag cleared.';
-  });
-  engravingText?.addEventListener('input', () => {
-    updateEngravingCount();
-    saveCart();
-    updateCheckoutLink();
-  });
-  giftWrap?.addEventListener('change', () => {
-    saveCart();
-    updateCheckoutLink();
-  });
-  loadCart();
-  updateEngravingCount();
-  updateBagLabel();
-  renderCart();
 
   /* ---------- 10. NEWSLETTER ---------- */
   const newsletterForm = document.getElementById('newsletterForm');
@@ -962,7 +959,7 @@
     } catch {
       // Newsletter still submits visually if storage is unavailable.
     }
-    newsletterForm.addEventListener('submit', (e) => {
+    newsletterForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const input = newsletterForm.querySelector('input[type="email"]');
       const button = newsletterForm.querySelector('button');
@@ -971,12 +968,28 @@
         input.reportValidity();
         return;
       }
+
+      const originalText = button.textContent;
+      button.disabled = true;
+      button.textContent = 'Subscribing…';
+      newsletterStatus.textContent = '';
+
       try {
-        window.localStorage.setItem(newsletterStorageKey, 'true');
+        await submitWaitlistSignup({
+          email: input.value.trim(),
+          source: 'newsletter',
+        });
+        try {
+          window.localStorage.setItem(newsletterStorageKey, 'true');
+        } catch {
+          // Ignore storage failures.
+        }
+        setNewsletterSubscribed();
       } catch {
-        // Ignore storage failures.
+        button.disabled = false;
+        button.textContent = originalText;
+        newsletterStatus.textContent = 'Something went wrong. Please try again.';
       }
-      setNewsletterSubscribed();
     });
   }
 
