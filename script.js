@@ -753,13 +753,27 @@
   const shopImageWebp = shopImage?.querySelector('[data-shop-webp]');
   const shopImageImg = shopImage?.querySelector('[data-shop-img]');
   const shopImageInner = shopImage?.querySelector('.shop__image-inner');
+  const shopVideo = shopImage?.querySelector('[data-shop-video]');
   const shopSplashSizes = new Set(['50', '100']);
+
+  const syncShopVideo = (shouldPlay) => {
+    if (!(shopVideo instanceof HTMLVideoElement) || prefersReduced) return;
+    if (!shopImage || !shopSplashSizes.has(shopImage.dataset.productSize)) {
+      shopVideo.pause();
+      shopVideo.currentTime = 0;
+      return;
+    }
+    if (shouldPlay) playVideoSafe(shopVideo);
+    else shopVideo.pause();
+  };
 
   const applySplashProgress = (progress) => {
     if (!shopImage) return;
     const clamped = Math.min(1, Math.max(0, progress));
     shopImage.style.setProperty('--splash-progress', clamped.toFixed(3));
-    shopImage.classList.toggle('is-splash-visible', clamped > 0.35);
+    const splashVisible = clamped > 0.35;
+    shopImage.classList.toggle('is-splash-visible', splashVisible);
+    if (!canHover.matches) syncShopVideo(splashVisible);
   };
 
   const setShopSplash = (visible) => {
@@ -800,6 +814,7 @@
     if (volumeEl && volumeMap[size])     volumeEl.textContent = volumeMap[size];
     if (shopImage && imageLabelMap[size]) shopImage.dataset.selectedVolume = imageLabelMap[size];
     updateShopImage(size);
+    syncShopVideo(false);
     if (guideText && guideCopyMap[size])  guideText.textContent = guideCopyMap[size];
     guideButtons.forEach((guide) => {
       guide.classList.toggle('is-active', guide.dataset.guideSize === size);
@@ -830,6 +845,18 @@
       match.focus();
     });
   });
+
+  if (canHover.matches && shopImage) {
+    shopImage.addEventListener('mouseenter', () => {
+      if (shopSplashSizes.has(shopImage.dataset.productSize)) syncShopVideo(true);
+    });
+    shopImage.addEventListener('mouseleave', () => syncShopVideo(false));
+  }
+
+  if (shopVideo instanceof HTMLVideoElement && prefersReduced) {
+    shopVideo.pause();
+    shopVideo.currentTime = 0;
+  }
 
   /* ---------- 8d. TOUCH UI — mobile alternatives to hover ---------- */
   if (!canHover.matches) {

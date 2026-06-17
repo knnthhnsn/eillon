@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=70" />
+  <link rel="stylesheet" href="styles.css?v=97" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -113,10 +113,17 @@
               </picture>
             </span>
             <span class="shop__image-layer shop__image-layer--setting" aria-hidden="true">
-              <picture>
-                <source type="image/webp" srcset="images/beles-splash.webp" />
-                <img src="images/beles-splash.png" width="1536" height="1024" loading="lazy" decoding="async" alt="" />
-              </picture>
+              <video
+                class="shop__image-video"
+                data-shop-video
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                poster="images/ken-beles.png"
+              >
+                <source src="images/ken-beles.mp4" type="video/mp4" />
+              </video>
             </span>
           </div>
         </figure>
@@ -394,6 +401,6 @@
     </span>
   </footer>
 
-  <script src="script.js?v=47" defer></script>
+  <script src="script.js?v=60" defer></script>
 </body>
 </html>
