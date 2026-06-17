@@ -1196,22 +1196,24 @@
 
       card.appendChild(buildProductCardMedia(product, true));
 
-      const body = document.createElement('div');
-      body.className = 'product-card__body';
+      if (mode !== 'store') {
+        const body = document.createElement('div');
+        body.className = 'product-card__body';
 
-      const status = document.createElement('span');
-      status.className = `product-card__status ${STATUS_CLASS[product.status] || ''}`;
-      status.textContent = product.statusLabel;
-      body.appendChild(status);
+        const status = document.createElement('span');
+        status.className = `product-card__status ${STATUS_CLASS[product.status] || ''}`;
+        status.textContent = product.statusLabel;
+        body.appendChild(status);
 
-      const heading = document.createElement('h2');
-      heading.append(document.createTextNode(product.name));
-      const subtitle = document.createElement('span');
-      subtitle.textContent = product.subtitle;
-      heading.appendChild(subtitle);
-      body.appendChild(heading);
+        const heading = document.createElement('h2');
+        heading.append(document.createTextNode(product.name));
+        const subtitle = document.createElement('span');
+        subtitle.textContent = product.subtitle;
+        heading.appendChild(subtitle);
+        body.appendChild(heading);
 
-      card.appendChild(body);
+        card.appendChild(body);
+      }
       return card;
     }
 
