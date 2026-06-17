@@ -654,15 +654,25 @@
         const video = panel.querySelector('[data-collection-video]');
         if (!(video instanceof HTMLVideoElement)) return;
 
+        const syncPanel = (inView) => {
+          panel.classList.toggle('is-inview', inView);
+        };
+
         const panelObserver = new IntersectionObserver(
           ([entry]) => {
-            if (entry.isIntersecting) playVideoSafe(video);
+            const inView = entry.isIntersecting;
+            syncPanel(inView);
+            if (inView) playVideoSafe(video);
             else video.pause();
           },
-          { threshold: 0.12, rootMargin: '0px 0px -4% 0px' }
+          { threshold: 0.15, rootMargin: '0px 0px -2% 0px' }
         );
 
         panelObserver.observe(panel);
+
+        video.addEventListener('playing', () => {
+          panel.classList.add('is-inview');
+        }, { once: false });
       });
 
       document.addEventListener('visibilitychange', () => {
@@ -676,6 +686,7 @@
           if (!panel) return;
           const rect = panel.getBoundingClientRect();
           const inView = rect.bottom > 0 && rect.top < window.innerHeight * 0.92;
+          panel.classList.toggle('is-inview', inView);
           if (inView) playVideoSafe(video);
         });
       });
@@ -1062,30 +1073,81 @@
     return pyramid;
   };
 
+  const appendLazyImage = (img, src, alt) => {
+    img.src = src;
+    img.alt = alt;
+    img.loading = 'lazy';
+    img.decoding = 'async';
+  };
+
+  const buildProductCardMedia = (product) => {
+    const label = `View ${product.name} · ${product.subtitle}`;
+    const bottleAlt = `EILLON ${product.name} · ${product.subtitle} bottle`;
+    const isLinked = Boolean(product.url && product.status === 'waitlist-open');
+
+    if (product.moodImage && product.image) {
+      const media = document.createElement(isLinked ? 'a' : 'div');
+      media.className = 'product-card__media product-card__media--swap';
+      if (isLinked) {
+        media.href = product.url;
+        media.setAttribute('aria-label', label);
+      } else {
+        media.setAttribute('aria-hidden', 'true');
+      }
+
+      const defaultImg = document.createElement('img');
+      defaultImg.className = 'product-card__img product-card__img--default';
+      appendLazyImage(defaultImg, product.moodImage, bottleAlt);
+
+      const hoverImg = document.createElement('img');
+      hoverImg.className = 'product-card__img product-card__img--hover';
+      appendLazyImage(hoverImg, product.image, bottleAlt);
+
+      media.append(defaultImg, hoverImg);
+      return media;
+    }
+
+    if (product.scentImage && product.image) {
+      const media = document.createElement('div');
+      media.className = 'product-card__media product-card__media--layered';
+      media.setAttribute('aria-hidden', 'true');
+
+      const scent = document.createElement('img');
+      scent.className = 'product-card__scent';
+      appendLazyImage(scent, product.scentImage, '');
+
+      const bottle = document.createElement('img');
+      bottle.className = 'product-card__bottle';
+      appendLazyImage(bottle, product.image, bottleAlt);
+
+      media.append(scent, bottle);
+      return media;
+    }
+
+    if (isLinked) {
+      const media = document.createElement('a');
+      media.className = 'product-card__media';
+      media.href = product.url;
+      media.setAttribute('aria-label', label);
+      const img = document.createElement('img');
+      appendLazyImage(img, product.image, bottleAlt);
+      media.appendChild(img);
+      return media;
+    }
+
+    const media = document.createElement('div');
+    media.className = 'product-card__media product-card__media--placeholder';
+    media.setAttribute('aria-hidden', 'true');
+    return media;
+  };
+
   const createProductCard = (product, mode) => {
     const isOverview = mode === 'preview' || mode === 'store';
     const article = document.createElement('article');
     article.className = `product-card product-card--${product.slug}${isOverview ? ' product-card--compact' : ''}`;
     article.id = product.slug;
 
-    if (product.url && product.status === 'waitlist-open') {
-      const mediaLink = document.createElement('a');
-      mediaLink.className = 'product-card__media';
-      mediaLink.href = product.url;
-      mediaLink.setAttribute('aria-label', `View ${product.name} · ${product.subtitle}`);
-      const img = document.createElement('img');
-      img.src = product.image;
-      img.alt = `EILLON ${product.name} · ${product.subtitle} bottle`;
-      img.loading = 'lazy';
-      img.decoding = 'async';
-      mediaLink.appendChild(img);
-      article.appendChild(mediaLink);
-    } else {
-      const media = document.createElement('div');
-      media.className = 'product-card__media product-card__media--placeholder';
-      media.setAttribute('aria-hidden', 'true');
-      article.appendChild(media);
-    }
+    article.appendChild(buildProductCardMedia(product));
 
     const body = document.createElement('div');
     body.className = 'product-card__body';
