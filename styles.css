@@ -4173,10 +4173,46 @@ a.product-card--link:focus-visible {
 }
 
 .product-grid--boutique .product-card--compact .product-card__image-label {
-  display: none !important;
+  top: auto;
+  bottom: 10px;
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: 2px;
+  max-width: calc(100% - 16px);
+  padding: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 
-/* Boutique — image-only cards at every breakpoint */
+.product-grid--boutique .product-card--compact .product-card__image-label-status {
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.55);
+  font-size: clamp(8px, 2.2vw, 9px);
+  letter-spacing: 0.2em;
+}
+
+.product-grid--boutique .product-card--compact .product-card__image-label-hint {
+  color: rgba(255, 255, 255, 0.78);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+  font-size: clamp(10px, 2.6vw, 11px);
+}
+
+.product-grid--boutique .product-card--compact .product-card__image-label--production .product-card__image-label-status,
+.product-grid--boutique .product-card--compact .product-card__image-label--coming-soon .product-card__image-label-status,
+.product-grid--boutique .product-card--compact .product-card__image-label--concept-lab .product-card__image-label-status {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.product-grid--boutique .product-card--compact .product-card__veil {
+  opacity: 0.55;
+}
 .product-grid--boutique .product-card--compact.product-card--link {
   display: block;
   padding: 0;
@@ -4204,9 +4240,7 @@ a.product-card--link:focus-visible {
   max-width: 42%;
 }
 
-.product-grid--boutique .product-card--compact .product-card__veil {
-  opacity: 0.35;
-}
+/* Boutique — image-only cards at every breakpoint */
 
 .product-card {
   position: relative;
