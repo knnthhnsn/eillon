@@ -67,7 +67,7 @@
     />
   </noscript>
 
-  <link rel="stylesheet" href="styles.css?v=58" />
+  <link rel="stylesheet" href="styles.css?v=59" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -191,7 +191,7 @@
       <nav class="nav__links" aria-label="Primary">
         <a href="#maison">Maison</a>
         <a href="#collection">Collection</a>
-        <a href="#notes">Notes</a>
+        <a href="#palette">Palette</a>
         <a href="/store">Boutique</a>
       </nav>
 
@@ -217,7 +217,7 @@
     <div class="mobile-nav__panel">
       <a href="#maison" data-menu-link>Maison</a>
       <a href="#collection" data-menu-link>Collection</a>
-      <a href="#notes" data-menu-link>Notes</a>
+      <a href="#palette" data-menu-link>Palette</a>
       <a href="/store" data-menu-link>Boutique</a>
     </div>
   </div>
@@ -232,12 +232,16 @@
       </div>
       <label class="search-panel__field">
         <span class="sr-only">Search the page</span>
-        <input type="search" id="siteSearch" placeholder="Try notes, bottle, shipping..." autocomplete="off" />
+        <input type="search" id="siteSearch" placeholder="Try palette, bottle, boutique..." autocomplete="off" />
       </label>
       <div class="search-panel__results" id="searchResults" aria-live="polite">
-        <a href="#notes" data-search-item data-search-keywords="notes composition beles prickly pear cactus fruit bergamot fig amber vetiver musk">
-          <span>Composition</span>
-          <small>Top, heart, and base notes</small>
+        <a href="#palette" data-search-item data-search-keywords="palette maison scent worlds desert fruit rain stone red sea citrus resin">
+          <span>Maison Palette</span>
+          <small>The scent worlds of EILLON</small>
+        </a>
+        <a href="/beles#composition" data-search-item data-search-keywords="beles fico d'india composition prickly pear cactus water hibiscus">
+          <span>Beles composition</span>
+          <small>Full note pyramid on the product page</small>
         </a>
         <a href="#craft" data-search-item data-search-keywords="bottle flacon cap square matte glass emblem leopard lettering">
           <span>The Bottle</span>
@@ -245,7 +249,7 @@
         </a>
         <a href="/beles" data-search-item data-search-keywords="beles fico d'india parfum oil prickly pear product waitlist">
           <span>Beles · Fico d'India</span>
-          <small>Oil-based parfum — full product page</small>
+          <small>Oil-rich parfum — full product page</small>
         </a>
         <a href="/journal" data-search-item data-search-keywords="journal editorial fico d'india bottle article">
           <span>Journal</span>
@@ -263,9 +267,9 @@
           <span>Beles waitlist</span>
           <small>Priority access at first release</small>
         </a>
-        <a href="#ritual" data-search-item data-search-keywords="application ritual pulse points spray skin hair scarf wear tips beles fruit amber">
-          <span>Ritual</span>
-          <small>How to wear Beles · Fico d'India</small>
+        <a href="#wear" data-search-item data-search-keywords="wear application pulse points spray skin hair scarf how to apply parfum">
+          <span>Wear</span>
+          <small>How to apply EILLON parfum</small>
         </a>
         <a href="#stockists" data-search-item data-search-keywords="stockist studio appointment copenhagen private visit store">
           <span>Appointments</span>
@@ -387,7 +391,7 @@
         </div>
         <div class="model-row__caption">
           <span class="eyebrow">Composition</span>
-          <p class="model-row__headline">Oil-based parfum — worn close</p>
+          <p class="model-row__headline">Oil-rich parfum — worn close</p>
         </div>
       </article>
 
@@ -460,106 +464,43 @@
       <a class="btn btn--ghost" href="/store">Open the Boutique <span class="arrow">→</span></a>
     </section>
 
-    <!-- ============ NOTES ============ -->
-    <section class="notes" id="notes">
-      <header class="notes__head">
-        <span class="eyebrow reveal">Chapter II — Composition</span>
+    <!-- ============ MAISON PALETTE ============ -->
+    <section class="palette" id="palette">
+      <header class="palette__head">
+        <span class="eyebrow reveal">The Maison Palette</span>
         <h2 class="display" data-reveal="words">
-          FICO D'INDIA<br />
-          <em>architecture.</em>
+          The scent worlds of<br />
+          <em>EILLON.</em>
         </h2>
-        <p class="notes__lead" data-reveal="up" data-delay="220">
-          Three movements, drawn carefully into one another — designed to ripen on the skin
-          as sun warms the fruit on the pad.
+        <p class="palette__lead" data-reveal="up" data-delay="220">
+          Each EILLON fragrance begins as a memory of place: desert fruit, rain on stone, Red Sea citrus, sacred resin, café air, and warm skin.
         </p>
       </header>
 
-      <div class="notes__grid" data-reveal="stagger">
-        <article class="note">
-          <span class="note__num">01</span>
-          <span class="note__cat">Top</span>
-          <h3 class="note__title">Prickly Pear · Bergamot · Green Fig</h3>
-          <p>
-            A bright opening — sliced pear, cool citrus, and the clean green of fig leaf.
-            Juicy, lifted, and immediately alive.
-          </p>
+      <div class="palette__grid" data-reveal="stagger">
+        <article class="palette-card">
+          <h3 class="palette-card__title">Desert Fruit</h3>
+          <p class="palette-card__copy">Prickly pear, cactus water, pear skin, hibiscus, and mineral air.</p>
         </article>
-
-        <article class="note">
-          <span class="note__num">02</span>
-          <span class="note__cat">Heart</span>
-          <h3 class="note__title">Cactus Flower · Pear Blossom · Soft Spice</h3>
-          <p>
-            The Beles accord — floral, warm, and quietly sunlit. Ripe fruit held with
-            polished restraint.
-          </p>
+        <article class="palette-card">
+          <h3 class="palette-card__title">Rain on Stone</h3>
+          <p class="palette-card__copy">Petrichor, humid air, espresso, cardamom, jasmine, and amber.</p>
         </article>
-
-        <article class="note">
-          <span class="note__num">03</span>
-          <span class="note__cat">Base</span>
-          <h3 class="note__title">Amber · Vetiver · Clean Musk</h3>
-          <p>
-            A grounded close — dry warmth, soft resin, and clean skin in late afternoon.
-            The fragrance settles into a calm, golden trace.
-          </p>
+        <article class="palette-card">
+          <h3 class="palette-card__title">Red Sea Citrus</h3>
+          <p class="palette-card__copy">Orange, papaya, sea air, salt skin, and sun-warmed coastal stone.</p>
         </article>
-      </div>
-
-      <div class="accord-profile" aria-label="Beles · Fico d'India accord profile" data-reveal="stagger">
-        <div class="accord-profile__intro">
-          <span class="eyebrow">Accord profile</span>
-          <p>Beles · Fico d'India, built as a quiet balance of ripe fruit, desert green, soft bloom, and warm skin.</p>
-        </div>
-        <div class="accord-profile__list">
-          <div>
-            <figure class="accord-profile__swatch accord-profile__swatch--fruit">
-              <picture>
-                <source type="image/webp" srcset="images/accord-fruit.webp?v=1" />
-                <img src="images/accord-fruit.jpg?v=3" width="900" height="1060" loading="lazy" decoding="async" alt="Ripe prickly pear fruits on cactus pad, the luminous fruit accord facet" />
-              </picture>
-            </figure>
-            <p class="accord-profile__term">Fruit</p>
-            <p class="accord-profile__desc">Ripe pear, prickly pear pulp, green fig.</p>
-          </div>
-          <div>
-            <figure class="accord-profile__swatch accord-profile__swatch--green">
-              <picture>
-                <source type="image/webp" srcset="images/accord-green.webp?v=1" />
-                <img src="images/accord-green.jpg" width="900" height="1060" loading="lazy" decoding="async" alt="Cactus pad close-up, the desert green accord facet" />
-              </picture>
-            </figure>
-            <p class="accord-profile__term">Green</p>
-            <p class="accord-profile__desc">Cactus pad, fig leaf, sun-warmed stem.</p>
-          </div>
-          <div>
-            <figure class="accord-profile__swatch accord-profile__swatch--bloom">
-              <picture>
-                <source type="image/webp" srcset="images/accord-bloom.webp?v=1" />
-                <img src="images/accord-bloom.jpg" width="900" height="1060" loading="lazy" decoding="async" alt="Yellow prickly pear blossom, the floral accord facet" />
-              </picture>
-            </figure>
-            <p class="accord-profile__term">Bloom</p>
-            <p class="accord-profile__desc">Cactus flower, pear blossom, soft spice.</p>
-          </div>
-          <div>
-            <figure class="accord-profile__swatch accord-profile__swatch--warmth">
-              <picture>
-                <source type="image/webp" srcset="images/accord-warmth.webp?v=1" />
-                <img src="images/accord-warmth.jpg" width="900" height="1060" loading="lazy" decoding="async" alt="Warm desert sand at golden hour, the amber base accord facet" />
-              </picture>
-            </figure>
-            <p class="accord-profile__term">Warmth</p>
-            <p class="accord-profile__desc">Amber resin, vetiver root, clean musk.</p>
-          </div>
-        </div>
+        <article class="palette-card">
+          <h3 class="palette-card__title">Sacred Resin</h3>
+          <p class="palette-card__copy">Frankincense, myrrh, candle smoke, labdanum, woods, and warm skin.</p>
+        </article>
       </div>
     </section>
 
     <!-- ============ CRAFT / OBJECT ============ -->
     <section class="craft" id="craft">
       <header class="craft__head">
-        <span class="eyebrow reveal">Chapter III — The Object</span>
+        <span class="eyebrow reveal">The Object</span>
         <h2 class="display" data-reveal="words">
           A bottle cut from<br />
           a <em>single block.</em>
@@ -619,24 +560,24 @@
     <!-- ============ MOOD / EDITORIAL ============ -->
     <section class="mood">
       <div class="mood__inner">
-        <span class="eyebrow reveal">Chapter IV — Atmosphere</span>
-        <p class="mood__lead" data-reveal="up" data-delay="100">Sun on cactus. Air warm.</p>
+        <span class="eyebrow reveal">Atmosphere</span>
+        <p class="mood__lead" data-reveal="up" data-delay="100">Sun on stone. Air warm.</p>
         <h2 class="mood__title" data-reveal="words" data-delay="200">
-          Ripe fruit at<br />
-          <em>high noon.</em>
+          Memory held<br />
+          <em>in light.</em>
         </h2>
         <p class="mood__body" data-reveal="up" data-delay="700">
-          Beles · Fico d'India is interpreted as atmosphere: a sunlit terrace, prickly pear split open,
-          blossom on warm stone, and the slow drift of amber through dry afternoon air.
+          EILLON is interpreted as atmosphere: desert fruit at high noon, rain on warm pavement,
+          Red Sea air at the coast, and sacred smoke drifting through dry evening air.
         </p>
       </div>
     </section>
 
-    <!-- ============ RITUAL / APPLICATION ============ -->
-    <section class="ritual" id="ritual">
+    <!-- ============ WEAR / APPLICATION ============ -->
+    <section class="ritual" id="wear">
       <div class="ritual__inner">
         <header class="ritual__head">
-          <span class="eyebrow reveal">Chapter V — Ritual</span>
+          <span class="eyebrow reveal">Wear</span>
           <h2 class="display" data-reveal="words">
             Worn close<br />
             to <em>warmth.</em>
@@ -647,17 +588,17 @@
           <article>
             <span>01</span>
             <h3>Pulse</h3>
-            <p>Apply once to wrist or collarbone, then let the fruit accord open without rubbing.</p>
+            <p>Apply once to wrist or collarbone, then let the accord open without rubbing.</p>
           </article>
           <article>
             <span>02</span>
             <h3>Cloth</h3>
-            <p>Mist lightly over a scarf or lining to carry the sun-warmed trail through the day.</p>
+            <p>Mist lightly over a scarf or lining to carry a close-wearing trail through the day.</p>
           </article>
           <article>
             <span>03</span>
             <h3>Return</h3>
-            <p>Refresh with one spray before evening; the amber notes deepen rather than becoming louder.</p>
+            <p>Refresh with one spray before evening; the heart notes deepen rather than becoming louder.</p>
           </article>
         </div>
       </div>
@@ -676,7 +617,7 @@
     <!-- ============ BOUTIQUE CTA ============ -->
     <section class="boutique-cta" id="boutique">
       <div class="boutique-cta__inner">
-        <span class="eyebrow reveal">Chapter I — Beles</span>
+        <span class="eyebrow reveal">The Boutique</span>
         <h2 class="display" data-reveal="words">Beles is open.<br /><em>The maison continues.</em></h2>
         <p data-reveal="up">Join the Beles waitlist for priority access, or explore all fragrance chapters in the boutique.</p>
         <div class="boutique-cta__actions" data-reveal="up" data-delay="200">
@@ -760,6 +701,6 @@
   </footer>
 
   <script src="data/products.js" defer></script>
-  <script src="script.js?v=36" defer></script>
+  <script src="script.js?v=37" defer></script>
 </body>
 </html>

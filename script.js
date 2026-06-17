@@ -983,6 +983,35 @@
     'concept-lab': 'product-card__status--lab',
   };
 
+  const buildNotePyramid = (notes) => {
+    const pyramid = document.createElement('div');
+    pyramid.className = 'product-card__pyramid';
+
+    [
+      ['Top', notes?.top],
+      ['Heart', notes?.heart],
+      ['Base', notes?.base],
+    ].forEach(([label, items]) => {
+      if (!items?.length) return;
+
+      const row = document.createElement('div');
+      row.className = 'product-card__pyramid-row';
+
+      const labelEl = document.createElement('span');
+      labelEl.className = 'product-card__pyramid-label';
+      labelEl.textContent = label;
+
+      const notesEl = document.createElement('span');
+      notesEl.className = 'product-card__pyramid-notes';
+      notesEl.textContent = items.join(' · ');
+
+      row.append(labelEl, notesEl);
+      pyramid.appendChild(row);
+    });
+
+    return pyramid;
+  };
+
   const createProductCard = (product, mode) => {
     const article = document.createElement('article');
     article.className = `product-card product-card--${product.slug}`;
@@ -1021,7 +1050,10 @@
     body.appendChild(chapter);
 
     const heading = document.createElement('h2');
-    heading.innerHTML = `${product.name} <span>${product.subtitle}</span>`;
+    heading.append(document.createTextNode(product.name));
+    const subtitle = document.createElement('span');
+    subtitle.textContent = product.subtitle;
+    heading.appendChild(subtitle);
     body.appendChild(heading);
 
     const desc = document.createElement('p');
@@ -1029,15 +1061,9 @@
     desc.textContent = product.shortDescription;
     body.appendChild(desc);
 
-    const notes = document.createElement('ul');
-    notes.className = 'product-card__notes';
-    const noteItems = product.notes?.top?.slice(0, 3) || [];
-    noteItems.forEach((note) => {
-      const li = document.createElement('li');
-      li.textContent = note;
-      notes.appendChild(li);
-    });
-    body.appendChild(notes);
+    if (product.notes) {
+      body.appendChild(buildNotePyramid(product.notes));
+    }
 
     const actions = document.createElement('div');
     actions.className = 'product-card__actions';
