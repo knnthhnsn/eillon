@@ -3623,7 +3623,7 @@ body.is-loaded .scroll-progress { opacity: 1; }
       "content"
       "bottle";
     align-content: start;
-    row-gap: 18px;
+    row-gap: 40px;
     box-sizing: border-box;
     min-height: 100svh;
     min-height: 100dvh;
@@ -3704,7 +3704,7 @@ body.is-loaded .scroll-progress { opacity: 1; }
     max-width: min(68vw, 260px);
     max-height: min(34svh, 280px);
     min-height: 0;
-    margin: 0 auto max(16px, env(safe-area-inset-bottom, 0px));
+    margin: 20px auto max(16px, env(safe-area-inset-bottom, 0px));
     overflow: visible;
     pointer-events: none;
   }
