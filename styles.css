@@ -4033,25 +4033,17 @@ body.is-loaded .scroll-progress { opacity: 1; }
   text-shadow: 0 1px 14px rgba(0, 0, 0, 0.28);
 }
 
-.collection-panel__content > .btn--ghost {
+.collection-panel__content > .btn--ghost,
+.collection-panel__content > .btn.btn--ghost {
   color: var(--paper);
-  border-color: rgba(255, 255, 255, 0.32);
+  border-color: rgba(255, 255, 255, 0.42);
 }
 
-.collection-panel__content > .btn--ghost:hover {
+.collection-panel__content > .btn--ghost:hover,
+.collection-panel__content > .btn.btn--ghost:hover {
   color: var(--paper);
-  border-color: rgba(255, 255, 255, 0.58);
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.collection-panel .btn--ghost {
-  color: var(--ink);
-  border-color: var(--line);
-}
-
-.collection-panel .btn--ghost:hover {
-  border-color: var(--ink);
-  background: rgba(28, 28, 26, 0.04);
+  border-color: rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .collection-panel .product-card .btn--ghost {
