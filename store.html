@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=59" />
+  <link rel="stylesheet" href="styles.css?v=64" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -36,15 +36,9 @@
     }
   </script>
 </head>
-<body class="editorial-page store-page">
-  <header class="editorial-page__nav">
-    <a href="/store">← Boutique</a>
-    <nav class="editorial-page__nav-links" aria-label="Secondary">
-      <a href="/">Maison</a>
-      <a href="/store" aria-current="page">Store</a>
-      <a href="/journal">Journal</a>
-    </nav>
-  </header>
+<body class="editorial-page store-page" data-nav-current="boutique">
+  <a class="skip-link" href="#top">Skip to content</a>
+  <script src="/scripts/site-nav.js"></script>
 
   <main class="editorial-page__main store-page__main" id="top">
     <section class="store-hero">
@@ -56,8 +50,24 @@
       <a class="btn btn--primary" href="/beles#waitlist"><span class="btn__label">Join the Beles waitlist</span></a>
     </section>
 
-    <section class="store-collection" aria-label="Fragrance collection">
-      <div class="product-grid" data-product-grid data-product-grid-mode="store"></div>
+    <section class="store-collection collection-panel" aria-label="Fragrance collection">
+      <div class="collection-panel__media" aria-hidden="true">
+        <video
+          class="collection-panel__video"
+          data-collection-video
+          muted
+          loop
+          playsinline
+          preload="none"
+          poster="images/red-sea.png"
+        >
+          <source src="images/red-sea-memories.mp4" type="video/mp4" />
+        </video>
+        <span class="collection-panel__scrim"></span>
+      </div>
+      <div class="collection-panel__content">
+        <div class="product-grid" data-product-grid data-product-grid-mode="store"></div>
+      </div>
     </section>
 
     <section class="status-guide" aria-label="Release status guide">
@@ -103,6 +113,6 @@
   </footer>
 
   <script src="data/products.js" defer></script>
-  <script src="script.js?v=37" defer></script>
+  <script src="script.js?v=43" defer></script>
 </body>
 </html>

@@ -20,15 +20,21 @@ Static website for [eillon.maison](https://eillon.maison) — an independent per
 
 The site is **static** with optional Vercel serverless APIs.
 
-### Static preview
+### Static preview (clean URLs)
+
+Production uses Vercel `cleanUrls` (`/beles`, not `/beles.html`). Match that locally:
 
 ```powershell
-python -m http.server 8000
+python scripts/dev-server.py
 # or
-npx serve .
+npm run dev
 ```
 
-Open <http://localhost:8000>. Waitlist API requires `npx vercel dev` with `DATABASE_URL` configured.
+Open <http://localhost:8080/beles> and <http://localhost:8080/store>.
+
+Plain `python -m http.server` does **not** rewrite URLs — use `/beles.html` instead, or switch to the dev server above.
+
+Waitlist API requires `npx vercel dev` with `DATABASE_URL` configured.
 
 ### Full stack (waitlist API)
 

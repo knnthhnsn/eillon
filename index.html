@@ -67,7 +67,7 @@
     />
   </noscript>
 
-  <link rel="stylesheet" href="styles.css?v=59" />
+  <link rel="stylesheet" href="styles.css?v=66" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -395,7 +395,7 @@
         </div>
       </article>
 
-      <article class="model-row model-row--woman">
+      <article class="model-row model-row--elli">
         <div class="model-row__void">
           <div class="model-row__copy">
             <span class="eyebrow">Hand-finished</span>
@@ -412,8 +412,9 @@
               loop
               playsinline
               preload="metadata"
+              poster="images/elli-model.png"
               aria-hidden="true"
-              src="images/model-woman.mp4?v=2"
+              src="images/elli-model.mp4"
             ></video>
           </div>
         </figure>
@@ -454,7 +455,22 @@
     </section>
 
     <!-- ============ COLLECTION PREVIEW ============ -->
-    <section class="collection-preview" id="collection">
+    <section class="collection-preview collection-panel" id="collection">
+      <div class="collection-panel__media" aria-hidden="true">
+        <video
+          class="collection-panel__video"
+          data-collection-video
+          muted
+          loop
+          playsinline
+          preload="none"
+          poster="images/red-sea.png"
+        >
+          <source src="images/red-sea-memories.mp4" type="video/mp4" />
+        </video>
+        <span class="collection-panel__scrim"></span>
+      </div>
+      <div class="collection-panel__content">
       <header class="section-head">
         <span class="eyebrow">The Collection</span>
         <h2 class="display">Four memories,<br /><em>one maison.</em></h2>
@@ -462,6 +478,7 @@
       </header>
       <div data-product-preview></div>
       <a class="btn btn--ghost" href="/store">Open the Boutique <span class="arrow">→</span></a>
+      </div>
     </section>
 
     <!-- ============ MAISON PALETTE ============ -->
@@ -574,8 +591,22 @@
     </section>
 
     <!-- ============ WEAR / APPLICATION ============ -->
-    <section class="ritual" id="wear">
-      <div class="ritual__inner">
+    <section class="ritual ritual--wear" id="wear">
+      <div class="ritual__shell">
+        <figure class="ritual__media">
+          <video
+            class="ritual__video"
+            data-model-video
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            poster="images/model-woman.png"
+            aria-hidden="true"
+            src="images/model-woman.mp4?v=3"
+          ></video>
+        </figure>
+        <div class="ritual__content">
         <header class="ritual__head">
           <span class="eyebrow reveal">Wear</span>
           <h2 class="display" data-reveal="words">
@@ -600,6 +631,7 @@
             <h3>Return</h3>
             <p>Refresh with one spray before evening; the heart notes deepen rather than becoming louder.</p>
           </article>
+        </div>
         </div>
       </div>
     </section>
@@ -701,6 +733,6 @@
   </footer>
 
   <script src="data/products.js" defer></script>
-  <script src="script.js?v=37" defer></script>
+  <script src="script.js?v=44" defer></script>
 </body>
 </html>

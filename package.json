@@ -1,6 +1,10 @@
 {
   "name": "eillon",
   "private": true,
+  "scripts": {
+    "dev": "python scripts/dev-server.py",
+    "dev:api": "vercel dev"
+  },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.0"
   }

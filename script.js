@@ -593,44 +593,94 @@
     }
   }
 
-  /* ---------- 7d. MODEL SHOWCASE — play when section in view ---------- */
-  const modelShowcase = document.querySelector('.model-showcase');
-  const modelVideos = document.querySelectorAll('[data-model-video]');
+  /* ---------- 7d. MODEL VIDEO — play when parent section in view ---------- */
+  const modelSections = document.querySelectorAll('.model-showcase, .ritual--wear');
 
-  if (modelShowcase && modelVideos.length) {
-    const syncModelShowcaseInView = (inView) => {
-      modelShowcase.classList.toggle('is-inview', inView);
-    };
-
+  if (modelSections.length) {
     if (!prefersReduced) {
-      const showcaseObserver = new IntersectionObserver(
-        ([entry]) => {
-          const inView = entry.isIntersecting;
-          syncModelShowcaseInView(inView);
-          modelVideos.forEach((video) => {
-            if (!(video instanceof HTMLVideoElement)) return;
-            if (inView) playVideoSafe(video);
-            else video.pause();
-          });
-        },
-        { threshold: 0.18, rootMargin: '0px 0px -6% 0px' }
-      );
+      modelSections.forEach((section) => {
+        const videos = section.querySelectorAll('[data-model-video]');
+        if (!videos.length) return;
 
-      showcaseObserver.observe(modelShowcase);
+        const syncInView = (inView) => {
+          section.classList.toggle('is-inview', inView);
+        };
 
-      document.addEventListener('visibilitychange', () => {
-        if (document.hidden) {
-          modelVideos.forEach((video) => video.pause());
-          return;
-        }
-        const rect = modelShowcase.getBoundingClientRect();
-        const inView = rect.bottom > 0 && rect.top < window.innerHeight * 0.92;
-        syncModelShowcaseInView(inView);
-        if (inView) modelVideos.forEach((video) => playVideoSafe(video));
+        const sectionObserver = new IntersectionObserver(
+          ([entry]) => {
+            const inView = entry.isIntersecting;
+            syncInView(inView);
+            videos.forEach((video) => {
+              if (!(video instanceof HTMLVideoElement)) return;
+              if (inView) playVideoSafe(video);
+              else video.pause();
+            });
+          },
+          { threshold: 0.18, rootMargin: '0px 0px -6% 0px' }
+        );
+
+        sectionObserver.observe(section);
+
+        document.addEventListener('visibilitychange', () => {
+          if (document.hidden) {
+            videos.forEach((video) => video.pause());
+            return;
+          }
+          const rect = section.getBoundingClientRect();
+          const inView = rect.bottom > 0 && rect.top < window.innerHeight * 0.92;
+          syncInView(inView);
+          if (inView) videos.forEach((video) => playVideoSafe(video));
+        });
       });
     } else {
-      syncModelShowcaseInView(true);
-      modelVideos.forEach((video) => {
+      modelSections.forEach((section) => {
+        section.classList.add('is-inview');
+        section.querySelectorAll('[data-model-video]').forEach((video) => {
+          if (!(video instanceof HTMLVideoElement)) return;
+          video.pause();
+          video.currentTime = 0;
+        });
+      });
+    }
+  }
+
+  /* ---------- 7e. COLLECTION PANEL — Red Sea memories background ---------- */
+  const collectionPanels = document.querySelectorAll('.collection-panel');
+  const collectionVideos = document.querySelectorAll('[data-collection-video]');
+
+  if (collectionPanels.length && collectionVideos.length) {
+    if (!prefersReduced) {
+      collectionPanels.forEach((panel) => {
+        const video = panel.querySelector('[data-collection-video]');
+        if (!(video instanceof HTMLVideoElement)) return;
+
+        const panelObserver = new IntersectionObserver(
+          ([entry]) => {
+            if (entry.isIntersecting) playVideoSafe(video);
+            else video.pause();
+          },
+          { threshold: 0.12, rootMargin: '0px 0px -4% 0px' }
+        );
+
+        panelObserver.observe(panel);
+      });
+
+      document.addEventListener('visibilitychange', () => {
+        collectionVideos.forEach((video) => {
+          if (!(video instanceof HTMLVideoElement)) return;
+          if (document.hidden) {
+            video.pause();
+            return;
+          }
+          const panel = video.closest('.collection-panel');
+          if (!panel) return;
+          const rect = panel.getBoundingClientRect();
+          const inView = rect.bottom > 0 && rect.top < window.innerHeight * 0.92;
+          if (inView) playVideoSafe(video);
+        });
+      });
+    } else {
+      collectionVideos.forEach((video) => {
         if (!(video instanceof HTMLVideoElement)) return;
         video.pause();
         video.currentTime = 0;
@@ -1013,8 +1063,9 @@
   };
 
   const createProductCard = (product, mode) => {
+    const isOverview = mode === 'preview' || mode === 'store';
     const article = document.createElement('article');
-    article.className = `product-card product-card--${product.slug}`;
+    article.className = `product-card product-card--${product.slug}${isOverview ? ' product-card--compact' : ''}`;
     article.id = product.slug;
 
     if (product.url && product.status === 'waitlist-open') {
@@ -1044,11 +1095,6 @@
     status.textContent = product.statusLabel;
     body.appendChild(status);
 
-    const chapter = document.createElement('p');
-    chapter.className = 'product-card__chapter';
-    chapter.textContent = product.chapter;
-    body.appendChild(chapter);
-
     const heading = document.createElement('h2');
     heading.append(document.createTextNode(product.name));
     const subtitle = document.createElement('span');
@@ -1056,19 +1102,37 @@
     heading.appendChild(subtitle);
     body.appendChild(heading);
 
-    const desc = document.createElement('p');
-    desc.className = 'product-card__desc';
-    desc.textContent = product.shortDescription;
-    body.appendChild(desc);
+    if (!isOverview) {
+      const chapter = document.createElement('p');
+      chapter.className = 'product-card__chapter';
+      chapter.textContent = product.chapter;
+      body.appendChild(chapter);
 
-    if (product.notes) {
-      body.appendChild(buildNotePyramid(product.notes));
+      const desc = document.createElement('p');
+      desc.className = 'product-card__desc';
+      desc.textContent = product.shortDescription;
+      body.appendChild(desc);
+
+      if (product.notes) {
+        body.appendChild(buildNotePyramid(product.notes));
+      }
     }
 
     const actions = document.createElement('div');
     actions.className = 'product-card__actions';
 
-    if (product.status === 'waitlist-open' && product.slug === 'beles') {
+    if (isOverview) {
+      const cta = document.createElement('a');
+      cta.className = 'btn btn--ghost btn--compact';
+      cta.href = product.status === 'waitlist-open' && product.slug === 'beles'
+        ? '/beles#waitlist'
+        : (product.url || '/store');
+      const label = product.status === 'waitlist-open' && product.slug === 'beles'
+        ? 'Join waitlist'
+        : product.ctaLabel;
+      cta.innerHTML = `<span>${label}</span><span class="arrow">→</span>`;
+      actions.appendChild(cta);
+    } else if (product.status === 'waitlist-open' && product.slug === 'beles') {
       const cta = document.createElement('a');
       cta.className = 'btn btn--primary';
       cta.href = '/beles#waitlist';
@@ -1124,7 +1188,7 @@
     if (!Array.isArray(products)) return;
 
     document.querySelectorAll('[data-product-preview]').forEach((container) => {
-      container.classList.add('product-grid');
+      container.classList.add('product-grid', 'product-grid--collection');
       products.forEach((product) => {
         container.appendChild(createProductCard(product, 'preview'));
       });
@@ -1132,6 +1196,7 @@
 
     document.querySelectorAll('[data-product-grid]').forEach((container) => {
       const mode = container.dataset.productGridMode || 'store';
+      container.classList.add('product-grid--collection');
       products.forEach((product) => {
         container.appendChild(createProductCard(product, mode));
       });
