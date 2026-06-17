@@ -4074,8 +4074,17 @@ a.product-card--link:focus-visible {
   padding: clamp(48px, 6vw, 72px) var(--gutter);
 }
 
-.store-collection .collection-panel__content {
-  padding: 0;
+.collection-preview .collection-panel__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: var(--max);
+  margin-inline: auto;
+}
+
+.collection-preview .section-head {
+  width: 100%;
 }
 
 .collection-preview .btn {
@@ -4083,24 +4092,30 @@ a.product-card--link:focus-visible {
   margin: clamp(28px, 4vw, 48px) auto 0;
 }
 
-/* Landing — single Beles preview card */
-.product-grid--preview {
-  grid-template-columns: minmax(0, 360px);
-  justify-content: center;
-  margin-inline: auto;
-}
-
-/* Boutique — always 2×2 */
-.product-grid--boutique {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  max-width: 920px;
-  margin-inline: auto;
+.store-collection .collection-panel__content {
+  padding: clamp(32px, 4vw, 56px) var(--gutter);
+  width: 100%;
 }
 
 .product-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: clamp(18px, 2vw, 28px);
+  width: 100%;
+}
+
+.product-grid.product-grid--preview {
+  grid-template-columns: minmax(0, 1fr);
+  width: min(100%, 380px);
+  max-width: 380px;
+  margin-inline: auto;
+}
+
+.product-grid.product-grid--boutique {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: min(100%, 880px);
+  max-width: 880px;
+  margin-inline: auto;
 }
 
 .product-card {
@@ -4429,13 +4444,17 @@ a.product-card--link:focus-visible {
 }
 
 .product-card--compact h2 {
-  font-size: clamp(22px, 2.4vw, 34px);
+  font-size: clamp(20px, 2.6vw, 32px);
   margin: 0 0 12px;
+  overflow-wrap: anywhere;
 }
 
 .product-card--compact h2 span {
   margin-top: 6px;
   font-size: 10px;
+  display: block;
+  letter-spacing: 0.14em;
+  line-height: 1.35;
 }
 
 .product-card--compact .product-card__actions {
@@ -4505,12 +4524,29 @@ a.product-card--link:focus-visible {
   }
 
   .product-grid--preview {
-    grid-template-columns: minmax(0, 1fr);
+    width: min(100%, 320px);
     max-width: 320px;
   }
 
+  .product-grid.product-grid--boutique {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
   .product-grid--boutique {
-    gap: 12px;
+    gap: 14px;
+  }
+
+  .product-card--compact .product-card__image-label {
+    top: 8px;
+    left: 8px;
+    padding: 6px 8px;
+    max-width: calc(100% - 16px);
+  }
+
+  .product-card--compact .product-card__image-label-hint {
+    font-size: 10px;
   }
 }
 
