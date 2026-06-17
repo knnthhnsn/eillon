@@ -18,6 +18,9 @@
 
 ## Key pages
 - Maison: https://eillon.maison/
+- About: https://eillon.maison/about
+- Craftsmanship: https://eillon.maison/craftsmanship
+- Shipping & returns: https://eillon.maison/shipping
 - Store: https://eillon.maison/store
 - Beles product: https://eillon.maison/beles
 - Asmara chapter: https://eillon.maison/asmara

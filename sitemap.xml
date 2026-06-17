@@ -91,6 +91,38 @@
     </image:image>
   </url>
   <url>
+    <loc>https://eillon.maison/about</loc>
+    <lastmod>2026-06-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://eillon.maison/about" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eillon.maison/about" />
+    <image:image>
+      <image:loc>https://eillon.maison/images/desert-architecture-hero.jpg</image:loc>
+      <image:title>About EILLON — Copenhagen perfume maison</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://eillon.maison/craftsmanship</loc>
+    <lastmod>2026-06-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://eillon.maison/craftsmanship" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eillon.maison/craftsmanship" />
+    <image:image>
+      <image:loc>https://eillon.maison/images/cactus-craft.jpg</image:loc>
+      <image:title>Craftsmanship — EILLON parfum production</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://eillon.maison/shipping</loc>
+    <lastmod>2026-06-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.55</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://eillon.maison/shipping" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://eillon.maison/shipping" />
+  </url>
+  <url>
     <loc>https://eillon.maison/privacy</loc>
     <lastmod>2026-06-17</lastmod>
     <changefreq>yearly</changefreq>

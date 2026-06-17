@@ -1010,11 +1010,13 @@
     all: 'You are on the letter list.',
   };
 
-  const setWaitlistJoined = ({ emailInput, submitButton, statusEl, message, isNewsletter }) => {
-    if (emailInput) {
-      emailInput.value = '';
-      emailInput.disabled = true;
+  const setWaitlistJoined = ({ form, emailInput, submitButton, statusEl, message, isNewsletter }) => {
+    if (form) {
+      form.querySelectorAll('input:not([type="hidden"]), select, textarea').forEach((field) => {
+        field.disabled = true;
+      });
     }
+    if (emailInput) emailInput.value = '';
     if (submitButton) {
       submitButton.disabled = true;
       if (isNewsletter) {
@@ -1028,11 +1030,11 @@
     if (statusEl) statusEl.textContent = message;
   };
 
-  const submitWaitlistSignup = async ({ email, source, size, product_slug }) => {
+  const submitWaitlistSignup = async ({ email, source, size, product_slug, name }) => {
     const res = await fetch('/api/waitlist', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, source, size, product_slug }),
+      body: JSON.stringify({ email, source, size, product_slug, name }),
     });
     const data = await res.json().catch(() => ({}));
     if (!res.ok) throw new Error(data.error || 'Signup failed');
@@ -1056,6 +1058,7 @@
     try {
       if (window.localStorage.getItem(storageKey) === 'true') {
         setWaitlistJoined({
+          form,
           emailInput,
           submitButton,
           statusEl,
@@ -1088,6 +1091,8 @@
 
       const sizeInput = form.querySelector('[name="size"]');
       const size = sizeInput?.value || (productSlug === 'beles' ? selectedSize : null);
+      const nameInput = form.querySelector('[name="name"]');
+      const name = nameInput?.value?.trim() || null;
 
       try {
         await submitWaitlistSignup({
@@ -1095,6 +1100,7 @@
           source,
           size,
           product_slug: productSlug,
+          name,
         });
         try {
           window.localStorage.setItem(storageKey, 'true');
@@ -1102,6 +1108,7 @@
           // Ignore storage failures.
         }
         setWaitlistJoined({
+          form,
           emailInput,
           submitButton,
           statusEl,

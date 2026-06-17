@@ -21,7 +21,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=102" />
+  <link rel="stylesheet" href="styles.css?v=104" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -174,9 +174,13 @@
             </div>
           </div>
 
-          <form class="shop__waitlist" id="waitlistForm" data-waitlist-form data-product-slug="beles" data-source="waitlist" data-reveal="up" data-delay="800" novalidate>
+          <form class="shop__waitlist shop__waitlist--stacked" id="waitlistForm" data-waitlist-form data-product-slug="beles" data-source="waitlist" data-reveal="up" data-delay="800" novalidate>
             <label class="shop__waitlist-field">
-              <span class="sr-only">Email for waitlist</span>
+              <span class="shop__waitlist-label">Name</span>
+              <input type="text" name="name" placeholder="Your name" autocomplete="name" maxlength="120" />
+            </label>
+            <label class="shop__waitlist-field">
+              <span class="shop__waitlist-label">Email</span>
               <input type="email" name="email" id="waitlistEmail" placeholder="Your email" autocomplete="email" required />
             </label>
             <input type="text" name="website" class="shop__honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
@@ -185,12 +189,7 @@
               <span class="btn__hover" aria-hidden="true">Priority access when bottles release</span>
             </button>
           </form>
-          <p class="shop__cta-caption" id="shopCtaCaption">Priority access when bottles release</p>
-          <noscript>
-            <p class="shop__noscript">
-              To join the Beles waitlist, email <a href="mailto:care@eillon.maison?subject=Beles%20waitlist">care@eillon.maison</a>.
-            </p>
-          </noscript>
+          <p class="shop__cta-caption" id="shopCtaCaption">Priority access when bottles release — preferred size selected above is saved with your signup.</p>
           <p class="shop__waitlist-status" id="waitlistStatus" aria-live="polite"></p>
 
           <ul class="shop__features" data-reveal="up" data-delay="880">
@@ -376,6 +375,19 @@
       </div>
     </section>
 
+    <section class="chapter-visuals" aria-label="Beles atmosphere and ingredients">
+      <header class="chapter-visuals__head">
+        <span class="eyebrow">Imagery</span>
+        <h2 class="display">Desert fruit<br /><em>in light.</em></h2>
+      </header>
+      <div class="chapter-gallery">
+        <figure><img src="images/cactus-mood.jpg" width="900" height="1125" loading="lazy" decoding="async" alt="Prickly pear cactus in warm desert light" /></figure>
+        <figure><img src="images/beles-mood.png" width="900" height="1125" loading="lazy" decoding="async" alt="Beles bottle in sun-warmed mineral atmosphere" /></figure>
+        <figure><img src="images/cactus-hero.jpg" width="900" height="1125" loading="lazy" decoding="async" alt="Cactus landscape at golden hour" /></figure>
+        <figure><img src="images/desert-architecture-hero.jpg" width="900" height="1125" loading="lazy" decoding="async" alt="Sun-warmed stone architecture" /></figure>
+      </div>
+    </section>
+
     <section class="beles-section beles-section--inset" id="oil-rich">
       <h2>Why oil-rich parfum</h2>
       <p>
@@ -401,10 +413,11 @@
   <footer class="editorial-page__footer">
     <span>© EILLON — Copenhagen</span>
     <span>
-      <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/imprint">Imprint</a>
+      <a href="/about">About</a> · <a href="/craftsmanship">Craft</a> · <a href="/shipping">Shipping</a> ·
+      <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a>
     </span>
   </footer>
 
-  <script src="script.js?v=63" defer></script>
+  <script src="script.js?v=65" defer></script>
 </body>
 </html>

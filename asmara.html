@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=79" />
+  <link rel="stylesheet" href="styles.css?v=104" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -77,10 +77,23 @@
             A mineral rain accord built for humid air and city stone after the first shower.
           </p>
 
-          <form class="shop__waitlist" data-waitlist-form data-product-slug="asmara" data-source="waitlist" data-reveal="up" data-delay="800" novalidate>
+          <form class="shop__waitlist shop__waitlist--stacked" data-waitlist-form data-product-slug="asmara" data-source="waitlist" data-reveal="up" data-delay="800" novalidate>
             <label class="shop__waitlist-field">
-              <span class="sr-only">Email for Asmara updates</span>
+              <span class="shop__waitlist-label">Name</span>
+              <input type="text" name="name" placeholder="Your name" autocomplete="name" maxlength="120" />
+            </label>
+            <label class="shop__waitlist-field">
+              <span class="shop__waitlist-label">Email</span>
               <input type="email" name="email" placeholder="Your email" autocomplete="email" required />
+            </label>
+            <label class="shop__waitlist-field">
+              <span class="shop__waitlist-label">Preferred size</span>
+              <select name="size" class="shop__waitlist-select" aria-label="Preferred bottle size">
+                <option value="">No preference yet</option>
+                <option value="sample">Discovery sample</option>
+                <option value="50">50 ml</option>
+                <option value="100">100 ml</option>
+              </select>
             </label>
             <input type="text" name="website" class="shop__honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
             <button class="btn btn--primary btn--block" type="submit">
@@ -149,6 +162,19 @@
       </div>
     </section>
 
+    <section class="chapter-visuals" aria-label="Asmara atmosphere">
+      <header class="chapter-visuals__head">
+        <span class="eyebrow">Imagery</span>
+        <h2 class="display">Rain on<br /><em>old stone.</em></h2>
+      </header>
+      <div class="chapter-gallery">
+        <figure><img src="images/asmara-hero.jpg" width="900" height="1125" loading="lazy" decoding="async" alt="Warm rain over city stone — Asmara atmosphere" /></figure>
+        <figure><img src="images/scent-asmara.jpg" width="900" height="1125" loading="lazy" decoding="async" alt="Asmara chapter mood — mineral rain accord" /></figure>
+        <figure><img src="images/desert-architecture-hero.jpg" width="900" height="1125" loading="lazy" decoding="async" alt="Stone architecture after rain" /></figure>
+        <figure><img src="images/plain-bottle-with-logo.webp" width="900" height="1125" loading="lazy" decoding="async" alt="EILLON bottle — Asmara chapter object" /></figure>
+      </div>
+    </section>
+
     <section class="chapter-story">
       <h2>Memory of place</h2>
       <p>Asmara turns toward rain on old city stone — the moment the air changes, pavement darkens, and espresso drifts from a doorway. A chapter still being composed in the studio.</p>
@@ -159,11 +185,11 @@
   <footer class="editorial-page__footer">
     <span>© EILLON — Copenhagen</span>
     <span>
-      <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/imprint">Imprint</a>
+      <a href="/about">About</a> · <a href="/craftsmanship">Craft</a> · <a href="/shipping">Shipping</a> ·
+      <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a>
     </span>
   </footer>
 
-  <script src="data/products.js?v=6" defer></script>
-  <script src="script.js?v=55" defer></script>
+  <script src="script.js?v=65" defer></script>
 </body>
 </html>

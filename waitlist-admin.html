@@ -92,6 +92,7 @@
       <table>
         <thead>
           <tr>
+            <th>Name</th>
             <th>Email</th>
             <th>Product</th>
             <th>Source</th>
@@ -137,7 +138,7 @@
         tableWrap.hidden = false;
         const row = document.createElement('tr');
         const cell = document.createElement('td');
-        cell.colSpan = 5;
+        cell.colSpan = 6;
         cell.className = 'admin__empty';
         cell.textContent = 'No signups yet.';
         row.appendChild(cell);
@@ -147,6 +148,7 @@
 
       signups.forEach((signup) => {
         const row = document.createElement('tr');
+        appendCell(row, signup.name);
         appendCell(row, signup.email);
         appendCell(row, signup.product_slug);
         appendCell(row, signup.source);

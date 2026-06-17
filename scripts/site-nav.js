@@ -118,6 +118,18 @@
           <span>Wear</span>
           <small>How to apply EILLON parfum</small>
         </a>
+        <a href="/about" data-search-item data-search-keywords="about eillon maison story ethos copenhagen founder history">
+          <span>About EILLON</span>
+          <small>Maison story and ethos</small>
+        </a>
+        <a href="/craftsmanship" data-search-item data-search-keywords="craftsmanship production sourcing sustainability manufacturing copenhagen">
+          <span>Craftsmanship</span>
+          <small>How EILLON parfums are made</small>
+        </a>
+        <a href="/shipping" data-search-item data-search-keywords="shipping returns delivery worldwide 30 days">
+          <span>Shipping &amp; returns</span>
+          <small>Delivery and return policy</small>
+        </a>
         <a href="${sectionHref('#maison')}" data-search-item data-search-keywords="maison story eillon red sea memory afro mediterranean copenhagen">
           <span>The Maison</span>
           <small>EILLON universe and story</small>

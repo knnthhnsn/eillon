@@ -71,6 +71,7 @@ module.exports = async (req, res) => {
   const productSlug = VALID_PRODUCTS.has(payload.product_slug) ? payload.product_slug : 'beles';
   const source = VALID_SOURCES.has(payload.source) ? payload.source : 'waitlist';
   const size = VALID_SIZES.has(payload.size) ? payload.size : null;
+  const name = String(payload.name || '').trim().slice(0, 120) || null;
   const utm = {
     utm_source: payload.utm_source || null,
     utm_medium: payload.utm_medium || null,
@@ -84,7 +85,7 @@ module.exports = async (req, res) => {
 
   try {
     await ensureTable();
-    const signup = await upsertSignup({ email, source, size, productSlug, utm });
+    const signup = await upsertSignup({ email, source, size, productSlug, name, utm });
     json(res, 200, { ok: true });
 
     notifyWaitlistSignup(signup).catch((err) => {
