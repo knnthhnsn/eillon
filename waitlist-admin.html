@@ -4,8 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="robots" content="noindex, nofollow" />
-  <title>EILLON — Waitlist</title>
-  <link rel="stylesheet" href="styles.css?v=39" />
+  <title>EILLON — Waitlist Admin</title>
+  <link rel="stylesheet" href="styles.css?v=58" />
   <style>
     body { padding: 48px 24px 80px; background: var(--bg); color: var(--ink); }
     .admin { max-width: 920px; margin: 0 auto; }
@@ -73,8 +73,8 @@
   <main class="admin">
     <div class="admin__head">
       <span class="eyebrow">EILLON studio</span>
-      <h1>Beles waitlist</h1>
-      <p>Private view of signups from the boutique and newsletter.</p>
+      <h1>Waitlist signups</h1>
+      <p>Private view of signups across products and The Letter.</p>
     </div>
 
     <form class="admin__gate" id="gateForm">
@@ -93,6 +93,7 @@
         <thead>
           <tr>
             <th>Email</th>
+            <th>Product</th>
             <th>Source</th>
             <th>Size</th>
             <th>Signed up</th>
@@ -124,13 +125,19 @@
       }
     };
 
+    const appendCell = (row, value) => {
+      const cell = document.createElement('td');
+      cell.textContent = value || '—';
+      row.appendChild(cell);
+    };
+
     const renderRows = (signups) => {
       rowsEl.replaceChildren();
       if (!signups.length) {
         tableWrap.hidden = false;
         const row = document.createElement('tr');
         const cell = document.createElement('td');
-        cell.colSpan = 4;
+        cell.colSpan = 5;
         cell.className = 'admin__empty';
         cell.textContent = 'No signups yet.';
         row.appendChild(cell);
@@ -140,12 +147,11 @@
 
       signups.forEach((signup) => {
         const row = document.createElement('tr');
-        row.innerHTML = `
-          <td>${signup.email}</td>
-          <td>${signup.source}</td>
-          <td>${signup.size || '—'}</td>
-          <td>${formatDate(signup.created_at)}</td>
-        `;
+        appendCell(row, signup.email);
+        appendCell(row, signup.product_slug);
+        appendCell(row, signup.source);
+        appendCell(row, signup.size);
+        appendCell(row, formatDate(signup.created_at));
         rowsEl.appendChild(row);
       });
       tableWrap.hidden = false;
@@ -156,7 +162,9 @@
       metaEl.hidden = true;
       tableWrap.hidden = true;
 
-      const res = await fetch(`/api/waitlist-admin?key=${encodeURIComponent(key)}`);
+      const res = await fetch('/api/waitlist-admin', {
+        headers: { 'x-admin-key': key },
+      });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
         statusEl.textContent = data.error === 'Unauthorized'

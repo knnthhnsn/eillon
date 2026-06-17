@@ -1,52 +1,52 @@
-# Elli Hansen — Asmara
+# EILLON — Afro-Mediterranean Memory Perfumery
 
-A quiet-luxury, editorial single-page website built around the Asmara flacon.
+Static website for [eillon.maison](https://eillon.maison) — an independent perfume maison in Copenhagen.
 
 ## Structure
 
 ```
 .
-├── index.html        Page structure & content
-├── styles.css        Palette, typography, layout, motion
-├── script.js         Reveal animations, parallax, shop logic
-└── perfume-bottle.png  Hero & product image
+├── index.html          Maison landing page
+├── store.html          Boutique / fragrance catalog
+├── beles.html          Beles · Fico d'India product page
+├── data/products.js    Product catalog (window.EILLON_PRODUCTS)
+├── styles.css          Palette, typography, layout, motion
+├── script.js           Reveal animations, product grid, waitlist
+├── api/                Vercel serverless (waitlist, admin)
+└── journal/            Editorial articles
 ```
 
 ## Run locally
 
-The site is **fully static** — no build step required.
+The site is **static** with optional Vercel serverless APIs.
 
-### Easiest
-
-Just open `index.html` in your browser (double-click). Google Fonts will load over the network.
-
-### Recommended (for clean local URLs)
-
-From the project folder, run any one of these:
+### Static preview
 
 ```powershell
-# Python (preinstalled on most systems)
 python -m http.server 8000
-
-# Node (no install)
+# or
 npx serve .
-
-# PHP
-php -S localhost:8000
 ```
 
-Then open <http://localhost:8000>.
+Open <http://localhost:8000>. Waitlist API requires `npx vercel dev` with `DATABASE_URL` configured.
 
-## Design notes
+### Full stack (waitlist API)
 
-- **Palette** — warm ivory, soft cream, sand, champagne gold, warm ink. No black/gold cliché.
-- **Typography** — `Fraunces` (variable serif, optical sizing) for editorial display, `Inter` for body. Italic Fraunces for accents.
-- **Composition** — generous whitespace, edge-positioned metadata, sculpted product framing.
-- **Motion** — soft fades on scroll (`IntersectionObserver`), gentle bottle parallax, subtle pointer-driven micro-tilt on hero (only on fine pointer devices), smooth nav background on scroll. Honors `prefers-reduced-motion`.
-- **Sections** — Nav · Hero · Editorial line · Story · Notes · The Bottle (craft) · Mood · Press quote · Boutique · Footer.
+```powershell
+npx vercel dev
+```
 
-## Customisation
+## Brand
 
-- Adjust palette tokens in `:root` at the top of `styles.css`.
-- Swap `perfume-bottle.png` with a higher-resolution master if available; the layout is built around its native aspect ratio.
-- Sizes / prices live as `data-*` attributes on the `.size` buttons in `index.html`.
+- **EILLON** — Afro-Mediterranean memory perfumery
+- **Tagline:** Red Sea memories, bottled.
+- **First release:** Beles · Fico d'India (waitlist open)
+- **Future chapters:** Asmara, Massawa, Ritual (store cards)
+
+## Deploy
+
+Production deploys via Vercel CLI:
+
+```powershell
+npx vercel --prod --yes
+```

@@ -854,144 +854,266 @@
   }
 
   /* ---------- 9. WAITLIST ---------- */
-  const waitlistStorageKey = 'eillon-beles-waitlist';
-  const waitlistForm = document.getElementById('waitlistForm');
-  const waitlistStatus = document.getElementById('waitlistStatus');
-  const waitlistSubmit = document.getElementById('waitlistSubmit');
+  const waitlistMessages = {
+    beles: 'You are on the Beles waitlist. We will write when the next release opens.',
+    asmara: 'You will receive Asmara updates when the chapter moves forward.',
+    massawa: 'You will be notified when Massawa opens.',
+    ritual: 'You are following Ritual lab notes.',
+    all: 'You are on the letter list.',
+  };
 
-  const setWaitlistJoined = ({ emailInput, submitButton, statusEl, message }) => {
+  const setWaitlistJoined = ({ emailInput, submitButton, statusEl, message, isNewsletter }) => {
     if (emailInput) {
       emailInput.value = '';
       emailInput.disabled = true;
     }
     if (submitButton) {
       submitButton.disabled = true;
-      const label = submitButton.querySelector('.btn__label');
-      if (label) label.textContent = 'On the list ✓';
+      if (isNewsletter) {
+        submitButton.textContent = 'Subscribed';
+      } else {
+        const label = submitButton.querySelector('.btn__label');
+        if (label) label.textContent = 'On the list ✓';
+        else submitButton.textContent = 'On the list ✓';
+      }
     }
     if (statusEl) statusEl.textContent = message;
   };
 
-  const submitWaitlistSignup = async ({ email, source, size }) => {
+  const submitWaitlistSignup = async ({ email, source, size, product_slug }) => {
     const res = await fetch('/api/waitlist', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, source, size }),
+      body: JSON.stringify({ email, source, size, product_slug }),
     });
     const data = await res.json().catch(() => ({}));
     if (!res.ok) throw new Error(data.error || 'Signup failed');
     return data;
   };
 
-  if (waitlistForm && waitlistStatus) {
+  const setupWaitlistForm = (form) => {
+    const productSlug = form.dataset.productSlug
+      || form.querySelector('[name="product_slug"]')?.value
+      || 'beles';
+    const source = form.dataset.source || 'waitlist';
+    const isNewsletter = productSlug === 'all' || source === 'newsletter';
+    const statusEl = form.querySelector('[aria-live="polite"]')
+      || form.querySelector('.shop__waitlist-status')
+      || form.querySelector('.beles-waitlist-status');
+    const submitButton = form.querySelector('button[type="submit"]');
+    const emailInput = form.querySelector('input[type="email"]');
+    const storageKey = `eillon-waitlist-${productSlug}`;
+    const successMessage = waitlistMessages[productSlug] || 'You are on the list.';
+
     try {
-      if (window.localStorage.getItem(waitlistStorageKey) === 'true') {
+      if (window.localStorage.getItem(storageKey) === 'true') {
         setWaitlistJoined({
-          emailInput: waitlistForm.querySelector('input[type="email"]'),
-          submitButton: waitlistSubmit,
-          statusEl: waitlistStatus,
-          message: 'You are on the Beles waitlist. We will write when the next release opens.',
+          emailInput,
+          submitButton,
+          statusEl,
+          message: successMessage,
+          isNewsletter,
         });
       }
     } catch {
       // Waitlist still submits if storage is unavailable.
     }
 
-    waitlistForm.addEventListener('submit', async (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const emailInput = waitlistForm.querySelector('input[type="email"]');
-      const honeypot = waitlistForm.querySelector('input[name="website"]');
-      const label = waitlistSubmit?.querySelector('.btn__label');
-      if (!emailInput || !label) return;
+      const honeypot = form.querySelector('input[name="website"]');
+      const label = submitButton?.querySelector('.btn__label');
+      if (!emailInput) return;
       if (honeypot?.value) return;
       if (!emailInput.checkValidity()) {
         emailInput.reportValidity();
         return;
       }
 
-      const originalLabel = label.textContent;
-      label.textContent = 'Joining…';
-      if (waitlistSubmit) waitlistSubmit.disabled = true;
-      waitlistStatus.textContent = '';
+      const originalLabel = label?.textContent;
+      const originalButtonText = submitButton?.textContent;
+      if (label) label.textContent = 'Joining…';
+      else if (submitButton && !isNewsletter) submitButton.textContent = 'Joining…';
+      else if (submitButton) submitButton.textContent = 'Subscribing…';
+      if (submitButton) submitButton.disabled = true;
+      if (statusEl) statusEl.textContent = '';
+
+      const sizeInput = form.querySelector('[name="size"]');
+      const size = sizeInput?.value || (productSlug === 'beles' ? selectedSize : null);
 
       try {
         await submitWaitlistSignup({
           email: emailInput.value.trim(),
-          source: 'waitlist',
-          size: selectedSize,
+          source,
+          size,
+          product_slug: productSlug,
         });
         try {
-          window.localStorage.setItem(waitlistStorageKey, 'true');
+          window.localStorage.setItem(storageKey, 'true');
         } catch {
           // Ignore storage failures.
         }
         setWaitlistJoined({
           emailInput,
-          submitButton: waitlistSubmit,
-          statusEl: waitlistStatus,
-          message: 'You are on the Beles waitlist. We will write when the next release opens.',
+          submitButton,
+          statusEl,
+          message: successMessage,
+          isNewsletter,
         });
       } catch {
-        label.textContent = originalLabel;
-        if (waitlistSubmit) waitlistSubmit.disabled = false;
-        waitlistStatus.textContent = 'Something went wrong. Please try again or email care@eillon.maison.';
-      }
-    });
-  }
-
-  /* ---------- 10. NEWSLETTER ---------- */
-  const newsletterForm = document.getElementById('newsletterForm');
-  const newsletterStatus = document.getElementById('newsletterStatus');
-  const newsletterStorageKey = 'eillon-newsletter-subscribed';
-  const setNewsletterSubscribed = () => {
-    const button = newsletterForm?.querySelector('button');
-    const input = newsletterForm?.querySelector('input[type="email"]');
-    if (!button || !input || !newsletterStatus) return;
-    input.value = '';
-    input.disabled = true;
-    button.disabled = true;
-    button.textContent = 'Subscribed';
-    newsletterStatus.textContent = 'You are on the letter list.';
-  };
-  if (newsletterForm && newsletterStatus) {
-    try {
-      if (window.localStorage.getItem(newsletterStorageKey) === 'true') setNewsletterSubscribed();
-    } catch {
-      // Newsletter still submits visually if storage is unavailable.
-    }
-    newsletterForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const input = newsletterForm.querySelector('input[type="email"]');
-      const button = newsletterForm.querySelector('button');
-      if (!input || !button) return;
-      if (!input.checkValidity()) {
-        input.reportValidity();
-        return;
-      }
-
-      const originalText = button.textContent;
-      button.disabled = true;
-      button.textContent = 'Subscribing…';
-      newsletterStatus.textContent = '';
-
-      try {
-        await submitWaitlistSignup({
-          email: input.value.trim(),
-          source: 'newsletter',
-        });
-        try {
-          window.localStorage.setItem(newsletterStorageKey, 'true');
-        } catch {
-          // Ignore storage failures.
+        if (label && originalLabel) label.textContent = originalLabel;
+        else if (submitButton && originalButtonText) submitButton.textContent = originalButtonText;
+        if (submitButton) submitButton.disabled = false;
+        if (statusEl) {
+          statusEl.textContent = isNewsletter
+            ? 'Something went wrong. Please try again.'
+            : 'Something went wrong. Please try again or email care@eillon.maison.';
         }
-        setNewsletterSubscribed();
-      } catch {
-        button.disabled = false;
-        button.textContent = originalText;
-        newsletterStatus.textContent = 'Something went wrong. Please try again.';
       }
     });
-  }
+  };
+
+  document.querySelectorAll('[data-waitlist-form]').forEach(setupWaitlistForm);
+
+  /* ---------- 10. PRODUCT GRID RENDER ---------- */
+  const STATUS_CLASS = {
+    'waitlist-open': 'product-card__status--waitlist-open',
+    'in-production': 'product-card__status--production',
+    'coming-soon': 'product-card__status--coming-soon',
+    'concept-lab': 'product-card__status--lab',
+  };
+
+  const createProductCard = (product, mode) => {
+    const article = document.createElement('article');
+    article.className = `product-card product-card--${product.slug}`;
+    article.id = product.slug;
+
+    if (product.url && product.status === 'waitlist-open') {
+      const mediaLink = document.createElement('a');
+      mediaLink.className = 'product-card__media';
+      mediaLink.href = product.url;
+      mediaLink.setAttribute('aria-label', `View ${product.name} · ${product.subtitle}`);
+      const img = document.createElement('img');
+      img.src = product.image;
+      img.alt = `EILLON ${product.name} · ${product.subtitle} bottle`;
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      mediaLink.appendChild(img);
+      article.appendChild(mediaLink);
+    } else {
+      const media = document.createElement('div');
+      media.className = 'product-card__media product-card__media--placeholder';
+      media.setAttribute('aria-hidden', 'true');
+      article.appendChild(media);
+    }
+
+    const body = document.createElement('div');
+    body.className = 'product-card__body';
+
+    const status = document.createElement('span');
+    status.className = `product-card__status ${STATUS_CLASS[product.status] || ''}`;
+    status.textContent = product.statusLabel;
+    body.appendChild(status);
+
+    const chapter = document.createElement('p');
+    chapter.className = 'product-card__chapter';
+    chapter.textContent = product.chapter;
+    body.appendChild(chapter);
+
+    const heading = document.createElement('h2');
+    heading.innerHTML = `${product.name} <span>${product.subtitle}</span>`;
+    body.appendChild(heading);
+
+    const desc = document.createElement('p');
+    desc.className = 'product-card__desc';
+    desc.textContent = product.shortDescription;
+    body.appendChild(desc);
+
+    const notes = document.createElement('ul');
+    notes.className = 'product-card__notes';
+    const noteItems = product.notes?.top?.slice(0, 3) || [];
+    noteItems.forEach((note) => {
+      const li = document.createElement('li');
+      li.textContent = note;
+      notes.appendChild(li);
+    });
+    body.appendChild(notes);
+
+    const actions = document.createElement('div');
+    actions.className = 'product-card__actions';
+
+    if (product.status === 'waitlist-open' && product.slug === 'beles') {
+      const cta = document.createElement('a');
+      cta.className = 'btn btn--primary';
+      cta.href = '/beles#waitlist';
+      cta.innerHTML = `<span class="btn__label">${product.ctaLabel}</span>`;
+      actions.appendChild(cta);
+    } else if (mode === 'store' && product.waitlistEnabled) {
+      const miniForm = document.createElement('form');
+      miniForm.className = 'mini-waitlist';
+      miniForm.setAttribute('data-waitlist-form', '');
+      miniForm.dataset.productSlug = product.slug;
+      miniForm.dataset.source = 'product-card';
+      miniForm.noValidate = true;
+
+      const email = document.createElement('input');
+      email.type = 'email';
+      email.name = 'email';
+      email.placeholder = `Email for ${product.name} updates`;
+      email.autocomplete = 'email';
+      email.required = true;
+
+      const honeypot = document.createElement('input');
+      honeypot.type = 'text';
+      honeypot.name = 'website';
+      honeypot.className = 'shop__honeypot';
+      honeypot.tabIndex = -1;
+      honeypot.setAttribute('autocomplete', 'off');
+      honeypot.setAttribute('aria-hidden', 'true');
+
+      const btn = document.createElement('button');
+      btn.type = 'submit';
+      btn.textContent = product.ctaLabel;
+
+      const statusLine = document.createElement('p');
+      statusLine.setAttribute('aria-live', 'polite');
+
+      miniForm.append(email, honeypot, btn, statusLine);
+      actions.appendChild(miniForm);
+    } else {
+      const cta = document.createElement('a');
+      cta.className = 'btn btn--ghost';
+      cta.href = product.url || '/store';
+      cta.innerHTML = `<span>${product.ctaLabel}</span><span class="arrow">→</span>`;
+      actions.appendChild(cta);
+    }
+
+    body.appendChild(actions);
+    article.appendChild(body);
+    return article;
+  };
+
+  const renderProductGrids = () => {
+    const products = window.EILLON_PRODUCTS;
+    if (!Array.isArray(products)) return;
+
+    document.querySelectorAll('[data-product-preview]').forEach((container) => {
+      container.classList.add('product-grid');
+      products.forEach((product) => {
+        container.appendChild(createProductCard(product, 'preview'));
+      });
+    });
+
+    document.querySelectorAll('[data-product-grid]').forEach((container) => {
+      const mode = container.dataset.productGridMode || 'store';
+      products.forEach((product) => {
+        container.appendChild(createProductCard(product, mode));
+      });
+      container.querySelectorAll('[data-waitlist-form]').forEach(setupWaitlistForm);
+    });
+  };
+
+  renderProductGrids();
 
   /* ---------- 11. SMOOTH ANCHOR SCROLL ---------- */
   document.querySelectorAll('a[href^="#"]').forEach((a) => {

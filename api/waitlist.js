@@ -1,7 +1,8 @@
 const { ensureTable, upsertSignup } = require('../lib/db');
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const VALID_SOURCES = new Set(['waitlist', 'newsletter']);
+const VALID_PRODUCTS = new Set(['beles', 'asmara', 'massawa', 'ritual', 'all']);
+const VALID_SOURCES = new Set(['waitlist', 'newsletter', 'store', 'product-card', 'footer']);
 const VALID_SIZES = new Set(['sample', '50', '100']);
 
 function normalizeEmail(value) {
@@ -66,8 +67,14 @@ module.exports = async (req, res) => {
   }
 
   const email = normalizeEmail(payload.email);
+  const productSlug = VALID_PRODUCTS.has(payload.product_slug) ? payload.product_slug : 'beles';
   const source = VALID_SOURCES.has(payload.source) ? payload.source : 'waitlist';
   const size = VALID_SIZES.has(payload.size) ? payload.size : null;
+  const utm = {
+    utm_source: payload.utm_source || null,
+    utm_medium: payload.utm_medium || null,
+    utm_campaign: payload.utm_campaign || null,
+  };
 
   if (!EMAIL_PATTERN.test(email) || email.length > 254) {
     json(res, 400, { error: 'Invalid email address' });
@@ -76,7 +83,7 @@ module.exports = async (req, res) => {
 
   try {
     await ensureTable();
-    await upsertSignup({ email, source, size });
+    await upsertSignup({ email, source, size, productSlug, utm });
     json(res, 200, { ok: true });
   } catch (err) {
     console.error('waitlist signup failed', err);

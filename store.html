@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Boutique — EILLON Afro-Mediterranean Memory Perfumery</title>
+  <meta name="description" content="The EILLON fragrance chapters: Beles waitlist open. Asmara in production. Massawa coming soon. Ritual in the lab." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://eillon.maison/store" />
+  <link rel="icon" href="images/plain-bottle-with-logo.png" type="image/png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://eillon.maison/store" />
+  <meta property="og:title" content="The Boutique — EILLON" />
+  <meta property="og:description" content="Four memories, one maison. Beles waitlist open — future chapters in production and lab." />
+  <meta property="og:image" content="https://eillon.maison/images/beles-no-background.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=58" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "EILLON Boutique",
+      "url": "https://eillon.maison/store",
+      "description": "The EILLON fragrance chapters: Beles, Asmara, Massawa, and ritual resin studies.",
+      "mainEntity": {
+        "@type": "ItemList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "url": "https://eillon.maison/beles", "name": "Beles · Fico d'India" },
+          { "@type": "ListItem", "position": 2, "url": "https://eillon.maison/store#asmara", "name": "Asmara" },
+          { "@type": "ListItem", "position": 3, "url": "https://eillon.maison/store#massawa", "name": "Massawa" },
+          { "@type": "ListItem", "position": 4, "url": "https://eillon.maison/store#ritual", "name": "Ritual" }
+        ]
+      }
+    }
+  </script>
+</head>
+<body class="editorial-page store-page">
+  <header class="editorial-page__nav">
+    <a href="/store">← Boutique</a>
+    <nav class="editorial-page__nav-links" aria-label="Secondary">
+      <a href="/">Maison</a>
+      <a href="/store" aria-current="page">Store</a>
+      <a href="/journal">Journal</a>
+    </nav>
+  </header>
+
+  <main class="editorial-page__main store-page__main" id="top">
+    <section class="store-hero">
+      <span class="eyebrow">The Boutique</span>
+      <h1 class="display">The EILLON<br /><em>fragrance chapters.</em></h1>
+      <p class="store-hero__lead">
+        Beles is open for priority access. Future chapters are being composed slowly — rain on stone, Red Sea citrus, sacred resins, and warm skin.
+      </p>
+      <a class="btn btn--primary" href="/beles#waitlist"><span class="btn__label">Join the Beles waitlist</span></a>
+    </section>
+
+    <section class="store-collection" aria-label="Fragrance collection">
+      <div class="product-grid" data-product-grid data-product-grid-mode="store"></div>
+    </section>
+
+    <section class="status-guide" aria-label="Release status guide">
+      <h2 class="status-guide__title">Release status</h2>
+      <dl class="status-guide__list">
+        <div>
+          <dt>Waitlist open</dt>
+          <dd>Priority access before public release.</dd>
+        </div>
+        <div>
+          <dt>In production</dt>
+          <dd>Formula and object are being refined.</dd>
+        </div>
+        <div>
+          <dt>Coming soon</dt>
+          <dd>A future chapter from the EILLON universe.</dd>
+        </div>
+        <div>
+          <dt>Concept / lab</dt>
+          <dd>A study in progress from the studio archive.</dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class="store-letter" id="letter">
+      <span class="eyebrow">The Letter</span>
+      <h2 class="display">All releases,<br /><em>sent slowly.</em></h2>
+      <p>Studio notes, restock windows, and chapter openings — one letter at a time.</p>
+      <form class="footer__form store-letter__form" data-waitlist-form data-product-slug="all" data-source="newsletter" novalidate>
+        <input type="email" name="email" placeholder="Your email" aria-label="Email address" autocomplete="email" required />
+        <input type="text" name="website" class="shop__honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <button type="submit">Subscribe <span class="arrow">→</span></button>
+        <p class="footer__status" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="editorial-page__footer">
+    <span>© EILLON — Copenhagen</span>
+    <span>
+      <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/imprint">Imprint</a>
+    </span>
+  </footer>
+
+  <script src="data/products.js" defer></script>
+  <script src="script.js?v=36" defer></script>
+</body>
+</html>

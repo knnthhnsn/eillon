@@ -8,10 +8,7 @@ function json(res, status, body) {
 }
 
 function getKey(req) {
-  const url = new URL(req.url, 'http://localhost');
-  const headerKey = req.headers['x-admin-key'];
-  const queryKey = url.searchParams.get('key');
-  return String(headerKey || queryKey || '');
+  return String(req.headers['x-admin-key'] || '');
 }
 
 module.exports = async (req, res) => {

@@ -1,5 +1,5 @@
 /* =====================================================
-   EILLON — ASMARA
+   EILLON — Design system
    A quiet-luxury editorial fragrance site.
    ===================================================== */
 
@@ -3757,4 +3757,287 @@ body.is-loaded .scroll-progress { opacity: 1; }
   .veil__sub   { animation: none !important; opacity: 1 !important; }
   .veil__title em > span { animation: none !important; opacity: 1 !important; transform: none !important; }
   body.is-loaded .veil__content { transition-duration: 0.4s !important; }
+}
+
+/* ============ COLLECTION / STORE PRODUCT GRID ============ */
+.section-head {
+  max-width: var(--content-max, 720px);
+  margin: 0 auto clamp(40px, 6vw, 72px);
+  text-align: center;
+}
+
+.section-head .display { margin: 12px 0 18px; }
+.section-head p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-family: var(--serif);
+  font-style: italic;
+  line-height: 1.65;
+}
+
+.collection-preview {
+  padding: clamp(72px, 10vw, 120px) var(--gutter);
+  background: linear-gradient(180deg, rgba(255,255,255,.4), rgba(250,250,248,.85));
+}
+
+.collection-preview .btn {
+  display: inline-flex;
+  margin: clamp(28px, 4vw, 48px) auto 0;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(18px, 2vw, 28px);
+}
+
+.product-card {
+  position: relative;
+  min-height: 100%;
+  padding: clamp(18px, 2.4vw, 28px);
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.56);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+}
+
+.product-card__media {
+  display: grid;
+  place-items: center;
+  min-height: 280px;
+  margin-bottom: 22px;
+  background: linear-gradient(180deg, rgba(255,255,255,.75), rgba(250,250,248,.3));
+}
+
+.product-card__media img {
+  max-height: 320px;
+  width: auto;
+  object-fit: contain;
+}
+
+.product-card__media--placeholder {
+  min-height: 280px;
+  margin-bottom: 22px;
+  background: linear-gradient(180deg, rgba(255,255,255,.75), rgba(245,243,240,.5));
+}
+
+.product-card__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.product-card__status::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: currentColor;
+}
+
+.product-card__status--waitlist-open { color: var(--gold-dark); }
+.product-card__status--production { color: #6f7c62; }
+.product-card__status--coming-soon { color: var(--stone); }
+.product-card__status--lab { color: var(--ink-soft); }
+
+.product-card__chapter {
+  margin: 0 0 10px;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.product-card h2 {
+  font-family: var(--serif);
+  font-size: clamp(30px, 3vw, 48px);
+  font-weight: 300;
+  line-height: .95;
+  margin: 0 0 14px;
+}
+
+.product-card h2 span {
+  display: block;
+  margin-top: 8px;
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+}
+
+.product-card__desc {
+  margin: 0;
+  color: var(--ink-soft);
+  font-family: var(--serif);
+  font-style: italic;
+  line-height: 1.6;
+}
+
+.product-card__notes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 18px 0 22px;
+  padding: 0;
+  list-style: none;
+}
+
+.product-card__notes li {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 11px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.product-card__actions {
+  margin-top: auto;
+}
+
+.product-card__actions .btn { width: 100%; justify-content: center; }
+
+.mini-waitlist {
+  display: grid;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.mini-waitlist input[type="email"] {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  font: inherit;
+  font-size: 14px;
+  padding: 10px 0;
+  color: var(--ink);
+  outline: none;
+}
+
+.mini-waitlist button {
+  justify-self: start;
+  padding: 10px 16px;
+  border: 1px solid var(--ink);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  background: transparent;
+  cursor: pointer;
+}
+
+.mini-waitlist [aria-live="polite"] {
+  min-height: 20px;
+  margin: 0;
+  font-size: 13px;
+  color: var(--ink-soft);
+  font-family: var(--serif);
+  font-style: italic;
+}
+
+.quote--studio-note cite { color: var(--ink-faint); }
+
+.boutique-cta {
+  padding: clamp(72px, 10vw, 120px) var(--gutter);
+  text-align: center;
+  border-top: 1px solid var(--line-soft);
+}
+
+.boutique-cta__inner { max-width: 640px; margin: 0 auto; }
+.boutique-cta__inner .display { margin: 12px 0 18px; }
+.boutique-cta__inner p {
+  margin: 0 0 28px;
+  color: var(--ink-soft);
+  font-family: var(--serif);
+  font-style: italic;
+}
+
+.boutique-cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: center;
+}
+
+.store-page__main { max-width: 1200px; }
+
+.store-hero {
+  margin-bottom: clamp(48px, 8vw, 88px);
+  max-width: 720px;
+}
+
+.store-hero .display { margin: 12px 0 20px; }
+
+.store-hero__lead {
+  margin: 0 0 28px;
+  color: var(--ink-soft);
+  font-family: var(--serif);
+  font-style: italic;
+  line-height: 1.65;
+  max-width: 56ch;
+}
+
+.store-collection { margin-bottom: clamp(48px, 8vw, 88px); }
+
+.status-guide {
+  margin-bottom: clamp(48px, 8vw, 88px);
+  padding: clamp(28px, 4vw, 40px);
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,.45);
+}
+
+.status-guide__title {
+  margin: 0 0 24px;
+  font-family: var(--serif);
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 300;
+}
+
+.status-guide__list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px 32px;
+  margin: 0;
+}
+
+.status-guide__list dt {
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 6px;
+}
+
+.status-guide__list dd {
+  margin: 0;
+  color: var(--ink-soft);
+  font-family: var(--serif);
+  font-style: italic;
+  line-height: 1.55;
+}
+
+.store-letter { max-width: 560px; }
+.store-letter .display { margin: 12px 0 16px; }
+.store-letter p {
+  margin: 0 0 24px;
+  color: var(--ink-soft);
+  font-family: var(--serif);
+  font-style: italic;
+}
+
+.store-letter__form { max-width: 100%; }
+
+@media (max-width: 1100px) {
+  .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 640px) {
+  .product-grid { grid-template-columns: 1fr; }
+  .status-guide__list { grid-template-columns: 1fr; }
+  .boutique-cta__actions { flex-direction: column; align-items: stretch; }
 }
