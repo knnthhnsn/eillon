@@ -3009,6 +3009,47 @@ body.is-loaded .hero__cta { opacity: 1; transform: translateY(0); }
   border-top: 0;
 }
 
+/* Beles hero — film full-bleed, bottle as small corner accent */
+.shop--beles .shop__image[data-product-size="50"] .shop__image-layer--setting,
+.shop--beles .shop__image[data-product-size="100"] .shop__image-layer--setting {
+  opacity: 1;
+  transform: none;
+}
+
+.shop--beles .shop__image[data-product-size="50"] .shop__image-layer--bottle,
+.shop--beles .shop__image[data-product-size="100"] .shop__image-layer--bottle {
+  inset: auto;
+  top: auto;
+  right: auto;
+  bottom: 0;
+  left: 0;
+  width: auto;
+  height: auto;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: 0 0 14px 14px;
+  pointer-events: none;
+}
+
+.shop--beles .shop__image[data-product-size="50"] .shop__image-layer--bottle picture,
+.shop--beles .shop__image[data-product-size="100"] .shop__image-layer--bottle picture {
+  width: auto;
+  height: auto;
+  display: block;
+}
+
+.shop--beles .shop__image[data-product-size="50"] .shop__image-layer--bottle img,
+.shop--beles .shop__image[data-product-size="100"] .shop__image-layer--bottle img {
+  width: auto;
+  height: clamp(64px, 16vw, 96px);
+  max-width: min(24vw, 96px);
+  max-height: clamp(64px, 16vw, 96px);
+  margin: 0;
+  transform: none;
+  object-position: left bottom;
+  filter: drop-shadow(0 10px 22px rgba(28, 28, 26, 0.22));
+}
+
 .beles-page__main .notes--beles {
   width: 100vw;
   position: relative;
@@ -3883,6 +3924,12 @@ body.is-loaded .scroll-progress { opacity: 1; }
     filter: drop-shadow(0 18px 36px rgba(28, 28, 26, 0.14));
   }
 
+  .shop--beles .shop__image[data-product-size="50"]:hover .shop__image-layer--bottle img,
+  .shop--beles .shop__image[data-product-size="100"]:hover .shop__image-layer--bottle img {
+    transform: none;
+    filter: drop-shadow(0 10px 22px rgba(28, 28, 26, 0.22));
+  }
+
   body.is-loaded .hero__bottle-link:hover .hero__bottle,
   body.is-loaded .hero__bottle-link:hover .hero__bottle-fallback {
     transform: scale(1.09);
@@ -3926,9 +3973,20 @@ body.is-loaded .scroll-progress { opacity: 1; }
     transform: scale(calc(1.02 - 0.02 * var(--splash-progress, 0)));
   }
 
+  .shop--beles .shop__image[data-product-size="50"] .shop__image-layer--setting,
+  .shop--beles .shop__image[data-product-size="100"] .shop__image-layer--setting {
+    opacity: 1;
+    transform: none;
+  }
+
   .shop__image[data-product-size="50"] .shop__image-layer--bottle img,
   .shop__image[data-product-size="100"] .shop__image-layer--bottle img {
     transform: scale(calc(1 - 0.16 * var(--splash-progress, 0)));
+  }
+
+  .shop--beles .shop__image[data-product-size="50"] .shop__image-layer--bottle img,
+  .shop--beles .shop__image[data-product-size="100"] .shop__image-layer--bottle img {
+    transform: none;
   }
 
   .shop__image.is-splash-visible[data-product-size="50"] .shop__image-layer--bottle img,

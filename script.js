@@ -755,6 +755,7 @@
   const shopImageInner = shopImage?.querySelector('.shop__image-inner');
   const shopVideo = shopImage?.querySelector('[data-shop-video]');
   const shopSplashSizes = new Set(['50', '100']);
+  const isBelesShop = Boolean(shopImage?.closest('.shop--beles'));
 
   const syncShopVideo = (shouldPlay) => {
     if (!(shopVideo instanceof HTMLVideoElement) || prefersReduced) return;
@@ -773,7 +774,7 @@
     shopImage.style.setProperty('--splash-progress', clamped.toFixed(3));
     const splashVisible = clamped > 0.35;
     shopImage.classList.toggle('is-splash-visible', splashVisible);
-    if (!canHover.matches) syncShopVideo(splashVisible);
+    if (!canHover.matches && !isBelesShop) syncShopVideo(splashVisible);
   };
 
   const setShopSplash = (visible) => {
@@ -846,11 +847,35 @@
     });
   });
 
-  if (canHover.matches && shopImage) {
+  if (canHover.matches && shopImage && !isBelesShop) {
     shopImage.addEventListener('mouseenter', () => {
       if (shopSplashSizes.has(shopImage.dataset.productSize)) syncShopVideo(true);
     });
     shopImage.addEventListener('mouseleave', () => syncShopVideo(false));
+  }
+
+  if (isBelesShop && shopImage && shopVideo instanceof HTMLVideoElement && !prefersReduced) {
+    const belesVideoObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (!shopSplashSizes.has(shopImage.dataset.productSize)) {
+          syncShopVideo(false);
+          return;
+        }
+        syncShopVideo(entry.isIntersecting);
+      },
+      { threshold: 0.2, rootMargin: '0px 0px -4% 0px' }
+    );
+    belesVideoObserver.observe(shopImage);
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        shopVideo.pause();
+        return;
+      }
+      const rect = shopImage.getBoundingClientRect();
+      const inView = rect.bottom > 0 && rect.top < window.innerHeight * 0.92;
+      if (shopSplashSizes.has(shopImage.dataset.productSize)) syncShopVideo(inView);
+    });
   }
 
   if (shopVideo instanceof HTMLVideoElement && prefersReduced) {
