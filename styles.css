@@ -3911,6 +3911,10 @@ body.is-loaded .scroll-progress { opacity: 1; }
   padding: clamp(48px, 6vw, 72px) var(--gutter);
 }
 
+.store-collection .collection-panel__content {
+  padding: 0;
+}
+
 .collection-preview .btn {
   display: inline-flex;
   margin: clamp(28px, 4vw, 48px) auto 0;
@@ -4110,6 +4114,13 @@ body.is-loaded .scroll-progress { opacity: 1; }
 /* Mobile collection slider — two cards visible */
 .product-grid--collection {
   scroll-padding-inline: var(--gutter);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .collection-panel__video,
+  .ritual__video {
+    display: none;
+  }
 }
 
 @media (max-width: 767px) {
