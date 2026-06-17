@@ -1085,10 +1085,15 @@
     img.decoding = 'async';
   };
 
-  const buildProductCardMedia = (product) => {
+  const getOverviewCardHref = (product) => {
+    if (product.status === 'waitlist-open' && product.slug === 'beles') return '/beles#waitlist';
+    return product.url || '/store';
+  };
+
+  const buildProductCardMedia = (product, cardIsLink = false) => {
     const label = `View ${product.name} · ${product.subtitle}`;
     const bottleAlt = `EILLON ${product.name} · ${product.subtitle} bottle`;
-    const isLinked = Boolean(product.url && product.status === 'waitlist-open');
+    const isLinked = Boolean(product.url && product.status === 'waitlist-open') && !cardIsLink;
     const isMoodOnly = Boolean(product.moodImage);
     const isStage = Boolean(product.scentImage && product.image);
 
@@ -1167,8 +1172,37 @@
 
   const createProductCard = (product, mode) => {
     const isOverview = mode === 'preview' || mode === 'store';
+
+    if (isOverview) {
+      const card = document.createElement('a');
+      card.className = `product-card product-card--${product.slug} product-card--compact product-card--link`;
+      card.id = product.slug;
+      card.href = getOverviewCardHref(product);
+      card.setAttribute('aria-label', `${product.name} · ${product.subtitle}`);
+
+      card.appendChild(buildProductCardMedia(product, true));
+
+      const body = document.createElement('div');
+      body.className = 'product-card__body';
+
+      const status = document.createElement('span');
+      status.className = `product-card__status ${STATUS_CLASS[product.status] || ''}`;
+      status.textContent = product.statusLabel;
+      body.appendChild(status);
+
+      const heading = document.createElement('h2');
+      heading.append(document.createTextNode(product.name));
+      const subtitle = document.createElement('span');
+      subtitle.textContent = product.subtitle;
+      heading.appendChild(subtitle);
+      body.appendChild(heading);
+
+      card.appendChild(body);
+      return card;
+    }
+
     const article = document.createElement('article');
-    article.className = `product-card product-card--${product.slug}${isOverview ? ' product-card--compact' : ''}`;
+    article.className = `product-card product-card--${product.slug}`;
     article.id = product.slug;
 
     article.appendChild(buildProductCardMedia(product));
@@ -1188,37 +1222,24 @@
     heading.appendChild(subtitle);
     body.appendChild(heading);
 
-    if (!isOverview) {
-      const chapter = document.createElement('p');
-      chapter.className = 'product-card__chapter';
-      chapter.textContent = product.chapter;
-      body.appendChild(chapter);
+    const chapter = document.createElement('p');
+    chapter.className = 'product-card__chapter';
+    chapter.textContent = product.chapter;
+    body.appendChild(chapter);
 
-      const desc = document.createElement('p');
-      desc.className = 'product-card__desc';
-      desc.textContent = product.shortDescription;
-      body.appendChild(desc);
+    const desc = document.createElement('p');
+    desc.className = 'product-card__desc';
+    desc.textContent = product.shortDescription;
+    body.appendChild(desc);
 
-      if (product.notes) {
-        body.appendChild(buildNotePyramid(product.notes));
-      }
+    if (product.notes) {
+      body.appendChild(buildNotePyramid(product.notes));
     }
 
     const actions = document.createElement('div');
     actions.className = 'product-card__actions';
 
-    if (isOverview) {
-      const cta = document.createElement('a');
-      cta.className = 'btn btn--ghost btn--compact';
-      cta.href = product.status === 'waitlist-open' && product.slug === 'beles'
-        ? '/beles#waitlist'
-        : (product.url || '/store');
-      const label = product.status === 'waitlist-open' && product.slug === 'beles'
-        ? 'Join waitlist'
-        : product.ctaLabel;
-      cta.innerHTML = `<span>${label}</span><span class="arrow">→</span>`;
-      actions.appendChild(cta);
-    } else if (product.status === 'waitlist-open' && product.slug === 'beles') {
+    if (product.status === 'waitlist-open' && product.slug === 'beles') {
       const cta = document.createElement('a');
       cta.className = 'btn btn--primary';
       cta.href = '/beles#waitlist';
