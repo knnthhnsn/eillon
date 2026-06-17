@@ -1086,8 +1086,8 @@
   };
 
   const getOverviewCardHref = (product) => {
-    if (product.status === 'waitlist-open' && product.slug === 'beles') return '/beles#waitlist';
-    return product.url || '/store';
+    const base = product.url || `/${product.slug}`;
+    return `${base}#waitlist`;
   };
 
   const buildProductCardMedia = (product, cardIsLink = false) => {
@@ -1176,7 +1176,7 @@
     if (isOverview) {
       const card = document.createElement('a');
       card.className = `product-card product-card--${product.slug} product-card--compact product-card--link`;
-      card.id = product.slug;
+      card.id = `card-${product.slug}`;
       card.href = getOverviewCardHref(product);
       card.setAttribute('aria-label', `${product.name} · ${product.subtitle}`);
 
@@ -1314,15 +1314,41 @@
   renderProductGrids();
 
   /* ---------- 11. SMOOTH ANCHOR SCROLL ---------- */
-  document.querySelectorAll('a[href^="#"]').forEach((a) => {
+  const scrollToHashTarget = (hash, { focusEmail = false } = {}) => {
+    const id = (hash || window.location.hash).replace(/^#/, '');
+    if (!id) return;
+    const target = document.getElementById(id);
+    if (!target) return;
+    const top = target.getBoundingClientRect().top + window.scrollY - 60;
+    window.scrollTo({ top, behavior: prefersReduced ? 'auto' : 'smooth' });
+    if (focusEmail) {
+      target.querySelector('input[type="email"]')?.focus({ preventScroll: true });
+    }
+  };
+
+  if (window.location.hash) {
+    requestAnimationFrame(() => scrollToHashTarget(window.location.hash, { focusEmail: true }));
+  }
+
+  window.addEventListener('hashchange', () => {
+    scrollToHashTarget(window.location.hash, { focusEmail: true });
+  });
+
+  document.querySelectorAll('a[href*="#"]').forEach((a) => {
     a.addEventListener('click', (e) => {
-      const id = a.getAttribute('href');
-      if (id.length < 2) return;
-      const target = document.querySelector(id);
+      const href = a.getAttribute('href');
+      if (!href || !href.includes('#')) return;
+      const hash = href.slice(href.indexOf('#'));
+      if (hash.length < 2) return;
+      const target = document.querySelector(hash);
       if (!target) return;
+      const isSamePage = href.startsWith('#') || href.startsWith(window.location.pathname);
+      if (!isSamePage) return;
       e.preventDefault();
-      const top = target.getBoundingClientRect().top + window.scrollY - 60;
-      window.scrollTo({ top, behavior: prefersReduced ? 'auto' : 'smooth' });
+      history.pushState(null, '', hash);
+      scrollToHashTarget(hash, {
+        focusEmail: Boolean(target.id === 'waitlist' || target.querySelector('[data-waitlist-form]')),
+      });
     });
   });
 })();

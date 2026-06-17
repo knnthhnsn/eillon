@@ -20,4 +20,7 @@
 - Maison: https://eillon.maison/
 - Store: https://eillon.maison/store
 - Beles product: https://eillon.maison/beles
+- Asmara chapter: https://eillon.maison/asmara
+- Massawa chapter: https://eillon.maison/massawa
+- Ritual lab study: https://eillon.maison/ritual
 - Journal: https://eillon.maison/journal

@@ -90,6 +90,18 @@
           <span>Beles · Fico d'India</span>
           <small>Oil-rich parfum — full product page</small>
         </a>
+        <a href="/asmara" data-search-item data-search-keywords="asmara rain on stone espresso cardamom jasmine amber chapter">
+          <span>Asmara · Rain on Stone</span>
+          <small>Chapter II — in production</small>
+        </a>
+        <a href="/massawa" data-search-item data-search-keywords="massawa red sea citrus orange papaya marine chapter">
+          <span>Massawa · Red Sea Citrus</span>
+          <small>Chapter III — coming soon</small>
+        </a>
+        <a href="/ritual" data-search-item data-search-keywords="ritual frankincense myrrh resin lab study incense">
+          <span>Ritual · Frankincense & Myrrh</span>
+          <small>Lab study — studio archive</small>
+        </a>
         <a href="/journal" data-search-item data-search-keywords="journal editorial fico d'india bottle article">
           <span>Journal</span>
           <small>Studio notes and articles</small>

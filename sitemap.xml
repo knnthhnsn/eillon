@@ -33,6 +33,36 @@
     </image:image>
   </url>
   <url>
+    <loc>https://eillon.maison/asmara</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://eillon.maison/images/scent-asmara.jpg</image:loc>
+      <image:title>Asmara · Rain on Stone — Parfum concept</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://eillon.maison/massawa</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://eillon.maison/images/scent-massawa.jpg</image:loc>
+      <image:title>Massawa · Red Sea Citrus — Parfum concept</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://eillon.maison/ritual</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://eillon.maison/images/ritual.jpg</image:loc>
+      <image:title>Ritual · Frankincense & Myrrh — Lab study</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://eillon.maison/journal</loc>
     <lastmod>2026-06-17</lastmod>
     <changefreq>monthly</changefreq>
