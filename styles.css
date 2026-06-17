@@ -3617,10 +3617,13 @@ body.is-loaded .scroll-progress { opacity: 1; }
   .nav__brand-logo { height: 34px; }
 
   .hero {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: flex-start;
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+      "content"
+      "bottle";
+    align-content: start;
+    row-gap: 10px;
     box-sizing: border-box;
     min-height: 100svh;
     min-height: 100dvh;
@@ -3631,8 +3634,9 @@ body.is-loaded .scroll-progress { opacity: 1; }
   }
   .hero__bg-img { object-position: center 38%; }
   .hero__content {
+    grid-area: content;
     position: relative;
-    z-index: 3;
+    z-index: 5;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -3641,10 +3645,10 @@ body.is-loaded .scroll-progress { opacity: 1; }
     width: 100%;
     max-width: none;
     height: auto;
-    flex: 0 0 auto;
+    flex: none;
     margin: 0;
     padding: calc(60px + env(safe-area-inset-top, 0px)) var(--pad) 0;
-    padding-bottom: 14px;
+    padding-bottom: 0;
     box-sizing: border-box;
   }
   .hero__brand {
@@ -3683,30 +3687,33 @@ body.is-loaded .scroll-progress { opacity: 1; }
     font-size: 10px;
   }
   .hero__bottle-stage {
+    grid-area: bottle;
     position: relative;
+    inset: auto;
     left: auto;
     right: auto;
     top: auto;
     bottom: auto;
     transform: none;
-    z-index: 4;
-    flex: 1 1 auto;
+    z-index: 1;
+    flex: none;
     display: flex;
     align-items: flex-end;
     justify-content: center;
-    width: min(72vw, 280px);
-    height: auto;
-    max-width: min(72vw, 280px);
-    max-height: min(44svh, 340px);
-    min-height: min(30svh, 220px);
-    margin: 0 auto max(10px, env(safe-area-inset-bottom, 0px));
-    pointer-events: auto;
+    width: min(68vw, 260px);
+    height: min(34svh, 280px);
+    max-width: min(68vw, 260px);
+    max-height: min(34svh, 280px);
+    min-height: 0;
+    margin: 0 auto max(12px, env(safe-area-inset-bottom, 0px));
+    overflow: hidden;
+    pointer-events: none;
   }
-  body:not(.is-loaded) .hero__bottle-stage {
+  body:not(.is-loaded) .hero .hero__bottle-stage {
     opacity: 0;
-    transform: translateY(20px) scale(0.96);
+    transform: translateY(16px) scale(0.98);
   }
-  body.is-loaded .hero__bottle-stage {
+  body.is-loaded .hero .hero__bottle-stage {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
@@ -3719,6 +3726,7 @@ body.is-loaded .scroll-progress { opacity: 1; }
     display: block;
     width: 100%;
     height: 100%;
+    pointer-events: auto;
   }
   .hero__bottle,
   .hero__bottle-fallback {
@@ -3738,8 +3746,8 @@ body.is-loaded .scroll-progress { opacity: 1; }
   body:not(.is-loaded) .hero__bottle-fallback {
     transform: scale(1.02);
   }
-  body.is-loaded .hero__bottle,
-  body.is-loaded .hero__bottle-fallback {
+  body.is-loaded .hero .hero__bottle,
+  body.is-loaded .hero .hero__bottle-fallback {
     transform: scale(1);
   }
   .hero__scrim {
@@ -3759,13 +3767,12 @@ body.is-loaded .scroll-progress { opacity: 1; }
 
   .hero__content {
     padding-top: calc(58px + env(safe-area-inset-top, 0px));
-    padding-bottom: 12px;
   }
   .hero__bottle-stage {
-    width: min(70vw, 264px);
-    max-width: min(70vw, 264px);
-    max-height: min(42svh, 320px);
-    min-height: min(28svh, 210px);
+    width: min(66vw, 248px);
+    height: min(32svh, 260px);
+    max-width: min(66vw, 248px);
+    max-height: min(32svh, 260px);
   }
   .hero__title { font-size: clamp(38px, 10.5vw, 60px); margin-bottom: 8px; }
   .hero__tagline { font-size: 14px; margin-bottom: 10px; }
@@ -3833,16 +3840,15 @@ body.is-loaded .scroll-progress { opacity: 1; }
 
   .hero__content {
     padding-top: calc(54px + env(safe-area-inset-top, 0px));
-    padding-bottom: 10px;
   }
   .hero__title { font-size: clamp(36px, 10vw, 54px); }
   .hero__tagline { font-size: 13px; max-width: 22ch; margin-bottom: 12px; }
   .hero__cta { gap: 6px; max-width: min(100%, 300px); }
   .hero__bottle-stage {
-    width: min(68vw, 248px);
-    max-width: min(68vw, 248px);
-    max-height: min(40svh, 300px);
-    min-height: min(26svh, 190px);
+    width: min(64vw, 232px);
+    height: min(30svh, 240px);
+    max-width: min(64vw, 232px);
+    max-height: min(30svh, 240px);
   }
 
   .footer__brand img { width: min(92vw, 420px); }
