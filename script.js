@@ -1084,43 +1084,44 @@
     const label = `View ${product.name} · ${product.subtitle}`;
     const bottleAlt = `EILLON ${product.name} · ${product.subtitle} bottle`;
     const isLinked = Boolean(product.url && product.status === 'waitlist-open');
+    const isMoodOnly = Boolean(product.moodImage);
+    const isStage = Boolean(product.scentImage && product.image);
 
-    if (product.moodImage && product.image) {
-      const media = document.createElement(isLinked ? 'a' : 'div');
-      media.className = 'product-card__media product-card__media--swap';
-      if (isLinked) {
+    if (isMoodOnly || isStage) {
+      const media = document.createElement(isLinked && isMoodOnly ? 'a' : 'div');
+      media.className = `product-card__media product-card__media--showcase${isMoodOnly ? ' product-card__media--mood' : ''}`;
+      if (isLinked && isMoodOnly) {
         media.href = product.url;
         media.setAttribute('aria-label', label);
       } else {
         media.setAttribute('aria-hidden', 'true');
       }
 
-      const defaultImg = document.createElement('img');
-      defaultImg.className = 'product-card__img product-card__img--default';
-      appendLazyImage(defaultImg, product.moodImage, bottleAlt);
+      const scene = document.createElement('img');
+      scene.className = 'product-card__scene';
+      appendLazyImage(scene, isMoodOnly ? product.moodImage : product.scentImage, isMoodOnly ? bottleAlt : '');
+      media.appendChild(scene);
 
-      const hoverImg = document.createElement('img');
-      hoverImg.className = 'product-card__img product-card__img--hover';
-      appendLazyImage(hoverImg, product.image, bottleAlt);
+      if (isStage) {
+        const veil = document.createElement('span');
+        veil.className = 'product-card__veil';
+        veil.setAttribute('aria-hidden', 'true');
 
-      media.append(defaultImg, hoverImg);
-      return media;
-    }
+        const pedestal = document.createElement('div');
+        pedestal.className = 'product-card__pedestal';
 
-    if (product.scentImage && product.image) {
-      const media = document.createElement('div');
-      media.className = 'product-card__media product-card__media--layered';
-      media.setAttribute('aria-hidden', 'true');
+        const bottle = document.createElement('img');
+        bottle.className = 'product-card__bottle';
+        appendLazyImage(bottle, product.image, bottleAlt);
 
-      const scent = document.createElement('img');
-      scent.className = 'product-card__scent';
-      appendLazyImage(scent, product.scentImage, '');
+        pedestal.appendChild(bottle);
+        media.append(veil, pedestal);
+      }
 
-      const bottle = document.createElement('img');
-      bottle.className = 'product-card__bottle';
-      appendLazyImage(bottle, product.image, bottleAlt);
-
-      media.append(scent, bottle);
+      const sheen = document.createElement('span');
+      sheen.className = 'product-card__sheen';
+      sheen.setAttribute('aria-hidden', 'true');
+      media.appendChild(sheen);
       return media;
     }
 
