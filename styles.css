@@ -3617,89 +3617,118 @@ body.is-loaded .scroll-progress { opacity: 1; }
   .nav__brand-logo { height: 34px; }
 
   .hero {
-    display: flex;
-    flex-direction: column;
+    position: relative;
+    display: block;
     box-sizing: border-box;
     min-height: 100svh;
     min-height: 100dvh;
     height: 100svh;
     height: 100dvh;
     max-height: 100dvh;
-    padding-bottom: max(16px, env(safe-area-inset-bottom));
+    padding-bottom: 0;
     overflow: hidden;
   }
-  .hero__bg-img { object-position: 48% 35%; }
+  .hero__bg-img { object-position: center 38%; }
   .hero__content {
     position: relative;
     z-index: 3;
-    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
     width: 100%;
-    max-width: var(--max);
+    max-width: none;
     height: auto;
-    margin: 0 auto;
-    padding: clamp(72px, 10vh, 88px) var(--pad) 0;
+    margin: 0;
+    padding: calc(60px + env(safe-area-inset-top, 0px)) var(--pad) 12px;
+    padding-bottom: calc(min(38svh, 260px) + 24px);
+    box-sizing: border-box;
   }
-  .hero__title {
-    font-size: clamp(52px, 13vw, 108px);
+  .hero__brand {
     margin-bottom: 12px;
   }
+  .hero__title {
+    font-size: clamp(40px, 11vw, 64px);
+    margin-bottom: 8px;
+    line-height: 0.9;
+  }
   .hero__tagline {
-    font-size: clamp(15px, 3.8vw, 18px);
-    margin-bottom: 16px;
-    max-width: 28ch;
+    font-size: clamp(14px, 3.6vw, 17px);
+    margin-bottom: 12px;
+    max-width: 22ch;
   }
   .hero__cta {
     width: 100%;
-    max-width: 340px;
+    max-width: 100%;
     flex-direction: column;
     align-items: stretch;
-    gap: 10px;
+    gap: 8px;
   }
   .hero__cta .btn {
     width: 100%;
     justify-content: center;
+    padding: 13px 16px;
+    font-size: 10px;
   }
   .hero__bottle-stage {
-    position: relative;
-    top: auto;
+    position: absolute;
+    left: 50%;
     right: auto;
-    transform: none;
-    align-self: center;
-    flex: 1 1 0;
-    min-height: 0;
-    width: auto;
-    max-width: min(68vw, 260px);
-    height: 100%;
-    max-height: none;
-    margin: clamp(10px, 2vh, 16px) auto 0;
+    top: auto;
+    bottom: max(12px, env(safe-area-inset-bottom, 0px));
+    transform: translateX(-50%);
+    z-index: 4;
+    width: min(58vw, 220px);
+    height: min(38svh, 260px);
+    max-width: min(58vw, 220px);
+    max-height: min(38svh, 260px);
+    min-height: min(32svh, 200px);
+    margin: 0;
+    pointer-events: auto;
   }
   body:not(.is-loaded) .hero__bottle-stage {
     opacity: 0;
-    transform: translateY(64px) scale(0.92);
+    transform: translateX(-50%) translateY(28px) scale(0.96);
   }
   body.is-loaded .hero__bottle-stage {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateX(-50%) translateY(0) scale(1);
   }
   .hero__bottle-glow {
-    width: min(72vw, 300px);
-    height: min(72vw, 300px);
-    top: 54%;
+    width: min(68vw, 260px);
+    height: min(68vw, 260px);
+    top: 56%;
   }
-  .hero__bottle {
+  .hero__bottle-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .hero__bottle,
+  .hero__bottle-fallback {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
     object-position: center bottom;
   }
-  body:not(.is-loaded) .hero__bottle {
-    transform: scale(1.1);
+  .hero__bottle-link.is-static-fallback .hero__bottle-fallback {
+    visibility: visible;
+    opacity: 1;
+    display: block;
   }
-  body.is-loaded .hero__bottle {
-    transform: scale(1.04);
+  body:not(.is-loaded) .hero__bottle,
+  body:not(.is-loaded) .hero__bottle-fallback {
+    transform: scale(1.02);
+  }
+  body.is-loaded .hero__bottle,
+  body.is-loaded .hero__bottle-fallback {
+    transform: scale(1);
   }
   .hero__scrim {
     background:
-      linear-gradient(180deg, rgba(250, 250, 248, 0.72) 0%, rgba(250, 250, 248, 0.22) 40%, rgba(250, 250, 248, 0.08) 65%, rgba(250, 250, 248, 0.45) 100%);
+      linear-gradient(180deg, rgba(250, 250, 248, 0.5) 0%, rgba(250, 250, 248, 0.12) 30%, rgba(250, 250, 248, 0.02) 52%, rgba(250, 250, 248, 0.22) 100%);
   }
 }
 
@@ -3713,20 +3742,19 @@ body.is-loaded .scroll-progress { opacity: 1; }
   .search-panel__results small { text-align: left; }
 
   .hero__content {
-    padding-top: clamp(68px, 9vh, 84px);
+    padding-top: calc(58px + env(safe-area-inset-top, 0px));
+    padding-bottom: calc(min(36svh, 240px) + 20px);
   }
   .hero__bottle-stage {
-    max-width: min(72vw, 240px);
-    margin-top: clamp(8px, 1.5vh, 14px);
+    width: min(56vw, 208px);
+    height: min(36svh, 240px);
+    max-width: min(56vw, 208px);
+    max-height: min(36svh, 240px);
+    min-height: min(30svh, 190px);
   }
-  .hero__title { font-size: clamp(48px, 15vw, 92px); margin-bottom: 10px; }
-  .hero__tagline { font-size: 15px; margin-bottom: 14px; }
-  .hero__brand { font-size: 11px; }
-  .hero__scrim {
-    background:
-      linear-gradient(180deg, rgba(250, 250, 248, 0.78) 0%, rgba(250, 250, 248, 0.24) 30%, rgba(250, 250, 248, 0.06) 50%, rgba(250, 250, 248, 0.62) 100%),
-      linear-gradient(90deg, rgba(250, 250, 248, 0.68) 0%, rgba(250, 250, 248, 0.04) 78%);
-  }
+  .hero__title { font-size: clamp(38px, 10.5vw, 60px); margin-bottom: 8px; }
+  .hero__tagline { font-size: 14px; margin-bottom: 10px; }
+  .hero__brand { font-size: 10px; letter-spacing: 0.24em; }
 
   .bigtext__word { font-size: clamp(72px, 24vw, 160px); }
   .bigtext__sep img { height: clamp(28px, 5vw, 40px); }
@@ -3789,14 +3817,18 @@ body.is-loaded .scroll-progress { opacity: 1; }
   .nav__brand-logo { height: 30px; }
 
   .hero__content {
-    padding-top: clamp(64px, 8vh, 76px);
+    padding-top: calc(54px + env(safe-area-inset-top, 0px));
+    padding-bottom: calc(min(34svh, 220px) + 16px);
   }
-  .hero__title { font-size: clamp(44px, 14vw, 80px); }
-  .hero__tagline { font-size: 14px; max-width: 24ch; margin-bottom: 12px; }
-  .hero__cta { max-width: none; gap: 8px; }
-  .hero__bottle {
-    max-width: min(76vw, 220px);
-    margin-top: 8px;
+  .hero__title { font-size: clamp(36px, 10vw, 54px); }
+  .hero__tagline { font-size: 13px; max-width: 20ch; margin-bottom: 10px; }
+  .hero__cta { gap: 6px; }
+  .hero__bottle-stage {
+    width: min(54vw, 196px);
+    height: min(34svh, 220px);
+    max-width: min(54vw, 196px);
+    max-height: min(34svh, 220px);
+    min-height: min(28svh, 170px);
   }
 
   .footer__brand img { width: min(92vw, 420px); }
@@ -4547,6 +4579,45 @@ a.product-card--link:focus-visible {
 
   .product-card--compact .product-card__image-label-hint {
     font-size: 10px;
+  }
+
+  /* Boutique — image-only cards on mobile */
+  .product-grid.product-grid--boutique {
+    width: 100%;
+    max-width: none;
+    gap: 10px;
+  }
+
+  .product-grid--boutique .product-card--compact.product-card--link {
+    display: block;
+    padding: 0;
+    aspect-ratio: 4 / 5;
+    min-height: 0;
+  }
+
+  .product-grid--boutique .product-card--compact .product-card__body {
+    display: none;
+  }
+
+  .product-grid--boutique .product-card--compact .product-card__media--showcase {
+    margin-bottom: 0;
+    aspect-ratio: auto;
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+  }
+
+  .product-grid--boutique .product-card--compact .product-card__image-label {
+    display: none;
+  }
+
+  .product-grid--boutique .product-card--compact .product-card__bottle {
+    height: clamp(88px, 24vw, 128px);
+    max-width: 48%;
+  }
+
+  .product-grid--boutique .product-card--compact .product-card__veil {
+    opacity: 0.45;
   }
 }
 
