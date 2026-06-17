@@ -755,6 +755,7 @@
   const shopImageInner = shopImage?.querySelector('.shop__image-inner');
   const shopVideo = shopImage?.querySelector('[data-shop-video]');
   const shopSplashSizes = new Set(['50', '100']);
+  const isBelesShop = Boolean(shopImage?.closest('.shop--beles'));
 
   const syncShopVideo = (shouldPlay) => {
     if (!(shopVideo instanceof HTMLVideoElement) || prefersReduced) return;
@@ -767,14 +768,22 @@
     else shopVideo.pause();
   };
 
+  const belesMobileMq = window.matchMedia('(max-width: 900px)');
+
   const applySplashProgress = (progress) => {
     if (!shopImage) return;
     const clamped = Math.min(1, Math.max(0, progress));
     shopImage.style.setProperty('--splash-progress', clamped.toFixed(3));
-    const splashVisible = clamped > 0.35;
+    const onBelesMobile = isBelesShop && belesMobileMq.matches;
+    const splashVisible = onBelesMobile ? false : clamped > 0.35;
     shopImage.classList.toggle('is-splash-visible', splashVisible);
-    if (!canHover.matches) syncShopVideo(splashVisible);
+    const syncSplashVideo =
+      !canHover.matches
+      || (isBelesShop && belesMobileMq.matches);
+    if (syncSplashVideo) syncShopVideo(clamped > 0.28);
   };
+
+  let splashManual = null;
 
   const setShopSplash = (visible) => {
     applySplashProgress(visible ? 1 : 0);
@@ -789,6 +798,7 @@
       shopImageImg.alt = asset.alt;
     }
     shopImage.dataset.productSize = size;
+    splashManual = null;
     applySplashProgress(0);
     if (!canHover.matches) window.dispatchEvent(new Event('scroll'));
   };
@@ -859,25 +869,67 @@
   }
 
   /* ---------- 8d. TOUCH UI — mobile alternatives to hover ---------- */
-  if (!canHover.matches) {
-    let splashManual = null;
+  const useTouchSplash = () => !canHover.matches || (isBelesShop && belesMobileMq.matches);
+
+  if (useTouchSplash()) {
     let touchStartX = 0;
     let touchStartY = 0;
+    let splashLerp = 0;
+    let splashTarget = 0;
+    let splashAnimating = false;
 
     const supportsSplash = () => shopSplashSizes.has(shopImage?.dataset.productSize);
 
-    const updateSplashFromScroll = () => {
-      if (!shopImage || !supportsSplash()) {
-        applySplashProgress(0);
+    const belesScrollProgress = (rect, vh) => {
+      const inView = Math.min(1, Math.max(0, (rect.bottom - vh * 0.08) / (rect.height * 0.85)));
+      const position = Math.min(1, Math.max(0, 1 - (rect.top - vh * 0.1) / (vh * 0.5)));
+      return inView * position;
+    };
+
+    const runSplashLerp = () => {
+      splashLerp += (splashTarget - splashLerp) * 0.16;
+      applySplashProgress(splashLerp);
+      if (Math.abs(splashTarget - splashLerp) > 0.003) {
+        requestAnimationFrame(runSplashLerp);
+      } else {
+        splashLerp = splashTarget;
+        applySplashProgress(splashLerp);
+        splashAnimating = false;
+      }
+    };
+
+    const setSplashTarget = (target) => {
+      splashTarget = target;
+      if (isBelesShop && belesMobileMq.matches) {
+        if (!splashAnimating) {
+          splashAnimating = true;
+          splashLerp = parseFloat(shopImage?.style.getPropertyValue('--splash-progress')) || 0;
+          runSplashLerp();
+        }
         return;
       }
-      if (splashManual !== null) return;
+      applySplashProgress(target);
+    };
+
+    const updateSplashFromScroll = () => {
+      if (!shopImage || !supportsSplash()) {
+        setSplashTarget(0);
+        return;
+      }
 
       const rect = shopImage.getBoundingClientRect();
       const vh = window.innerHeight;
+
+      if (isBelesShop && belesMobileMq.matches) {
+        setSplashTarget(belesScrollProgress(rect, vh));
+        return;
+      }
+
+      if (splashManual !== null) return;
+
       const centerY = rect.top + rect.height * 0.45;
       const progress = Math.min(1, Math.max(0, (vh * 0.72 - centerY) / (vh * 0.32)));
-      applySplashProgress(progress);
+      setSplashTarget(progress);
     };
 
     let splashTick = false;
@@ -885,7 +937,7 @@
       if (splashTick) return;
       splashTick = true;
       requestAnimationFrame(() => {
-        splashManual = null;
+        if (!isBelesShop) splashManual = null;
         updateSplashFromScroll();
         splashTick = false;
       });
@@ -895,7 +947,7 @@
     window.addEventListener('resize', queueSplashScroll);
     queueSplashScroll();
 
-    if (shopImageInner) {
+    if (shopImageInner && !isBelesShop) {
       shopImageInner.addEventListener('touchstart', (e) => {
         if (!supportsSplash() || e.touches.length !== 1) return;
         touchStartX = e.touches[0].clientX;
@@ -910,7 +962,7 @@
         if (Math.abs(dx) < 36 || Math.abs(dx) < Math.abs(dy)) return;
 
         splashManual = dx < 0 ? 1 : 0;
-        applySplashProgress(splashManual);
+        setSplashTarget(splashManual);
       }, { passive: true });
     }
 
