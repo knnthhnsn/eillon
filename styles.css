@@ -4083,6 +4083,20 @@ a.product-card--link:focus-visible {
   margin: clamp(28px, 4vw, 48px) auto 0;
 }
 
+/* Landing — single Beles preview card */
+.product-grid--preview {
+  grid-template-columns: minmax(0, 360px);
+  justify-content: center;
+  margin-inline: auto;
+}
+
+/* Boutique — always 2×2 */
+.product-grid--boutique {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: 920px;
+  margin-inline: auto;
+}
+
 .product-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -4469,7 +4483,7 @@ a.product-card--link:focus-visible {
 }
 
 @media (max-width: 767px) {
-  .product-grid--collection {
+  .product-grid--collection:not(.product-grid--boutique):not(.product-grid--preview) {
     display: flex;
     overflow-x: auto;
     overscroll-behavior-x: contain;
@@ -4480,14 +4494,23 @@ a.product-card--link:focus-visible {
     scrollbar-width: none;
   }
 
-  .product-grid--collection::-webkit-scrollbar {
+  .product-grid--collection:not(.product-grid--boutique):not(.product-grid--preview)::-webkit-scrollbar {
     display: none;
   }
 
-  .product-grid--collection .product-card {
+  .product-grid--collection:not(.product-grid--boutique):not(.product-grid--preview) .product-card {
     flex: 0 0 calc((100% - 12px) / 2);
     min-width: calc((100% - 12px) / 2);
     scroll-snap-align: start;
+  }
+
+  .product-grid--preview {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 320px;
+  }
+
+  .product-grid--boutique {
+    gap: 12px;
   }
 }
 
@@ -4745,8 +4768,7 @@ a.product-card--link:focus-visible {
 }
 
 @media (max-width: 1100px) {
-  .product-grid:not(.product-grid--collection) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .product-grid--collection { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .product-grid:not(.product-grid--collection):not(.product-grid--boutique) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 640px) {

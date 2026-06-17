@@ -1310,20 +1310,28 @@
     return article;
   };
 
+  const getProductsForContainer = (container, products) => {
+    const filter = container.dataset.productPreview || container.dataset.productFilter;
+    if (filter) {
+      return products.filter((product) => product.slug === filter);
+    }
+    return products;
+  };
+
   const renderProductGrids = () => {
     const products = window.EILLON_PRODUCTS;
     if (!Array.isArray(products)) return;
 
     document.querySelectorAll('[data-product-preview]').forEach((container) => {
-      container.classList.add('product-grid', 'product-grid--collection');
-      products.forEach((product) => {
+      container.classList.add('product-grid', 'product-grid--collection', 'product-grid--preview');
+      getProductsForContainer(container, products).forEach((product) => {
         container.appendChild(createProductCard(product, 'preview'));
       });
     });
 
     document.querySelectorAll('[data-product-grid]').forEach((container) => {
       const mode = container.dataset.productGridMode || 'store';
-      container.classList.add('product-grid--collection');
+      container.classList.add('product-grid--collection', 'product-grid--boutique');
       products.forEach((product) => {
         container.appendChild(createProductCard(product, mode));
       });
