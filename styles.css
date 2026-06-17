@@ -3623,7 +3623,7 @@ body.is-loaded .scroll-progress { opacity: 1; }
       "content"
       "bottle";
     align-content: start;
-    row-gap: 10px;
+    row-gap: 18px;
     box-sizing: border-box;
     min-height: 100svh;
     min-height: 100dvh;
@@ -3647,8 +3647,7 @@ body.is-loaded .scroll-progress { opacity: 1; }
     height: auto;
     flex: none;
     margin: 0;
-    padding: calc(60px + env(safe-area-inset-top, 0px)) var(--pad) 0;
-    padding-bottom: 0;
+    padding: calc(80px + env(safe-area-inset-top, 0px)) var(--pad) 8px;
     box-sizing: border-box;
   }
   .hero__brand {
@@ -3705,8 +3704,8 @@ body.is-loaded .scroll-progress { opacity: 1; }
     max-width: min(68vw, 260px);
     max-height: min(34svh, 280px);
     min-height: 0;
-    margin: 0 auto max(12px, env(safe-area-inset-bottom, 0px));
-    overflow: hidden;
+    margin: 0 auto max(16px, env(safe-area-inset-bottom, 0px));
+    overflow: visible;
     pointer-events: none;
   }
   body:not(.is-loaded) .hero .hero__bottle-stage {
@@ -3723,19 +3722,21 @@ body.is-loaded .scroll-progress { opacity: 1; }
     top: 56%;
   }
   .hero__bottle-link {
-    display: block;
+    display: grid;
+    place-items: end center;
     width: 100%;
     height: 100%;
     pointer-events: auto;
   }
   .hero__bottle,
   .hero__bottle-fallback {
-    width: 100%;
+    width: auto;
     height: 100%;
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
     object-position: center bottom;
+    filter: drop-shadow(0 12px 28px rgba(28, 28, 26, 0.14));
   }
   .hero__bottle-link.is-static-fallback .hero__bottle-fallback {
     visibility: visible;
@@ -3749,6 +3750,7 @@ body.is-loaded .scroll-progress { opacity: 1; }
   body.is-loaded .hero .hero__bottle,
   body.is-loaded .hero .hero__bottle-fallback {
     transform: scale(1);
+    filter: drop-shadow(0 12px 28px rgba(28, 28, 26, 0.14));
   }
   .hero__scrim {
     background:
@@ -3766,7 +3768,7 @@ body.is-loaded .scroll-progress { opacity: 1; }
   .search-panel__results small { text-align: left; }
 
   .hero__content {
-    padding-top: calc(58px + env(safe-area-inset-top, 0px));
+    padding-top: calc(76px + env(safe-area-inset-top, 0px));
   }
   .hero__bottle-stage {
     width: min(66vw, 248px);
@@ -3839,7 +3841,7 @@ body.is-loaded .scroll-progress { opacity: 1; }
   .nav__brand-logo { height: 30px; }
 
   .hero__content {
-    padding-top: calc(54px + env(safe-area-inset-top, 0px));
+    padding-top: calc(72px + env(safe-area-inset-top, 0px));
   }
   .hero__title { font-size: clamp(36px, 10vw, 54px); }
   .hero__tagline { font-size: 13px; max-width: 22ch; margin-bottom: 12px; }
