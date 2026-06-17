@@ -95,7 +95,7 @@ window.EILLON_PRODUCTS = [
       base: ['Sandalwood', 'Patchouli', 'Warm skin'],
     },
     palette: ['resin gold', 'smoke grey', 'desert black', 'amber'],
-    scentImage: 'images/scent-ritual.jpg',
+    scentImage: 'images/ritual.jpg',
     image: 'images/plain-bottle-with-logo.webp',
     url: '/store#ritual',
     ctaLabel: 'Follow the lab',

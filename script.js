@@ -361,7 +361,7 @@
   }
 
   /* ---------- 4. PARALLAX ---------- */
-  // Translate any [data-parallax] element vertically with scroll.
+  // Translate [data-parallax] elements on scroll (default: vertical).
   if (!prefersReduced) {
     const parallaxEls = document.querySelectorAll('[data-parallax]');
     let pTicking = false;
@@ -372,12 +372,17 @@
         const y = window.scrollY;
         parallaxEls.forEach((el) => {
           const factor = parseFloat(el.dataset.parallax) || 0.1;
-          el.style.transform = `translate3d(0, ${y * factor * -1}px, 0)`;
+          const offset = y * factor * -1;
+          const axis = el.dataset.parallaxAxis || 'y';
+          el.style.transform = axis === 'x'
+            ? `translate3d(${offset}px, 0, 0)`
+            : `translate3d(0, ${offset}px, 0)`;
         });
         pTicking = false;
       });
     };
     window.addEventListener('scroll', onParallax, { passive: true });
+    onParallax();
   }
 
   /* ---------- 5. HERO — cursor spotlight ---------- */
@@ -1116,6 +1121,24 @@
 
         pedestal.appendChild(bottle);
         media.append(veil, pedestal);
+      }
+
+      if (product.status !== 'waitlist-open') {
+        const imageLabel = document.createElement('span');
+        imageLabel.className = `product-card__image-label product-card__image-label--${product.status}`;
+
+        const statusLine = document.createElement('span');
+        statusLine.className = 'product-card__image-label-status';
+        statusLine.textContent = product.statusLabel;
+
+        const hintLine = document.createElement('span');
+        hintLine.className = 'product-card__image-label-hint';
+        hintLine.textContent = product.status === 'concept-lab'
+          ? 'Lab study — not for sale'
+          : 'Not yet available';
+
+        imageLabel.append(statusLine, hintLine);
+        media.appendChild(imageLabel);
       }
 
       const sheen = document.createElement('span');
