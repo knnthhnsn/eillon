@@ -1142,7 +1142,7 @@
         media.append(veil, pedestal);
       }
 
-      if (product.status !== 'waitlist-open') {
+      if (product.status !== 'waitlist-open' && !cardIsLink) {
         const imageLabel = document.createElement('span');
         imageLabel.className = `product-card__image-label product-card__image-label--${product.status}`;
 

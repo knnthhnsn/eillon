@@ -4150,6 +4150,10 @@ a.product-card--link:focus-visible {
   margin-inline: auto;
 }
 
+.product-grid--boutique .product-card--compact .product-card__image-label {
+  display: none;
+}
+
 .product-card {
   position: relative;
   min-height: 100%;
