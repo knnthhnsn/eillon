@@ -4045,6 +4045,17 @@ body.is-loaded .scroll-progress { opacity: 1; }
   text-shadow: none;
 }
 
+.collection-panel__content > .btn--ghost {
+  color: var(--paper);
+  border-color: rgba(255, 255, 255, 0.32);
+}
+
+.collection-panel__content > .btn--ghost:hover {
+  color: var(--paper);
+  border-color: rgba(255, 255, 255, 0.58);
+  background: rgba(255, 255, 255, 0.1);
+}
+
 .collection-panel .btn--ghost {
   color: var(--ink);
   border-color: var(--line);

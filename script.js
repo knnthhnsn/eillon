@@ -1085,10 +1085,24 @@
     img.decoding = 'async';
   };
 
+  const CHAPTER_SIGNUP_SLUGS = new Set(['beles', 'asmara', 'massawa', 'ritual']);
+
+  const getChapterSignupHref = (slug) => `/${slug}#waitlist`;
+
   const getOverviewCardHref = (product) => {
-    const base = product.url || `/${product.slug}`;
-    return `${base}#waitlist`;
+    if (CHAPTER_SIGNUP_SLUGS.has(product.slug)) {
+      return getChapterSignupHref(product.slug);
+    }
+    return product.url || '/store';
   };
+
+  const legacyChapterHash = window.location.hash.replace(/^#/, '');
+  if (
+    CHAPTER_SIGNUP_SLUGS.has(legacyChapterHash)
+    && /\/store(?:\.html)?$/.test(window.location.pathname)
+  ) {
+    window.location.replace(getChapterSignupHref(legacyChapterHash));
+  }
 
   const buildProductCardMedia = (product, cardIsLink = false) => {
     const label = `View ${product.name} · ${product.subtitle}`;
@@ -1277,6 +1291,12 @@
 
       miniForm.append(email, honeypot, btn, statusLine);
       actions.appendChild(miniForm);
+    } else if (CHAPTER_SIGNUP_SLUGS.has(product.slug)) {
+      const cta = document.createElement('a');
+      cta.className = 'btn btn--ghost';
+      cta.href = getChapterSignupHref(product.slug);
+      cta.innerHTML = `<span>${product.ctaLabel}</span><span class="arrow">→</span>`;
+      actions.appendChild(cta);
     } else {
       const cta = document.createElement('a');
       cta.className = 'btn btn--ghost';
@@ -1338,6 +1358,7 @@
     a.addEventListener('click', (e) => {
       const href = a.getAttribute('href');
       if (!href || !href.includes('#')) return;
+      if (href.startsWith('/') && !href.startsWith(window.location.pathname)) return;
       const hash = href.slice(href.indexOf('#'));
       if (hash.length < 2) return;
       const target = document.querySelector(hash);
