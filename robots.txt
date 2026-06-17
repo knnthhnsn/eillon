@@ -1,8 +1,12 @@
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /waitlist-admin
 
 User-agent: Googlebot
 Allow: /
+Disallow: /api/
+Disallow: /waitlist-admin
 
 User-agent: Googlebot-Image
 Allow: /images/

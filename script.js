@@ -75,33 +75,42 @@
   // Timing is anchored to performance.timeOrigin so every visit gets the full
   // sequence regardless of font cache state or script-parse latency.
   const afterVeil = [];
-  const dropVeil = () => {
-    document.body.classList.add('is-loaded');
-    afterVeil.forEach((fn) => fn());
-  };
-  const minHold = prefersReduced ? 800 : 1200;
+  const minHold = prefersReduced ? 0 : 550;
 
   let dropped = false;
+  const markVeilSeen = () => {
+    try { sessionStorage.setItem('eillon-veil-seen', '1'); } catch (_) {}
+  };
+  const dropVeil = () => {
+    document.body.classList.add('is-loaded');
+    markVeilSeen();
+    afterVeil.forEach((fn) => fn());
+  };
   const releaseVeil = () => {
     if (dropped) return;
     dropped = true;
-    // performance.now() is elapsed since navigation start — perfect anchor.
     const elapsed = performance.now();
     const wait = Math.max(0, minHold - elapsed);
     setTimeout(dropVeil, wait);
   };
 
-  // Trigger as soon as fonts are ready (or 1500ms timeout).
-  if (document.fonts && document.fonts.ready) {
-    Promise.race([
-      document.fonts.ready,
-      new Promise((r) => setTimeout(r, 1500)),
-    ]).then(releaseVeil);
+  let veilSeen = false;
+  try { veilSeen = sessionStorage.getItem('eillon-veil-seen') === '1'; } catch (_) {}
+
+  if (prefersReduced || mobileLayout.matches || veilSeen) {
+    dropped = true;
+    dropVeil();
   } else {
-    window.addEventListener('load', releaseVeil);
+    if (document.fonts && document.fonts.ready) {
+      Promise.race([
+        document.fonts.ready,
+        new Promise((r) => setTimeout(r, 700)),
+      ]).then(releaseVeil);
+    } else {
+      window.addEventListener('load', releaseVeil);
+    }
+    setTimeout(releaseVeil, minHold + 500);
   }
-  // Hard safety net — never let the veil hang past minHold + 800ms.
-  setTimeout(releaseVeil, minHold + 800);
 
   /* ---------- 2. REVEAL ON SCROLL ----------
      Two systems:

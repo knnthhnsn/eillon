@@ -912,8 +912,8 @@ body.is-loaded .veil { transition: visibility 0s linear 1.9s; visibility: hidden
   transition-delay: 0.22s;
 }
 body:not(.is-loaded) .hero__bottle-stage {
-  opacity: 0;
-  transform: translateY(calc(-50% + 80px)) translateX(clamp(40px, 5vw, 88px)) scale(0.94);
+  opacity: 1;
+  transform: translateY(calc(-50% + 24px)) translateX(clamp(16px, 2vw, 40px)) scale(0.97);
   transition-delay: 0s;
 }
 body.is-loaded .hero__bottle-stage {
