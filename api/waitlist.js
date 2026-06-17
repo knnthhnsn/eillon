@@ -1,4 +1,5 @@
 const { ensureTable, upsertSignup } = require('../lib/db');
+const { notifyWaitlistSignup } = require('../lib/waitlist-notify');
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const VALID_PRODUCTS = new Set(['beles', 'asmara', 'massawa', 'ritual', 'all']);
@@ -83,8 +84,12 @@ module.exports = async (req, res) => {
 
   try {
     await ensureTable();
-    await upsertSignup({ email, source, size, productSlug, utm });
+    const signup = await upsertSignup({ email, source, size, productSlug, utm });
     json(res, 200, { ok: true });
+
+    notifyWaitlistSignup(signup).catch((err) => {
+      console.error('waitlist notify failed', err);
+    });
   } catch (err) {
     console.error('waitlist signup failed', err);
     json(res, 500, { error: 'Could not save signup' });

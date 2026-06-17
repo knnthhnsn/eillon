@@ -36,6 +36,17 @@ Plain `python -m http.server` does **not** rewrite URLs — use `/beles.html` in
 
 Waitlist API requires `npx vercel dev` with `DATABASE_URL` configured.
 
+Optional signup notifications (Resend):
+
+| Variable | Purpose |
+|----------|---------|
+| `RESEND_API_KEY` | Resend API key |
+| `WAITLIST_NOTIFY_EMAIL` | Your email(s), comma-separated |
+| `RESEND_FROM` | Verified sender, e.g. `EILLON <notifications@eillon.maison>` |
+| `WAITLIST_NOTIFY_ON_UPDATE` | Set to `true` to also email when someone re-submits |
+
+Notifications are sent after each **new** signup. Re-submits are skipped unless `WAITLIST_NOTIFY_ON_UPDATE=true`. A failed notification never blocks the signup.
+
 ### Full stack (waitlist API)
 
 ```powershell
