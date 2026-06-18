@@ -42,10 +42,14 @@ Optional signup notifications (Resend):
 |----------|---------|
 | `RESEND_API_KEY` | Resend API key |
 | `WAITLIST_NOTIFY_EMAIL` | Your email(s), comma-separated |
-| `RESEND_FROM` | Verified sender, e.g. `EILLON <notifications@eillon.maison>` |
+| `RESEND_FROM` | Verified sender, e.g. `EILLON <care@eillon.maison>` |
 | `WAITLIST_NOTIFY_ON_UPDATE` | Set to `true` to also email when someone re-submits |
 
 Notifications are sent after each **new** signup. Re-submits are skipped unless `WAITLIST_NOTIFY_ON_UPDATE=true`. A failed notification never blocks the signup.
+
+### care@eillon.maison (receiving)
+
+Public `mailto:care@eillon.maison` links require Porkbun email forwarding + MX records. See [docs/care-email-setup.md](docs/care-email-setup.md). Quick check: `node scripts/check-email-dns.mjs`.
 
 ### Full stack (waitlist API)
 
