@@ -1272,23 +1272,40 @@
     const label = `View ${product.name} · ${product.subtitle}`;
     const bottleAlt = `EILLON ${product.name} · ${product.subtitle} bottle`;
     const isLinked = Boolean(product.url && isOutOfStock(product) && product.slug === 'beles') && !cardIsLink;
-    const isMoodOnly = Boolean(product.moodImage);
+    const hasSceneVideo = Boolean(product.sceneVideo);
+    const isMoodOnly = Boolean(product.moodImage || hasSceneVideo);
     const isStage = Boolean(product.scentImage && product.image);
 
     if (isMoodOnly || isStage) {
-      const media = document.createElement(isLinked && isMoodOnly ? 'a' : 'div');
+      const media = document.createElement(isLinked && isMoodOnly && !hasSceneVideo ? 'a' : 'div');
       media.className = `product-card__media product-card__media--showcase${isMoodOnly ? ' product-card__media--mood' : ''}`;
-      if (isLinked && isMoodOnly) {
+      if (isLinked && isMoodOnly && !hasSceneVideo) {
         media.href = product.url;
         media.setAttribute('aria-label', label);
       } else {
         media.setAttribute('aria-hidden', 'true');
       }
 
-      const scene = document.createElement('img');
-      scene.className = 'product-card__scene';
-      appendLazyImage(scene, isMoodOnly ? product.moodImage : product.scentImage, isMoodOnly ? bottleAlt : '');
-      media.appendChild(scene);
+      if (hasSceneVideo && !prefersReduced) {
+        const scene = document.createElement('video');
+        scene.className = 'product-card__scene';
+        scene.dataset.cardSceneVideo = '';
+        scene.muted = true;
+        scene.loop = true;
+        scene.setAttribute('playsinline', '');
+        scene.preload = 'none';
+        if (product.scenePoster) scene.poster = product.scenePoster;
+        const source = document.createElement('source');
+        source.src = product.sceneVideo;
+        source.type = 'video/mp4';
+        scene.appendChild(source);
+        media.appendChild(scene);
+      } else {
+        const scene = document.createElement('img');
+        scene.className = 'product-card__scene';
+        appendLazyImage(scene, isMoodOnly ? product.moodImage : product.scentImage, isMoodOnly ? bottleAlt : '');
+        media.appendChild(scene);
+      }
 
       if (isStage) {
         const veil = document.createElement('span');
@@ -1484,6 +1501,22 @@
     return products;
   };
 
+  const initCardSceneVideos = () => {
+    if (prefersReduced) return;
+    document.querySelectorAll('[data-card-scene-video]').forEach((video) => {
+      if (!(video instanceof HTMLVideoElement)) return;
+      const root = video.closest('.product-card, .collection-panel') || video;
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) playVideoSafe(video);
+          else video.pause();
+        },
+        { threshold: 0.15, rootMargin: '0px 0px -2% 0px' }
+      );
+      observer.observe(root);
+    });
+  };
+
   const renderProductGrids = () => {
     const products = window.EILLON_PRODUCTS;
     if (!Array.isArray(products)) return;
@@ -1506,6 +1539,7 @@
   };
 
   renderProductGrids();
+  initCardSceneVideos();
 
   /* ---------- 11. SMOOTH ANCHOR SCROLL ---------- */
   const scrollToHashTarget = (hash, { focusEmail = false } = {}) => {

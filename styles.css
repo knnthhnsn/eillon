@@ -2135,8 +2135,36 @@ body.is-loaded .hero__cta { opacity: 1; transform: translateY(0); }
   display: block;
 }
 
+.shop--beles .shop__grid {
+  align-items: stretch;
+}
+
+.shop--beles .shop__visual-column {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.shop--beles .shop__column-splash {
+  flex: 1;
+  min-height: clamp(120px, 18vh, 280px);
+  overflow: hidden;
+  border: 1px solid var(--line-soft);
+  border-top: 0;
+}
+
+.shop--beles .shop__column-splash picture,
+.shop--beles .shop__column-splash img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 32%;
+}
+
 .shop--beles .shop__image {
   align-self: start;
+  flex-shrink: 0;
 }
 
 .shop__info {
@@ -3772,6 +3800,14 @@ body.is-loaded .scroll-progress { opacity: 1; }
 
   .shop__grid { grid-template-columns: 1fr; gap: 40px; }
   .shop__image { aspect-ratio: 4/5; max-width: 560px; margin: 0 auto; width: 100%; }
+  .shop--beles .shop__visual-column {
+    min-height: 0;
+  }
+
+  .shop--beles .shop__column-splash {
+    display: none;
+  }
+
   .shop--beles .shop__image {
     position: relative;
     top: auto;
@@ -4303,7 +4339,7 @@ body.is-loaded .scroll-progress { opacity: 1; }
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
-  background: #c8b4a8 url("images/red-sea.png") center / cover no-repeat;
+  background: #c8b4a8 url("images/beles-splash.webp") center / cover no-repeat;
 }
 
 .collection-panel__video {
@@ -4313,13 +4349,12 @@ body.is-loaded .scroll-progress { opacity: 1; }
   height: 100%;
   object-fit: cover;
   object-position: center 42%;
-  opacity: 0;
-  transform: scale(1.06);
-  transition: opacity 1.4s var(--ease-out), transform 2.4s var(--ease-out);
+  opacity: 1;
+  transform: scale(1.04);
+  transition: transform 2.4s var(--ease-out);
 }
 
 .collection-panel.is-inview .collection-panel__video {
-  opacity: 1;
   transform: scale(1);
 }
 
@@ -4913,6 +4948,7 @@ a.product-card--link:focus-visible {
 
 @media (prefers-reduced-motion: reduce) {
   .collection-panel__video,
+  .product-card__scene[data-card-scene-video],
   .ritual__video {
     display: none;
   }
@@ -5402,7 +5438,8 @@ a.product-card--link:focus-visible {
 
 /* ---------- CHAPTER NAV ---------- */
 .chapter-nav {
-  z-index: 45;
+  margin-top: clamp(72px, 9vw, 96px);
+  z-index: 40;
   background: rgba(250, 250, 248, 0.92);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(28, 28, 26, 0.08);
@@ -5474,6 +5511,12 @@ a.product-card--link:focus-visible {
   text-decoration: none;
 }
 .chapter-nav__back:hover { color: var(--gold-dark); }
+
+.editorial-page:has(.chapter-nav) .editorial-page__main,
+.editorial-page:has(.chapter-nav) .beles-page__main,
+.editorial-page:has(.chapter-nav) .chapter-page__main {
+  padding-top: 0;
+}
 
 /* ---------- INFO PAGE EXTRAS ---------- */
 .info-page__table-wrap {

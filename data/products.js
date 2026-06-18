@@ -18,6 +18,8 @@ window.EILLON_PRODUCTS = [
       base: ['Soft musk', 'Mineral air', 'Warm stone'],
     },
     palette: ['cream', 'blush pink', 'cactus green', 'mineral aqua', 'sandstone'],
+    sceneVideo: 'images/beles-showcase.mp4',
+    scenePoster: 'images/beles-splash.webp',
     moodImage: 'images/beles-mood.png',
     image: 'images/beles-no-background.webp',
     fallbackImage: 'images/beles-no-background.png',
