@@ -1501,6 +1501,38 @@ body.is-loaded .hero__cta { opacity: 1; transform: translateY(0); }
   color: var(--gold-dark);
 }
 
+.story__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 8px;
+}
+.story__overview {
+  margin: 18px 0 0;
+}
+.story__overview-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: color 0.4s var(--ease), gap 0.5s var(--ease);
+}
+.story__overview-trigger .arrow { transition: transform 0.5s var(--ease); }
+.story__overview-trigger:hover {
+  color: var(--gold-dark);
+  gap: 12px;
+}
+.story__overview-trigger:hover .arrow { transform: translateX(4px); }
+
 .story__aside {
   grid-area: aside;
   display: flex;
@@ -5295,7 +5327,8 @@ a.product-card--link:focus-visible {
 @media (max-width: 640px) {
   .product-grid:not(.product-grid--collection) { grid-template-columns: 1fr; }
   .status-guide__list { grid-template-columns: 1fr; }
-  .boutique-cta__actions { flex-direction: column; align-items: stretch; }
+  .boutique-cta__actions,
+  .story__actions { flex-direction: column; align-items: stretch; }
 }
 
 /* Below-fold sections — skip rendering until near viewport */
