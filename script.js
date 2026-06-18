@@ -1138,6 +1138,32 @@
     'concept-lab': 'product-card__status--lab',
   };
 
+  const buildStoreCardCaption = (product) => {
+    const caption = document.createElement('div');
+    caption.className = 'product-card__caption';
+
+    const status = document.createElement('span');
+    status.className = `product-card__caption-status ${STATUS_CLASS[product.status] || ''}`;
+    status.textContent = product.statusLabel;
+
+    const title = document.createElement('span');
+    title.className = 'product-card__caption-title';
+    title.textContent = `${product.name} · ${product.subtitle}`;
+
+    const hint = document.createElement('span');
+    hint.className = 'product-card__caption-hint';
+    if (product.status === 'waitlist-open') {
+      hint.textContent = 'Priority access before release';
+    } else if (product.status === 'concept-lab') {
+      hint.textContent = 'Lab study — not for sale';
+    } else {
+      hint.textContent = 'Not yet available';
+    }
+
+    caption.append(status, title, hint);
+    return caption;
+  };
+
   const buildNotePyramid = (notes) => {
     const pyramid = document.createElement('div');
     pyramid.className = 'product-card__pyramid';
@@ -1247,6 +1273,20 @@
 
         imageLabel.append(statusLine, hintLine);
         media.appendChild(imageLabel);
+      } else {
+        const imageLabel = document.createElement('span');
+        imageLabel.className = 'product-card__image-label product-card__image-label--waitlist-open';
+
+        const statusLine = document.createElement('span');
+        statusLine.className = 'product-card__image-label-status';
+        statusLine.textContent = product.statusLabel;
+
+        const hintLine = document.createElement('span');
+        hintLine.className = 'product-card__image-label-hint';
+        hintLine.textContent = `${product.name} · ${product.subtitle}`;
+
+        imageLabel.append(statusLine, hintLine);
+        media.appendChild(imageLabel);
       }
 
       const sheen = document.createElement('span');
@@ -1285,7 +1325,9 @@
 
       card.appendChild(buildProductCardMedia(product, true));
 
-      if (mode !== 'store') {
+      if (mode === 'store') {
+        card.appendChild(buildStoreCardCaption(product));
+      } else if (mode !== 'store') {
         const body = document.createElement('div');
         body.className = 'product-card__body';
 
