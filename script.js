@@ -817,6 +817,11 @@
     const clamped = Math.min(1, Math.max(0, progress));
     shopImage.style.setProperty('--splash-progress', clamped.toFixed(3));
     const onBelesMobile = isBelesShop && belesMobileMq.matches;
+    if (isBelesShop) {
+      shopImage.classList.remove('is-splash-visible');
+      if (onBelesMobile) return;
+      return;
+    }
     if (!onBelesMobile) {
       const splashVisible = clamped > 0.35;
       shopImage.classList.toggle('is-splash-visible', splashVisible);

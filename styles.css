@@ -2195,7 +2195,8 @@ body.is-loaded .hero__cta { opacity: 1; transform: translateY(0); }
 }
 
 .shop--beles .shop__image {
-  align-self: start;
+  width: 100%;
+  align-self: stretch;
   flex-shrink: 0;
 }
 
