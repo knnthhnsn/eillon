@@ -5452,20 +5452,16 @@ a.product-card--link:focus-visible {
 
 /* ---------- MAISON STORY MODAL ---------- */
 .maison-modal {
+  display: none;
   position: fixed;
   inset: 0;
   z-index: 1200;
-  display: grid;
   place-items: center;
   padding: var(--pad);
-  opacity: 0;
-  visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.35s ease, visibility 0.35s ease;
 }
 .maison-modal.is-open {
-  opacity: 1;
-  visibility: visible;
+  display: grid;
   pointer-events: auto;
 }
 .maison-modal__backdrop {
