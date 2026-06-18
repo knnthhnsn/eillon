@@ -3961,6 +3961,18 @@ body.is-loaded .scroll-progress { opacity: 1; }
 
 @media (max-width: 900px) {
   .nav__links { display: none; }
+  .hero__title-word .ltr {
+    opacity: 1;
+    transform: translateY(0) skewY(0);
+    transition: none;
+  }
+  .hero__brand,
+  .hero__tagline,
+  .hero__cta {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
   .nav__inner {
     display: flex;
     align-items: center;

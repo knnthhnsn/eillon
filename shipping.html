@@ -7,6 +7,15 @@
   <meta name="description" content="EILLON shipping and returns — complimentary worldwide delivery on orders, 30-day returns on unopened bottles, and guidance on samples and engraved pieces." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://eillon.maison/shipping" />
+  <link rel="alternate" hreflang="en-dk" href="https://eillon.maison/shipping" />
+  <link rel="alternate" hreflang="en" href="https://eillon.maison/shipping" />
+  <link rel="alternate" hreflang="x-default" href="https://eillon.maison/shipping" />
+  <meta name="geo.region" content="DK-84" />
+  <meta name="geo.placename" content="Copenhagen, Capital Region of Denmark" />
+  <meta name="geo.position" content="55.6761;12.5683" />
+  <meta name="ICBM" content="55.6761, 12.5683" />
+  <meta name="geo.country" content="DK" />
+  <meta http-equiv="content-language" content="en-DK" />
   <link rel="icon" href="images/plain-bottle-with-logo.png" type="image/png" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="EILLON" />
@@ -39,7 +48,54 @@
           "name": "Shipping & Returns — EILLON",
           "url": "https://eillon.maison/shipping",
           "description": "Complimentary worldwide delivery and 30-day returns on unopened EILLON orders.",
-          "isPartOf": { "@id": "https://eillon.maison/#website" }
+          "inLanguage": "en-DK",
+          "isPartOf": { "@id": "https://eillon.maison/#website" },
+          "about": { "@id": "https://eillon.maison/#organization" }
+        },
+        {
+          "@type": "OfferShippingDetails",
+          "shippingOrigin": {
+            "@type": "Place",
+            "name": "EILLON Copenhagen studio",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Copenhagen",
+              "postalCode": "1050",
+              "addressCountry": "DK"
+            }
+          },
+          "shippingDestination": [
+            { "@type": "DefinedRegion", "addressCountry": "DK" },
+            { "@type": "DefinedRegion", "addressCountry": "SE" },
+            { "@type": "DefinedRegion", "addressCountry": "NO" },
+            { "@type": "DefinedRegion", "addressCountry": "DE" },
+            { "@type": "DefinedRegion", "addressCountry": "FR" },
+            { "@type": "DefinedRegion", "addressCountry": "GB" },
+            { "@type": "DefinedRegion", "addressCountry": "US" }
+          ],
+          "deliveryTime": {
+            "@type": "ShippingDeliveryTime",
+            "handlingTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 1,
+              "maxValue": 3,
+              "unitCode": "DAY"
+            },
+            "transitTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 2,
+              "maxValue": 12,
+              "unitCode": "DAY"
+            }
+          }
+        },
+        {
+          "@type": "MerchantReturnPolicy",
+          "applicableCountry": ["DK", "SE", "NO", "DE", "FR", "GB", "US"],
+          "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+          "merchantReturnDays": 30,
+          "returnMethod": "https://schema.org/ReturnByMail",
+          "returnFees": "https://schema.org/FreeReturn"
         },
         {
           "@type": "FAQPage",

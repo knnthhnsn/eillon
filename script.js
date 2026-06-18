@@ -30,6 +30,20 @@
     video.appendChild(source);
   };
 
+  const lazyVideoSources = new WeakSet();
+
+  const ensureLazyVideoSource = (video) => {
+    if (!(video instanceof HTMLVideoElement)) return false;
+    if (lazyVideoSources.has(video)) return true;
+
+    const mp4 = video.dataset.src || video.dataset.mp4;
+    if (!mp4) return Boolean(video.querySelector('source') || video.getAttribute('src'));
+
+    addVideoSource(video, mp4, 'video/mp4');
+    lazyVideoSources.add(video);
+    return true;
+  };
+
   const configureBottleVideo = (video) => {
     if (!(video instanceof HTMLVideoElement)) return { mode: 'none' };
 
@@ -655,8 +669,12 @@
           section.classList.toggle('is-inview', inView);
           videos.forEach((video) => {
             if (!(video instanceof HTMLVideoElement)) return;
-            if (inView) playVideoSafe(video);
-            else video.pause();
+            if (inView) {
+              ensureLazyVideoSource(video);
+              playVideoSafe(video);
+            } else {
+              video.pause();
+            }
           });
         };
 
@@ -726,8 +744,12 @@
           ([entry]) => {
             const inView = entry.isIntersecting;
             syncPanel(inView);
-            if (inView) playVideoSafe(video);
-            else video.pause();
+            if (inView) {
+              ensureLazyVideoSource(video);
+              playVideoSafe(video);
+            } else {
+              video.pause();
+            }
           },
           { threshold: 0.15, rootMargin: '0px 0px -2% 0px' }
         );
@@ -751,7 +773,10 @@
           const rect = panel.getBoundingClientRect();
           const inView = rect.bottom > 0 && rect.top < window.innerHeight * 0.92;
           panel.classList.toggle('is-inview', inView);
-          if (inView) playVideoSafe(video);
+          if (inView) {
+            ensureLazyVideoSource(video);
+            playVideoSafe(video);
+          }
         });
       });
     } else {
@@ -1381,7 +1406,6 @@
       card.className = `product-card product-card--${product.slug} product-card--compact product-card--link`;
       card.id = `card-${product.slug}`;
       card.href = getOverviewCardHref(product);
-      card.setAttribute('aria-label', `${product.name} · ${product.subtitle}`);
 
       card.appendChild(buildProductCardMedia(product, true));
       card.appendChild(buildStoreCardCaption(product));
