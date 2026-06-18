@@ -3251,6 +3251,13 @@ body.is-loaded .hero__cta { opacity: 1; transform: translateY(0); }
 
 .beles-page__main .shop--beles {
   border-top: 0;
+}
+
+.chapter-page__main .shop--chapter {
+  border-top: 0;
+}
+
+.editorial-page:has(.chapter-nav) .shop {
   padding-top: clamp(24px, 3vw, 40px);
 }
 
@@ -3286,10 +3293,6 @@ body.is-loaded .hero__cta { opacity: 1; transform: translateY(0); }
 .chapter-page__main {
   flex: 1;
   width: 100%;
-}
-
-.chapter-page__main .shop--chapter {
-  border-top: 0;
 }
 
 .chapter-page__main .notes {
