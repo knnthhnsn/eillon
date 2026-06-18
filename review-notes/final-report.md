@@ -1,6 +1,6 @@
 # Final Report — EILLON Review Loop 2026-06-18
 
-**Automation run:** 2026-06-18T07:02 UTC (cron) — verified prior loop; applied privacy + llms.txt gaps.
+**Automation run:** 2026-06-18T11:00 UTC (cron) — includes prior 07:02 privacy/llms fixes + search overlay fix
 
 ## External ChatGPT review summary
 
@@ -8,10 +8,11 @@
 
 ### Strongest suggestions (accepted)
 
-1. Fix misleading `PreOrder` schema on non-purchasable chapters
-2. Add visible Beles name/status on store boutique cards
-3. Remove fake stockist implication in footer navigation
-4. Align journal copy to “oil-rich” brand language
+1. Fix site-wide search overlay: “Appointments” / stockists / broken `#stockists` anchor
+2. Fix misleading `PreOrder` schema on non-purchasable chapters (prior loop — verified)
+3. Store boutique card captions for all chapters (prior loop — verified)
+4. Remove fake stockist implication in footer navigation (prior loop — verified)
+5. Privacy copy accuracy — no “appointment data” when no appointments flow (07:02 run)
 
 ### Weakest suggestions (rejected)
 
@@ -19,6 +20,7 @@
 - Adding Contact/Appointments pages
 - Discovery set merchandising push
 - Stockist directory without real partners
+- Reverting intentional out-of-stock status
 
 ### Rejected and why
 
@@ -27,49 +29,32 @@
 | Contact / Appointments pages | Brand rules — studio mailto is sufficient |
 | Discovery sample kit push | Brand rules |
 | Stockist directory | Would imply fake availability |
-| Homepage hero rewrite | Current maison copy is strong; low confidence gain |
-| Full cache-bust unification | Cosmetic scope creep |
+| Homepage hero rewrite | Current maison copy is strong |
+| Revert to waitlist-open copy | Codebase + live site intentionally out-of-stock |
 
 ---
 
 ## Implemented changes
 
-### 1. `asmara.html`, `massawa.html`
-- **What:** Product schema `availability` changed from `PreOrder` to `OutOfStock`; offer URL points to chapter page
-- **Why:** Pages explicitly state not purchasable; schema must match
-- **Expected effect:** Accurate structured data for future chapters
+### 1. `scripts/site-nav.js` (11:00 run)
+- **What:** Search item renamed “Copenhagen studio”; subtitle no longer mentions stockists; href changed from `#stockists` to `#studio` (or `/#studio` off-homepage)
+- **Why:** Footer already uses `#studio`; old anchor was broken and implied stockists that do not exist
+- **Expected effect:** Search works on all pages; no misleading stockist language
 
-### 2. `ritual.html`
-- **What:** Removed `offers` block from Product JSON-LD
-- **Why:** Lab study is not for sale
-- **Expected effect:** No purchase implication in search/AI crawlers
+### 2–6. Prior loop changes (verified, no edits needed)
+- `asmara.html`, `massawa.html` — `OutOfStock` schema
+- `ritual.html` — no purchase offer in schema
+- `script.js`, `styles.css`, `store.html` — boutique card captions
+- `journal/fico-d-india.html` — oil-rich terminology
+- `index.html` — Copenhagen studio footer link
+- `lib/waitlist-notify.js` — no hardcoded personal email fallback
 
-### 3. `script.js`, `styles.css`, `store.html`
-- **What:** Added waitlist-open image overlay label (status + chapter name) on boutique product cards; bumped cache versions
-- **Why:** Beles card was image-only in store grid while other chapters had status overlays
-- **Expected effect:** All four boutique cards readable without opening each page
-
-### 4. `journal/fico-d-india.html`
-- **What:** “Oil-based parfum” → “Oil-rich parfum” in article CTA
-- **Why:** Site-wide terminology standard
-- **Expected effect:** Consistent brand language
-
-### 5. `index.html`
-- **What:** Footer “Find a Stockist” → “Copenhagen studio”; search “Appointments” → “Copenhagen studio”
-- **Why:** No stockists listed; avoids misleading navigation
-- **Expected effect:** Clearer studio appointment path via `#studio`
-
-### 6. `lib/waitlist-notify.js`
-- **What:** Removed hardcoded personal Gmail fallback
-- **Why:** Privacy/safety — notifications should require explicit env configuration
-- **Expected effect:** Signups still save; admin email only when `WAITLIST_NOTIFY_EMAIL` or `ADMIN_NOTIFY_EMAIL` is set
-
-### 7. `privacy.html` (this run)
+### 7. `privacy.html` (07:02 run)
 - **What:** Removed “appointment data” from meta and body; references waitlist, newsletter, and care enquiries only
 - **Why:** No appointments flow on site; accurate disclosure
 - **Expected effect:** Privacy copy matches actual data collection
 
-### 8. `llms.txt` (this run)
+### 8. `llms.txt` (07:02 run)
 - **What:** Added journal article URLs (Fico d'India, The bottle)
 - **Why:** Complete AI crawler context
 - **Expected effect:** Better LLM indexing of editorial content
@@ -86,29 +71,29 @@
 
 | Page | `product_slug` | Status language |
 |------|----------------|-----------------|
-| `/beles` | `beles` | Waitlist open |
-| `/asmara` | `asmara` | In production / updates |
-| `/massawa` | `massawa` | Coming soon / notify |
-| `/ritual` | `ritual` | Lab study / not for sale |
+| `/beles` | `beles` | Out of stock — notify when back |
+| `/asmara` | `asmara` | Out of stock — restock note |
+| `/massawa` | `massawa` | Out of stock — restock note |
+| `/ritual` | `ritual` | Lab study — not for sale |
 | `/store` letter | `all` | Newsletter |
 | `/` footer | `all` | Newsletter |
 
-### Console / assets
+### Other checks
 
-- Local dev server: no startup errors
-- All referenced image assets present in `/images`
-- Schema validation: asmara/massawa `OutOfStock`; ritual no `PreOrder`
+- `npm run verify` — passed (out-of-stock marketing OK)
+- Referenced image assets in core HTML/CSS/JS — all present
+- Schema: asmara/massawa `OutOfStock`; ritual no `PreOrder`
+- No `kennethchristoffer@gmail.com` in HTML/JS served to users
 
 ### Known issues
 
 - None blocking deploy from this loop
-- Admin waitlist notifications require env vars to be set (intentional after removing hardcoded fallback)
 
 ---
 
 ## Deployment notes
 
-**Safe to deploy:** Yes — focused static + notify safety changes.
+**Safe to deploy:** Yes — focused navigation fix plus prior verified improvements.
 
 **Environment variables:**
 
@@ -118,24 +103,16 @@
 
 **Manual checks after deploy:**
 
-1. Open `/store` on mobile — confirm Beles card shows “Waitlist open” + “Beles · Fico d'India” overlay
-2. Rich-results test on `/asmara`, `/ritual` if desired
-3. Submit test waitlist signup and confirm admin notify only when env is configured
+1. Open search on any page → tap “Copenhagen studio” → should land on homepage studio block
+2. Confirm no “Appointments” or “stockists” in search results
+3. `/store` on mobile — confirm all four chapter cards show status captions
 
 ---
 
-## Files changed
+## Files changed this run
 
-- `asmara.html`
-- `massawa.html`
-- `ritual.html`
-- `journal/fico-d-india.html`
-- `index.html`
-- `store.html`
-- `script.js`
-- `styles.css`
-- `lib/waitlist-notify.js`
-- `review-notes/chatgpt-live-review.md` (new)
-- `review-notes/suggestion-triage.md` (new)
-- `review-notes/implementation-plan.md` (new)
-- `review-notes/final-report.md` (new)
+- `scripts/site-nav.js`
+- `review-notes/chatgpt-live-review.md`
+- `review-notes/suggestion-triage.md`
+- `review-notes/implementation-plan.md`
+- `review-notes/final-report.md`
