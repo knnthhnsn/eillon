@@ -2,7 +2,7 @@
   "name": "eillon",
   "private": true,
   "scripts": {
-    "dev": "python scripts/dev-server.py",
+    "dev": "python3 scripts/dev-server.py",
     "dev:api": "vercel dev"
   },
   "dependencies": {
