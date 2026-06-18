@@ -21,7 +21,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=110" />
+  <link rel="stylesheet" href="styles.css?v=113" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -110,29 +110,44 @@
     <!-- ============ BOUTIQUE / WAITLIST ============ -->
     <section class="shop shop--beles" id="waitlist">
       <div class="shop__grid">
-        <figure class="shop__image" data-reveal="image" data-selected-volume="100 ML" data-product-size="100" aria-label="Beles · Fico d'India — bottle with golden-hour wear imagery">
-          <div class="shop__image-inner">
-            <span class="shop__image-layer shop__image-layer--bottle">
-              <picture>
-                <source type="image/webp" srcset="images/beles-no-background.webp" data-shop-webp />
-                <img src="images/beles-no-background.png" width="1024" height="1536" loading="lazy" decoding="async" alt="EILLON Beles 100 ml — out of stock" data-shop-img />
-              </picture>
-            </span>
-            <span class="shop__image-layer shop__image-layer--setting" aria-hidden="true">
-              <video
-                class="shop__image-video"
-                data-shop-video
-                muted
-                loop
-                playsinline
-                preload="none"
-                poster="images/ken-beles.png"
-              >
-                <source src="images/ken-beles.mp4" type="video/mp4" />
-              </video>
-            </span>
+        <div class="shop__visual-column">
+          <figure class="shop__image" data-reveal="image" data-selected-volume="100 ML" data-product-size="100" aria-label="Beles · Fico d'India — bottle with golden-hour wear imagery">
+            <div class="shop__image-inner">
+              <span class="shop__image-layer shop__image-layer--bottle">
+                <picture>
+                  <source type="image/webp" srcset="images/beles-no-background.webp" data-shop-webp />
+                  <img src="images/beles-no-background.png" width="1024" height="1536" loading="lazy" decoding="async" alt="EILLON Beles 100 ml — out of stock" data-shop-img />
+                </picture>
+              </span>
+              <span class="shop__image-layer shop__image-layer--setting" aria-hidden="true">
+                <video
+                  class="shop__image-video"
+                  data-shop-video
+                  muted
+                  loop
+                  playsinline
+                  preload="none"
+                  poster="images/ken-beles.png"
+                >
+                  <source src="images/ken-beles.mp4" type="video/mp4" />
+                </video>
+              </span>
+            </div>
+          </figure>
+          <div class="shop__column-splash" aria-hidden="true">
+            <picture>
+              <source type="image/webp" srcset="images/beles-splash.webp" />
+              <img
+                src="images/beles-splash.png"
+                width="1200"
+                height="1500"
+                loading="lazy"
+                decoding="async"
+                alt=""
+              />
+            </picture>
           </div>
-        </figure>
+        </div>
 
         <div class="shop__info">
           <span class="eyebrow reveal">Boutique — Out of stock</span>
