@@ -1285,6 +1285,22 @@
 
       card.appendChild(buildProductCardMedia(product, true));
 
+      if (mode === 'store') {
+        const caption = document.createElement('div');
+        caption.className = 'product-card__boutique-caption';
+
+        const status = document.createElement('span');
+        status.className = `product-card__status ${STATUS_CLASS[product.status] || ''}`;
+        status.textContent = product.statusLabel;
+
+        const name = document.createElement('span');
+        name.className = 'product-card__boutique-name';
+        name.textContent = `${product.name} · ${product.subtitle}`;
+
+        caption.append(status, name);
+        card.appendChild(caption);
+      }
+
       if (mode !== 'store') {
         const body = document.createElement('div');
         body.className = 'product-card__body';
