@@ -1265,7 +1265,7 @@
         media.append(veil, pedestal);
       }
 
-      if (isOutOfStock(product)) {
+      if (isOutOfStock(product) && !cardIsLink) {
         const imageLabel = document.createElement('span');
         imageLabel.className = 'product-card__image-label product-card__image-label--out-of-stock';
 
