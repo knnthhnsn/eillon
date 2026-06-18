@@ -1,19 +1,23 @@
 # EILLON
 
-> Afro-Mediterranean memory perfumery. Red Sea memories, bottled.
+> Afro-Mediterranean memory perfumery. Oil-rich parfums composed in Copenhagen, Denmark.
 
 ## Brand
 - Name: EILLON
 - Category: Independent perfume maison
-- Niche: Afro-Mediterranean memory perfumery
-- Location: Copenhagen, Denmark
+- Niche: Afro-Mediterranean memory perfumery — oil-rich parfums, not diluted alcohol-forward scents
+- Location: Copenhagen, Denmark (Capital Region, DK-84)
+- Coordinates: 55.6761, 12.5683
+- Studio hours: Thursday–Saturday 12–18 (appointments by request)
 - Website: https://eillon.maison
+- Sitemap: https://eillon.maison/sitemap.xml
 - Email: care@eillon.maison
+- Language: English (Denmark), with Danish and Swedish UI copy on site
 
 ## Fragrance chapters
 All chapters are currently out of stock. Leave your email on any chapter page for a restock note.
 
-- Beles · Fico d'India — Out of stock. Prickly pear, cactus water, hibiscus, mineral air, soft musk.
+- Beles · Fico d'India — Out of stock. Oil-rich parfum. Prickly pear, cactus water, hibiscus, mineral air, soft musk.
 - Asmara — Out of stock. Rain on stone, espresso, cardamom, jasmine, amber, white musk.
 - Massawa — Out of stock. Red Sea air, orange, papaya, salt skin, mineral coastal stone.
 - Ritual — Out of stock. Lab study — frankincense, myrrh, sacred smoke, amber, warm skin. Not offered for sale.
@@ -30,3 +34,4 @@ All chapters are currently out of stock. Leave your email on any chapter page fo
 - Massawa chapter: https://eillon.maison/massawa
 - Ritual lab study: https://eillon.maison/ritual
 - Journal: https://eillon.maison/journal
+- Imprint: https://eillon.maison/imprint

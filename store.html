@@ -1,14 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-DK">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Boutique — EILLON Afro-Mediterranean Memory Perfumery</title>
-  <meta name="description" content="The EILLON fragrance chapters — all currently out of stock. Notify when Beles, Asmara, Massawa, or Ritual return." />
+  <meta name="description" content="The EILLON fragrance chapters — oil-rich parfums composed in Copenhagen. All currently out of stock. Notify when Beles, Asmara, Massawa, or Ritual return." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://eillon.maison/store" />
+  <meta name="geo.region" content="DK-84" />
+  <meta name="geo.placename" content="Copenhagen, Capital Region of Denmark" />
+  <meta name="geo.position" content="55.6761;12.5683" />
+  <meta name="ICBM" content="55.6761, 12.5683" />
+  <meta name="geo.country" content="DK" />
+  <meta http-equiv="content-language" content="en-DK" />
   <link rel="icon" href="images/plain-bottle-with-logo.png" type="image/png" />
   <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="EILLON" />
+  <meta property="og:locale" content="en_DK" />
   <meta property="og:url" content="https://eillon.maison/store" />
   <meta property="og:title" content="The Boutique — EILLON" />
   <meta property="og:description" content="Four memories, one maison. All chapters currently out of stock — notify when bottles return." />
@@ -24,19 +32,33 @@
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "CollectionPage",
-      "name": "EILLON Boutique",
-      "url": "https://eillon.maison/store",
-      "description": "The EILLON fragrance chapters: Beles, Asmara, Massawa, and ritual resin studies.",
-      "mainEntity": {
-        "@type": "ItemList",
-        "itemListElement": [
-          { "@type": "ListItem", "position": 1, "url": "https://eillon.maison/beles", "name": "Beles · Fico d'India" },
-          { "@type": "ListItem", "position": 2, "url": "https://eillon.maison/asmara", "name": "Asmara · Rain on Stone" },
-          { "@type": "ListItem", "position": 3, "url": "https://eillon.maison/massawa", "name": "Massawa · Red Sea Citrus" },
-          { "@type": "ListItem", "position": 4, "url": "https://eillon.maison/ritual", "name": "Ritual · Frankincense & Myrrh" }
-        ]
-      }
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "EILLON", "item": "https://eillon.maison/" },
+            { "@type": "ListItem", "position": 2, "name": "The Boutique", "item": "https://eillon.maison/store" }
+          ]
+        },
+        {
+          "@type": "CollectionPage",
+          "name": "EILLON Boutique",
+          "url": "https://eillon.maison/store",
+          "description": "The EILLON fragrance chapters: Beles, Asmara, Massawa, and Ritual resin studies — oil-rich parfums composed in Copenhagen.",
+          "inLanguage": "en-DK",
+          "isPartOf": { "@id": "https://eillon.maison/#website" },
+          "about": { "@id": "https://eillon.maison/#organization" },
+          "mainEntity": {
+            "@type": "ItemList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "url": "https://eillon.maison/beles", "name": "Beles · Fico d'India" },
+              { "@type": "ListItem", "position": 2, "url": "https://eillon.maison/asmara", "name": "Asmara · Rain on Stone" },
+              { "@type": "ListItem", "position": 3, "url": "https://eillon.maison/massawa", "name": "Massawa · Red Sea Citrus" },
+              { "@type": "ListItem", "position": 4, "url": "https://eillon.maison/ritual", "name": "Ritual · Frankincense & Myrrh" }
+            ]
+          }
+        }
+      ]
     }
   </script>
 </head>
