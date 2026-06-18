@@ -1,6 +1,6 @@
 # ChatGPT Live Review — EILLON
 
-**Date/time:** 2026-06-18T03:02:34Z (automation trigger)
+**Date/time:** 2026-06-18T11:00:24Z (cron automation trigger)
 
 ## Review method
 
@@ -41,22 +41,21 @@ Suggest improvements, but do not suggest adding a generic contact/appointments p
 ### Strengths
 
 - Clear maison vs boutique architecture: homepage reads editorial; `/store` is chapter-focused
-- Beles is correctly positioned as the only waitlist-open release with pricing and size selection
-- Future chapters (Asmara, Massawa) use restrained “not yet available to purchase” language
+- All chapters consistently marked **out of stock** (code is source of truth; live site matches)
+- Future chapters (Asmara, Massawa) use restrained “restock note only” language
 - Ritual is explicitly a lab study, not for sale
 - Product-specific waitlist slugs and differentiated success messages in `script.js`
 - No generic luxury clichés detected in copy
-- `data/products.js` is a coherent source of truth for chapter status
+- Schema fixes from prior loop hold: Asmara/Massawa `OutOfStock`, Ritual has no purchase offer
+- Journal uses “oil-rich parfum” consistently
+- Homepage footer correctly labels “Copenhagen studio” (no fake stockist implication)
 
 ### Actionable suggestions extracted
 
-1. **Schema accuracy:** Asmara, Massawa, and Ritual use `PreOrder` in JSON-LD but pages state they are not purchasable — misleading for SEO/rich results
-2. **Ritual schema:** Lab study should not imply a purchase offer at all
-3. **Store boutique cards:** Beles card on `/store` shows mood imagery only — no visible name/status unlike other chapter cards (body hidden by boutique CSS)
-4. **Copy consistency:** Journal article uses “oil-based parfum” while site standard is “oil-rich parfum”
-5. **Misleading navigation:** Footer link “Find a Stockist” points to Copenhagen studio appointments — no stockists are listed (implies fake availability)
-6. **Homepage search:** “Appointments” label suggests a dedicated page; section is studio mailto only
-7. **Notification safety:** `lib/waitlist-notify.js` falls back to a hardcoded personal Gmail if env vars unset
+1. **Search overlay navigation (site-wide):** `scripts/site-nav.js` still labels search item “Appointments” with “Copenhagen studio and stockists” and links to `#stockists` — but homepage section is `#studio`. Broken anchor + misleading stockist implication on every page.
+2. **Store boutique cards:** Caption overlays now show status + chapter name for all cards (prior loop) — verified in `script.js` / `styles.css`.
+3. **Notification safety:** Hardcoded personal Gmail removed from `lib/waitlist-notify.js` (prior loop) — verified.
+4. **Performance:** Beles showcase video uses `preload="none"` with poster — good. Homepage hero preloads remain intentional for LCP.
 
 ### Suggestions not pursued (brand/rule conflicts)
 
@@ -66,3 +65,4 @@ Suggest improvements, but do not suggest adding a generic contact/appointments p
 - Add customer reviews or press logos
 - Heavier ecommerce (cart, checkout on-site)
 - React migration or build system
+- Revert to “waitlist open” copy when codebase intentionally uses out-of-stock status
