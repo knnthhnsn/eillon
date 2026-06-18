@@ -48,26 +48,26 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" as="image" href="images/hero-backgrund-white.webp" type="image/webp" fetchpriority="high" />
-  <link rel="preload" as="image" href="images/plain-bottle-with-logo.webp" type="image/webp" />
+  <link rel="preload" as="image" href="images/plain-bottle-with-logo.webp" type="image/webp" fetchpriority="high" />
   <link
     rel="preload"
     as="style"
-    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500&display=swap"
   />
   <link
-    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500&display=swap"
     rel="stylesheet"
     media="print"
     onload="this.media='all'"
   />
   <noscript>
     <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500&display=swap"
       rel="stylesheet"
     />
   </noscript>
 
-  <link rel="stylesheet" href="styles.css?v=107" />
+  <link rel="stylesheet" href="styles.css?v=109" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -155,7 +155,7 @@
     </style>
   </noscript>
 </head>
-<body>
+<body data-nav-home="true">
   <script>try{var h=location.hostname;if(h!=='localhost'&&h!=='127.0.0.1'&&sessionStorage.getItem('eillon-veil-seen'))document.body.classList.add('is-loaded');}catch(e){}</script>
   <a class="skip-link" href="#maison">Skip to the maison</a>
 
@@ -177,113 +177,6 @@
       </div>
       <span class="veil__sub">Red Sea memories, bottled.</span>
       <span class="veil__rule veil__rule--bottom"></span>
-    </div>
-  </div>
-
-  <!-- ============ NAVIGATION ============ -->
-  <header class="nav" id="nav">
-    <div class="nav__inner">
-      <a href="#top" class="nav__brand" aria-label="EILLON home">
-        <picture>
-          <source type="image/webp" srcset="images/eillon_logo_nav.webp" />
-          <img class="nav__brand-logo" src="images/eillon_logo_transparent.png" width="200" height="64" alt="EILLON" decoding="async" fetchpriority="low" />
-        </picture>
-      </a>
-
-      <nav class="nav__links" aria-label="Primary">
-        <a href="#maison">Maison</a>
-        <a href="#collection">Collection</a>
-        <a href="#palette">Palette</a>
-        <a href="/store">Boutique</a>
-      </nav>
-
-      <div class="nav__actions">
-        <button class="nav__menu" type="button" aria-label="Menu" aria-controls="mobileNav" aria-expanded="false" id="menuToggle">
-          <span></span>
-          <span></span>
-        </button>
-        <button class="nav__icon" type="button" aria-label="Search" aria-controls="searchPanel" aria-expanded="false" id="searchToggle">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.2">
-            <circle cx="11" cy="11" r="7"></circle>
-            <line x1="20" y1="20" x2="16" y2="16"></line>
-          </svg>
-        </button>
-        <a class="nav__waitlist" href="/beles#waitlist">Restock</a>
-      </div>
-    </div>
-  </header>
-
-  <!-- ============ MOBILE NAVIGATION ============ -->
-  <div class="mobile-nav" id="mobileNav" aria-hidden="true" inert>
-    <button class="mobile-nav__backdrop" type="button" tabindex="-1" data-menu-close aria-label="Close menu"></button>
-    <div class="mobile-nav__panel">
-      <a href="#maison" data-menu-link>Maison</a>
-      <a href="#collection" data-menu-link>Collection</a>
-      <a href="#palette" data-menu-link>Palette</a>
-      <a href="/store" data-menu-link>Boutique</a>
-    </div>
-  </div>
-
-  <!-- ============ SEARCH ============ -->
-  <div class="search-panel" id="searchPanel" role="dialog" aria-modal="true" aria-labelledby="searchTitle" aria-hidden="true" inert>
-    <button class="search-panel__backdrop" type="button" tabindex="-1" data-search-close aria-label="Close search"></button>
-    <div class="search-panel__surface">
-      <div class="search-panel__head">
-        <p class="eyebrow" id="searchTitle">Find a detail</p>
-        <button class="search-panel__close" type="button" data-search-close aria-label="Close search">Close</button>
-      </div>
-      <label class="search-panel__field">
-        <span class="sr-only">Search the page</span>
-        <input type="search" id="siteSearch" placeholder="Try palette, bottle, boutique..." autocomplete="off" />
-      </label>
-      <div class="search-panel__results" id="searchResults" aria-live="polite">
-        <a href="#palette" data-search-item data-search-keywords="palette maison scent worlds desert fruit rain stone red sea citrus resin">
-          <span>Maison Palette</span>
-          <small>The scent worlds of EILLON</small>
-        </a>
-        <a href="/beles#composition" data-search-item data-search-keywords="beles fico d'india composition prickly pear cactus water hibiscus">
-          <span>Beles composition</span>
-          <small>Full note pyramid on the product page</small>
-        </a>
-        <a href="#craft" data-search-item data-search-keywords="bottle flacon cap square matte glass emblem leopard lettering">
-          <span>The Bottle</span>
-          <small>Object details and materials</small>
-        </a>
-        <a href="/beles" data-search-item data-search-keywords="beles fico d'india parfum oil prickly pear product waitlist">
-          <span>Beles · Fico d'India</span>
-          <small>Oil-rich parfum — full product page</small>
-        </a>
-        <a href="/journal" data-search-item data-search-keywords="journal editorial fico d'india bottle article">
-          <span>Journal</span>
-          <small>Studio notes and articles</small>
-        </a>
-        <a href="/journal/fico-d-india" data-search-item data-search-keywords="fico d'india prickly pear meaning article">
-          <span>What is Fico d'India?</span>
-          <small>Journal — the fruit accord in Beles</small>
-        </a>
-        <a href="/store" data-search-item data-search-keywords="store boutique collection beles asmara massawa ritual chapters">
-          <span>The Boutique</span>
-          <small>All fragrance chapters</small>
-        </a>
-        <a href="/beles#waitlist" data-search-item data-search-keywords="restock beles fico d'india out of stock notify back">
-          <span>Beles restock list</span>
-          <small>Notify when Beles is back in stock</small>
-        </a>
-        <a href="#wear" data-search-item data-search-keywords="wear application pulse points spray skin hair scarf how to apply parfum">
-          <span>Wear</span>
-          <small>How to apply EILLON parfum</small>
-        </a>
-        <a href="#studio" data-search-item data-search-keywords="studio copenhagen private visit fragrance appointment">
-          <span>Copenhagen studio</span>
-          <small>Private fragrance appointments by email</small>
-        </a>
-        </a>
-        <a href="#maison" data-search-item data-search-keywords="maison story eillon red sea memory afro mediterranean copenhagen">
-          <span>The Maison</span>
-          <small>EILLON universe and story</small>
-        </a>
-      </div>
-      <p class="search-panel__empty" id="searchEmpty" hidden>No matching section yet.</p>
     </div>
   </div>
 
@@ -338,19 +231,23 @@
             playsinline
             preload="none"
             aria-hidden="true"
+            data-hero-video-deferred
             data-webm="images/leopard-bottle-sneak-alpha.webm?v=9"
             data-mp4="images/leopard-bottle-sneak.mp4"
             data-mobile="images/leopard-bottle-sneak-mobile.mp4?v=1"
           ></video>
-          <img
-            class="hero__bottle-fallback"
-            src="images/plain-bottle-with-logo.png"
-            width="1024"
-            height="1536"
-            alt=""
-            decoding="async"
-            fetchpriority="high"
-          />
+          <picture>
+            <source type="image/webp" srcset="images/plain-bottle-with-logo.webp" />
+            <img
+              class="hero__bottle-fallback"
+              src="images/plain-bottle-with-logo.webp"
+              width="1024"
+              height="1536"
+              alt="EILLON Beles bottle — oil-rich parfum"
+              decoding="sync"
+              fetchpriority="high"
+            />
+          </picture>
         </a>
       </div>
 
@@ -360,13 +257,13 @@
     <section class="bigtext" aria-hidden="true">
       <div class="bigtext__track" data-marquee>
         <span class="bigtext__word bigtext__word--fill"><em>EILLON</em></span>
-        <span class="bigtext__sep"><img src="images/logo.png" width="80" height="80" alt="" /></span>
+        <span class="bigtext__sep"><picture><source type="image/webp" srcset="images/eillon_logo_nav.webp" /><img src="images/logo.png" width="80" height="80" alt="" loading="lazy" decoding="async" /></picture></span>
         <span class="bigtext__word bigtext__word--outline"><em>EILLON</em></span>
-        <span class="bigtext__sep"><img src="images/logo.png" width="80" height="80" alt="" /></span>
+        <span class="bigtext__sep"><picture><source type="image/webp" srcset="images/eillon_logo_nav.webp" /><img src="images/logo.png" width="80" height="80" alt="" loading="lazy" decoding="async" /></picture></span>
         <span class="bigtext__word bigtext__word--fill"><em>EILLON</em></span>
-        <span class="bigtext__sep"><img src="images/logo.png" width="80" height="80" alt="" /></span>
+        <span class="bigtext__sep"><picture><source type="image/webp" srcset="images/eillon_logo_nav.webp" /><img src="images/logo.png" width="80" height="80" alt="" loading="lazy" decoding="async" /></picture></span>
         <span class="bigtext__word bigtext__word--outline"><em>EILLON</em></span>
-        <span class="bigtext__sep"><img src="images/logo.png" width="80" height="80" alt="" /></span>
+        <span class="bigtext__sep"><picture><source type="image/webp" srcset="images/eillon_logo_nav.webp" /><img src="images/logo.png" width="80" height="80" alt="" loading="lazy" decoding="async" /></picture></span>
       </div>
     </section>
 
@@ -380,7 +277,7 @@
             muted
             loop
             playsinline
-            preload="metadata"
+            preload="none"
             aria-hidden="true"
             src="images/model-man.mp4"
           ></video>
@@ -414,8 +311,8 @@
               muted
               loop
               playsinline
-              preload="metadata"
-              poster="images/elli-model.png"
+            preload="none"
+            poster="images/elli-model.png"
               aria-hidden="true"
               src="images/elli-model.mp4"
             ></video>
@@ -453,6 +350,14 @@
             <span>View the boutique</span>
             <span class="arrow">→</span>
           </a>
+          <a href="/about" class="link-arrow" data-reveal="up" data-delay="280" style="margin-top: 12px; display: inline-flex;">
+            <span>Read the full maison story</span>
+            <span class="arrow">→</span>
+          </a>
+          <button type="button" class="link-arrow maison-inline-story" data-maison-story-open data-reveal="up" data-delay="320" style="margin-top: 8px; display: inline-flex; background: none; border: none; cursor: pointer; font: inherit; color: inherit; padding: 0;">
+            <span>Quick overview</span>
+            <span class="arrow">→</span>
+          </button>
         </div>
       </div>
     </section>
@@ -466,10 +371,10 @@
           muted
           loop
           playsinline
-          preload="metadata"
-          poster="images/red-sea.png"
+          preload="none"
+          poster="images/beles-splash.webp"
         >
-          <source src="images/red-sea.mp4" type="video/mp4" />
+          <source src="images/beles-showcase.mp4" type="video/mp4" />
         </video>
         <span class="collection-panel__scrim"></span>
       </div>
@@ -546,7 +451,7 @@
               src="images/plain-bottle-with-logo.webp"
               width="1024"
               height="1536"
-              alt=""
+              alt="EILLON square matte bottle with winged leopard emblem — video fallback"
               hidden
             />
           </div>
@@ -603,7 +508,7 @@
             muted
             loop
             playsinline
-            preload="metadata"
+            preload="none"
             poster="images/model-woman.png"
             aria-hidden="true"
             src="images/model-woman.mp4?v=3"
@@ -635,6 +540,9 @@
             <p>Refresh with one spray before evening; the heart notes deepen rather than becoming louder.</p>
           </article>
         </div>
+        <p class="ritual__guide-link" data-reveal="up" data-delay="400">
+          <a href="/wear" class="link-arrow"><span>Full fragrance care guide</span><span class="arrow">→</span></a>
+        </p>
         </div>
       </div>
     </section>
@@ -705,6 +613,7 @@
           <h4>Care</h4>
           <ul>
             <li><a href="mailto:care@eillon.maison">Contact</a></li>
+            <li><a href="/wear">Fragrance care guide</a></li>
             <li><a href="/shipping">Shipping &amp; returns</a></li>
             <li><a href="/beles#faq">FAQ</a></li>
           </ul>
@@ -735,6 +644,8 @@
     </div>
   </footer>
 
+  <script src="/scripts/i18n.js" defer></script>
+  <script src="/scripts/site-nav.js" defer></script>
   <script src="data/products.js?v=9" defer></script>
   <script src="script.js?v=68" defer></script>
 </body>

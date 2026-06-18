@@ -21,7 +21,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=105" />
+  <link rel="stylesheet" href="styles.css?v=109" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -100,16 +100,31 @@
     }
   </script>
 </head>
-<body class="editorial-page beles-page" data-nav-waitlist="#waitlist">
+<body class="editorial-page beles-page" data-nav-waitlist="#waitlist" data-chapter-slug="beles">
   <a class="skip-link" href="#top">Skip to content</a>
+  <script src="/scripts/i18n.js"></script>
   <script src="/scripts/site-nav.js"></script>
+  <script src="/scripts/chapter-nav.js"></script>
 
   <main class="beles-page__main" id="top">
     <!-- ============ BOUTIQUE / WAITLIST ============ -->
     <section class="shop shop--beles" id="waitlist">
       <div class="shop__grid">
-        <figure class="shop__image" data-reveal="image" data-selected-volume="100 ML" data-product-size="100">
+        <figure class="shop__image" data-reveal="image" data-selected-volume="100 ML" data-product-size="100" aria-label="Beles · Fico d'India — bottle with golden-hour wear imagery">
           <div class="shop__image-inner">
+            <span class="shop__image-layer shop__image-layer--atmosphere" aria-hidden="true">
+              <picture>
+                <source type="image/webp" srcset="images/beles-splash.webp" />
+                <img
+                  src="images/beles-splash.png"
+                  width="1200"
+                  height="1500"
+                  loading="eager"
+                  decoding="async"
+                  alt=""
+                />
+              </picture>
+            </span>
             <span class="shop__image-layer shop__image-layer--bottle">
               <picture>
                 <source type="image/webp" srcset="images/beles-no-background.webp" data-shop-webp />
@@ -123,10 +138,10 @@
                 muted
                 loop
                 playsinline
-                preload="metadata"
-                poster="images/ken-beles.png"
+                preload="none"
+                poster="images/beles-splash.webp"
               >
-                <source src="images/ken-beles.mp4" type="video/mp4" />
+                <source src="images/beles-showcase.mp4" type="video/mp4" />
               </video>
             </span>
           </div>
@@ -381,6 +396,20 @@
         <h2 class="display">Desert fruit<br /><em>in light.</em></h2>
       </header>
       <div class="chapter-gallery">
+        <figure class="chapter-gallery__video">
+          <video
+            class="chapter-gallery__film"
+            data-model-video
+            muted
+            loop
+            playsinline
+            preload="none"
+            poster="images/beles-splash.webp"
+            aria-label="Beles · Fico d'India — showcase film"
+          >
+            <source src="images/beles-showcase.mp4" type="video/mp4" />
+          </video>
+        </figure>
         <figure><img src="images/cactus-mood.jpg" width="900" height="1125" loading="lazy" decoding="async" alt="Prickly pear cactus in warm desert light" /></figure>
         <figure><img src="images/beles-mood.png" width="900" height="1125" loading="lazy" decoding="async" alt="Beles bottle in sun-warmed mineral atmosphere" /></figure>
         <figure><img src="images/cactus-hero.jpg" width="900" height="1125" loading="lazy" decoding="async" alt="Cactus landscape at golden hour" /></figure>

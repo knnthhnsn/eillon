@@ -76,7 +76,7 @@
   // Timing is anchored to performance.timeOrigin so every visit gets the full
   // sequence regardless of font cache state or script-parse latency.
   const afterVeil = [];
-  const minHold = prefersReduced ? 0 : 550;
+  const minHold = prefersReduced ? 0 : 400;
 
   let dropped = false;
   const markVeilSeen = () => {
@@ -101,7 +101,9 @@
     try { veilSeen = sessionStorage.getItem('eillon-veil-seen') === '1'; } catch (_) {}
   }
 
-  if (prefersReduced || mobileLayout.matches || veilSeen) {
+  const saveData = navigator.connection && navigator.connection.saveData;
+
+  if (prefersReduced || mobileLayout.matches || veilSeen || saveData) {
     dropped = true;
     dropVeil();
   } else {
@@ -151,7 +153,15 @@
     Array.from(root.childNodes).forEach(walk);
   };
 
-  document.querySelectorAll('[data-reveal="words"]').forEach(splitWords);
+  // Defer word-splitting until after first paint to reduce main-thread work before LCP.
+  const scheduleWordSplits = () => {
+    document.querySelectorAll('[data-reveal="words"]').forEach(splitWords);
+  };
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(scheduleWordSplits, { timeout: 1200 });
+  } else {
+    setTimeout(scheduleWordSplits, 16);
+  }
 
   // 2b. Stagger — assign --i to direct children for sequential transitions.
   document.querySelectorAll('[data-reveal="stagger"], [data-reveal="stagger-right"]')
@@ -470,39 +480,50 @@
     step();
   }
 
-  /* ---------- 7b. HERO BOTTLE VIDEO — start after intro veil ---------- */
+  /* ---------- 7b. HERO BOTTLE VIDEO — deferred until after LCP window ---------- */
+  const deferAfterLcp = (fn) => {
+    const run = () => {
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(fn, { timeout: 5000 });
+      } else {
+        setTimeout(fn, 2500);
+      }
+    };
+    setTimeout(run, 2200);
+  };
+
   document.querySelectorAll('.hero__bottle').forEach((video) => {
     if (!(video instanceof HTMLVideoElement)) return;
 
     const link = video.closest('.hero__bottle-link');
-    const { mode } = configureBottleVideo(video);
-
-    video.pause();
-    video.currentTime = 0;
-    video.removeAttribute('autoplay');
-
-    if (prefersReduced) return;
-
-    /* Over photo backgrounds, flat mobile encodes show a cream box — use still. */
-    if (mode === 'mobile' && link) {
-      link.classList.add('is-static-fallback');
-      return;
-    }
+    if (prefersReduced || saveData) return;
 
     let heroVideoStarted = false;
 
     const beginHeroVideo = () => {
       if (heroVideoStarted) return;
       heroVideoStarted = true;
+
+      const { mode } = configureBottleVideo(video);
+      video.pause();
       video.currentTime = 0;
+      video.removeAttribute('autoplay');
+
+      if (mode === 'mobile' && link) {
+        link.classList.add('is-static-fallback');
+        return;
+      }
+
       video.addEventListener('playing', () => link?.classList.add('is-video-playing'), { once: true });
       playVideoSafe(video);
     };
 
+    const scheduleHeroVideo = () => deferAfterLcp(beginHeroVideo);
+
     if (document.body.classList.contains('is-loaded')) {
-      beginHeroVideo();
+      scheduleHeroVideo();
     } else {
-      afterVeil.push(beginHeroVideo);
+      afterVeil.push(scheduleHeroVideo);
     }
 
     document.addEventListener('visibilitychange', () => {
@@ -612,7 +633,7 @@
   }
 
   /* ---------- 7d. MODEL VIDEO — play when parent section in view ---------- */
-  const modelSections = document.querySelectorAll('.model-showcase, .ritual--wear');
+  const modelSections = document.querySelectorAll('.model-showcase, .ritual--wear, .chapter-visuals');
 
   if (modelSections.length) {
     if (!prefersReduced) {
@@ -662,7 +683,7 @@
     }
   }
 
-  /* ---------- 7e. COLLECTION PANEL — Red Sea memories background ---------- */
+  /* ---------- 7e. COLLECTION PANEL — Beles showcase background ---------- */
   const collectionPanels = document.querySelectorAll('.collection-panel');
   const collectionVideos = document.querySelectorAll('[data-collection-video]');
 
@@ -1504,5 +1525,83 @@
         focusEmail: Boolean(target.id === 'waitlist' || target.querySelector('[data-waitlist-form]')),
       });
     });
+  });
+
+  /* ---------- MAISON STORY MODAL ---------- */
+  const maisonModal = document.getElementById('maisonModal');
+  const maisonOpeners = document.querySelectorAll('[data-maison-story-open]');
+  let maisonReturnFocus = null;
+
+  const openMaisonModal = () => {
+    if (!maisonModal) return;
+    if (typeof closeMenu === 'function') closeMenu({ restoreFocus: false });
+    if (typeof closeSearch === 'function') closeSearch({ restoreFocus: false });
+    maisonReturnFocus = document.activeElement;
+    activeOverlay = 'maison';
+    maisonModal.classList.add('is-open');
+    maisonModal.setAttribute('aria-hidden', 'false');
+    maisonModal.inert = false;
+    setPageLocked(true);
+    const closeBtn = maisonModal.querySelector('[data-maison-story-close]:not(.maison-modal__backdrop)');
+    setTimeout(() => (closeBtn || maisonModal).focus(), 80);
+    if (window.EILLON_I18N) window.EILLON_I18N.applyLang(window.EILLON_I18N.getLang());
+  };
+
+  const closeMaisonModal = ({ restoreFocus = true } = {}) => {
+    if (!maisonModal) return;
+    maisonModal.classList.remove('is-open');
+    maisonModal.setAttribute('aria-hidden', 'true');
+    maisonModal.inert = true;
+    if (activeOverlay === 'maison') activeOverlay = null;
+    setPageLocked(Boolean(activeOverlay));
+    if (restoreFocus && maisonReturnFocus && typeof maisonReturnFocus.focus === 'function') {
+      maisonReturnFocus.focus();
+    }
+  };
+
+  if (maisonModal && maisonOpeners.length) {
+    maisonOpeners.forEach((btn) => btn.addEventListener('click', openMaisonModal));
+    maisonModal.querySelectorAll('[data-maison-story-close]').forEach((btn) => {
+      btn.addEventListener('click', closeMaisonModal);
+    });
+    maisonModal.querySelectorAll('a[href]').forEach((link) => link.addEventListener('click', closeMaisonModal));
+    document.addEventListener('keydown', (e) => {
+      if (!maisonModal.classList.contains('is-open')) return;
+      if (e.key === 'Escape') closeMaisonModal();
+      keepFocusInside(maisonModal, e);
+    });
+  }
+
+  /* ---------- BOTTLE EXPLORER ---------- */
+  document.querySelectorAll('[data-bottle-explorer]').forEach((wrap) => {
+    const img = wrap.querySelector('[data-bottle-img]') || wrap.querySelector('img');
+    if (!img || prefersReduced) return;
+
+    let pointerDown = false;
+    const tilt = (x, y) => {
+      const rect = wrap.getBoundingClientRect();
+      const px = (x - rect.left) / rect.width - 0.5;
+      const py = (y - rect.top) / rect.height - 0.5;
+      const rotY = px * 18;
+      const rotX = py * -10;
+      img.style.transform = `rotateY(${rotY}deg) rotateX(${rotX}deg) scale(1.02)`;
+    };
+
+    const reset = () => {
+      img.style.transform = '';
+      pointerDown = false;
+    };
+
+    wrap.addEventListener('pointermove', (e) => {
+      if (!pointerDown && e.pointerType !== 'mouse') return;
+      tilt(e.clientX, e.clientY);
+    });
+    wrap.addEventListener('pointerdown', (e) => {
+      pointerDown = true;
+      wrap.setPointerCapture(e.pointerId);
+      tilt(e.clientX, e.clientY);
+    });
+    wrap.addEventListener('pointerup', reset);
+    wrap.addEventListener('pointerleave', reset);
   });
 })();

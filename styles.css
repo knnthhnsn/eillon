@@ -279,14 +279,16 @@ input:focus-visible {
 
 .veil__rule {
   display: block;
-  width: 0;
+  width: 110px;
   height: 1px;
   background: var(--ink);
   opacity: 0.6;
+  transform: scaleX(0);
+  transform-origin: center;
   animation: veilRule 1.0s var(--ease) 0.2s forwards;
 }
 .veil__rule--bottom { animation-delay: 0.35s; }
-@keyframes veilRule { to { width: 110px; } }
+@keyframes veilRule { to { transform: scaleX(1); } }
 
 .veil__caption,
 .veil__sub {
@@ -1006,14 +1008,18 @@ body.is-loaded .hero__bottle-glow {
   outline-offset: 6px;
   border-radius: 4px;
 }
-body:not(.is-loaded) .hero__bottle,
+body:not(.is-loaded) .hero__bottle {
+  opacity: 0;
+  transform: scale(1.05);
+  filter: none;
+  transition: none;
+}
 body:not(.is-loaded) .hero__bottle-fallback {
-  transform: scale(1.12);
+  transform: scale(1.05);
   filter:
-    brightness(0.98)
-    blur(5px)
-    drop-shadow(0 4px 8px rgba(28, 28, 26, 0.08))
-    drop-shadow(0 12px 24px rgba(28, 28, 26, 0.1));
+    drop-shadow(0 5px 10px rgba(28, 28, 26, 0.13))
+    drop-shadow(0 16px 32px rgba(28, 28, 26, 0.17))
+    drop-shadow(0 32px 64px rgba(28, 28, 26, 0.11));
   transition: none;
 }
 body.is-loaded .hero__bottle,
@@ -2116,6 +2122,25 @@ body.is-loaded .hero__cta { opacity: 1; transform: translateY(0); }
   z-index: 0;
 }
 
+.shop__image-layer--atmosphere {
+  z-index: 0;
+  opacity: 1;
+  transition: opacity 0.8s var(--ease), transform 1.2s var(--ease);
+}
+.shop__image-layer--atmosphere img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 22%;
+  display: block;
+}
+
+.shop--beles .shop__image {
+  position: sticky;
+  top: clamp(108px, 11vw, 148px);
+  align-self: start;
+}
+
 .shop__info {
   display: flex;
   flex-direction: column;
@@ -2402,11 +2427,15 @@ body.is-loaded .hero__cta { opacity: 1; transform: translateY(0); }
   margin: 0;
   overflow: hidden;
 }
-.chapter-gallery img {
+.chapter-gallery img,
+.chapter-gallery__film {
   width: 100%;
   aspect-ratio: 4/5;
   object-fit: cover;
   display: block;
+}
+.chapter-gallery__video {
+  grid-column: 1 / -1;
 }
 
 @media (max-width: 720px) {
@@ -3745,6 +3774,10 @@ body.is-loaded .scroll-progress { opacity: 1; }
 
   .shop__grid { grid-template-columns: 1fr; gap: 40px; }
   .shop__image { aspect-ratio: 4/5; max-width: 560px; margin: 0 auto; width: 100%; }
+  .shop--beles .shop__image {
+    position: relative;
+    top: auto;
+  }
   .shop__image-layer--bottle picture,
   .shop__image-layer--bottle img {
     margin-inline: auto;
@@ -3925,6 +3958,12 @@ body.is-loaded .scroll-progress { opacity: 1; }
     animation: beles-mobile-film-in 1.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   }
 
+  .shop--beles .shop__image[data-product-size="50"].is-beles-revealing .shop__image-layer--atmosphere,
+  .shop--beles .shop__image[data-product-size="100"].is-beles-revealing .shop__image-layer--atmosphere {
+    opacity: 0;
+    transition: opacity 1.2s var(--ease);
+  }
+
   .shop--beles .shop__image[data-product-size="50"].is-beles-revealing .shop__image-layer--bottle img,
   .shop--beles .shop__image[data-product-size="100"].is-beles-revealing .shop__image-layer--bottle img {
     animation: beles-mobile-bottle-corner 1.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
@@ -4053,6 +4092,10 @@ body.is-loaded .scroll-progress { opacity: 1; }
   .shop__image:hover .shop__image-layer--setting {
     opacity: 1;
     transform: scale(1);
+  }
+
+  .shop--beles .shop__image:hover .shop__image-layer--atmosphere {
+    opacity: 0;
   }
 
   .shop__image[data-product-size="50"]:hover .shop__image-layer--bottle picture,
@@ -5219,4 +5262,312 @@ a.product-card--link:focus-visible {
   .product-grid:not(.product-grid--collection) { grid-template-columns: 1fr; }
   .status-guide__list { grid-template-columns: 1fr; }
   .boutique-cta__actions { flex-direction: column; align-items: stretch; }
+}
+
+/* Below-fold sections — skip rendering until near viewport */
+.model-showcase,
+.collection-preview,
+.palette,
+.craft,
+.mood,
+.ritual--wear,
+.footer {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 600px;
+}
+
+.nav__lang {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px;
+  border: 1px solid rgba(28, 28, 26, 0.12);
+  border-radius: 999px;
+  background: rgba(250, 250, 248, 0.6);
+}
+.nav__lang-btn {
+  border: none;
+  background: transparent;
+  font: 500 10px/1 var(--sans);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding: 6px 8px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.nav__lang-btn.is-active {
+  background: var(--ink);
+  color: var(--paper);
+}
+.nav__story {
+  border: 1px solid rgba(28, 28, 26, 0.14);
+  background: transparent;
+  font: 500 10px/1 var(--sans);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding: 10px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.nav__story:hover { border-color: var(--ink); color: var(--ink); }
+.mobile-nav__story {
+  display: block;
+  width: 100%;
+  margin-top: 16px;
+  padding: 14px 0;
+  border: none;
+  border-top: 1px solid rgba(28, 28, 26, 0.1);
+  background: transparent;
+  font: 500 12px/1 var(--sans);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: left;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+/* ---------- MAISON STORY MODAL ---------- */
+.maison-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: grid;
+  place-items: center;
+  padding: var(--pad);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+.maison-modal.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+.maison-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  border: none;
+  background: rgba(18, 18, 16, 0.42);
+  cursor: pointer;
+}
+.maison-modal__surface {
+  position: relative;
+  width: min(640px, 100%);
+  max-height: min(86vh, 820px);
+  overflow: auto;
+  background: var(--paper);
+  border: 1px solid rgba(28, 28, 26, 0.08);
+  box-shadow: 0 24px 80px rgba(18, 18, 16, 0.16);
+  padding: clamp(24px, 4vw, 40px);
+}
+.maison-modal__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.maison-modal__close {
+  border: none;
+  background: transparent;
+  font: 500 11px/1 var(--sans);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+.maison-modal__title {
+  font-size: clamp(28px, 4vw, 42px);
+  margin: 0 0 20px;
+  line-height: 1.1;
+}
+.maison-modal__body p {
+  color: var(--ink-soft);
+  line-height: 1.7;
+  margin: 0 0 16px;
+}
+.maison-modal__ethos {
+  margin: 20px 0 28px;
+  padding-left: 1.1em;
+  color: var(--ink-soft);
+  line-height: 1.65;
+}
+.maison-modal__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 24px;
+  align-items: center;
+}
+
+/* ---------- CHAPTER NAV ---------- */
+.chapter-nav {
+  position: sticky;
+  top: 68px;
+  z-index: 45;
+  background: rgba(250, 250, 248, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(28, 28, 26, 0.08);
+}
+.chapter-nav__inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 10px var(--pad);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.chapter-nav__crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font: 500 10px/1 var(--sans);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.chapter-nav__crumbs li { display: inline-flex; align-items: center; gap: 10px; }
+.chapter-nav__crumbs li:not(:last-child)::after {
+  content: "/";
+  opacity: 0.45;
+}
+.chapter-nav__crumbs a { color: inherit; text-decoration: none; }
+.chapter-nav__crumbs a:hover { color: var(--ink); }
+.chapter-nav__strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.chapter-nav__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid rgba(28, 28, 26, 0.1);
+  border-radius: 999px;
+  text-decoration: none;
+  color: var(--ink-soft);
+  font: 500 10px/1 var(--sans);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+.chapter-nav__pill:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+.chapter-nav__pill.is-active,
+.chapter-nav__pill[aria-current="page"] {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+.chapter-nav__pill-num { opacity: 0.85; }
+.chapter-nav__back {
+  margin-left: auto;
+  font: 500 10px/1 var(--sans);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  text-decoration: none;
+}
+.chapter-nav__back:hover { color: var(--gold-dark); }
+
+.editorial-page:has(.chapter-nav) .editorial-page__main,
+.beles-page:has(.chapter-nav) .beles-page__main {
+  padding-top: clamp(108px, 11vw, 132px);
+}
+
+/* ---------- INFO PAGE EXTRAS ---------- */
+.info-page__table-wrap {
+  overflow-x: auto;
+  margin: 24px 0;
+}
+.info-page__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.info-page__table th,
+.info-page__table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(28, 28, 26, 0.1);
+  text-align: left;
+  vertical-align: top;
+}
+.info-page__table thead th {
+  font: 600 10px/1 var(--sans);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.info-page__table tbody th[scope="row"] {
+  font-weight: 500;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.info-page__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  margin: 24px 0;
+}
+.info-page__card {
+  padding: 20px;
+  border: 1px solid rgba(28, 28, 26, 0.1);
+  background: rgba(255, 255, 255, 0.4);
+}
+.info-page__card h3 {
+  margin: 0 0 10px;
+  font-size: 18px;
+}
+.info-page__card p {
+  margin: 0 0 8px;
+}
+
+/* ---------- BOTTLE EXPLORER ---------- */
+.bottle-explorer {
+  perspective: 900px;
+  margin: 32px auto;
+  max-width: 360px;
+  text-align: center;
+  touch-action: none;
+}
+.bottle-explorer img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.15s ease-out;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.bottle-explorer__hint {
+  margin: 12px 0 0;
+  font: 500 10px/1 var(--sans);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.bottle-explorer--page { max-width: 280px; }
+
+.ritual__guide-link { margin-top: 28px; }
+
+@media (max-width: 1100px) {
+  .nav__story { display: none; }
+}
+@media (max-width: 900px) {
+  .chapter-nav__back { margin-left: 0; width: 100%; padding-top: 4px; }
+  .info-page__grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .nav__lang { display: none; }
+  .chapter-nav__strip { gap: 6px; }
+  .chapter-nav__pill { padding: 7px 10px; }
+  .chapter-nav__pill-name { display: none; }
 }
