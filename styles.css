@@ -2175,6 +2175,7 @@ body.is-loaded .hero__cta { opacity: 1; transform: translateY(0); }
   display: flex;
   flex-direction: column;
   min-height: 100%;
+  gap: clamp(14px, 2.2vw, 24px);
 }
 
 .shop--beles .shop__column-splash {
@@ -2182,7 +2183,6 @@ body.is-loaded .hero__cta { opacity: 1; transform: translateY(0); }
   min-height: clamp(120px, 18vh, 280px);
   overflow: hidden;
   border: 1px solid var(--line-soft);
-  border-top: 0;
 }
 
 .shop--beles .shop__column-splash picture,
