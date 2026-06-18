@@ -59,6 +59,7 @@
   const playVideoSafe = (video, retries = 2) => {
     if (!(video instanceof HTMLVideoElement)) return;
     video.muted = true;
+    video.defaultMuted = true;
     const attempt = (left) => {
       const playPromise = video.play();
       if (!playPromise || typeof playPromise.catch !== 'function') return;
@@ -66,8 +67,12 @@
         if (left > 0) setTimeout(() => attempt(left - 1), 160);
       });
     };
-    if (video.readyState >= HTMLMediaElement.HAVE_METADATA) attempt(retries);
-    else video.addEventListener('loadeddata', () => attempt(retries), { once: true });
+    if (video.readyState >= HTMLMediaElement.HAVE_METADATA) {
+      attempt(retries);
+      return;
+    }
+    video.addEventListener('canplay', () => attempt(retries), { once: true });
+    video.load();
   };
 
   /* ---------- 1. CINEMATIC INTRO VEIL ---------- */
@@ -641,34 +646,49 @@
         const videos = section.querySelectorAll('[data-model-video]');
         if (!videos.length) return;
 
-        const syncInView = (inView) => {
+        const syncSectionVideos = (inView) => {
           section.classList.toggle('is-inview', inView);
+          videos.forEach((video) => {
+            if (!(video instanceof HTMLVideoElement)) return;
+            if (inView) playVideoSafe(video);
+            else video.pause();
+          });
         };
 
-        const sectionObserver = new IntersectionObserver(
-          ([entry]) => {
-            const inView = entry.isIntersecting;
-            syncInView(inView);
-            videos.forEach((video) => {
-              if (!(video instanceof HTMLVideoElement)) return;
-              if (inView) playVideoSafe(video);
-              else video.pause();
-            });
-          },
-          { threshold: 0.18, rootMargin: '0px 0px -6% 0px' }
-        );
+        const syncFromViewport = () => {
+          const rect = section.getBoundingClientRect();
+          const inView = rect.bottom > 0 && rect.top < window.innerHeight * 0.92;
+          syncSectionVideos(inView);
+        };
 
-        sectionObserver.observe(section);
+        let syncTick = 0;
+        const requestSync = () => {
+          if (syncTick) return;
+          syncTick = window.requestAnimationFrame(() => {
+            syncTick = 0;
+            syncFromViewport();
+          });
+        };
+
+        if ('IntersectionObserver' in window) {
+          const sectionObserver = new IntersectionObserver(
+            ([entry]) => syncSectionVideos(entry.isIntersecting),
+            { threshold: 0.18, rootMargin: '0px 0px -6% 0px' }
+          );
+
+          sectionObserver.observe(section);
+        }
+
+        window.addEventListener('scroll', requestSync, { passive: true });
+        window.addEventListener('resize', requestSync);
+        requestSync();
 
         document.addEventListener('visibilitychange', () => {
           if (document.hidden) {
             videos.forEach((video) => video.pause());
             return;
           }
-          const rect = section.getBoundingClientRect();
-          const inView = rect.bottom > 0 && rect.top < window.innerHeight * 0.92;
-          syncInView(inView);
-          if (inView) videos.forEach((video) => playVideoSafe(video));
+          syncFromViewport();
         });
       });
     } else {
