@@ -1,6 +1,6 @@
 # Final Report — EILLON Review Loop 2026-06-18
 
-**Automation run:** 2026-06-18T06:00 UTC (cron) — verified prior loop; no additional code changes required.
+**Automation run:** 2026-06-18T07:02 UTC (cron) — verified prior loop; applied privacy + llms.txt gaps.
 
 ## External ChatGPT review summary
 
@@ -63,6 +63,16 @@
 - **What:** Removed hardcoded personal Gmail fallback
 - **Why:** Privacy/safety — notifications should require explicit env configuration
 - **Expected effect:** Signups still save; admin email only when `WAITLIST_NOTIFY_EMAIL` or `ADMIN_NOTIFY_EMAIL` is set
+
+### 7. `privacy.html` (this run)
+- **What:** Removed “appointment data” from meta and body; references waitlist, newsletter, and care enquiries only
+- **Why:** No appointments flow on site; accurate disclosure
+- **Expected effect:** Privacy copy matches actual data collection
+
+### 8. `llms.txt` (this run)
+- **What:** Added journal article URLs (Fico d'India, The bottle)
+- **Why:** Complete AI crawler context
+- **Expected effect:** Better LLM indexing of editorial content
 
 ---
 
