@@ -5479,10 +5479,43 @@ a.product-card--link:focus-visible {
 }
 
 .palette-card {
-  padding: clamp(20px, 2.4vw, 28px);
+  display: flex;
+  flex-direction: column;
+  padding: 0;
   border: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.52);
   box-shadow: var(--shadow-soft);
+  overflow: hidden;
+}
+
+.palette-card__media {
+  position: relative;
+  margin: 0;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--bg-deep);
+}
+
+.palette-card__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-bottom: 1px solid rgba(28, 28, 26, 0.08);
+  pointer-events: none;
+}
+
+.palette-card__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: saturate(0.9) contrast(0.96);
+  transition: transform 1.4s var(--ease), filter 0.8s var(--ease);
+}
+
+.palette-card__body {
+  padding: clamp(20px, 2.4vw, 28px);
 }
 
 .palette-card__title {
@@ -5500,6 +5533,24 @@ a.product-card--link:focus-visible {
   font-style: italic;
   line-height: 1.6;
   font-size: 15px;
+}
+
+.palette__credits {
+  max-width: 720px;
+  margin: clamp(24px, 4vw, 36px) auto 0;
+  text-align: center;
+  font-family: var(--sans);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .palette-card:hover .palette-card__media img {
+    transform: scale(1.03);
+    filter: saturate(1) contrast(1);
+  }
 }
 
 @media (max-width: 1100px) {
