@@ -1,6 +1,6 @@
 # ChatGPT Live Review — EILLON
 
-**Date/time:** 2026-06-18T03:02:34Z (automation trigger)
+**Date/time:** 2026-06-18T10:01:41Z (cron automation trigger)
 
 ## Review method
 
@@ -8,6 +8,7 @@ Browser access to ChatGPT Pro was not available in the cloud agent environment. 
 
 1. Live fetches of https://eillon.maison/ and key routes
 2. Full local codebase audit per the review-loop specification
+3. Verification of prior loop changes (schema, store cards, copy, notify safety)
 
 Findings below are synthesized from that independent audit in the same spirit as an external reviewer.
 
@@ -41,28 +42,21 @@ Suggest improvements, but do not suggest adding a generic contact/appointments p
 ### Strengths
 
 - Clear maison vs boutique architecture: homepage reads editorial; `/store` is chapter-focused
-- Beles is correctly positioned as the only waitlist-open release with pricing and size selection
-- Future chapters (Asmara, Massawa) use restrained “not yet available to purchase” language
-- Ritual is explicitly a lab study, not for sale
+- All chapters consistently framed as **out of stock** with restock-list messaging (aligned with live site)
+- Future chapters (Asmara, Massawa) use restrained language; Ritual remains a lab study
 - Product-specific waitlist slugs and differentiated success messages in `script.js`
-- No generic luxury clichés detected in copy
-- `data/products.js` is a coherent source of truth for chapter status
+- No generic luxury clichés in visible copy
+- Prior loop fixes verified: `OutOfStock` schema on future chapters, Ritual offers removed, Copenhagen studio nav labels, oil-rich terminology, notify email safety
 
-### Actionable suggestions extracted
+### Actionable suggestions extracted (this run)
 
-1. **Schema accuracy:** Asmara, Massawa, and Ritual use `PreOrder` in JSON-LD but pages state they are not purchasable — misleading for SEO/rich results
-2. **Ritual schema:** Lab study should not imply a purchase offer at all
-3. **Store boutique cards:** Beles card on `/store` shows mood imagery only — no visible name/status unlike other chapter cards (body hidden by boutique CSS)
-4. **Copy consistency:** Journal article uses “oil-based parfum” while site standard is “oil-rich parfum”
-5. **Misleading navigation:** Footer link “Find a Stockist” points to Copenhagen studio appointments — no stockists are listed (implies fake availability)
-6. **Homepage search:** “Appointments” label suggests a dedicated page; section is studio mailto only
-7. **Notification safety:** `lib/waitlist-notify.js` falls back to a hardcoded personal Gmail if env vars unset
+1. **Broken HTML:** Stray `</a>` closing tag in homepage search overlay (`index.html` line 280) — invalid DOM, may affect search panel parsing
+2. **Broken tooling:** `package.json` missing comma after `verify` script — `npm run dev` and `npm run verify` fail with JSON parse error
 
-### Suggestions not pursued (brand/rule conflicts)
+### Suggestions not pursued (brand/rule conflicts or low score)
 
 - Add a Contact page
 - Add discovery set / sample kit landing push
-- Add stockist directory (no real stockists to list)
-- Add customer reviews or press logos
-- Heavier ecommerce (cart, checkout on-site)
-- React migration or build system
+- Add stockist directory (no real stockists)
+- Rewrite craftsmanship sustainability section (content is modest and factual, not greenwashing)
+- Sitewide cache-bust version unification (cosmetic scope)
