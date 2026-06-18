@@ -4,8 +4,9 @@
   "scripts": {
     "dev": "python3 scripts/dev-server.py",
     "start:local": "bash scripts/start-local.sh",
-    "verify": "node scripts/verify-out-of-stock.mjs"
-    "dev:api": "vercel dev"
+    "verify": "node scripts/verify-out-of-stock.mjs",
+    "dev:api": "vercel dev",
+    "screenshots": "node scripts/capture-screenshots.mjs"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.0",

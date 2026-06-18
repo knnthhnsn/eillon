@@ -1,0 +1,4 @@
+Design review checkpoint
+Branch: design-review-eillon-2026-06-18
+Base commit: d278635864d45b7d4322adc5f3c72527aeecbaf7
+Started: 2026-06-18
