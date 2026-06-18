@@ -35,15 +35,16 @@ This adds:
 | MX | @ | fwd2.porkbun.com | 20 |
 | TXT | @ | v=spf1 include:_spf.porkbun.com ~all | — |
 
-Or run locally with Porkbun API keys:
+Or run the all-in-one script (DNS + care@ forward):
 
 ```bash
 export PORKBUN_API_KEY=pk1_...
 export PORKBUN_SECRET_API_KEY=sk1_...
-node scripts/setup-porkbun-email-dns.mjs
+export CARE_FORWARD_EMAIL=kennethchristoffer@gmail.com
+node scripts/setup-care-email.mjs
 ```
 
-Keys: [porkbun.com/account/api](https://porkbun.com/account/api)
+Keys: [porkbun.com/account/api](https://porkbun.com/account/api) — enable API access for `eillon.maison` in domain settings if the script reports an opt-in error.
 
 ### 4. Verify
 
