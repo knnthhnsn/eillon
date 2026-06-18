@@ -1275,9 +1275,7 @@
 
         const hintLine = document.createElement('span');
         hintLine.className = 'product-card__image-label-hint';
-        hintLine.textContent = product.slug === 'ritual'
-          ? `${product.name} · ${product.subtitle}`
-          : `${product.name} · ${product.subtitle}`;
+        hintLine.textContent = getStockHint(product);
 
         imageLabel.append(statusLine, hintLine);
         media.appendChild(imageLabel);
