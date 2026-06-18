@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=117" />
+  <link rel="stylesheet" href="styles.min.css?v=126" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -50,7 +50,7 @@
 <body class="editorial-page chapter-page chapter-page--ritual" data-nav-waitlist="#waitlist" data-chapter-slug="ritual">
   <a class="skip-link" href="#top">Skip to content</a>
   <script src="/scripts/i18n.js"></script>
-  <script src="/scripts/site-nav.js?v=2"></script>
+  <script src="/scripts/site-nav.js?v=3"></script>
   <script src="/scripts/chapter-nav.js"></script>
 
   <main class="chapter-page__main" id="top">
@@ -64,7 +64,7 @@
         </figure>
 
         <div class="shop__info">
-          <span class="eyebrow reveal">Lab — Out of stock</span>
+          <span class="eyebrow reveal">Lab — <span class="stock-status">Out of stock</span></span>
           <h1 class="display" data-reveal="words" data-delay="80">
             Ritual <span class="product-qualifier">• Frankincense & Myrrh</span><br />
             <em>Parfum study</em>
@@ -89,7 +89,7 @@
               <span class="btn__hover" aria-hidden="true">Studio notes only — not for sale</span>
             </button>
           </form>
-          <p class="shop__cta-caption">Out of stock — Ritual is a lab study, not offered for sale. Leave your email only if you want studio notes.</p>
+          <p class="shop__cta-caption"><span class="stock-status">Out of stock</span> — Ritual is a lab study, not offered for sale. Leave your email only if you want studio notes.</p>
           <p class="shop__waitlist-status" aria-live="polite"></p>
 
           <ul class="shop__features" data-reveal="up" data-delay="880">

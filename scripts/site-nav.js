@@ -150,6 +150,7 @@
   </div>`;
 
   const maisonModalHtml = `
+  <div class="maison-modal" id="maisonModal" role="dialog" aria-modal="true" aria-labelledby="maisonModalTitle" aria-hidden="true" inert>
     <button class="maison-modal__backdrop" type="button" tabindex="-1" data-maison-story-close aria-label="Close maison story"></button>
     <div class="maison-modal__surface">
       <div class="maison-modal__head">

@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=117" />
+  <link rel="stylesheet" href="styles.min.css?v=126" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -55,7 +55,7 @@
 <body class="editorial-page chapter-page chapter-page--asmara" data-nav-waitlist="#waitlist" data-chapter-slug="asmara">
   <a class="skip-link" href="#top">Skip to content</a>
   <script src="/scripts/i18n.js"></script>
-  <script src="/scripts/site-nav.js?v=2"></script>
+  <script src="/scripts/site-nav.js?v=3"></script>
   <script src="/scripts/chapter-nav.js"></script>
 
   <main class="chapter-page__main" id="top">
@@ -69,7 +69,7 @@
         </figure>
 
         <div class="shop__info">
-          <span class="eyebrow reveal">Chapter II — Out of stock</span>
+          <span class="eyebrow reveal">Chapter II — <span class="stock-status">Out of stock</span></span>
           <h1 class="display" data-reveal="words" data-delay="80">
             Asmara <span class="product-qualifier">• Rain on Stone</span><br />
             <em>Parfum concept</em>
@@ -94,12 +94,12 @@
               <span class="btn__hover" aria-hidden="true">We write when Asmara returns</span>
             </button>
           </form>
-          <p class="shop__cta-caption">Out of stock — leave your email for a restock note when Asmara returns.</p>
+          <p class="shop__cta-caption"><span class="stock-status">Out of stock</span> — leave your email for a restock note when Asmara returns.</p>
           <p class="shop__waitlist-status" aria-live="polite"></p>
 
           <ul class="shop__features" data-reveal="up" data-delay="880">
             <li>Chapter II in the EILLON maison</li>
-            <li>Currently out of stock</li>
+            <li><span class="stock-status">Currently out of stock</span></li>
             <li>Restock note before the public boutique</li>
           </ul>
 

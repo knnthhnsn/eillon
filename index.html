@@ -46,7 +46,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" as="image" href="images/hero-backgrund-white.webp" type="image/webp" fetchpriority="high" />
-  <link rel="preload" as="video" href="images/leopard-bottle-sneak-alpha.webm?v=9" type="video/webm" />
   <link
     rel="preload"
     as="style"
@@ -65,7 +64,7 @@
     />
   </noscript>
 
-  <link rel="stylesheet" href="styles.css?v=119" />
+  <link rel="stylesheet" href="styles.min.css?v=127" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -192,6 +191,9 @@
   </noscript>
 </head>
 <body data-nav-home="true">
+  <script>
+    if (window.matchMedia('(max-width: 900px)').matches) document.body.classList.add('is-loaded');
+  </script>
   <script>try{var h=location.hostname;if(h!=='localhost'&&h!=='127.0.0.1'&&sessionStorage.getItem('eillon-veil-seen'))document.body.classList.add('is-loaded');}catch(e){}</script>
   <a class="skip-link" href="#maison">Skip to the maison</a>
 
@@ -223,12 +225,11 @@
         <div class="hero__scene">
           <picture>
             <source type="image/webp" srcset="images/hero-backgrund-white.webp" />
-            <img class="hero__bg-img hero__bg-img--scene" src="images/hero-backgrund-white.png" width="1920" height="1080" alt="" aria-hidden="true" fetchpriority="high" decoding="async" />
+            <img class="hero__bg-img hero__bg-img--scene" src="images/hero-backgrund-white.png" width="1920" height="1080" alt="" fetchpriority="high" decoding="async" />
           </picture>
         </div>
       </div>
       <div class="hero__spotlight" aria-hidden="true"></div>
-      <div class="hero__scrim" aria-hidden="true"></div>
 
       <div class="hero__content">
         <p class="hero__brand reveal">
@@ -260,12 +261,21 @@
       <div class="hero__bottle-stage">
         <div class="hero__bottle-glow" aria-hidden="true"></div>
         <a class="hero__bottle-link" href="/store" aria-label="Enter the EILLON boutique">
+          <img
+            class="hero__bottle-fallback"
+            src="images/plain-bottle-with-logo.webp"
+            width="1024"
+            height="1536"
+            alt=""
+            decoding="sync"
+            fetchpriority="low"
+          />
           <video
             class="hero__bottle"
             muted
             loop
             playsinline
-            preload="auto"
+            preload="none"
             aria-hidden="true"
             data-webm="images/leopard-bottle-sneak-alpha.webm?v=9"
             data-mp4="images/leopard-bottle-sneak.mp4"
@@ -335,7 +345,7 @@
               loop
               playsinline
             preload="none"
-            poster="images/elli-model.png"
+            poster="images/elli-model.webp"
               aria-hidden="true"
               src="images/elli-model.mp4"
             ></video>
@@ -533,7 +543,7 @@
             loop
             playsinline
             preload="none"
-            poster="images/model-woman.png"
+            poster="images/model-woman.webp"
             aria-hidden="true"
             src="images/model-woman.mp4?v=3"
           ></video>
@@ -669,8 +679,8 @@
   </footer>
 
   <script src="/scripts/i18n.js" defer></script>
-  <script src="/scripts/site-nav.js?v=2" defer></script>
-  <script src="data/products.js?v=11" defer></script>
-  <script src="script.js?v=76" defer></script>
+  <script src="/scripts/site-nav.js?v=3" defer></script>
+  <script src="data/products.js?v=12" defer></script>
+  <script src="script.js?v=80" defer></script>
 </body>
 </html>

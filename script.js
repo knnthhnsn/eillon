@@ -81,7 +81,7 @@
   // Timing is anchored to performance.timeOrigin so every visit gets the full
   // sequence regardless of font cache state or script-parse latency.
   const afterVeil = [];
-  const minHold = prefersReduced ? 0 : 400;
+  const minHold = prefersReduced ? 0 : 220;
 
   let dropped = false;
   const markVeilSeen = () => {
@@ -115,7 +115,7 @@
     if (document.fonts && document.fonts.ready) {
       Promise.race([
         document.fonts.ready,
-        new Promise((r) => setTimeout(r, 700)),
+        new Promise((r) => setTimeout(r, 450)),
       ]).then(releaseVeil);
     } else {
       window.addEventListener('load', releaseVeil);
@@ -485,12 +485,24 @@
     step();
   }
 
-  /* ---------- 7b. HERO BOTTLE VIDEO — sneak loop only, no static fallback ---------- */
+  /* ---------- 7b. HERO BOTTLE VIDEO — poster first; video after idle ---------- */
+  const scheduleHeroVideo = (fn) => {
+    const timeout = mobileLayout.matches ? 8000 : 5000;
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(fn, { timeout });
+    } else {
+      setTimeout(fn, timeout);
+    }
+  };
+
   document.querySelectorAll('.hero__bottle').forEach((video) => {
     if (!(video instanceof HTMLVideoElement)) return;
 
     const link = video.closest('.hero__bottle-link');
-    if (saveData) return;
+    if (saveData) {
+      link?.classList.add('is-static-fallback');
+      return;
+    }
 
     let heroVideoStarted = false;
 
@@ -501,22 +513,27 @@
       if (heroVideoStarted) return;
       heroVideoStarted = true;
 
+      configureBottleVideo(video);
+
       video.pause();
       video.currentTime = 0;
       video.removeAttribute('autoplay');
 
-      if (prefersReduced) return;
+      if (prefersReduced) {
+        link?.classList.add('is-static-fallback');
+        return;
+      }
 
       video.addEventListener('playing', revealHeroVideo, { once: true });
       playVideoSafe(video);
     };
 
-    configureBottleVideo(video);
+    const queueHeroVideo = () => scheduleHeroVideo(beginHeroVideo);
 
     if (document.body.classList.contains('is-loaded')) {
-      beginHeroVideo();
+      queueHeroVideo();
     } else {
-      afterVeil.push(beginHeroVideo);
+      afterVeil.push(queueHeroVideo);
     }
 
     document.addEventListener('visibilitychange', () => {
@@ -1316,7 +1333,7 @@
         media.append(veil, pedestal);
       }
 
-      if (isOutOfStock(product)) {
+      if (isOutOfStock(product) && !cardIsLink) {
         const imageLabel = document.createElement('span');
         imageLabel.className = 'product-card__image-label product-card__image-label--out-of-stock';
 
@@ -1367,27 +1384,7 @@
       card.setAttribute('aria-label', `${product.name} · ${product.subtitle}`);
 
       card.appendChild(buildProductCardMedia(product, true));
-
-      if (mode === 'store') {
-        card.appendChild(buildStoreCardCaption(product));
-      } else if (mode !== 'store') {
-        const body = document.createElement('div');
-        body.className = 'product-card__body';
-
-        const status = document.createElement('span');
-        status.className = `product-card__status ${STATUS_CLASS[product.status] || ''}`;
-        status.textContent = product.statusLabel;
-        body.appendChild(status);
-
-        const heading = document.createElement('h2');
-        heading.append(document.createTextNode(product.name));
-        const subtitle = document.createElement('span');
-        subtitle.textContent = product.subtitle;
-        heading.appendChild(subtitle);
-        body.appendChild(heading);
-
-        card.appendChild(body);
-      }
+      card.appendChild(buildStoreCardCaption(product));
       return card;
     }
 
@@ -1515,6 +1512,8 @@
     if (!Array.isArray(products)) return;
 
     document.querySelectorAll('[data-product-preview]').forEach((container) => {
+      if (container.dataset.rendered === 'true') return;
+      container.dataset.rendered = 'true';
       container.classList.add('product-grid', 'product-grid--collection', 'product-grid--preview');
       getProductsForContainer(container, products).forEach((product) => {
         container.appendChild(createProductCard(product, 'preview'));
@@ -1522,6 +1521,8 @@
     });
 
     document.querySelectorAll('[data-product-grid]').forEach((container) => {
+      if (container.dataset.rendered === 'true') return;
+      container.dataset.rendered = 'true';
       const mode = container.dataset.productGridMode || 'store';
       container.classList.add('product-grid--collection', 'product-grid--boutique');
       products.forEach((product) => {
@@ -1531,8 +1532,36 @@
     });
   };
 
-  renderProductGrids();
-  initCardSceneVideos();
+  const mountProductGrids = () => {
+    const targets = document.querySelectorAll('[data-product-preview], [data-product-grid]');
+    if (!targets.length) return;
+
+    const boot = () => {
+      if (!Array.isArray(window.EILLON_PRODUCTS)) return false;
+      renderProductGrids();
+      initCardSceneVideos();
+      return true;
+    };
+
+    if (boot()) return;
+
+    const onProducts = () => {
+      if (boot()) document.removeEventListener('eillon:products-ready', onProducts);
+    };
+    document.addEventListener('eillon:products-ready', onProducts);
+
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        obs.unobserve(entry.target);
+        boot();
+      });
+    }, { rootMargin: '240px 0px', threshold: 0.01 });
+
+    targets.forEach((target) => observer.observe(target));
+  };
+
+  mountProductGrids();
 
   /* ---------- 11. SMOOTH ANCHOR SCROLL ---------- */
   const scrollToHashTarget = (hash, { focusEmail = false } = {}) => {

@@ -5,7 +5,9 @@
     "dev": "python3 scripts/dev-server.py",
     "start:local": "bash scripts/start-local.sh",
     "verify": "node scripts/verify-out-of-stock.mjs",
-    "dev:api": "vercel dev"
+    "dev:api": "vercel dev",
+    "lighthouse": "npx lighthouse http://localhost:8080 --only-categories=performance,accessibility,best-practices,seo --form-factor=mobile --screenEmulation.mobile --throttling.cpuSlowdownMultiplier=4 --output=json --output-path=./lighthouse-report-latest.json --chrome-flags=\"--headless --no-sandbox\"",
+    "build:css": "npx clean-css-cli -o styles.min.css styles.css"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.0",

@@ -20,7 +20,7 @@ window.EILLON_PRODUCTS = [
     palette: ['cream', 'blush pink', 'cactus green', 'mineral aqua', 'sandstone'],
     sceneVideo: 'images/beles-showcase-stabilized.mp4',
     scenePoster: 'images/beles-splash.webp',
-    moodImage: 'images/beles-mood.png',
+    moodImage: 'images/beles-mood.webp',
     image: 'images/beles-no-background.webp',
     fallbackImage: 'images/beles-no-background.png',
     url: '/beles',
@@ -105,3 +105,7 @@ window.EILLON_PRODUCTS = [
     formats: [],
   },
 ];
+
+if (typeof document !== 'undefined') {
+  document.dispatchEvent(new Event('eillon:products-ready'));
+}
