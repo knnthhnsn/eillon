@@ -1,6 +1,4 @@
 (function () {
-  if (document.getElementById('nav')) return;
-
   const body = document.body;
   const isHome = body.dataset.navHome === 'true';
   const current = body.dataset.navCurrent || '';
@@ -26,7 +24,7 @@
     .map((link) => `<a href="${link.href}" data-menu-link data-i18n="${link.i18n}"${currentAttr(link.id)}>${link.label}</a>`)
     .join('\n      ');
 
-  const html = `
+  const shellHtml = `
   <header class="nav is-scrolled" id="nav">
     <div class="nav__inner">
       <a href="${homeHref}" class="nav__brand" aria-label="EILLON home">
@@ -149,9 +147,9 @@
       </div>
       <p class="search-panel__empty" id="searchEmpty" hidden>No matching section yet.</p>
     </div>
-  </div>
+  </div>`;
 
-  <div class="maison-modal" id="maisonModal" role="dialog" aria-modal="true" aria-labelledby="maisonModalTitle" aria-hidden="true" inert>
+  const maisonModalHtml = `
     <button class="maison-modal__backdrop" type="button" tabindex="-1" data-maison-story-close aria-label="Close maison story"></button>
     <div class="maison-modal__surface">
       <div class="maison-modal__head">
@@ -205,6 +203,114 @@
   </div>`;
 
   const anchor = document.querySelector('.skip-link') || body.firstElementChild;
-  if (anchor) anchor.insertAdjacentHTML('afterend', html);
-  else body.insertAdjacentHTML('afterbegin', html);
+  const insertAfterAnchor = (html) => {
+    if (anchor) anchor.insertAdjacentHTML('afterend', html);
+    else body.insertAdjacentHTML('afterbegin', html);
+  };
+
+  if (!document.getElementById('nav')) {
+    insertAfterAnchor(shellHtml);
+  }
+
+  if (!document.getElementById('maisonModal')) {
+    body.insertAdjacentHTML('beforeend', maisonModalHtml);
+  }
+
+  const maisonModal = document.getElementById('maisonModal');
+  if (!maisonModal || maisonModal.dataset.bound === 'true') return;
+  maisonModal.dataset.bound = 'true';
+
+  const focusableSelector = 'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])';
+  let maisonReturnFocus = null;
+
+  const syncPageLock = () => {
+    const locked =
+      document.getElementById('searchPanel')?.classList.contains('is-open') ||
+      document.getElementById('mobileNav')?.classList.contains('is-open') ||
+      maisonModal.classList.contains('is-open');
+    document.body.style.overflow = locked ? 'hidden' : '';
+  };
+
+  const closeOtherOverlays = () => {
+    const mobileNav = document.getElementById('mobileNav');
+    const menuToggle = document.getElementById('menuToggle');
+    if (mobileNav?.classList.contains('is-open')) {
+      menuToggle?.classList.remove('is-open');
+      menuToggle?.setAttribute('aria-expanded', 'false');
+      mobileNav.classList.remove('is-open');
+      mobileNav.setAttribute('aria-hidden', 'true');
+      mobileNav.inert = true;
+    }
+
+    const searchPanel = document.getElementById('searchPanel');
+    const searchToggle = document.getElementById('searchToggle');
+    if (searchPanel?.classList.contains('is-open')) {
+      searchPanel.classList.remove('is-open');
+      searchPanel.setAttribute('aria-hidden', 'true');
+      searchPanel.inert = true;
+      searchToggle?.setAttribute('aria-expanded', 'false');
+    }
+  };
+
+  const keepFocusInside = (container, e) => {
+    if (e.key !== 'Tab') return;
+    const focusable = Array.from(container.querySelectorAll(focusableSelector))
+      .filter((el) => !el.hidden && el.offsetParent !== null);
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  };
+
+  const openMaisonModal = (trigger) => {
+    closeOtherOverlays();
+    maisonReturnFocus = trigger || document.activeElement;
+    maisonModal.classList.add('is-open');
+    maisonModal.setAttribute('aria-hidden', 'false');
+    maisonModal.inert = false;
+    syncPageLock();
+    const closeBtn = maisonModal.querySelector('[data-maison-story-close]:not(.maison-modal__backdrop)');
+    setTimeout(() => (closeBtn || maisonModal).focus(), 80);
+    if (window.EILLON_I18N) window.EILLON_I18N.applyLang(window.EILLON_I18N.getLang());
+  };
+
+  const closeMaisonModal = ({ restoreFocus = true } = {}) => {
+    maisonModal.classList.remove('is-open');
+    maisonModal.setAttribute('aria-hidden', 'true');
+    maisonModal.inert = true;
+    syncPageLock();
+    if (restoreFocus && maisonReturnFocus && typeof maisonReturnFocus.focus === 'function') {
+      maisonReturnFocus.focus();
+    }
+  };
+
+  document.addEventListener('click', (e) => {
+    const opener = e.target.closest('[data-maison-story-open]');
+    if (opener) {
+      e.preventDefault();
+      openMaisonModal(opener);
+      return;
+    }
+    if (e.target.closest('[data-maison-story-close]')) {
+      closeMaisonModal();
+    }
+  });
+
+  maisonModal.querySelectorAll('a[href]').forEach((link) => {
+    link.addEventListener('click', () => closeMaisonModal({ restoreFocus: false }));
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (!maisonModal.classList.contains('is-open')) return;
+    if (e.key === 'Escape') closeMaisonModal();
+    keepFocusInside(maisonModal, e);
+  });
+
+  window.EILLON_MAISON_MODAL = { open: openMaisonModal, close: closeMaisonModal };
 })();

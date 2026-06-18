@@ -1575,49 +1575,7 @@
   });
 
   /* ---------- MAISON STORY MODAL ---------- */
-  const maisonModal = document.getElementById('maisonModal');
-  const maisonOpeners = document.querySelectorAll('[data-maison-story-open]');
-  let maisonReturnFocus = null;
-
-  const openMaisonModal = () => {
-    if (!maisonModal) return;
-    if (typeof closeMenu === 'function') closeMenu({ restoreFocus: false });
-    if (typeof closeSearch === 'function') closeSearch({ restoreFocus: false });
-    maisonReturnFocus = document.activeElement;
-    activeOverlay = 'maison';
-    maisonModal.classList.add('is-open');
-    maisonModal.setAttribute('aria-hidden', 'false');
-    maisonModal.inert = false;
-    setPageLocked(true);
-    const closeBtn = maisonModal.querySelector('[data-maison-story-close]:not(.maison-modal__backdrop)');
-    setTimeout(() => (closeBtn || maisonModal).focus(), 80);
-    if (window.EILLON_I18N) window.EILLON_I18N.applyLang(window.EILLON_I18N.getLang());
-  };
-
-  const closeMaisonModal = ({ restoreFocus = true } = {}) => {
-    if (!maisonModal) return;
-    maisonModal.classList.remove('is-open');
-    maisonModal.setAttribute('aria-hidden', 'true');
-    maisonModal.inert = true;
-    if (activeOverlay === 'maison') activeOverlay = null;
-    setPageLocked(Boolean(activeOverlay));
-    if (restoreFocus && maisonReturnFocus && typeof maisonReturnFocus.focus === 'function') {
-      maisonReturnFocus.focus();
-    }
-  };
-
-  if (maisonModal && maisonOpeners.length) {
-    maisonOpeners.forEach((btn) => btn.addEventListener('click', openMaisonModal));
-    maisonModal.querySelectorAll('[data-maison-story-close]').forEach((btn) => {
-      btn.addEventListener('click', closeMaisonModal);
-    });
-    maisonModal.querySelectorAll('a[href]').forEach((link) => link.addEventListener('click', closeMaisonModal));
-    document.addEventListener('keydown', (e) => {
-      if (!maisonModal.classList.contains('is-open')) return;
-      if (e.key === 'Escape') closeMaisonModal();
-      keepFocusInside(maisonModal, e);
-    });
-  }
+  /* Wired in /scripts/site-nav.js — keeps modal markup and handlers in sync. */
 
   /* ---------- BOTTLE EXPLORER ---------- */
   document.querySelectorAll('[data-bottle-explorer]').forEach((wrap) => {
