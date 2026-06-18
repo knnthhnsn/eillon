@@ -1702,6 +1702,11 @@ body.is-loaded .hero__cta { opacity: 1; transform: translateY(0); }
   height: 100%;
   object-fit: cover;
   object-position: center;
+  transform: none;
+}
+.accord-profile__photo--base {
+  z-index: 0;
+  transition: opacity 0.55s var(--ease);
 }
 .accord-profile__photo--base img {
   filter: saturate(0.9) contrast(0.96);
@@ -1710,9 +1715,6 @@ body.is-loaded .hero__cta { opacity: 1; transform: translateY(0); }
   opacity: 0;
   transition: opacity 0.55s var(--ease);
   z-index: 1;
-}
-.accord-profile__photo--base {
-  z-index: 0;
 }
 
 .accord-profile__term {
@@ -4326,6 +4328,11 @@ body.is-loaded .scroll-progress { opacity: 1; }
     opacity: 1;
   }
 
+  .accord-profile__list div:hover .accord-profile__photo--base,
+  .accord-profile__list div.is-focused .accord-profile__photo--base {
+    opacity: 0;
+  }
+
   .shop__image:hover .shop__image-layer--setting {
     opacity: 1;
     transform: scale(1);
@@ -4444,6 +4451,9 @@ body.is-loaded .scroll-progress { opacity: 1; }
   }
   .accord-profile__list > div.is-focused .accord-profile__photo--hover {
     opacity: 1;
+  }
+  .accord-profile__list > div.is-focused .accord-profile__photo--base {
+    opacity: 0;
   }
 
   .note.is-inview { background: rgba(255, 255, 255, 0.5); }
