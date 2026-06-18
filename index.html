@@ -156,7 +156,7 @@
   </noscript>
 </head>
 <body>
-  <script>try{if(sessionStorage.getItem('eillon-veil-seen'))document.body.classList.add('is-loaded');}catch(e){}</script>
+  <script>try{var h=location.hostname;if(h!=='localhost'&&h!=='127.0.0.1'&&sessionStorage.getItem('eillon-veil-seen'))document.body.classList.add('is-loaded');}catch(e){}</script>
   <a class="skip-link" href="#maison">Skip to the maison</a>
 
   <!-- ============ SCROLL PROGRESS BAR ============ -->
@@ -477,7 +477,7 @@
       <header class="section-head">
         <span class="eyebrow">The Collection</span>
         <h2 class="display">Four memories,<br /><em>one maison.</em></h2>
-        <p>Beles is the first release. Other chapters are in production, coming soon, or in the lab.</p>
+        <p>All chapters are currently out of stock. Leave your email on any chapter — we write when bottles return to the boutique.</p>
       </header>
       <div data-product-preview="beles"></div>
       <a class="btn btn--ghost" href="/store">Open the Boutique <span class="arrow">→</span></a>
@@ -735,7 +735,7 @@
     </div>
   </footer>
 
-  <script src="data/products.js?v=7" defer></script>
-  <script src="script.js?v=66" defer></script>
+  <script src="data/products.js?v=8" defer></script>
+  <script src="script.js?v=67" defer></script>
 </body>
 </html>

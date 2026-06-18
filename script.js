@@ -9,6 +9,7 @@
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const finePointer    = window.matchMedia('(pointer: fine)').matches;
   const mobileLayout   = window.matchMedia('(max-width: 900px)');
+  const isLocalDev     = /^(localhost|127\.0\.0\.1)$/.test(window.location.hostname);
 
   const isIOS = () =>
     /iPhone|iPad|iPod/i.test(navigator.userAgent) ||
@@ -79,6 +80,7 @@
 
   let dropped = false;
   const markVeilSeen = () => {
+    if (isLocalDev) return;
     try { sessionStorage.setItem('eillon-veil-seen', '1'); } catch (_) {}
   };
   const dropVeil = () => {
@@ -95,7 +97,9 @@
   };
 
   let veilSeen = false;
-  try { veilSeen = sessionStorage.getItem('eillon-veil-seen') === '1'; } catch (_) {}
+  if (!isLocalDev) {
+    try { veilSeen = sessionStorage.getItem('eillon-veil-seen') === '1'; } catch (_) {}
+  }
 
   if (prefersReduced || mobileLayout.matches || veilSeen) {
     dropped = true;
