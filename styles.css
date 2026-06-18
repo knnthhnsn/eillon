@@ -4376,7 +4376,7 @@ body.is-loaded .scroll-progress { opacity: 1; }
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
-  background: #c8b4a8 url("images/beles-splash.webp") center / cover no-repeat;
+  background: #c8b4a8;
 }
 
 .collection-panel__video {
