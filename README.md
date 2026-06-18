@@ -24,13 +24,30 @@ The site is **static** with optional Vercel serverless APIs.
 
 Production uses Vercel `cleanUrls` (`/beles`, not `/beles.html`). Match that locally:
 
-```powershell
-python scripts/dev-server.py
+```bash
+# Recommended — pull, verify out-of-stock copy, start server
+npm run start:local
+# or
+bash scripts/start-local.sh
+```
+
+Or without pull:
+
+```bash
+python3 scripts/dev-server.py
 # or
 npm run dev
 ```
 
-Open <http://localhost:8080/beles> and <http://localhost:8080/store>.
+Verify your files are the out-of-stock version (not waitlist-open):
+
+```bash
+npm run verify
+```
+
+Open <http://localhost:8080/store> — all four cards should say **Out of stock**.
+
+If you still see **Waitlist open** / **In production**, you are on an old copy of the repo. Run `git pull origin main` and restart the dev server.
 
 Plain `python -m http.server` does **not** rewrite URLs — use `/beles.html` instead, or switch to the dev server above.
 
