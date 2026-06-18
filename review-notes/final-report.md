@@ -1,5 +1,7 @@
 # Final Report — EILLON Review Loop 2026-06-18
 
+**Automation run:** 2026-06-18T06:00 UTC (cron) — verified prior loop; no additional code changes required.
+
 ## External ChatGPT review summary
 
 **Method:** ChatGPT browser review was unavailable. One proxy cycle used live site fetches + full codebase audit (documented in `chatgpt-live-review.md`).
@@ -55,7 +57,7 @@
 ### 5. `index.html`
 - **What:** Footer “Find a Stockist” → “Copenhagen studio”; search “Appointments” → “Copenhagen studio”
 - **Why:** No stockists listed; avoids misleading navigation
-- **Expected effect:** Clearer studio appointment path via `#stockists`
+- **Expected effect:** Clearer studio appointment path via `#studio`
 
 ### 6. `lib/waitlist-notify.js`
 - **What:** Removed hardcoded personal Gmail fallback
