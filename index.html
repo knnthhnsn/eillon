@@ -48,7 +48,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" as="image" href="images/hero-backgrund-white.webp" type="image/webp" fetchpriority="high" />
-  <link rel="preload" as="image" href="images/plain-bottle-with-logo.webp" type="image/webp" fetchpriority="high" />
+  <link rel="preload" as="video" href="images/leopard-bottle-sneak-alpha.webm?v=9" type="video/webm" />
   <link
     rel="preload"
     as="style"
@@ -67,7 +67,7 @@
     />
   </noscript>
 
-  <link rel="stylesheet" href="styles.css?v=113" />
+  <link rel="stylesheet" href="styles.css?v=114" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -229,25 +229,12 @@
             muted
             loop
             playsinline
-            preload="none"
+            preload="auto"
             aria-hidden="true"
-            data-hero-video-deferred
             data-webm="images/leopard-bottle-sneak-alpha.webm?v=9"
             data-mp4="images/leopard-bottle-sneak.mp4"
             data-mobile="images/leopard-bottle-sneak-mobile.mp4?v=1"
           ></video>
-          <picture>
-            <source type="image/webp" srcset="images/plain-bottle-with-logo.webp" />
-            <img
-              class="hero__bottle-fallback"
-              src="images/plain-bottle-with-logo.webp"
-              width="1024"
-              height="1536"
-              alt="EILLON Beles bottle — oil-rich parfum"
-              decoding="sync"
-              fetchpriority="high"
-            />
-          </picture>
         </a>
       </div>
 
@@ -346,18 +333,20 @@
           <p data-reveal="up" data-delay="120">
             Each fragrance is a chapter. Beles begins with prickly pear and cactus water. Asmara follows rain on old city stone. Massawa turns toward the Red Sea coast.
           </p>
-          <a href="/store" class="link-arrow" data-reveal="up" data-delay="220">
-            <span>View the boutique</span>
-            <span class="arrow">→</span>
-          </a>
-          <a href="/about" class="link-arrow" data-reveal="up" data-delay="280" style="margin-top: 12px; display: inline-flex;">
-            <span>Read the full maison story</span>
-            <span class="arrow">→</span>
-          </a>
-          <button type="button" class="link-arrow maison-inline-story" data-maison-story-open data-reveal="up" data-delay="320" style="margin-top: 8px; display: inline-flex; background: none; border: none; cursor: pointer; font: inherit; color: inherit; padding: 0;">
-            <span>Quick overview</span>
-            <span class="arrow">→</span>
-          </button>
+          <div class="story__actions" data-reveal="up" data-delay="220">
+            <a class="btn btn--primary magnetic" href="/store">
+              <span class="btn__label">Enter the Boutique</span>
+            </a>
+            <a class="btn btn--ghost magnetic" href="/about">
+              <span>Full maison story</span>
+              <span class="arrow">→</span>
+            </a>
+          </div>
+          <p class="story__overview" data-reveal="up" data-delay="280">
+            <button type="button" class="story__overview-trigger" data-maison-story-open>
+              Quick overview <span class="arrow">→</span>
+            </button>
+          </p>
         </div>
       </div>
     </section>
@@ -374,7 +363,7 @@
           preload="none"
           poster="images/beles-splash.webp"
         >
-          <source src="images/beles-showcase.mp4" type="video/mp4" />
+          <source src="images/beles-showcase-stabilized.mp4" type="video/mp4" />
         </video>
         <span class="collection-panel__scrim"></span>
       </div>
@@ -646,7 +635,7 @@
 
   <script src="/scripts/i18n.js" defer></script>
   <script src="/scripts/site-nav.js" defer></script>
-  <script src="data/products.js?v=10" defer></script>
-  <script src="script.js?v=73" defer></script>
+  <script src="data/products.js?v=11" defer></script>
+  <script src="script.js?v=74" defer></script>
 </body>
 </html>

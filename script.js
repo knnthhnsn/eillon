@@ -485,54 +485,42 @@
     step();
   }
 
-  /* ---------- 7b. HERO BOTTLE VIDEO — deferred until after LCP window ---------- */
-  const deferAfterLcp = (fn) => {
-    const run = () => {
-      if ('requestIdleCallback' in window) {
-        requestIdleCallback(fn, { timeout: 5000 });
-      } else {
-        setTimeout(fn, 2500);
-      }
-    };
-    setTimeout(run, 2200);
-  };
-
+  /* ---------- 7b. HERO BOTTLE VIDEO — sneak loop only, no static fallback ---------- */
   document.querySelectorAll('.hero__bottle').forEach((video) => {
     if (!(video instanceof HTMLVideoElement)) return;
 
     const link = video.closest('.hero__bottle-link');
-    if (prefersReduced || saveData) return;
+    if (saveData) return;
 
     let heroVideoStarted = false;
+
+    const revealHeroVideo = () => link?.classList.add('is-video-playing');
+    video.addEventListener('loadeddata', revealHeroVideo, { once: true });
 
     const beginHeroVideo = () => {
       if (heroVideoStarted) return;
       heroVideoStarted = true;
 
-      const { mode } = configureBottleVideo(video);
       video.pause();
       video.currentTime = 0;
       video.removeAttribute('autoplay');
 
-      if (mode === 'mobile' && link) {
-        link.classList.add('is-static-fallback');
-        return;
-      }
+      if (prefersReduced) return;
 
-      video.addEventListener('playing', () => link?.classList.add('is-video-playing'), { once: true });
+      video.addEventListener('playing', revealHeroVideo, { once: true });
       playVideoSafe(video);
     };
 
-    const scheduleHeroVideo = () => deferAfterLcp(beginHeroVideo);
+    configureBottleVideo(video);
 
     if (document.body.classList.contains('is-loaded')) {
-      scheduleHeroVideo();
+      beginHeroVideo();
     } else {
-      afterVeil.push(scheduleHeroVideo);
+      afterVeil.push(beginHeroVideo);
     }
 
     document.addEventListener('visibilitychange', () => {
-      if (!heroVideoStarted) return;
+      if (!heroVideoStarted || prefersReduced) return;
       if (document.hidden) video.pause();
       else playVideoSafe(video);
     });
