@@ -5164,6 +5164,10 @@ a.product-card--link:focus-visible {
 
 .store-hero .display { margin: 12px 0 20px; }
 
+.store-hero .btn--primary {
+  margin-top: 4px;
+}
+
 .store-hero__lead {
   margin: 0 0 28px;
   color: var(--ink-soft);

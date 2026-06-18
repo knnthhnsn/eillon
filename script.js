@@ -1157,8 +1157,9 @@
     caption.className = 'product-card__caption';
 
     const status = document.createElement('span');
-    status.className = `product-card__caption-status ${STATUS_CLASS[product.status] || ''}`;
-    status.textContent = product.statusLabel;
+    const statusModifier = product.slug === 'ritual' ? 'product-card__caption-status--lab' : (product.slug === 'beles' ? 'product-card__caption-status--lead' : '');
+    status.className = `product-card__caption-status ${STATUS_CLASS[product.status] || ''} ${statusModifier}`.trim();
+    status.textContent = product.slug === 'ritual' ? 'Lab study' : (product.chapter ? `${product.chapter} · ${product.statusLabel}` : product.statusLabel);
 
     const title = document.createElement('span');
     title.className = 'product-card__caption-title';
@@ -1267,11 +1268,11 @@
 
       if (isOutOfStock(product) && !cardIsLink) {
         const imageLabel = document.createElement('span');
-        imageLabel.className = 'product-card__image-label product-card__image-label--out-of-stock';
+        imageLabel.className = `product-card__image-label product-card__image-label--${product.status}${product.slug === 'ritual' ? ' product-card__image-label--lab' : ''}`;
 
         const statusLine = document.createElement('span');
         statusLine.className = 'product-card__image-label-status';
-        statusLine.textContent = product.statusLabel;
+        statusLine.textContent = product.slug === 'ritual' ? 'Lab study' : product.statusLabel;
 
         const hintLine = document.createElement('span');
         hintLine.className = 'product-card__image-label-hint';
@@ -1310,7 +1311,8 @@
 
     if (isOverview) {
       const card = document.createElement('a');
-      card.className = `product-card product-card--${product.slug} product-card--compact product-card--link`;
+      const cardModifier = product.slug === 'beles' ? ' product-card--lead' : (product.slug === 'ritual' ? ' product-card--lab' : '');
+      card.className = `product-card product-card--${product.slug} product-card--compact product-card--link${cardModifier}`;
       card.id = `card-${product.slug}`;
       card.href = getOverviewCardHref(product);
       card.setAttribute('aria-label', `${product.name} · ${product.subtitle}`);
