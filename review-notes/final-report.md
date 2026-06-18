@@ -66,9 +66,20 @@
 - **Why:** Reflects review-loop changes
 - **Expected effect:** Crawlers see fresh timestamps
 
-### 7. `review-notes/` — documentation
-- **What:** chatgpt-live-review.md, suggestion-triage.md, implementation-plan.md, final-report.md
-- **Why:** Review loop audit trail
+### 8. `script.js` + `styles.css` — boutique store card captions
+- **What:** Added `buildStoreCardCaption()` and overlay styles on `/store` chapter cards
+- **Why:** Image-only cards hid Beles name/status; poor scan clarity
+- **Expected effect:** Name, subtitle, and release status visible on each boutique card
+
+### 9. `index.html` — studio anchor ID
+- **What:** Renamed `#stockists` → `#studio` (footer + search links)
+- **Why:** Remove last stockist ID reference while keeping Copenhagen studio copy
+- **Expected effect:** Consistent studio language in DOM and navigation
+
+### 10. `index.html`, `store.html` — cache bump
+- **What:** `styles.css?v=106`, `script.js?v=67` on homepage and boutique
+- **Why:** Pick up caption styles and JS after this pass
+- **Expected effect:** Fresh assets on key conversion pages
 
 ---
 
@@ -124,7 +135,7 @@
 
 - All routes load via dev server with clean URL rewriting
 - No hardcoded personal email in notify lib
-- Cache versions consistent at v=105 / v=66 on store page
+- Cache versions at v=106 / v=67 on homepage and store (caption pass)
 
 ### Known issues
 
