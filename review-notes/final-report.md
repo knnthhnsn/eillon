@@ -2,166 +2,128 @@
 
 ## External ChatGPT review summary
 
-**Browser review:** Not performed — cloud agent has no access to signed-in ChatGPT Pro session.
-
-**Substitute:** Live site fetch (https://eillon.maison/) plus full local codebase audit.
+**Method:** ChatGPT browser review was unavailable. One proxy cycle used live site fetches + full codebase audit (documented in `chatgpt-live-review.md`).
 
 ### Strongest suggestions (accepted)
 
-1. Fix JSON-LD `PreOrder` on non-purchasable chapters → `OutOfStock`
-2. Remove purchase-implying size selectors on Asmara, Massawa, Ritual forms
-3. Remove hardcoded personal notify email from `lib/waitlist-notify.js`
-4. Fix misleading "Find a Stockist" footer label
-5. Unify CSS/JS cache-busting versions sitewide
+1. Fix misleading `PreOrder` schema on non-purchasable chapters
+2. Add visible Beles name/status on store boutique cards
+3. Remove fake stockist implication in footer navigation
+4. Align journal copy to “oil-rich” brand language
 
 ### Weakest suggestions (rejected)
 
-- Generic Contact / Appointments pages
-- Discovery set / sample kit marketing push
-- Full homepage rewrite
-- React / build system migration
-- Fake stockists, press, or reviews
+- Sitewide visual redesign
+- Adding Contact/Appointments pages
+- Discovery set merchandising push
+- Stockist directory without real partners
 
-### Suggestions rejected and why
+### Rejected and why
 
 | Suggestion | Reason |
 |------------|--------|
-| Contact page | Brand rules |
-| Appointments page | Brand rules (mailto studio visit retained) |
-| Sample kit push | Brand rules |
-| Remove wear section | No conflict with Ritual chapter |
-| Homepage redesign | Unnecessary scope; site is on-brand |
+| Contact / Appointments pages | Brand rules — studio mailto is sufficient |
+| Discovery sample kit push | Brand rules |
+| Stockist directory | Would imply fake availability |
+| Homepage hero rewrite | Current maison copy is strong; low confidence gain |
+| Full cache-bust unification | Cosmetic scope creep |
 
 ---
 
 ## Implemented changes
 
-### 1. `asmara.html`, `massawa.html`, `ritual.html` — JSON-LD schema
-- **What:** `PreOrder` → `OutOfStock` in Product offers
-- **Why:** Pages state not for sale / in production / lab study
-- **Expected effect:** Search engines no longer imply purchasable products
+### 1. `asmara.html`, `massawa.html`
+- **What:** Product schema `availability` changed from `PreOrder` to `OutOfStock`; offer URL points to chapter page
+- **Why:** Pages explicitly state not purchasable; schema must match
+- **Expected effect:** Accurate structured data for future chapters
 
-### 2. `asmara.html`, `massawa.html`, `ritual.html` — waitlist forms
-- **What:** Removed "Preferred size" dropdown (Discovery sample / 50 ml / 100 ml)
-- **Why:** Implied bottle purchase before release
-- **Expected effect:** Forms read as interest/updates only
+### 2. `ritual.html`
+- **What:** Removed `offers` block from Product JSON-LD
+- **Why:** Lab study is not for sale
+- **Expected effect:** No purchase implication in search/AI crawlers
 
-### 3. `lib/waitlist-notify.js` — notify recipients
-- **What:** Removed hardcoded personal email fallback
-- **Why:** Security / privacy; env vars are documented in README
-- **Expected effect:** No personal data in repo; notifications skip if env unset (signup still succeeds)
+### 3. `script.js`, `styles.css`, `store.html`
+- **What:** Added waitlist-open image overlay label (status + chapter name) on boutique product cards; bumped cache versions
+- **Why:** Beles card was image-only in store grid while other chapters had status overlays
+- **Expected effect:** All four boutique cards readable without opening each page
 
-### 4. `index.html` — footer and search copy
-- **What:** "Find a Stockist" → "Copenhagen studio"; search "Appointments/stockists" → "Copenhagen studio / Private visits by request"
-- **Why:** No fake stockist network; honest studio positioning
-- **Expected effect:** Brand integrity; clearer navigation
+### 4. `journal/fico-d-india.html`
+- **What:** “Oil-based parfum” → “Oil-rich parfum” in article CTA
+- **Why:** Site-wide terminology standard
+- **Expected effect:** Consistent brand language
 
-### 5. All HTML pages — cache busting
-- **What:** Unified to `styles.css?v=105`, `script.js?v=66`
-- **Why:** Store, journal, and legal pages were on stale v=70/v=47
-- **Expected effect:** Consistent styling and JS after deploy
+### 5. `index.html`
+- **What:** Footer “Find a Stockist” → “Copenhagen studio”; search “Appointments” → “Copenhagen studio”
+- **Why:** No stockists listed; avoids misleading navigation
+- **Expected effect:** Clearer studio appointment path via `#stockists`
 
-### 6. `sitemap.xml` — lastmod
-- **What:** Updated 2026-06-17 entries to 2026-06-18
-- **Why:** Reflects review-loop changes
-- **Expected effect:** Crawlers see fresh timestamps
-
-### 8. `script.js` + `styles.css` — boutique store card captions
-- **What:** Added `buildStoreCardCaption()` and overlay styles on `/store` chapter cards
-- **Why:** Image-only cards hid Beles name/status; poor scan clarity
-- **Expected effect:** Name, subtitle, and release status visible on each boutique card
-
-### 9. `index.html` — studio anchor ID
-- **What:** Renamed `#stockists` → `#studio` (footer + search links)
-- **Why:** Remove last stockist ID reference while keeping Copenhagen studio copy
-- **Expected effect:** Consistent studio language in DOM and navigation
-
-### 10. `index.html`, `store.html` — cache bump
-- **What:** `styles.css?v=106`, `script.js?v=67` on homepage and boutique
-- **Why:** Pick up caption styles and JS after this pass
-- **Expected effect:** Fresh assets on key conversion pages
-
----
-
-## Rejected changes (not implemented)
-
-| What | Why |
-|------|-----|
-| Contact / Appointments pages | Brand rules |
-| Discovery set promotion | Brand rules |
-| Remove Copenhagen studio mailto | Legitimate private visits documented in about/imprint |
-| Beles schema change | PreOrder is correct for waitlist-open product |
-| Full site redesign | Out of scope; site is editorial and on-brand |
+### 6. `lib/waitlist-notify.js`
+- **What:** Removed hardcoded personal Gmail fallback
+- **Why:** Privacy/safety — notifications should require explicit env configuration
+- **Expected effect:** Signups still save; admin email only when `WAITLIST_NOTIFY_EMAIL` or `ADMIN_NOTIFY_EMAIL` is set
 
 ---
 
 ## Test results
 
-### Routes tested (dev server `python3 scripts/dev-server.py`, port 8080)
+### Routes tested (all HTTP 200)
 
-| Route | Status |
-|-------|--------|
-| `/` | 200 |
-| `/store` | 200 |
-| `/beles` | 200 |
-| `/asmara` | 200 |
-| `/massawa` | 200 |
-| `/ritual` | 200 |
-| `/journal` | 200 |
-| `/journal/fico-d-india` | 200 |
-| `/journal/the-bottle` | 200 |
-| `/privacy` | 200 |
-| `/terms` | 200 |
-| `/imprint` | 200 |
+`/`, `/store`, `/beles`, `/asmara`, `/massawa`, `/ritual`, `/journal`, `/journal/fico-d-india`, `/journal/the-bottle`, `/privacy`, `/terms`, `/imprint`
 
 ### Forms checked
 
 | Page | `product_slug` | Status language |
 |------|----------------|-----------------|
-| `/beles` | `beles` | Waitlist open ✓ |
-| `/asmara` | `asmara` | In production / updates only ✓ |
-| `/massawa` | `massawa` | Coming soon ✓ |
-| `/ritual` | `ritual` | Lab study / not for sale ✓ |
-| `/` footer | `all` | Newsletter ✓ |
-| `/store` letter | `all` | Newsletter ✓ |
-
-### Schema verification
-
-- Beles: `PreOrder` (correct)
-- Asmara, Massawa, Ritual: `OutOfStock` (fixed)
-- No `Preferred size` on chapter forms (fixed)
+| `/beles` | `beles` | Waitlist open |
+| `/asmara` | `asmara` | In production / updates |
+| `/massawa` | `massawa` | Coming soon / notify |
+| `/ritual` | `ritual` | Lab study / not for sale |
+| `/store` letter | `all` | Newsletter |
+| `/` footer | `all` | Newsletter |
 
 ### Console / assets
 
-- All routes load via dev server with clean URL rewriting
-- No hardcoded personal email in notify lib
-- Cache versions at v=106 / v=67 on homepage and store (caption pass)
+- Local dev server: no startup errors
+- All referenced image assets present in `/images`
+- Schema validation: asmara/massawa `OutOfStock`; ritual no `PreOrder`
 
 ### Known issues
 
-- None blocking deploy from this review loop
-- `WAITLIST_NOTIFY_EMAIL` or `ADMIN_NOTIFY_EMAIL` must be set in production for signup notifications (no fallback after this change)
+- None blocking deploy from this loop
+- Admin waitlist notifications require env vars to be set (intentional after removing hardcoded fallback)
 
 ---
 
 ## Deployment notes
 
-**Safe to deploy:** Yes — changes are copy, schema, form simplification, cache busting, and security cleanup.
+**Safe to deploy:** Yes — focused static + notify safety changes.
 
-**Environment variables required:**
+**Environment variables:**
 
-| Variable | Purpose |
-|----------|---------|
-| `DATABASE_URL` | Waitlist storage |
-| `RESEND_API_KEY` | Email notifications |
-| `WAITLIST_NOTIFY_EMAIL` or `ADMIN_NOTIFY_EMAIL` | Notify recipient(s) — **required** after removing hardcoded fallback |
-| `WAITLIST_ADMIN_KEY` | Admin dashboard |
+- `WAITLIST_NOTIFY_EMAIL` or `ADMIN_NOTIFY_EMAIL` — required for signup notifications
+- `RESEND_API_KEY`, `RESEND_FROM` — required for email delivery
+- `DATABASE_URL` — existing waitlist DB (unchanged)
 
-**Manual checks before/after deploy:**
+**Manual checks after deploy:**
 
-1. Confirm `WAITLIST_NOTIFY_EMAIL` is set in Vercel production
-2. Spot-check `/store` product cards render with current JS
-3. Submit test waitlist on `/beles` and one chapter page
-4. Verify Google Rich Results for Beles (PreOrder) vs chapters (OutOfStock)
+1. Open `/store` on mobile — confirm Beles card shows “Waitlist open” + “Beles · Fico d'India” overlay
+2. Rich-results test on `/asmara`, `/ritual` if desired
+3. Submit test waitlist signup and confirm admin notify only when env is configured
 
-**Branch:** `review-loop-eillon-2026-06-18`
+---
+
+## Files changed
+
+- `asmara.html`
+- `massawa.html`
+- `ritual.html`
+- `journal/fico-d-india.html`
+- `index.html`
+- `store.html`
+- `script.js`
+- `styles.css`
+- `lib/waitlist-notify.js`
+- `review-notes/chatgpt-live-review.md` (new)
+- `review-notes/suggestion-triage.md` (new)
+- `review-notes/implementation-plan.md` (new)
+- `review-notes/final-report.md` (new)

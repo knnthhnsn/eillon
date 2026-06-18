@@ -1,15 +1,17 @@
 # ChatGPT Live Review — EILLON
 
-**Date/time:** 2026-06-18T00:01Z (UTC)
+**Date/time:** 2026-06-18T03:02:34Z (automation trigger)
 
-## Method note
+## Review method
 
-ChatGPT Pro browser review was **not available** in the cloud agent environment (no signed-in browser session). This review synthesizes:
+Browser access to ChatGPT Pro was not available in the cloud agent environment. The exact prompt below was **not** sent to ChatGPT. Instead, this review used:
 
-1. Live site fetch of all primary routes at https://eillon.maison/
+1. Live fetches of https://eillon.maison/ and key routes
 2. Full local codebase audit per the review-loop specification
 
-## Exact prompt (not sent — browser unavailable)
+Findings below are synthesized from that independent audit in the same spirit as an external reviewer.
+
+## Exact prompt (not delivered to ChatGPT)
 
 ```txt
 i updated the website review https://eillon.maison/ and all its pages and suggest improvements
@@ -34,40 +36,33 @@ Please review all accessible pages:
 Suggest improvements, but do not suggest adding a generic contact/appointments page or discovery/sample kit. Focus on clarity, navigation, brand consistency, SEO, accessibility, conversion, performance, and emotional storytelling.
 ```
 
-## Synthesized review (live site + codebase)
+## Simulated external review summary
 
-### Strongest suggestions (actionable)
+### Strengths
 
-1. **Fix JSON-LD on future/lab chapters** — Asmara, Massawa, and Ritual use `PreOrder` availability while page copy says not purchasable. Should use `OutOfStock` or omit purchase offers.
-2. **Remove purchase-implying size selectors** on Asmara, Massawa, and Ritual forms — "Discovery sample / 50 ml / 100 ml" contradicts "not yet available" and "lab study, not for sale."
-3. **Remove hardcoded personal notify email** fallback in `lib/waitlist-notify.js` — security/privacy risk; env vars should be required.
-4. **Fix misleading "Find a Stockist" footer link** — anchors to Copenhagen studio appointments, not stockists. Violates brand rule against fake stockists.
-5. **Unify cache-busting versions** — `store.html`, journal, and legal pages load stale `styles.css?v=70` / `script.js?v=47` while main pages use v=104/v=65.
-6. **Clarify homepage search entry** — "Appointments / Copenhagen studio and stockists" overpromises stockist network.
+- Clear maison vs boutique architecture: homepage reads editorial; `/store` is chapter-focused
+- Beles is correctly positioned as the only waitlist-open release with pricing and size selection
+- Future chapters (Asmara, Massawa) use restrained “not yet available to purchase” language
+- Ritual is explicitly a lab study, not for sale
+- Product-specific waitlist slugs and differentiated success messages in `script.js`
+- No generic luxury clichés detected in copy
+- `data/products.js` is a coherent source of truth for chapter status
 
-### Moderate suggestions (partially accepted or deferred)
+### Actionable suggestions extracted
 
-7. Homepage maison/boutique separation is generally good; collection preview cards work.
-8. Beles waitlist path is clear; PreOrder schema is appropriate for Beles only.
-9. Legacy `/store#asmara` redirects are already handled in `script.js`.
-10. Wear section (`#wear`) vs Ritual chapter naming is distinct enough — no change needed.
+1. **Schema accuracy:** Asmara, Massawa, and Ritual use `PreOrder` in JSON-LD but pages state they are not purchasable — misleading for SEO/rich results
+2. **Ritual schema:** Lab study should not imply a purchase offer at all
+3. **Store boutique cards:** Beles card on `/store` shows mood imagery only — no visible name/status unlike other chapter cards (body hidden by boutique CSS)
+4. **Copy consistency:** Journal article uses “oil-based parfum” while site standard is “oil-rich parfum”
+5. **Misleading navigation:** Footer link “Find a Stockist” points to Copenhagen studio appointments — no stockists are listed (implies fake availability)
+6. **Homepage search:** “Appointments” label suggests a dedicated page; section is studio mailto only
+7. **Notification safety:** `lib/waitlist-notify.js` falls back to a hardcoded personal Gmail if env vars unset
 
-### Weaker / rejected suggestions
+### Suggestions not pursued (brand/rule conflicts)
 
-11. Add a dedicated Contact page — **rejected** (brand rules).
-12. Add discovery set / sample kit push — **rejected** (brand rules).
-13. Add fake press, reviews, or stockists — **rejected**.
-14. React conversion or build system — **rejected**.
-15. Full homepage rewrite — **rejected** (site is editorial and on-brand).
-
-## Extracted actionable suggestions
-
-| # | Suggestion | Source |
-|---|------------|--------|
-| 1 | Fix chapter Product schema availability | Audit |
-| 2 | Remove size dropdowns on non-purchasable chapter forms | Audit + live |
-| 3 | Remove hardcoded notify email fallback | Audit |
-| 4 | Rename "Find a Stockist" → studio-appropriate label | Audit |
-| 5 | Fix search overlay stockist/appointment copy | Audit |
-| 6 | Bump CSS/JS cache versions sitewide | Audit |
-| 7 | Update sitemap lastmod after changes | Audit |
+- Add a Contact page
+- Add discovery set / sample kit landing push
+- Add stockist directory (no real stockists to list)
+- Add customer reviews or press logos
+- Heavier ecommerce (cart, checkout on-site)
+- React migration or build system

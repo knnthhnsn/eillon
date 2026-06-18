@@ -4435,7 +4435,8 @@ a.product-card--link:focus-visible {
 
 .product-grid--boutique .product-card--compact .product-card__image-label--production .product-card__image-label-status,
 .product-grid--boutique .product-card--compact .product-card__image-label--coming-soon .product-card__image-label-status,
-.product-grid--boutique .product-card--compact .product-card__image-label--concept-lab .product-card__image-label-status {
+.product-grid--boutique .product-card--compact .product-card__image-label--concept-lab .product-card__image-label-status,
+.product-grid--boutique .product-card--compact .product-card__image-label--waitlist-open .product-card__image-label-status {
   color: rgba(255, 255, 255, 0.95);
 }
 
@@ -4660,6 +4661,7 @@ a.product-card--link:focus-visible {
 .product-card__image-label--production .product-card__image-label-status { color: #5a664f; }
 .product-card__image-label--coming-soon .product-card__image-label-status { color: var(--stone); }
 .product-card__image-label--concept-lab .product-card__image-label-status { color: var(--ink-soft); }
+.product-card__image-label--waitlist-open .product-card__image-label-status { color: #6b4f3a; }
 
 @media (hover: hover) {
   .product-card--compact:hover,

@@ -1273,6 +1273,20 @@
 
         imageLabel.append(statusLine, hintLine);
         media.appendChild(imageLabel);
+      } else {
+        const imageLabel = document.createElement('span');
+        imageLabel.className = 'product-card__image-label product-card__image-label--waitlist-open';
+
+        const statusLine = document.createElement('span');
+        statusLine.className = 'product-card__image-label-status';
+        statusLine.textContent = product.statusLabel;
+
+        const hintLine = document.createElement('span');
+        hintLine.className = 'product-card__image-label-hint';
+        hintLine.textContent = `${product.name} · ${product.subtitle}`;
+
+        imageLabel.append(statusLine, hintLine);
+        media.appendChild(imageLabel);
       }
 
       const sheen = document.createElement('span');
