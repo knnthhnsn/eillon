@@ -3368,6 +3368,11 @@ body.is-loaded .hero__cta { opacity: 1; transform: translateY(0); }
   padding-right: 24px;
 }
 
+.beles-page #object .info-page__figure--concept {
+  max-width: min(300px, 58vw);
+  margin: 0 0 20px;
+}
+
 .editorial-page.beles-page .editorial-page__nav,
 .editorial-page.beles-page .editorial-page__footer {
   max-width: var(--max);
