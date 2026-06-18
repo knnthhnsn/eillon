@@ -4469,6 +4469,39 @@ a.product-card--link:focus-visible {
   max-width: 42%;
 }
 
+.product-grid--boutique .product-card--compact .product-card__caption {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: clamp(14px, 2.4vw, 20px);
+  background: linear-gradient(180deg, rgba(17, 17, 17, 0) 0%, rgba(17, 17, 17, 0.72) 38%, rgba(17, 17, 17, 0.88) 100%);
+  color: #fafaf8;
+  pointer-events: none;
+}
+
+.product-card__caption-title {
+  font-family: var(--font-display, Georgia, serif);
+  font-size: clamp(15px, 1.8vw, 18px);
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: 0.01em;
+}
+
+.product-card__caption-status {
+  font-family: var(--font-sans, Inter, sans-serif);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(250, 250, 248, 0.78);
+}
+
+.product-card__caption-status--waitlist-open {
+  color: rgba(232, 220, 196, 0.95);
+}
+
 /* Boutique — image-only cards at every breakpoint */
 
 .product-card {

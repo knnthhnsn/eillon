@@ -1176,6 +1176,16 @@
 
   const CHAPTER_SIGNUP_SLUGS = new Set(['beles', 'asmara', 'massawa', 'ritual']);
 
+  const buildStoreCardCaption = (product) => {
+    const hints = {
+      'waitlist-open': 'Waitlist open · priority access',
+      'in-production': 'In production · updates only',
+      'coming-soon': 'Coming soon · notify at opening',
+      'concept-lab': 'Lab study · not for sale',
+    };
+    return hints[product.status] || product.statusLabel;
+  };
+
   const getChapterSignupHref = (slug) => `/${slug}#waitlist`;
 
   const getOverviewCardHref = (product) => {
@@ -1285,7 +1295,21 @@
 
       card.appendChild(buildProductCardMedia(product, true));
 
-      if (mode !== 'store') {
+      if (mode === 'store') {
+        const caption = document.createElement('div');
+        caption.className = 'product-card__caption';
+
+        const title = document.createElement('span');
+        title.className = 'product-card__caption-title';
+        title.textContent = `${product.name} · ${product.subtitle}`;
+
+        const status = document.createElement('span');
+        status.className = `product-card__caption-status product-card__caption-status--${product.status}`;
+        status.textContent = buildStoreCardCaption(product);
+
+        caption.append(title, status);
+        card.appendChild(caption);
+      } else if (mode !== 'store') {
         const body = document.createElement('div');
         body.className = 'product-card__body';
 
