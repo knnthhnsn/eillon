@@ -1003,10 +1003,10 @@
 
   /* ---------- 9. WAITLIST ---------- */
   const waitlistMessages = {
-    beles: 'You are on the Beles waitlist. We will write when the next release opens.',
-    asmara: 'You will receive Asmara updates when the chapter moves forward.',
-    massawa: 'You will be notified when Massawa opens.',
-    ritual: 'You are following Ritual lab notes.',
+    beles: 'We will write when Beles is back in stock.',
+    asmara: 'We will write when Asmara is back in stock.',
+    massawa: 'We will write when Massawa is back in stock.',
+    ritual: 'We will write if Ritual returns from the lab.',
     all: 'You are on the letter list.',
   };
 
@@ -1023,8 +1023,8 @@
         submitButton.textContent = 'Subscribed';
       } else {
         const label = submitButton.querySelector('.btn__label');
-        if (label) label.textContent = 'On the list ✓';
-        else submitButton.textContent = 'On the list ✓';
+        if (label) label.textContent = 'We will notify you ✓';
+        else submitButton.textContent = 'We will notify you ✓';
       }
     }
     if (statusEl) statusEl.textContent = message;
@@ -1083,8 +1083,8 @@
 
       const originalLabel = label?.textContent;
       const originalButtonText = submitButton?.textContent;
-      if (label) label.textContent = 'Joining…';
-      else if (submitButton && !isNewsletter) submitButton.textContent = 'Joining…';
+      if (label) label.textContent = 'Saving…';
+      else if (submitButton && !isNewsletter) submitButton.textContent = 'Saving…';
       else if (submitButton) submitButton.textContent = 'Subscribing…';
       if (submitButton) submitButton.disabled = true;
       if (statusEl) statusEl.textContent = '';
@@ -1131,11 +1131,21 @@
   document.querySelectorAll('[data-waitlist-form]').forEach(setupWaitlistForm);
 
   /* ---------- 10. PRODUCT GRID RENDER ---------- */
+  const isOutOfStock = (product) => (
+    product.status === 'out-of-stock' || product.status === 'waitlist-open'
+  );
+
   const STATUS_CLASS = {
-    'waitlist-open': 'product-card__status--waitlist-open',
-    'in-production': 'product-card__status--production',
-    'coming-soon': 'product-card__status--coming-soon',
-    'concept-lab': 'product-card__status--lab',
+    'out-of-stock': 'product-card__status--out-of-stock',
+    'waitlist-open': 'product-card__status--out-of-stock',
+    'in-production': 'product-card__status--out-of-stock',
+    'coming-soon': 'product-card__status--out-of-stock',
+    'concept-lab': 'product-card__status--out-of-stock',
+  };
+
+  const getStockHint = (product) => {
+    if (product.slug === 'ritual') return 'Lab study — not offered';
+    return 'Notify when back in stock';
   };
 
   const buildStoreCardCaption = (product) => {
@@ -1152,13 +1162,7 @@
 
     const hint = document.createElement('span');
     hint.className = 'product-card__caption-hint';
-    if (product.status === 'waitlist-open') {
-      hint.textContent = 'Priority access before release';
-    } else if (product.status === 'concept-lab') {
-      hint.textContent = 'Lab study — not for sale';
-    } else {
-      hint.textContent = 'Not yet available';
-    }
+    hint.textContent = getStockHint(product);
 
     caption.append(status, title, hint);
     return caption;
@@ -1222,7 +1226,7 @@
   const buildProductCardMedia = (product, cardIsLink = false) => {
     const label = `View ${product.name} · ${product.subtitle}`;
     const bottleAlt = `EILLON ${product.name} · ${product.subtitle} bottle`;
-    const isLinked = Boolean(product.url && product.status === 'waitlist-open') && !cardIsLink;
+    const isLinked = Boolean(product.url && isOutOfStock(product) && product.slug === 'beles') && !cardIsLink;
     const isMoodOnly = Boolean(product.moodImage);
     const isStage = Boolean(product.scentImage && product.image);
 
@@ -1257,9 +1261,9 @@
         media.append(veil, pedestal);
       }
 
-      if (product.status !== 'waitlist-open') {
+      if (isOutOfStock(product)) {
         const imageLabel = document.createElement('span');
-        imageLabel.className = `product-card__image-label product-card__image-label--${product.status}`;
+        imageLabel.className = 'product-card__image-label product-card__image-label--out-of-stock';
 
         const statusLine = document.createElement('span');
         statusLine.className = 'product-card__image-label-status';
@@ -1267,23 +1271,9 @@
 
         const hintLine = document.createElement('span');
         hintLine.className = 'product-card__image-label-hint';
-        hintLine.textContent = product.status === 'concept-lab'
-          ? 'Lab study — not for sale'
-          : 'Not yet available';
-
-        imageLabel.append(statusLine, hintLine);
-        media.appendChild(imageLabel);
-      } else {
-        const imageLabel = document.createElement('span');
-        imageLabel.className = 'product-card__image-label product-card__image-label--waitlist-open';
-
-        const statusLine = document.createElement('span');
-        statusLine.className = 'product-card__image-label-status';
-        statusLine.textContent = product.statusLabel;
-
-        const hintLine = document.createElement('span');
-        hintLine.className = 'product-card__image-label-hint';
-        hintLine.textContent = `${product.name} · ${product.subtitle}`;
+        hintLine.textContent = product.slug === 'ritual'
+          ? `${product.name} · ${product.subtitle}`
+          : `${product.name} · ${product.subtitle}`;
 
         imageLabel.append(statusLine, hintLine);
         media.appendChild(imageLabel);
@@ -1386,7 +1376,7 @@
     const actions = document.createElement('div');
     actions.className = 'product-card__actions';
 
-    if (product.status === 'waitlist-open' && product.slug === 'beles') {
+    if (product.slug === 'beles' && product.waitlistEnabled) {
       const cta = document.createElement('a');
       cta.className = 'btn btn--primary';
       cta.href = '/beles#waitlist';
@@ -1403,7 +1393,7 @@
       const email = document.createElement('input');
       email.type = 'email';
       email.name = 'email';
-      email.placeholder = `Email for ${product.name} updates`;
+      email.placeholder = `Email for ${product.name} restock`;
       email.autocomplete = 'email';
       email.required = true;
 

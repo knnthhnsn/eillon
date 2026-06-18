@@ -50,7 +50,7 @@
             <line x1="20" y1="20" x2="16" y2="16"></line>
           </svg>
         </button>
-        <a class="nav__waitlist" href="${waitlistHref}">Waitlist</a>
+        <a class="nav__waitlist" href="${waitlistHref}">Restock</a>
       </div>
     </div>
   </header>
@@ -90,17 +90,17 @@
           <span>Beles · Fico d'India</span>
           <small>Oil-rich parfum — full product page</small>
         </a>
-        <a href="/asmara" data-search-item data-search-keywords="asmara rain on stone espresso cardamom jasmine amber chapter">
+        <a href="/asmara" data-search-item data-search-keywords="asmara rain on stone out of stock chapter">
           <span>Asmara · Rain on Stone</span>
-          <small>Chapter II — in production</small>
+          <small>Chapter II — out of stock</small>
         </a>
-        <a href="/massawa" data-search-item data-search-keywords="massawa red sea citrus orange papaya marine chapter">
+        <a href="/massawa" data-search-item data-search-keywords="massawa red sea citrus out of stock chapter">
           <span>Massawa · Red Sea Citrus</span>
-          <small>Chapter III — coming soon</small>
+          <small>Chapter III — out of stock</small>
         </a>
-        <a href="/ritual" data-search-item data-search-keywords="ritual frankincense myrrh resin lab study incense">
+        <a href="/ritual" data-search-item data-search-keywords="ritual frankincense myrrh lab out of stock">
           <span>Ritual · Frankincense & Myrrh</span>
-          <small>Lab study — studio archive</small>
+          <small>Lab study — out of stock</small>
         </a>
         <a href="/journal" data-search-item data-search-keywords="journal editorial fico d'india bottle article">
           <span>Journal</span>
@@ -110,9 +110,9 @@
           <span>The Boutique</span>
           <small>All fragrance chapters</small>
         </a>
-        <a href="${waitlistHref}" data-search-item data-search-keywords="waitlist beles fico d'india priority access release">
-          <span>Beles waitlist</span>
-          <small>Priority access at first release</small>
+        <a href="${waitlistHref}" data-search-item data-search-keywords="restock beles fico d'india out of stock notify back">
+          <span>Beles restock list</span>
+          <small>Notify when Beles is back in stock</small>
         </a>
         <a href="${sectionHref('#wear')}" data-search-item data-search-keywords="wear application pulse points spray skin hair scarf how to apply parfum">
           <span>Wear</span>

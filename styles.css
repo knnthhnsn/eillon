@@ -4436,6 +4436,7 @@ a.product-card--link:focus-visible {
 .product-grid--boutique .product-card--compact .product-card__image-label--production .product-card__image-label-status,
 .product-grid--boutique .product-card--compact .product-card__image-label--coming-soon .product-card__image-label-status,
 .product-grid--boutique .product-card--compact .product-card__image-label--concept-lab .product-card__image-label-status,
+.product-grid--boutique .product-card--compact .product-card__image-label--out-of-stock .product-card__image-label-status,
 .product-grid--boutique .product-card--compact .product-card__image-label--waitlist-open .product-card__image-label-status {
   color: rgba(255, 255, 255, 0.95);
 }
@@ -4661,7 +4662,10 @@ a.product-card--link:focus-visible {
 .product-card__image-label--production .product-card__image-label-status { color: #5a664f; }
 .product-card__image-label--coming-soon .product-card__image-label-status { color: var(--stone); }
 .product-card__image-label--concept-lab .product-card__image-label-status { color: var(--ink-soft); }
-.product-card__image-label--waitlist-open .product-card__image-label-status { color: #6b4f3a; }
+.product-card__image-label--out-of-stock .product-card__image-label-status,
+.product-card__image-label--waitlist-open .product-card__image-label-status { color: var(--stone); }
+
+.product-card__status--out-of-stock { color: var(--stone); }
 
 @media (hover: hover) {
   .product-card--compact:hover,
@@ -4721,7 +4725,7 @@ a.product-card--link:focus-visible {
   background: currentColor;
 }
 
-.product-card__status--waitlist-open { color: var(--gold-dark); }
+.product-card__status--waitlist-open { color: var(--stone); }
 .product-card__status--production { color: #6f7c62; }
 .product-card__status--coming-soon { color: var(--stone); }
 .product-card__status--lab { color: var(--ink-soft); }
