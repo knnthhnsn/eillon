@@ -28,7 +28,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/styles.min.css?v=127" />
+  <link rel="stylesheet" href="/styles.min.css?v=138" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -105,23 +105,23 @@
       <div class="info-page__grid">
         <article class="info-page__card">
           <h3>Spring / morning</h3>
-          <p>Beles — green-pink fruit, cactus water, mineral air. Light, watery, close to skin.</p>
-          <p><a href="/beles">Beles · Fico d'India →</a></p>
+          <p class="info-page__card-copy">Beles — green-pink fruit, cactus water, mineral air. Light, watery, close to skin.</p>
+          <a class="info-page__card-link" href="/beles">Beles · Fico d'India <span class="arrow" aria-hidden="true">→</span></a>
         </article>
         <article class="info-page__card">
           <h3>After rain / city</h3>
-          <p>Asmara — petrichor, espresso, jasmine over stone. Reflective, warm, slightly ambered.</p>
-          <p><a href="/asmara">Asmara · Rain on Stone →</a></p>
+          <p class="info-page__card-copy">Asmara — petrichor, espresso, jasmine over stone. Reflective, warm, slightly ambered.</p>
+          <a class="info-page__card-link" href="/asmara">Asmara · Rain on Stone <span class="arrow" aria-hidden="true">→</span></a>
         </article>
         <article class="info-page__card">
           <h3>Summer / coast</h3>
-          <p>Massawa — orange, papaya, salt skin, sea air. Solar, mineral, sun-warmed.</p>
-          <p><a href="/massawa">Massawa · Red Sea Citrus →</a></p>
+          <p class="info-page__card-copy">Massawa — orange, papaya, salt skin, sea air. Solar, mineral, sun-warmed.</p>
+          <a class="info-page__card-link" href="/massawa">Massawa · Red Sea Citrus <span class="arrow" aria-hidden="true">→</span></a>
         </article>
         <article class="info-page__card">
           <h3>Evening / ritual</h3>
-          <p>Ritual — frankincense, myrrh, candle smoke, warm woods. Sacred, skin-held, slow.</p>
-          <p><a href="/ritual">Ritual · Frankincense &amp; Myrrh →</a></p>
+          <p class="info-page__card-copy">Ritual — frankincense, myrrh, candle smoke, warm woods. Sacred, skin-held, slow.</p>
+          <a class="info-page__card-link" href="/ritual">Ritual · Frankincense &amp; Myrrh <span class="arrow" aria-hidden="true">→</span></a>
         </article>
       </div>
 
@@ -131,7 +131,18 @@
         <p class="bottle-explorer__hint">Move to explore the flacon</p>
       </div>
 
-      <p><a href="/craftsmanship">How we compose EILLON →</a> · <a href="/about">About the maison →</a></p>
+      <div class="info-page__actions">
+        <a class="btn btn--primary" href="/store">
+          <span class="btn__label">Explore the boutique</span>
+        </a>
+        <a class="btn btn--ghost" href="/craftsmanship">
+          <span>How we compose EILLON</span>
+          <span class="arrow">→</span>
+        </a>
+      </div>
+      <p class="info-page__actions-more">
+        <a href="/about" class="info-page__actions-link">About the maison <span class="arrow">→</span></a>
+      </p>
     </div>
   </main>
 

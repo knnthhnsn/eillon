@@ -2527,7 +2527,7 @@ body.is-loaded .hero__cta { opacity: 1; transform: translateY(0); }
   display: flex;
   flex-wrap: wrap;
   gap: 14px;
-  margin-top: 8px;
+  margin-top: clamp(28px, 4vw, 40px);
 }
 .info-page__actions-more {
   margin: 18px 0 0;
@@ -2539,6 +2539,51 @@ body.is-loaded .hero__cta { opacity: 1; transform: translateY(0); }
   margin-top: clamp(28px, 4vw, 40px);
   padding-top: clamp(24px, 3vw, 32px);
   border-top: 1px solid var(--line-soft);
+}
+.info-page__actions-chips {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: clamp(28px, 4vw, 40px);
+  padding-top: clamp(24px, 3vw, 32px);
+  border-top: 1px solid var(--line-soft);
+}
+.info-page__action-chip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  min-height: 64px;
+  padding: 16px 18px;
+  border: 1px solid rgba(28, 28, 26, 0.12);
+  background: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+  color: var(--ink);
+  transition: border-color 0.35s var(--ease), background 0.35s var(--ease), color 0.35s var(--ease);
+}
+.info-page__action-chip span:first-child {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1.45;
+  color: var(--ink-soft);
+}
+.info-page__action-chip .arrow {
+  flex-shrink: 0;
+  color: var(--ink-faint);
+  transition: transform 0.5s var(--ease), color 0.35s var(--ease);
+}
+.info-page__action-chip:hover {
+  border-color: rgba(28, 28, 26, 0.22);
+  background: var(--paper);
+  color: var(--ink);
+}
+.info-page__action-chip:hover span:first-child { color: var(--ink); }
+.info-page__action-chip:hover .arrow {
+  transform: translateX(4px);
+  color: var(--gold-dark);
 }
 .info-page__actions-link {
   display: inline-flex;
@@ -5466,6 +5511,7 @@ a.product-card--link:focus-visible {
   .story__actions,
   .info-page__actions,
   .info-page__actions-more--row { flex-direction: column; align-items: stretch; }
+  .info-page__actions-chips { grid-template-columns: 1fr; }
 }
 
 /* Below-fold sections — skip rendering until near viewport */
@@ -5720,6 +5766,8 @@ a.product-card--link:focus-visible {
   margin: 24px 0;
 }
 .info-page__card {
+  display: flex;
+  flex-direction: column;
   padding: 20px;
   border: 1px solid rgba(28, 28, 26, 0.1);
   background: rgba(255, 255, 255, 0.4);
@@ -5727,6 +5775,44 @@ a.product-card--link:focus-visible {
 .info-page__card h3 {
   margin: 0 0 10px;
   font-size: 18px;
+}
+.info-page__card-copy {
+  flex: 1;
+  margin: 0 0 16px;
+  font-family: var(--serif);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+.info-page__card-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--line-soft);
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+  transition: color 0.35s var(--ease), gap 0.5s var(--ease);
+}
+.info-page__card-link .arrow {
+  color: var(--ink-faint);
+  transition: transform 0.5s var(--ease), color 0.35s var(--ease);
+}
+.info-page__card-link:hover {
+  color: var(--gold-dark);
+  gap: 16px;
+}
+.info-page__card-link:hover .arrow {
+  transform: translateX(4px);
+  color: var(--gold-dark);
 }
 .info-page__card p {
   margin: 0 0 8px;
@@ -5755,6 +5841,9 @@ a.product-card--link:focus-visible {
   color: var(--ink-soft);
 }
 .bottle-explorer--page { max-width: 280px; }
+.bottle-explorer--page + .info-page__actions {
+  margin-top: clamp(32px, 5vw, 48px);
+}
 
 .ritual__guide-link { margin-top: 28px; }
 
@@ -5764,6 +5853,7 @@ a.product-card--link:focus-visible {
 @media (max-width: 900px) {
   .chapter-nav__back { margin-left: 0; width: 100%; padding-top: 4px; }
   .info-page__grid { grid-template-columns: 1fr; }
+  .info-page__actions-chips { grid-template-columns: 1fr; }
 }
 @media (max-width: 640px) {
   .nav__lang { display: none; }
