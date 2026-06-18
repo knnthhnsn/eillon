@@ -35,6 +35,13 @@ class CleanUrlHandler(http.server.SimpleHTTPRequestHandler):
 
         return None
 
+    def end_headers(self) -> None:
+        path = self.path.split("?", 1)[0].split("#", 1)[0]
+        if path.endswith((".html", ".js", ".css")) or path in ("", "/"):
+            self.send_header("Cache-Control", "no-store, no-cache, must-revalidate")
+            self.send_header("Pragma", "no-cache")
+        super().end_headers()
+
     def do_GET(self) -> None:
         resolved = self.resolve_clean_url(self.path)
         if resolved:
