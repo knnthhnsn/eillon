@@ -2136,8 +2136,6 @@ body.is-loaded .hero__cta { opacity: 1; transform: translateY(0); }
 }
 
 .shop--beles .shop__image {
-  position: sticky;
-  top: clamp(108px, 11vw, 148px);
   align-self: start;
 }
 
@@ -5404,8 +5402,6 @@ a.product-card--link:focus-visible {
 
 /* ---------- CHAPTER NAV ---------- */
 .chapter-nav {
-  position: sticky;
-  top: 68px;
   z-index: 45;
   background: rgba(250, 250, 248, 0.92);
   backdrop-filter: blur(12px);
@@ -5478,11 +5474,6 @@ a.product-card--link:focus-visible {
   text-decoration: none;
 }
 .chapter-nav__back:hover { color: var(--gold-dark); }
-
-.editorial-page:has(.chapter-nav) .editorial-page__main,
-.beles-page:has(.chapter-nav) .beles-page__main {
-  padding-top: clamp(108px, 11vw, 132px);
-}
 
 /* ---------- INFO PAGE EXTRAS ---------- */
 .info-page__table-wrap {
