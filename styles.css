@@ -3251,6 +3251,7 @@ body.is-loaded .hero__cta { opacity: 1; transform: translateY(0); }
 
 .beles-page__main .shop--beles {
   border-top: 0;
+  padding-top: clamp(24px, 3vw, 40px);
 }
 
 .beles-page__main .notes--beles {
