@@ -499,6 +499,31 @@
     step();
   }
 
+  /* ---------- 7a. HERO BACKGROUND VIDEO ---------- */
+  const heroBgVideo = document.querySelector('[data-hero-bg-video]');
+  if (heroBgVideo instanceof HTMLVideoElement && !prefersReduced && !saveData) {
+    let heroBgStarted = false;
+
+    const beginHeroBgVideo = () => {
+      if (heroBgStarted) return;
+      heroBgStarted = true;
+      ensureLazyVideoSource(heroBgVideo);
+      playVideoSafe(heroBgVideo);
+    };
+
+    if (document.body.classList.contains('is-loaded')) {
+      beginHeroBgVideo();
+    } else {
+      afterVeil.push(beginHeroBgVideo);
+    }
+
+    document.addEventListener('visibilitychange', () => {
+      if (!heroBgStarted || prefersReduced) return;
+      if (document.hidden) heroBgVideo.pause();
+      else playVideoSafe(heroBgVideo);
+    });
+  }
+
   /* ---------- 7b. HERO BOTTLE VIDEO — poster first; video after idle ---------- */
   const scheduleHeroVideo = (fn) => {
     const timeout = mobileLayout.matches ? 8000 : 5000;

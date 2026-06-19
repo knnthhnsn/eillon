@@ -885,6 +885,7 @@ body.is-loaded .veil { transition: visibility 0s linear 1.9s; visibility: hidden
   width: 100%;
   height: 100%;
 }
+.hero__bg-video,
 .hero__bg-img {
   width: 100%;
   height: 100%;
@@ -3840,6 +3841,7 @@ body.is-loaded .scroll-progress { opacity: 1; }
     height: 100svh;
     height: 100dvh;
   }
+  .hero__bg-video,
   .hero__bg-img { object-position: 50% 38%; }
   .hero__bottle-stage {
     height: min(54vh, 480px);
@@ -4062,6 +4064,7 @@ body.is-loaded .scroll-progress { opacity: 1; }
     padding: 0;
     overflow: hidden;
   }
+  .hero__bg-video,
   .hero__bg-img { object-position: center 38%; }
   .hero__content {
     grid-area: content;
@@ -4498,6 +4501,7 @@ body.is-loaded .scroll-progress { opacity: 1; }
   }
 
   /* Hero: snap photograph + typography to final state (skip stagger) */
+  .hero__bg-video,
   .hero__bg-img { transform: scale(1) !important; filter: none !important; transition: none !important; }
   .hero__bottle,
   .hero__bottle-stage,
