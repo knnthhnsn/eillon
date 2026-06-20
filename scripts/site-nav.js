@@ -25,7 +25,7 @@
     .join('\n      ');
 
   const shellHtml = `
-  <header class="nav is-scrolled" id="nav">
+  <header class="nav" id="nav">
     <div class="nav__inner">
       <a href="${homeHref}" class="nav__brand" aria-label="EILLON home">
         <picture>

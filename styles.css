@@ -460,6 +460,54 @@ body.is-loaded .veil { transition: visibility 0s linear 1.9s; visibility: hidden
 }
 .nav__waitlist:hover { border-color: var(--ink); background: rgba(28, 28, 26, 0.04); }
 
+/* Homepage hero — light UI over dark editorial background */
+body[data-nav-home="true"] .nav:not(.is-scrolled) .nav__links a {
+  color: rgba(255, 255, 255, 0.82);
+}
+body[data-nav-home="true"] .nav:not(.is-scrolled) .nav__links a:hover,
+body[data-nav-home="true"] .nav:not(.is-scrolled) .nav__links a[aria-current="page"] {
+  color: #fff;
+}
+body[data-nav-home="true"] .nav:not(.is-scrolled) .nav__menu,
+body[data-nav-home="true"] .nav:not(.is-scrolled) .nav__icon {
+  color: rgba(255, 255, 255, 0.92);
+}
+body[data-nav-home="true"] .nav:not(.is-scrolled) .nav__menu:hover,
+body[data-nav-home="true"] .nav:not(.is-scrolled) .nav__icon:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+body[data-nav-home="true"] .nav:not(.is-scrolled) .nav__waitlist {
+  color: rgba(255, 255, 255, 0.92);
+  border-color: rgba(255, 255, 255, 0.38);
+}
+body[data-nav-home="true"] .nav:not(.is-scrolled) .nav__waitlist:hover {
+  border-color: rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.1);
+}
+body[data-nav-home="true"] .nav:not(.is-scrolled) .nav__brand-logo {
+  filter: brightness(0) invert(1);
+  opacity: 0.94;
+}
+body[data-nav-home="true"] .nav:not(.is-scrolled) .nav__lang {
+  border-color: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.08);
+}
+body[data-nav-home="true"] .nav:not(.is-scrolled) .nav__lang-btn {
+  color: rgba(255, 255, 255, 0.72);
+}
+body[data-nav-home="true"] .nav:not(.is-scrolled) .nav__lang-btn.is-active {
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--ink);
+}
+body[data-nav-home="true"] .nav:not(.is-scrolled) .nav__story {
+  color: rgba(255, 255, 255, 0.84);
+  border-color: rgba(255, 255, 255, 0.34);
+}
+body[data-nav-home="true"] .nav:not(.is-scrolled) .nav__story:hover {
+  border-color: rgba(255, 255, 255, 0.68);
+  color: #fff;
+}
+
 /* ---------- MOBILE NAVIGATION ---------- */
 .mobile-nav {
   position: fixed;
@@ -902,8 +950,8 @@ body.is-loaded .veil { transition: visibility 0s linear 1.9s; visibility: hidden
   transform: translateY(-50%);
   z-index: 4;
   pointer-events: none;
-  height: min(68vh, 680px);
-  max-width: min(44vw, 500px);
+  height: min(56vh, 560px);
+  max-width: min(36vw, 420px);
   width: auto;
   display: flex;
   align-items: center;
@@ -928,8 +976,8 @@ body.is-loaded .hero__bottle-stage {
   left: 50%;
   top: 56%;
   z-index: 0;
-  width: min(48vw, 440px);
-  height: min(48vw, 440px);
+  width: min(40vw, 360px);
+  height: min(40vw, 360px);
   transform: translate(-50%, -50%) scale(0.88);
   background:
     radial-gradient(circle at 50% 42%, rgba(255, 255, 255, 0.75) 0%, rgba(236, 236, 234, 0.22) 38%, transparent 68%);
@@ -1177,6 +1225,43 @@ body.is-loaded .hero__tagline { opacity: 1; transform: translateY(0); }
   transition: opacity 1.1s var(--ease-out) 1.4s, transform 1.1s var(--ease-out) 1.4s;
 }
 body.is-loaded .hero__cta { opacity: 1; transform: translateY(0); }
+
+body[data-nav-home="true"] .hero__brand,
+body[data-nav-home="true"] .hero__brand .eyebrow {
+  color: rgba(255, 255, 255, 0.76);
+}
+body[data-nav-home="true"] .hero__brand-line {
+  background: rgba(255, 255, 255, 0.72);
+}
+body[data-nav-home="true"] .hero__title {
+  color: #FAFAF8;
+  text-shadow:
+    0 2px 28px rgba(0, 0, 0, 0.28),
+    0 1px 0 rgba(255, 255, 255, 0.12);
+}
+body[data-nav-home="true"] .hero__tagline {
+  color: rgba(255, 255, 255, 0.84);
+}
+body[data-nav-home="true"] .hero__cta .btn--ghost {
+  color: rgba(255, 255, 255, 0.94);
+  border-color: rgba(255, 255, 255, 0.42);
+}
+body[data-nav-home="true"] .hero__cta .btn--ghost:hover {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.1);
+}
+body[data-nav-home="true"] .hero__cta .btn--primary {
+  background: rgba(255, 255, 255, 0.94);
+  color: var(--ink);
+  border-color: rgba(255, 255, 255, 0.94);
+}
+body[data-nav-home="true"] .hero__cta .btn--primary::before {
+  background: var(--gold-light);
+}
+body[data-nav-home="true"] .hero__cta .btn--primary:hover {
+  color: var(--ink);
+}
 
 /* ---------- BIGTEXT — giant scrolling word ---------- */
 .bigtext {
@@ -1461,8 +1546,32 @@ body.is-loaded .hero__cta { opacity: 1; transform: translateY(0); }
 .story {
   padding: clamp(120px, 14vw, 200px) var(--pad);
   position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.story__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.story__bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 42%;
+  filter: saturate(0.96) contrast(1.02);
+}
+.story__scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(10, 18, 14, 0.46) 0%, rgba(10, 18, 14, 0.22) 42%, rgba(10, 18, 14, 0.52) 100%),
+    linear-gradient(90deg, rgba(10, 18, 14, 0.38) 0%, rgba(10, 18, 14, 0.12) 52%, rgba(10, 18, 14, 0.28) 100%);
 }
 .story__grid {
+  position: relative;
+  z-index: 1;
   max-width: var(--max);
   margin: 0 auto;
   display: grid;
@@ -1524,6 +1633,46 @@ body.is-loaded .hero__cta { opacity: 1; transform: translateY(0); }
   gap: 12px;
 }
 .story__overview-trigger:hover .arrow { transform: translateX(4px); }
+
+.story .eyebrow {
+  color: rgba(255, 255, 255, 0.72);
+}
+.story .display {
+  color: var(--paper);
+  text-shadow: 0 2px 28px rgba(0, 0, 0, 0.32);
+}
+.story .display em {
+  color: rgba(255, 255, 255, 0.94);
+}
+.story__body p {
+  color: rgba(255, 255, 255, 0.84);
+}
+.story__body p:first-child::first-letter {
+  color: var(--gold-light);
+}
+.story .btn--primary {
+  background: rgba(255, 255, 255, 0.94);
+  color: var(--ink);
+  border-color: rgba(255, 255, 255, 0.94);
+}
+.story .btn--primary::before {
+  background: var(--gold-light);
+}
+.story .btn--ghost {
+  color: rgba(255, 255, 255, 0.94);
+  border-color: rgba(255, 255, 255, 0.42);
+}
+.story .btn--ghost:hover {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.1);
+}
+.story__overview-trigger {
+  color: rgba(255, 255, 255, 0.78);
+}
+.story__overview-trigger:hover {
+  color: var(--gold-light);
+}
 
 .story__aside {
   grid-area: aside;
@@ -3866,8 +4015,8 @@ body.is-loaded .scroll-progress { opacity: 1; }
   .hero__bg-video,
   .hero__bg-img { object-position: 50% 38%; }
   .hero__bottle-stage {
-    height: min(54vh, 480px);
-    max-width: min(38vw, 380px);
+    height: min(46vh, 400px);
+    max-width: min(32vw, 320px);
     right: clamp(0px, 2vw, 24px);
   }
   .hero__content {
