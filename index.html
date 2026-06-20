@@ -49,6 +49,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" as="image" href="images/plain-bottle-with-logo-480.webp" type="image/webp" fetchpriority="high" />
+  <link rel="preload" as="image" href="images/pool1.webp?v=1" type="image/webp" />
   <link
     rel="preload"
     as="style"
@@ -72,11 +73,10 @@
     body { margin: 0; background: var(--bg); color: var(--ink); }
     .hero { position: relative; min-height: 100vh; background: var(--bg); overflow: hidden; }
     .hero__bg { position: absolute; inset: 0; }
-    .hero__bg-video { width: 100%; height: 100%; object-fit: cover; }
+    .hero__bg-img { width: 100%; height: 100%; object-fit: cover; }
     .veil { position: fixed; inset: 0; z-index: 9999; pointer-events: none; }
   </style>
-  <link rel="stylesheet" href="styles.min.css?v=141" media="print" onload="this.media='all'" />
-  <noscript><link rel="stylesheet" href="styles.min.css?v=141" /></noscript>
+  <link rel="stylesheet" href="styles.min.css?v=142" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -231,7 +231,7 @@
     <style>
       .reveal { opacity: 1 !important; transform: none !important; }
       .veil   { display: none !important; }
-      .hero__bg-video { transform: scale(1) !important; filter: none !important; }
+      .hero__bg-img { transform: scale(1) !important; filter: none !important; }
       .hero__bottle-stage { opacity: 1 !important; transform: none !important; }
       .hero__bottle { transform: scale(1.04) !important; filter: none !important; }
       @media (min-width: 901px) {
@@ -278,17 +278,10 @@
     <section class="hero" id="hero">
       <div class="hero__bg">
         <div class="hero__scene">
-          <video
-            class="hero__bg-video"
-            data-hero-bg-video
-            data-src="images/grow1.mp4?v=1"
-            poster="images/hero-backgrund-white.webp"
-            muted
-            loop
-            playsinline
-            preload="none"
-            aria-hidden="true"
-          ></video>
+          <picture>
+            <source type="image/webp" srcset="images/pool1.webp?v=1" />
+            <img class="hero__bg-img hero__bg-img--scene" src="images/pool1.jpg?v=1" width="1672" height="941" alt="" decoding="async" />
+          </picture>
         </div>
       </div>
       <div class="hero__spotlight" aria-hidden="true"></div>
@@ -783,6 +776,6 @@
   <script src="/scripts/i18n.js" defer></script>
   <script src="/scripts/site-nav.js?v=4" defer></script>
   <script src="data/products.js?v=12" defer></script>
-  <script src="script.min.js?v=82" defer></script>
+  <script src="script.min.js?v=83" defer></script>
 </body>
 </html>
