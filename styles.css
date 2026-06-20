@@ -1297,9 +1297,9 @@ body[data-nav-home="true"] .hero__cta .btn--primary:hover {
   padding: 0.035em 0.02em 0;
 }
 .bigtext__word--fill em {
-  background-image: url('images/hero-backgrund-white.webp');
+  background-image: url('images/cowboy-cowgirl.webp?v=1');
   background-size: 120% auto;
-  background-position: 50% 40%;
+  background-position: 50% 38%;
   -webkit-background-clip: text;
           background-clip: text;
   color: transparent;
