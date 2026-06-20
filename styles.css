@@ -1067,7 +1067,9 @@ body.is-loaded .hero__bottle-link:focus-visible .hero__bottle-fallback {
   opacity: 0;
   transition: opacity 1s var(--ease) 1.6s;
 }
-body.is-loaded .hero__spotlight { opacity: 1; }
+@media (hover: hover) and (pointer: fine) {
+  body.is-loaded .hero__spotlight { opacity: 1; }
+}
 
 .hero__content {
   position: relative;
