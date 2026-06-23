@@ -32,7 +32,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.min.css?v=153" />
+  <link rel="stylesheet" href="styles.min.css?v=162" />
+  <link rel="stylesheet" href="/site.min.css?v=20" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -116,10 +117,28 @@
 <body class="editorial-page beles-page" data-nav-waitlist="#waitlist" data-chapter-slug="beles">
   <a class="skip-link" href="#top">Skip to content</a>
   <script src="/scripts/i18n.js"></script>
-  <script src="/scripts/site-nav.js?v=4"></script>
+  <script src="/scripts/site-nav.js?v=6"></script>
   <script src="/scripts/chapter-nav.js"></script>
 
   <main class="beles-page__main" id="top">
+    <section class="product-intro product-intro--beles" aria-label="Beles · Fico d'India">
+      <div class="product-intro__media" aria-hidden="true">
+        <picture>
+          <source type="image/webp" srcset="images/beles-luxury.webp?v=1" />
+          <img src="images/beles-luxury.png?v=1" width="1254" height="1254" loading="eager" decoding="async" alt="" />
+        </picture>
+        <span class="product-intro__veil"></span>
+      </div>
+      <div class="product-intro__inner">
+        <p class="product-intro__chapter">I</p>
+        <div class="product-intro__copy">
+          <p class="sx-eyebrow product-intro__eyebrow">Boutique · Chapter I</p>
+          <h1 class="product-intro__title">Beles<br /><em>Fico d'India</em></h1>
+          <p class="product-intro__lead">An oil-rich prickly pear parfum — sun-warmed fruit, cactus water, hibiscus, and mineral desert air composed in Copenhagen.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ BOUTIQUE / WAITLIST ============ -->
     <section class="shop shop--beles" id="waitlist">
       <div class="shop__grid">
@@ -139,10 +158,10 @@
                   muted
                   loop
                   playsinline
-                  preload="none"
-                  poster="images/ken-beles.png"
+                  preload="auto"
+                  poster="images/ken-beles-poster.webp?v=1"
                 >
-                  <source src="images/ken-beles.mp4" type="video/mp4" />
+                  <source src="images/ken-beles.mp4?v=2" type="video/mp4" />
                 </video>
               </span>
             </div>
@@ -171,11 +190,11 @@
         </div>
 
         <div class="shop__info">
-          <span class="eyebrow reveal">Boutique — <span class="stock-status">Out of stock</span></span>
-          <h1 class="display" data-reveal="words" data-delay="80">
+          <span class="eyebrow reveal">Oil-rich parfum — <span class="stock-status">Out of stock</span></span>
+          <h2 class="display" data-reveal="words" data-delay="80">
             Beles <span class="product-qualifier">• Fico d'India</span><br />
             <em>Oil-rich Parfum</em>
-          </h1>
+          </h2>
           <p class="shop__price" data-reveal="up" data-delay="500" aria-live="polite">
             <span data-price>€ 240</span>
             <span class="shop__price-meta" data-volume>100 ml · 3.4 fl. oz.</span>
@@ -430,9 +449,9 @@
       </div>
     </section>
 
-    <section class="chapter-visuals" aria-label="Beles atmosphere and ingredients">
+    <section class="chapter-visuals" aria-label="Beles atmosphere and ingredients" data-reveal="up">
       <header class="chapter-visuals__head">
-        <span class="eyebrow">Imagery</span>
+        <p class="sx-eyebrow">Imagery</p>
         <h2 class="display">Desert fruit<br /><em>in light.</em></h2>
       </header>
       <div class="chapter-gallery">
@@ -450,14 +469,19 @@
             <source src="images/beles-showcase-stabilized.mp4" type="video/mp4" />
           </video>
         </figure>
-        <figure><img src="images/cactus-mood.jpg" width="900" height="1125" loading="lazy" decoding="async" alt="Prickly pear cactus in warm desert light" /></figure>
+        <figure class="chapter-gallery__companion">
+          <picture>
+            <source type="image/webp" srcset="images/beles-luxury.webp?v=1" />
+            <img src="images/beles-luxury.png?v=1" width="1254" height="1254" loading="lazy" decoding="async" alt="Prickly pear cactus in warm light — Beles · Fico d'India" />
+          </picture>
+        </figure>
         <figure><img src="images/beles-mood.png" width="900" height="1125" loading="lazy" decoding="async" alt="Beles bottle in sun-warmed mineral atmosphere" /></figure>
         <figure><img src="images/cactus-hero.jpg" width="900" height="1125" loading="lazy" decoding="async" alt="Cactus landscape at golden hour" /></figure>
         <figure><img src="images/desert-architecture-hero.jpg" width="900" height="1125" loading="lazy" decoding="async" alt="Sun-warmed stone architecture" /></figure>
       </div>
     </section>
 
-    <section class="beles-section beles-section--inset" id="oil-rich">
+    <section class="beles-section beles-section--inset" id="oil-rich" data-reveal="up">
       <h2>Why oil-rich parfum</h2>
       <p>
         Beles is composed as an oil-rich parfum, designed to unfold slowly and wear close to skin.
@@ -469,17 +493,35 @@
       </p>
     </section>
 
-    <section class="beles-section beles-section--inset" id="object">
-      <h2>The object</h2>
-      <figure class="info-page__figure info-page__figure--concept">
-        <img src="images/beles-concept.png" width="1086" height="1448" loading="lazy" decoding="async" alt="Beles · Fico d'India concept design sheet — square matte flacon with winged leopard emblem" />
-        <figcaption>Concept design — bottle, cap, and emblem as one object</figcaption>
-      </figure>
-      <p>
-        A square matte flacon with a brushed-silver cap and a winged leopard emblem stippled at the base.
-        EILLON, Beles, and Fico d'India are pressed directly into the face — no label, no band.
-      </p>
-      <p><a href="/journal/the-bottle">Read: The bottle as architecture →</a></p>
+    <section class="beles-section beles-section--dark" id="object" data-reveal="up">
+      <div class="beles-section__grid">
+        <div class="beles-section__copy">
+          <h2>The object</h2>
+          <p>
+            A square matte flacon with a brushed-silver cap and a winged leopard emblem stippled at the base.
+            EILLON, Beles, and Fico d'India are pressed directly into the face — no label, no band.
+          </p>
+          <p><a class="sx-link" href="/journal/the-bottle">Read: The bottle as architecture <span aria-hidden="true">→</span></a></p>
+        </div>
+        <figure class="info-page__figure info-page__figure--concept">
+          <img src="images/beles-concept.png" width="1086" height="1448" loading="lazy" decoding="async" alt="Beles · Fico d'India concept design sheet — square matte flacon with winged leopard emblem" />
+          <figcaption>Concept design — bottle, cap, and emblem as one object</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="sx-chapter-close" aria-label="Chapter navigation">
+      <div class="sx-chapter-close__inner">
+        <div>
+          <p class="sx-eyebrow">Memory of place</p>
+          <h2>Desert fruit<br /><em>in light.</em></h2>
+          <p>Beles holds sun-warmed prickly pear and mineral desert air — the chapter that opened the maison, composed slowly in Copenhagen.</p>
+        </div>
+        <nav class="sx-chapter-close__nav" aria-label="Fragrance chapters">
+          <a class="sx-link" href="/store">All chapters <span aria-hidden="true">→</span></a>
+          <a class="sx-link" href="/asmara">Chapter II · Asmara <span aria-hidden="true">→</span></a>
+        </nav>
+      </div>
     </section>
   </main>
 
@@ -491,6 +533,6 @@
     </span>
   </footer>
 
-  <script src="script.js?v=77" defer></script>
+  <script src="script.js?v=78" defer></script>
 </body>
 </html>

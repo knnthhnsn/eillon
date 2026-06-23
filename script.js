@@ -840,15 +840,82 @@
   const shopVideo = shopImage?.querySelector('[data-shop-video]');
   const shopSplashSizes = new Set(['50', '100']);
   const isBelesShop = Boolean(shopImage?.closest('.shop--beles'));
+  let shopVideoWanted = false;
+  let shopVideoPrimed = false;
+  let shopVideoPrimeQueued = false;
+
+  const resetShopVideoToStart = () => {
+    try { shopVideo.currentTime = 0; } catch (_) {}
+  };
+
+  const primeShopVideo = () => {
+    if (!(shopVideo instanceof HTMLVideoElement) || prefersReduced || saveData) return;
+    if (!shopImage || !shopSplashSizes.has(shopImage.dataset.productSize)) return;
+    if (shopVideoPrimed) return;
+
+    shopVideo.muted = true;
+    shopVideo.defaultMuted = true;
+    shopVideo.preload = 'auto';
+
+    const settle = () => {
+      if (shopVideoPrimed || document.hidden) return;
+      const playPromise = shopVideo.play();
+      if (!playPromise || typeof playPromise.then !== 'function') {
+        shopVideoPrimed = true;
+        if (!shopVideoWanted) {
+          shopVideo.pause();
+          resetShopVideoToStart();
+        }
+        return;
+      }
+
+      playPromise
+        .then(() => {
+          shopVideoPrimed = true;
+          if (!shopVideoWanted) {
+            shopVideo.pause();
+            resetShopVideoToStart();
+          }
+        })
+        .catch(() => {
+          shopVideo.load();
+        });
+    };
+
+    if (shopVideo.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
+      settle();
+    } else {
+      shopVideo.addEventListener('canplay', settle, { once: true });
+      shopVideo.load();
+    }
+  };
+
+  const scheduleShopVideoPrime = () => {
+    if (shopVideoPrimeQueued) return;
+    shopVideoPrimeQueued = true;
+    const run = () => {
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(primeShopVideo, { timeout: 1800 });
+      } else {
+        setTimeout(primeShopVideo, 500);
+      }
+    };
+    if (document.body.classList.contains('is-loaded')) run();
+    else afterVeil.push(run);
+  };
 
   const syncShopVideo = (shouldPlay) => {
     if (!(shopVideo instanceof HTMLVideoElement) || prefersReduced) return;
+    shopVideoWanted = shouldPlay;
     if (!shopImage || !shopSplashSizes.has(shopImage.dataset.productSize)) {
       shopVideo.pause();
-      shopVideo.currentTime = 0;
+      resetShopVideoToStart();
       return;
     }
-    if (shouldPlay) playVideoSafe(shopVideo);
+    if (shouldPlay) {
+      shopVideo.preload = 'auto';
+      playVideoSafe(shopVideo);
+    }
     else shopVideo.pause();
   };
 
@@ -979,9 +1046,13 @@
     shopImage.addEventListener('mouseleave', () => syncShopVideo(false));
   }
 
+  if (isBelesShop && shopVideo instanceof HTMLVideoElement && !prefersReduced) {
+    scheduleShopVideoPrime();
+  }
+
   if (shopVideo instanceof HTMLVideoElement && prefersReduced) {
     shopVideo.pause();
-    shopVideo.currentTime = 0;
+    resetShopVideoToStart();
   }
 
   /* ---------- 8d. TOUCH UI — mobile alternatives to hover ---------- */

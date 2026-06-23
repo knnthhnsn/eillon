@@ -1,3 +1,6 @@
 market-research/
+**/__pycache__/
 lighthouse-report*.json
 eillon_composer_implementation_plan.md
+images/*-original*.mp4
+images/* - Copy.mp4

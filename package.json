@@ -8,8 +8,10 @@
     "dev:api": "vercel dev",
     "lighthouse": "npx lighthouse http://localhost:5173 --only-categories=performance --form-factor=mobile --screenEmulation.mobile --throttling.cpuSlowdownMultiplier=4 --output=json --output-path=./lighthouse-report-latest.json --chrome-flags=\"--headless\"",
     "build:css": "npx clean-css-cli -o styles.min.css styles.css",
+    "build:home": "npx clean-css-cli -o home.min.css home.css",
+    "build:site": "npx clean-css-cli -o site.min.css site.css",
     "build:js": "npx terser script.js -o script.min.js -c -m",
-    "build": "npm run build:css && npm run build:js"
+    "build": "npm run build:css && npm run build:home && npm run build:site && npm run build:js"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.0",

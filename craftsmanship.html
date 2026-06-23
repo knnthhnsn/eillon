@@ -32,7 +32,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/styles.min.css?v=138" />
+  <link rel="stylesheet" href="/styles.min.css?v=162" />
+  <link rel="stylesheet" href="/site.min.css?v=20" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -62,40 +63,62 @@
 <body class="editorial-page info-page" data-nav-current="maison">
   <a class="skip-link" href="#top">Skip to content</a>
   <script src="/scripts/i18n.js"></script>
-  <script src="/scripts/site-nav.js?v=4"></script>
+  <script src="/scripts/site-nav.js?v=6"></script>
 
-  <main class="editorial-page__main info-page__main" id="top">
-    <span class="eyebrow">Production</span>
-    <h1 class="display" style="font-size: clamp(36px, 5vw, 64px); margin: 12px 0 20px;">Craftsmanship</h1>
-    <p class="info-page__lead">
-      Oil-rich parfums composed in Copenhagen — from raw materials to the finished object on your shelf.
-    </p>
+  <main class="editorial-page__main info-page__main craft-page__main" id="top">
+    <section class="page-hero">
+      <div class="page-hero__media" aria-hidden="true">
+        <img src="images/cactus-craft.jpg" width="900" height="1120" loading="eager" decoding="async" alt="" />
+        <span class="page-hero__veil"></span>
+      </div>
+      <div class="page-hero__inner">
+        <p class="page-hero__eyebrow sx-eyebrow">Production</p>
+        <h1 class="page-hero__title">How we <em>compose</em> EILLON</h1>
+        <p class="page-hero__lead">Oil-rich parfums composed in Copenhagen — from raw materials to the finished object on your shelf.</p>
+      </div>
+    </section>
 
-    <div class="info-page__split">
-      <figure class="info-page__figure">
-        <img src="images/cactus-craft.jpg" width="900" height="1120" loading="eager" decoding="async" alt="Prickly pear and studio materials — ingredient study for Beles" />
-        <figcaption>Ingredient study — prickly pear accord, Beles · Fico d'India</figcaption>
-      </figure>
-      <figure class="info-page__figure info-page__figure--concept">
-        <img src="images/beles-concept.png" width="1086" height="1448" loading="lazy" decoding="async" alt="Beles · Fico d'India concept design sheet — square matte flacon, winged leopard emblem, and packaging" />
-        <figcaption>Concept design — Beles · Fico d'India bottle architecture</figcaption>
-      </figure>
+    <div class="craft-chapters">
+      <header class="craft-chapters__intro" data-reveal="up">
+        <div>
+          <p class="sx-eyebrow">The Studio</p>
+          <h2>Small batches,<br /><em>considered materials.</em></h2>
+        </div>
+        <p>Every chapter begins as a memory of place. Formulas are layered slowly in the Copenhagen studio — fruit and mineral top notes, floral hearts, and musk-and-stone bases that settle over hours.</p>
+      </header>
+
+      <article class="craft-panel" data-reveal="up">
+        <figure class="craft-panel__figure">
+          <img src="images/cactus-craft.jpg" width="900" height="1120" loading="lazy" decoding="async" alt="Prickly pear and studio materials — ingredient study for Beles" />
+        </figure>
+        <div class="craft-panel__copy">
+          <h2>Composition</h2>
+          <p>
+            EILLON works as an oil-rich parfum house. Concentrations are built for longevity and a close, skin-held trail —
+            not loud projection. Beles draws on sun-warmed prickly pear and cactus water.
+            Asmara on rain and espresso over stone. Massawa on Red Sea citrus and salt skin.
+          </p>
+        </div>
+      </article>
+
+      <article class="craft-panel craft-panel--reverse" data-reveal="up">
+        <figure class="craft-panel__figure craft-panel__figure--concept">
+          <img src="images/beles-concept.png" width="1086" height="1448" loading="lazy" decoding="async" alt="Beles · Fico d'India concept design sheet — square matte flacon and packaging" />
+        </figure>
+        <div class="craft-panel__copy">
+          <h2>The object</h2>
+          <p>
+            Bottle, cap, and accord are developed together — square matte glass, brushed silver, quiet lettering pressed into the face.
+            Formulas are refined in the studio before any bottle is offered for sale.
+          </p>
+        </div>
+      </article>
     </div>
 
-    <div class="info-page__body">
-      <h2>Composition</h2>
-      <p>
-        EILLON works as an oil-rich parfum house. Concentrations are built for longevity and a close, skin-held trail —
-        not loud projection. Accords are layered slowly: fruit and mineral top notes, floral hearts, and musk-and-stone bases
-        that settle over hours.
-      </p>
-      <p>
-        Each chapter begins as a memory of place. Beles draws on sun-warmed prickly pear and cactus water.
-        Asmara on rain and espresso over stone. Massawa on Red Sea citrus and salt skin. Formulas are refined in the studio
-        before any bottle is offered for sale.
-      </p>
-
-      <h2>Ingredients &amp; sourcing</h2>
+    <section class="sx-interlude" aria-label="Ingredients and sourcing">
+      <div class="sx-interlude__inner">
+      <p class="sx-eyebrow">Transparency</p>
+      <h2>Ingredients &amp; <em>sourcing</em></h2>
       <p>
         Raw materials are selected for clarity and wear on skin — natural and synthetic molecules combined where each serves the accord.
         Citrus, resins, musks, and floral absolutes are chosen for stability in an oil-rich base and for how they evolve over an eight-hour wear.
@@ -138,8 +161,12 @@
         All formulas comply with IFRA standards. As chapters move toward release, supplier notes and batch traceability
         are published in the journal so customers can follow how each accord is built.
       </p>
+      </div>
+    </section>
 
-      <h2>Manufacturing</h2>
+    <div class="info-page__body craft-chapters">
+      <h2 data-reveal="words">Manufacturing</h2>
+      <p>Each chapter moves through the same quiet sequence — formula lock, compounding, hand finish, and release.</p>
       <ol class="info-page__steps">
         <li><strong>Formula lock</strong> — accord approved in studio, batch size set.</li>
         <li><strong>Compounding</strong> — small-batch production with resting time before fill.</li>
@@ -158,29 +185,40 @@
       </ul>
 
       <div class="info-page__actions">
-        <a class="btn btn--primary" href="/beles">
-          <span class="btn__label">Beles · Fico d'India</span>
-        </a>
-        <a class="btn btn--ghost" href="/wear">
-          <span>Fragrance care guide</span>
-          <span class="arrow">→</span>
-        </a>
+        <a class="sx-btn" href="/beles">Beles · Fico d'India</a>
+        <a class="sx-btn sx-btn--ghost" href="/wear">Fragrance care guide <span aria-hidden="true">→</span></a>
       </div>
       <nav class="info-page__actions-chips" aria-label="Related pages">
-        <a class="info-page__action-chip" href="/journal/the-bottle">
-          <span>The bottle as architecture</span>
-          <span class="arrow" aria-hidden="true">→</span>
+        <a class="info-page__action-chip sx-link" href="/journal/the-bottle">
+          The bottle as architecture <span aria-hidden="true">→</span>
         </a>
-        <a class="info-page__action-chip" href="/about">
-          <span>About the maison</span>
-          <span class="arrow" aria-hidden="true">→</span>
+        <a class="info-page__action-chip sx-link" href="/about">
+          About the maison <span aria-hidden="true">→</span>
         </a>
-        <a class="info-page__action-chip" href="/store">
-          <span>The boutique</span>
-          <span class="arrow" aria-hidden="true">→</span>
+        <a class="info-page__action-chip sx-link" href="/store">
+          The boutique <span aria-hidden="true">→</span>
         </a>
       </nav>
     </div>
+
+    <section class="sx-manifesto" aria-label="Closing thought">
+      <p class="sx-manifesto__line">We do not make things that compete for attention. We make things that <em>reward it.</em></p>
+      <p class="sx-manifesto__sign">Love this moment.</p>
+    </section>
+
+    <section class="sx-letter" id="letter">
+      <div class="sx-letter__inner">
+        <p class="sx-eyebrow">The Letter</p>
+        <h2>Studio notes,<br /><em>sent slowly.</em></h2>
+        <p>Seasonal letters on composition, restock windows, and private appointment openings.</p>
+        <form class="sx-letter__form" data-waitlist-form data-product-slug="all" data-source="newsletter" novalidate>
+          <input type="email" name="email" placeholder="Your email" aria-label="Email address" autocomplete="email" required />
+          <input type="text" name="website" class="shop__honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <button type="submit">Subscribe <span aria-hidden="true">→</span></button>
+        </form>
+        <p class="footer__status" aria-live="polite"></p>
+      </div>
+    </section>
   </main>
 
   <footer class="editorial-page__footer">

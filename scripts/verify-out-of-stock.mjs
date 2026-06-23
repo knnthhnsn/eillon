@@ -4,11 +4,13 @@
  */
 import { readFileSync } from 'node:fs';
 import { execSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
+import { join } from 'node:path';
 
-const root = new URL('..', import.meta.url).pathname;
+const root = fileURLToPath(new URL('..', import.meta.url));
 
 function read(rel) {
-  return readFileSync(`${root}/${rel}`, 'utf8');
+  return readFileSync(join(root, rel), 'utf8');
 }
 
 let rev = 'unknown';

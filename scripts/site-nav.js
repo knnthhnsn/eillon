@@ -155,7 +155,9 @@
     <div class="maison-modal__surface">
       <div class="maison-modal__head">
         <p class="eyebrow" id="maisonModalTitle">The Maison</p>
-        <button class="maison-modal__close" type="button" data-maison-story-close aria-label="Close">Close</button>
+        <button class="maison-modal__close" type="button" data-maison-story-close aria-label="Close">
+          <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" focusable="false"><path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>
+        </button>
       </div>
       <div class="maison-modal__body">
         <h2 class="display maison-modal__title">Perfume from <em>place, memory &amp; skin.</em></h2>
@@ -342,4 +344,88 @@
     },
     close: closeMaisonModal,
   };
+
+  const editorialFooterHtml = `
+  <footer class="footer" data-footer-upgraded="true">
+    <div class="footer__top">
+      <div class="footer__news">
+        <span class="sx-eyebrow">The Letter</span>
+        <h3 class="footer__news-title">News from EILLON,<br />sent slowly.</h3>
+        <form class="footer__form" data-waitlist-form data-product-slug="all" data-source="footer" novalidate>
+          <input type="email" name="email" placeholder="Your email" aria-label="Email address" autocomplete="email" required />
+          <input type="text" name="website" class="shop__honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <button type="submit">Subscribe <span class="arrow">→</span></button>
+        </form>
+        <p class="footer__promise">Seasonal letters only: studio notes, restock windows, and private appointment openings.</p>
+        <p class="footer__status" aria-live="polite"></p>
+        <div class="footer__visit" id="studio">
+          <span class="footer__visit-label">Copenhagen studio</span>
+          <p>EILLON — 1050 Copenhagen, Denmark</p>
+          <p>Private fragrance appointments, Thursday to Saturday, 12–18.</p>
+          <a href="mailto:care@eillon.maison?subject=Beles%20studio%20appointment">Request an appointment <span class="arrow">→</span></a>
+        </div>
+      </div>
+      <div class="footer__cols">
+        <div>
+          <h4>Maison</h4>
+          <ul>
+            <li><a href="/about">About EILLON</a></li>
+            <li><a href="/craftsmanship">Craftsmanship</a></li>
+            <li><a href="/journal">Editorial Journal</a></li>
+            <li><a href="/store">The Boutique</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Boutique</h4>
+          <ul>
+            <li><a href="/beles">Beles · Fico d'India</a></li>
+            <li><a href="/store">All chapters</a></li>
+            <li><a href="${waitlistHref}">Restock list</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Care</h4>
+          <ul>
+            <li><a href="mailto:care@eillon.maison">Contact</a></li>
+            <li><a href="/wear">Fragrance care guide</a></li>
+            <li><a href="/shipping">Shipping &amp; returns</a></li>
+            <li><a href="/beles#faq">FAQ</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Follow</h4>
+          <ul>
+            <li><a href="https://www.instagram.com/eillon" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+            <li><a href="https://www.pinterest.com/eillon" target="_blank" rel="noopener noreferrer">Pinterest</a></li>
+            <li><a href="https://open.spotify.com/search/EILLON%20beles" target="_blank" rel="noopener noreferrer">Spotify</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer__brand" aria-hidden="true">
+      <picture>
+        <source type="image/webp" srcset="/images/eillon_logo_veil.webp" />
+        <img src="/images/eillon_logo_transparent.png" width="640" height="200" alt="" loading="lazy" decoding="async" />
+      </picture>
+    </div>
+    <div class="footer__legal">
+      <span>© EILLON — Copenhagen</span>
+      <span class="footer__legal-links">
+        <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/imprint">Imprint</a>
+      </span>
+    </div>
+  </footer>`;
+
+  const mountEditorialFooter = () => {
+    if (isHome || !body.classList.contains('editorial-page')) return;
+    const legacy = document.querySelector('footer.editorial-page__footer');
+    if (!legacy || legacy.dataset.upgraded === 'true') return;
+    legacy.outerHTML = editorialFooterHtml;
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', mountEditorialFooter);
+  } else {
+    mountEditorialFooter();
+  }
 })();

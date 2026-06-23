@@ -31,7 +31,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.min.css?v=127" />
+  <link rel="stylesheet" href="styles.min.css?v=162" />
+  <link rel="stylesheet" href="site.min.css?v=20" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -68,65 +69,145 @@
 <body class="editorial-page store-page" data-nav-current="boutique" data-eillon-revision="out-of-stock-v9">
   <a class="skip-link" href="#top">Skip to content</a>
   <script src="/scripts/i18n.js"></script>
-  <script src="/scripts/site-nav.js?v=4"></script>
+  <script src="/scripts/site-nav.js?v=6"></script>
 
-  <main class="editorial-page__main store-page__main" id="top">
-    <section class="store-hero">
-      <span class="eyebrow">The Boutique</span>
-      <h1 class="display">The EILLON<br /><em>fragrance chapters.</em></h1>
-      <p class="store-hero__lead">
-        Every chapter is currently out of stock. Leave your email on any chapter — we write when bottles return to the boutique.
-      </p>
-      <a class="btn btn--primary" href="/beles#waitlist"><span class="btn__label">Notify when Beles returns</span></a>
-    </section>
-
-    <section class="store-collection collection-panel" aria-label="Fragrance collection">
-      <div class="collection-panel__media" aria-hidden="true">
-        <video
-          class="collection-panel__video"
-          data-collection-video
-          muted
-          loop
-          playsinline
-          preload="none"
-        >
+  <main class="editorial-page__main boutique-page__main" id="top">
+    <!-- Masthead -->
+    <section class="page-hero">
+      <div class="page-hero__media" aria-hidden="true">
+        <video class="collection-panel__video" data-collection-video muted loop playsinline preload="none" poster="images/scent-massawa.jpg">
           <source src="images/red-sea.mp4" type="video/mp4" />
         </video>
-        <span class="collection-panel__scrim"></span>
+        <span class="page-hero__veil"></span>
       </div>
-      <div class="collection-panel__content">
-        <div class="product-grid" data-product-grid data-product-grid-mode="store"></div>
+      <div class="page-hero__inner">
+        <p class="page-hero__eyebrow sx-eyebrow">The Boutique</p>
+        <h1 class="page-hero__title">The EILLON<br /><em>fragrance chapters.</em></h1>
+        <p class="page-hero__lead">Four memories, one maison. Every chapter is currently out of stock — leave your email and we write when bottles return.</p>
+        <div class="page-hero__actions">
+          <a class="sx-btn sx-btn--on-dark" href="/beles#waitlist">Notify when Beles returns</a>
+          <a class="sx-link" href="#chapters">See the chapters <span aria-hidden="true">↓</span></a>
+        </div>
       </div>
     </section>
 
-    <section class="status-guide" aria-label="Availability guide">
-      <h2 class="status-guide__title">Availability</h2>
-      <dl class="status-guide__list">
+    <!-- Editorial chapter index -->
+    <section class="boutique-index" id="chapters" aria-label="Fragrance collection">
+      <header class="boutique-index__head" data-reveal="up">
         <div>
-          <dt>Out of stock</dt>
-          <dd>All chapters are currently unavailable. The boutique opens briefly when bottles return.</dd>
+          <p class="sx-eyebrow">The Collection</p>
+          <h2>An olfactory atlas,<br /><em>composed in chapters.</em></h2>
         </div>
-        <div>
-          <dt>Restock list</dt>
-          <dd>Leave your email on any chapter page — we write once when that chapter is back in stock.</dd>
+        <p class="boutique-index__count">Four chapters · all out of stock</p>
+      </header>
+
+      <article class="chapter-row" data-reveal="up">
+        <p class="chapter-row__num">I</p>
+        <div class="chapter-row__body">
+          <h3 class="chapter-row__name">Beles <em>· Fico d'India</em></h3>
+          <p class="chapter-row__meta"><span>Oil-rich parfum</span><span>Watery fruit musk</span></p>
+          <p class="chapter-row__desc">Sun-warmed prickly pear, cactus water, hibiscus, soft musk, and mineral desert air.</p>
+          <div class="chapter-row__actions">
+            <span class="chapter-row__status chapter-row__status--beles">Out of stock</span>
+            <a class="sx-link" href="/beles#waitlist">Notify when back <span aria-hidden="true">→</span></a>
+          </div>
         </div>
-        <div>
-          <dt>Lab study</dt>
-          <dd>Ritual remains a studio archive study — out of stock and not offered for sale.</dd>
+        <a class="chapter-row__media" href="/beles" aria-label="View Beles · Fico d'India">
+          <img src="images/beles-luxury.webp" width="1254" height="1254" loading="lazy" decoding="async" alt="Beles · Fico d'India — sun-warmed prickly pear" />
+        </a>
+      </article>
+
+      <article class="chapter-row" data-reveal="up">
+        <p class="chapter-row__num">II</p>
+        <div class="chapter-row__body">
+          <h3 class="chapter-row__name">Asmara <em>· Rain on Stone</em></h3>
+          <p class="chapter-row__meta"><span>Parfum concept</span><span>Mineral rain amber</span></p>
+          <p class="chapter-row__desc">Warm rain on old stone, espresso, cardamom, jasmine, dust, amber, and soft tobacco.</p>
+          <div class="chapter-row__actions">
+            <span class="chapter-row__status">Out of stock</span>
+            <a class="sx-link" href="/asmara">View the chapter <span aria-hidden="true">→</span></a>
+          </div>
         </div>
-      </dl>
+        <a class="chapter-row__media" href="/asmara" aria-label="View Asmara · Rain on Stone">
+          <img src="images/scent-asmara.jpg" width="1200" height="900" loading="lazy" decoding="async" alt="Asmara · Rain on Stone — wet city stone" />
+        </a>
+      </article>
+
+      <article class="chapter-row" data-reveal="up">
+        <p class="chapter-row__num">III</p>
+        <div class="chapter-row__body">
+          <h3 class="chapter-row__name">Massawa <em>· Red Sea Citrus</em></h3>
+          <p class="chapter-row__meta"><span>Parfum concept</span><span>Solar citrus marine</span></p>
+          <p class="chapter-row__desc">Red Sea air, sunlit orange, papaya, salt-warmed skin, and mineral coastal stone.</p>
+          <div class="chapter-row__actions">
+            <span class="chapter-row__status">Out of stock</span>
+            <a class="sx-link" href="/massawa">View the chapter <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+        <a class="chapter-row__media" href="/massawa" aria-label="View Massawa · Red Sea Citrus">
+          <img src="images/scent-massawa.jpg" width="1200" height="900" loading="lazy" decoding="async" alt="Massawa · Red Sea Citrus — sunlit coast" />
+        </a>
+      </article>
+
+      <article class="chapter-row" data-reveal="up">
+        <p class="chapter-row__num">IV</p>
+        <div class="chapter-row__body">
+          <h3 class="chapter-row__name">Ritual <em>· Frankincense &amp; Myrrh</em></h3>
+          <p class="chapter-row__meta"><span>Parfum study</span><span>Sacred resin skin</span></p>
+          <p class="chapter-row__desc">Frankincense, myrrh, candle smoke, amber, warm skin, and desert night air — a lab study.</p>
+          <div class="chapter-row__actions">
+            <span class="chapter-row__status">Lab study — not offered</span>
+            <a class="sx-link" href="/ritual">View the chapter <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+        <a class="chapter-row__media" href="/ritual" aria-label="View Ritual · Frankincense &amp; Myrrh">
+          <img src="images/scent-ritual.jpg" width="1200" height="900" loading="lazy" decoding="async" alt="Ritual · Frankincense & Myrrh — sacred resin" />
+        </a>
+      </article>
     </section>
 
-    <section class="store-letter" id="letter">
-      <span class="eyebrow">The Letter</span>
-      <h2 class="display">All releases,<br /><em>sent slowly.</em></h2>
-      <p>Studio notes, restock windows, and chapter openings — one letter at a time.</p>
-      <form class="footer__form store-letter__form" data-waitlist-form data-product-slug="all" data-source="newsletter" novalidate>
-        <input type="email" name="email" placeholder="Your email" aria-label="Email address" autocomplete="email" required />
-        <input type="text" name="website" class="shop__honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
-        <button type="submit">Subscribe <span class="arrow">→</span></button>
+    <!-- Availability -->
+    <section class="boutique-guide" aria-label="Availability guide" data-reveal="up">
+      <div class="boutique-guide__inner">
+        <div>
+          <p class="sx-eyebrow">The boutique</p>
+          <h2>Four chapters,<br /><em>one rhythm.</em></h2>
+        </div>
+        <dl class="boutique-guide__list">
+          <div>
+            <dt>Out of stock</dt>
+            <dd>All chapters are currently unavailable. The boutique opens briefly when bottles return.</dd>
+          </div>
+          <div>
+            <dt>Restock list</dt>
+            <dd>Leave your email on any chapter page — we write once when that chapter is back in stock.</dd>
+          </div>
+          <div>
+            <dt>Lab study</dt>
+            <dd>Ritual remains a studio archive study — out of stock and not offered for sale.</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="sx-manifesto" aria-label="Closing thought">
+      <p class="sx-manifesto__line">Each fragrance begins as a memory of place — composed slowly, hand-finished in <em>Copenhagen.</em></p>
+      <p class="sx-manifesto__sign">Love this moment.</p>
+    </section>
+
+    <!-- The letter -->
+    <section class="sx-letter" id="letter">
+      <div class="sx-letter__inner">
+        <p class="sx-eyebrow">The Letter</p>
+        <h2>All releases,<br /><em>sent slowly.</em></h2>
+        <p>Studio notes, restock windows, and chapter openings — one letter at a time.</p>
+        <form class="sx-letter__form" data-waitlist-form data-product-slug="all" data-source="newsletter" novalidate>
+          <input type="email" name="email" placeholder="Your email" aria-label="Email address" autocomplete="email" required />
+          <input type="text" name="website" class="shop__honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <button type="submit">Subscribe <span class="arrow">→</span></button>
+        </form>
         <p class="footer__status" aria-live="polite"></p>
-      </form>
+      </div>
     </section>
   </main>
 

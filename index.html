@@ -14,7 +14,7 @@
   <link rel="alternate" hreflang="en" href="https://eillon.maison/" />
   <link rel="alternate" hreflang="x-default" href="https://eillon.maison/" />
   <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
-  <meta name="theme-color" content="#FAFAF8" />
+  <meta name="theme-color" content="#F3EFE6" />
   <meta name="color-scheme" content="light" />
   <link rel="icon" href="images/plain-bottle-with-logo.png" type="image/png" />
   <link rel="apple-touch-icon" href="images/plain-bottle-with-logo.png" />
@@ -48,8 +48,8 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" as="image" href="images/plain-bottle-with-logo-480.webp" type="image/webp" fetchpriority="high" />
-  <link rel="preload" as="image" href="images/cowboy-cowgirl.webp?v=1" type="image/webp" />
+  <link rel="preload" as="image" href="images/cowboy-cowgirl-1100.webp" type="image/webp" fetchpriority="high" />
+  <link rel="preload" as="image" href="images/cowboy-cowgirl-hi.webp" type="image/webp" />
   <link
     rel="preload"
     as="style"
@@ -69,14 +69,15 @@
   </noscript>
 
   <style>
-    :root { --bg: #FAFAF8; --ink: #1C1C1A; }
+    :root { --bg: #F3EFE6; --ink: #17150F; }
     body { margin: 0; background: var(--bg); color: var(--ink); }
-    .hero { position: relative; min-height: 100vh; background: var(--bg); overflow: hidden; }
-    .hero__bg { position: absolute; inset: 0; }
-    .hero__bg-img { width: 100%; height: 100%; object-fit: cover; }
+    .mv-hero { position: relative; min-height: 100svh; background: #060d14; overflow: hidden; }
+    .mv-hero__media { position: absolute; inset: 0; }
+    .mv-hero__img { width: 100%; height: 100%; object-fit: cover; object-position: 60% center; }
     .veil { position: fixed; inset: 0; z-index: 9999; pointer-events: none; }
   </style>
-  <link rel="stylesheet" href="styles.min.css?v=151" />
+  <link rel="stylesheet" href="styles.min.css?v=162" />
+  <link rel="stylesheet" href="home.min.css?v=10" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -229,19 +230,12 @@
   </script>
   <noscript>
     <style>
-      .reveal { opacity: 1 !important; transform: none !important; }
-      .veil   { display: none !important; }
-      .hero__bg-img { transform: scale(1) !important; filter: none !important; }
-      .hero__bottle-stage { opacity: 1 !important; transform: none !important; }
-      .hero__bottle { transform: scale(1.04) !important; filter: none !important; }
-      @media (min-width: 901px) {
-        .hero__bottle-stage { transform: translateY(-50%) !important; }
-        .hero__bottle { transform: scale(1.05) !important; }
-      }
-      .hero__brand,
-      .hero__tagline,
-      .hero__cta,
-      .hero__title-word .ltr { opacity: 1 !important; transform: none !important; }
+      .reveal, [data-reveal] { opacity: 1 !important; transform: none !important; clip-path: none !important; }
+      [data-reveal] .word { opacity: 1 !important; transform: none !important; }
+      .veil { display: none !important; }
+      .mv-land { height: auto !important; }
+      .mv-land__sticky { position: static !important; height: auto !important; min-height: 88svh; }
+      .mv-land__title, .mv-land__laws, .mv-land__sign { position: static !important; opacity: 1 !important; transform: none !important; }
     </style>
   </noscript>
 </head>
@@ -273,434 +267,219 @@
     </div>
   </div>
 
-  <main id="top">
-    <!-- ============ HERO ============ -->
-    <section class="hero" id="hero">
-      <div class="hero__bg">
-        <div class="hero__scene">
-          <picture>
-            <source type="image/webp" srcset="images/cowboy-cowgirl.webp?v=1" />
-            <img class="hero__bg-img hero__bg-img--scene" src="images/cowboy-cowgirl.jpg?v=1" width="1672" height="941" alt="" decoding="async" />
-          </picture>
-        </div>
-      </div>
-      <div class="hero__spotlight" aria-hidden="true"></div>
-
-      <div class="hero__content">
-        <p class="hero__brand reveal">
-          <span class="eyebrow">Afro-Mediterranean Memory Perfumery</span>
-        </p>
-
-        <h1 class="hero__title" aria-label="EILLON">
-          <span class="hero__title-word"><em>
-            <span class="ltr">E</span><span class="ltr">I</span><span class="ltr">L</span><span class="ltr">L</span><span class="ltr">O</span><span class="ltr">N</span>
-          </em></span>
-        </h1>
-
-        <p class="hero__tagline">
-          Red Sea memories,<br />
-          bottled close to skin.
-        </p>
-
-        <div class="hero__cta">
-          <a class="btn btn--primary magnetic" href="/store">
-            <span class="btn__label">Enter the Boutique</span>
-          </a>
-          <a class="btn btn--ghost magnetic" href="#maison">
-            <span>Discover the Maison</span>
-            <span class="arrow">→</span>
-          </a>
-        </div>
-      </div>
-
-      <div class="hero__bottle-stage">
-        <div class="hero__bottle-glow" aria-hidden="true"></div>
-        <a class="hero__bottle-link" href="/store" aria-label="Enter the EILLON boutique">
-          <img
-            class="hero__bottle-fallback"
-            src="images/plain-bottle-with-logo-480.webp"
-            srcset="images/plain-bottle-with-logo-480.webp 480w, images/plain-bottle-with-logo.webp 1024w"
-            sizes="(max-width: 900px) 260px, min(36vw, 420px)"
-            width="480"
-            height="480"
-            alt=""
-            decoding="async"
-            fetchpriority="high"
-          />
-          <video
-            class="hero__bottle"
-            muted
-            loop
-            playsinline
-            preload="none"
-            aria-hidden="true"
-            data-webm="images/leopard-bottle-sneak-alpha.webm?v=9"
-            data-mp4="images/leopard-bottle-sneak.mp4"
-            data-mobile="images/leopard-bottle-sneak-mobile.mp4?v=1"
-          ></video>
-        </a>
-      </div>
-
-    </section>
-
-    <!-- ============ GIANT MARQUEE ============ -->
-    <section class="bigtext" aria-hidden="true">
-      <div class="bigtext__track" data-marquee>
-        <span class="bigtext__word bigtext__word--fill"><em>EILLON</em></span>
-        <span class="bigtext__sep"><picture><source type="image/webp" srcset="images/eillon_logo_nav.webp" /><img src="images/logo.png" width="80" height="80" alt="" loading="lazy" decoding="async" /></picture></span>
-        <span class="bigtext__word bigtext__word--outline"><em>EILLON</em></span>
-        <span class="bigtext__sep"><picture><source type="image/webp" srcset="images/eillon_logo_nav.webp" /><img src="images/logo.png" width="80" height="80" alt="" loading="lazy" decoding="async" /></picture></span>
-        <span class="bigtext__word bigtext__word--fill"><em>EILLON</em></span>
-        <span class="bigtext__sep"><picture><source type="image/webp" srcset="images/eillon_logo_nav.webp" /><img src="images/logo.png" width="80" height="80" alt="" loading="lazy" decoding="async" /></picture></span>
-        <span class="bigtext__word bigtext__word--outline"><em>EILLON</em></span>
-        <span class="bigtext__sep"><picture><source type="image/webp" srcset="images/eillon_logo_nav.webp" /><img src="images/logo.png" width="80" height="80" alt="" loading="lazy" decoding="async" /></picture></span>
-      </div>
-    </section>
-
-    <!-- ============ MODEL SHOWCASE — full-screen editorial rows ============ -->
-    <section class="model-showcase" aria-label="EILLON — worn close">
-      <article class="model-row model-row--man">
-        <figure class="model-row__media">
-          <video
-            class="model-row__video"
-            data-model-video
-            data-src="images/model-man.mp4"
-            muted
-            loop
-            playsinline
-            preload="none"
-            poster="images/model-man.webp"
-            aria-hidden="true"
-          ></video>
-        </figure>
-        <div class="model-row__void">
-          <div class="model-row__copy">
-            <span class="eyebrow">Elixir Parfum</span>
-            <p class="model-row__title">Composed for the <em>skin</em></p>
-            <p class="model-row__desc">High perfume-oil concentration, hand-finished in Copenhagen — not a diluted alcohol-forward scent.</p>
-          </div>
-        </div>
-        <div class="model-row__caption">
-          <span class="eyebrow">Composition</span>
-          <p class="model-row__headline">Oil-rich parfum — worn close</p>
-        </div>
-      </article>
-
-      <article class="model-row model-row--elli">
-        <div class="model-row__void">
-          <div class="model-row__copy">
-            <span class="eyebrow">Hand-finished</span>
-            <p class="model-row__title">Made in <em>Copenhagen</em></p>
-            <p class="model-row__desc">Composed in small batches. High perfume-oil load — built for depth on skin, not projection through a room.</p>
-          </div>
-        </div>
-        <figure class="model-row__media">
-          <div class="model-row__mirror">
-            <video
-              class="model-row__video"
-              data-model-video
-              data-src="images/elli-model.mp4"
-              muted
-              loop
-              playsinline
-              preload="none"
-              poster="images/elli-model.webp"
-              aria-hidden="true"
-            ></video>
-          </div>
-        </figure>
-        <div class="model-row__caption">
-          <span class="eyebrow">The wear</span>
-          <p class="model-row__headline">Apply once — let it open on skin</p>
-        </div>
-      </article>
-    </section>
-
-    <!-- ============ MAISON ============ -->
-    <section class="story" id="maison">
-      <div class="story__bg" aria-hidden="true">
+  <main id="top" class="home">
+    <!-- ============ MOVEMENT 01 — THE THRESHOLD ============ -->
+    <section class="mv-hero" id="hero" aria-label="EILLON — Afro-Mediterranean memory perfumery">
+      <div class="mv-hero__media">
         <picture>
-          <source type="image/webp" srcset="images/road1.webp?v=1" />
-          <img class="story__bg-img" src="images/road1.jpg?v=1" width="1672" height="941" loading="lazy" decoding="async" alt="" />
+          <source type="image/webp" srcset="images/cowboy-cowgirl-1100.webp 1100w, images/cowboy-cowgirl-hi.webp 1672w" sizes="100vw" />
+          <img class="mv-hero__img" src="images/cowboy-cowgirl.jpg?v=1" width="1672" height="941" alt="A couple held close at blue hour beneath a luminous white hat" fetchpriority="high" decoding="async" />
         </picture>
-        <span class="story__scrim"></span>
+        <span class="mv-hero__veil" aria-hidden="true"></span>
       </div>
-      <div class="story__grid">
-        <div class="story__eyebrow reveal">
-          <span class="eyebrow">The Maison</span>
-        </div>
 
-        <div class="story__heading">
-          <h2 class="display" data-reveal="words">
-            Perfume from<br />
-            <em>place, memory &amp; skin.</em>
-          </h2>
-        </div>
+      <p class="mv-hero__kicker">Afro-Mediterranean Memory Perfumery</p>
 
-        <div class="story__body">
-          <p data-reveal="up">
-            EILLON composes intimate parfums from Afro-Mediterranean memory: Red Sea air, desert fruit, rain on stone, café spices, sacred resins, and warm skin.
-          </p>
-          <p data-reveal="up" data-delay="120">
-            Each fragrance is a chapter. Beles begins with prickly pear and cactus water. Asmara follows rain on old city stone. Massawa turns toward the Red Sea coast.
-          </p>
-          <div class="story__actions" data-reveal="up" data-delay="220">
-            <a class="btn btn--primary magnetic" href="/store">
-              <span class="btn__label">Enter the Boutique</span>
-            </a>
-            <a class="btn btn--ghost magnetic" href="/about">
-              <span>Full maison story</span>
-              <span class="arrow">→</span>
-            </a>
+      <div class="mv-hero__lockup">
+        <h1 class="mv-hero__word">EILLON</h1>
+        <div class="mv-hero__base">
+          <p class="mv-hero__tag">Red Sea memories,<br />bottled close to skin.</p>
+          <div class="mv-hero__cta">
+            <a class="qbtn qbtn--on-dark magnetic" href="/store">Enter the boutique</a>
+            <a class="qlink" href="#maison">Discover the maison <span aria-hidden="true">↓</span></a>
           </div>
-          <p class="story__overview" data-reveal="up" data-delay="280">
-            <button type="button" class="story__overview-trigger" data-maison-story-open>
-              Quick overview <span class="arrow">→</span>
-            </button>
-          </p>
         </div>
       </div>
+
+      <span class="mv-hero__scroll" aria-hidden="true">Scroll</span>
     </section>
 
-    <!-- ============ COLLECTION PREVIEW ============ -->
-    <section class="collection-preview collection-panel" id="collection">
-      <div class="collection-panel__media" aria-hidden="true">
-        <video
-          class="collection-panel__video"
-          data-collection-video
-          data-src="images/beles-showcase-stabilized.mp4"
-          muted
-          loop
-          playsinline
-          preload="none"
-        ></video>
-        <span class="collection-panel__scrim"></span>
-      </div>
-      <div class="collection-panel__content">
-      <header class="section-head">
-        <span class="eyebrow">The Collection</span>
-        <h2 class="display">Four memories,<br /><em>one maison.</em></h2>
-        <p>All chapters are currently out of stock. Leave your email on any chapter — we write when bottles return to the boutique.</p>
-      </header>
-      <div data-product-preview="beles"></div>
-      <a class="btn btn--ghost" href="/store">Open the Boutique <span class="arrow">→</span></a>
-      </div>
+    <!-- ============ MOVEMENT 02 — THE NAME ============ -->
+    <section class="mv-name" aria-label="The house">
+      <p class="mv-name__meta">The house between heat &amp; shadow</p>
+      <h2 class="mv-name__fill" aria-hidden="true">EILLON</h2>
+      <p class="mv-name__sub">A perfume house where Red Sea heat meets Copenhagen precision — <em>memory made physical.</em></p>
     </section>
 
-    <!-- ============ MAISON PALETTE ============ -->
-    <section class="palette" id="palette">
-      <header class="palette__head">
-        <span class="eyebrow reveal">The Maison Palette</span>
-        <h2 class="display" data-reveal="words">
-          The scent worlds of<br />
-          <em>EILLON.</em>
-        </h2>
-        <p class="palette__lead" data-reveal="up" data-delay="220">
-          Each EILLON fragrance begins as a memory of place: desert fruit, rain on stone, Red Sea citrus, sacred resin, café air, and warm skin.
-        </p>
-      </header>
-
-      <div class="palette__grid" data-reveal="stagger">
-        <article class="palette-card">
-          <figure class="palette-card__media">
-            <picture>
-              <source type="image/webp" srcset="images/palette-desert-fruit.webp?v=1" />
-              <img src="images/palette-desert-fruit.jpg?v=1" width="1200" height="900" loading="lazy" decoding="async" alt="Prickly pear fruits on a cactus pad in Tunisia — desert fruit accord" />
-            </picture>
-          </figure>
-          <div class="palette-card__body">
-            <h3 class="palette-card__title">Desert Fruit</h3>
-            <p class="palette-card__copy">Prickly pear, cactus water, pear skin, hibiscus, and mineral air.</p>
-          </div>
-        </article>
-        <article class="palette-card">
-          <figure class="palette-card__media">
-            <picture>
-              <source type="image/webp" srcset="images/palette-rain-stone.webp?v=1" />
-              <img src="images/palette-rain-stone.jpg?v=1" width="1200" height="900" loading="lazy" decoding="async" alt="Stone tanneries in Fes under rain — petrichor and humid city air" />
-            </picture>
-          </figure>
-          <div class="palette-card__body">
-            <h3 class="palette-card__title">Rain on Stone</h3>
-            <p class="palette-card__copy">Petrichor, humid air, espresso, cardamom, jasmine, and amber.</p>
-          </div>
-        </article>
-        <article class="palette-card">
-          <figure class="palette-card__media">
-            <picture>
-              <source type="image/webp" srcset="images/palette-red-sea-citrus.webp?v=1" />
-              <img src="images/palette-red-sea-citrus.jpg?v=1" width="1200" height="900" loading="lazy" decoding="async" alt="Red Sea coast near Massawa, Eritrea — sun-warmed coastal citrus air" />
-            </picture>
-          </figure>
-          <div class="palette-card__body">
-            <h3 class="palette-card__title">Red Sea Citrus</h3>
-            <p class="palette-card__copy">Orange, papaya, sea air, salt skin, and sun-warmed coastal stone.</p>
-          </div>
-        </article>
-        <article class="palette-card">
-          <figure class="palette-card__media">
-            <picture>
-              <source type="image/webp" srcset="images/palette-sacred-resin.webp?v=1" />
-              <img src="images/palette-sacred-resin.jpg?v=1" width="1200" height="900" loading="lazy" decoding="async" alt="Frankincense resin from Dhofar, Oman — sacred resin accord" />
-            </picture>
-          </figure>
-          <div class="palette-card__body">
-            <h3 class="palette-card__title">Sacred Resin</h3>
-            <p class="palette-card__copy">Frankincense, myrrh, candle smoke, labdanum, woods, and warm skin.</p>
-          </div>
-        </article>
-      </div>
-      <p class="palette__credits" data-reveal="up" data-delay="280">
-        Imagery sourced from Wikimedia Commons — Habib M&rsquo;henni, Zil, David Stanley, Photohound.
-      </p>
-    </section>
-
-    <!-- ============ CRAFT / OBJECT ============ -->
-    <section class="craft" id="craft">
-      <header class="craft__head">
-        <span class="eyebrow reveal">The Object</span>
-        <h2 class="display" data-reveal="words">
-          A bottle cut from<br />
-          a <em>single block.</em>
-        </h2>
-      </header>
-
-      <div class="craft__grid">
-        <figure class="craft__image" data-reveal="image">
-          <div class="craft__image-inner">
-            <video
-              class="craft__video"
-              muted
-              playsinline
-              preload="none"
-              poster="images/beles-no-background.webp"
-              aria-label="EILLON bottle — winged leopard emblem"
-              data-webm="images/leopard-bottle-wings-alpha.webm?v=9"
-              data-mp4="images/leopard-bottle-wings-4.5.mp4"
-              data-mobile="images/leopard-bottle-wings-mobile.mp4?v=1"
-            ></video>
-            <img
-              class="craft__video-fallback"
-              src="images/plain-bottle-with-logo.webp"
-              width="1024"
-              height="1536"
-              alt="EILLON square matte bottle with winged leopard emblem — video fallback"
-              hidden
-            />
-          </div>
+    <!-- ============ MOVEMENT 03 — THE HOUSE OF MEMORY ============ -->
+    <section class="mv-house" id="maison" aria-label="The house of memory">
+      <p class="mv-house__eyebrow mv-eyebrow">The House of Memory</p>
+      <div class="mv-house__grid">
+        <h2 class="mv-house__display" data-reveal="words">A maison composed <em>from memory.</em></h2>
+        <div class="mv-house__lede" data-reveal="up">
+          <p>EILLON composes intimate, oil-rich parfums from Afro-Mediterranean memory — Red Sea air, desert fruit, rain on stone, café spices, sacred resins, and warm skin, hand-finished in Copenhagen. Each fragrance is a chapter: Beles begins with prickly pear and cactus water; Asmara follows rain on old city stone; Massawa turns toward the Red Sea coast.</p>
+          <p class="mv-house__overview"><button type="button" class="qlink" data-maison-story-open>The maison, in brief <span aria-hidden="true">→</span></button></p>
+        </div>
+        <ol class="mv-house__laws" data-reveal="stagger" data-delay="120">
+          <li><span>01</span> Beauty needs <em>shadow.</em></li>
+          <li><span>02</span> Time needs <em>room.</em></li>
+          <li><span>03</span> Craft needs <em>devotion.</em></li>
+        </ol>
+        <figure class="mv-house__detail" data-reveal="image">
+          <picture>
+            <source type="image/webp" srcset="images/palette-desert-fruit.webp?v=1" />
+            <img src="images/palette-desert-fruit.jpg?v=1" width="1200" height="900" loading="lazy" decoding="async" alt="Sun-warmed prickly pear on a cactus pad — the desert-fruit memory at the heart of Beles" />
+          </picture>
+          <figcaption>Desert fruit — Tunisia</figcaption>
         </figure>
+      </div>
+    </section>
 
-        <ol class="craft__details" data-reveal="stagger-right">
-          <li class="detail">
-            <span class="detail__num">— 01</span>
-            <h3>The Cap</h3>
-            <p>A tall rectangular stopper in brushed silver — proportioned to the square and weighted to close without fuss.</p>
-          </li>
-          <li class="detail">
-            <span class="detail__num">— 02</span>
-            <h3>The Block</h3>
-            <p>An opaque square flacon in matte glass, corners softly rounded — flat-faced, architectural, without band or label.</p>
-          </li>
-          <li class="detail">
-            <span class="detail__num">— 03</span>
-            <h3>The Emblem</h3>
-            <p>A winged leopard stippled at the base in fine line, draped in classical cloth — the bottle's only figurative gesture.</p>
-          </li>
-          <li class="detail">
-            <span class="detail__num">— 04</span>
-            <h3>The Lettering</h3>
-            <p><em>EILLON</em>, Beles, and Fico d'India set in quiet serif above the emblem, pressed directly into the face.</p>
-          </li>
+    <!-- ============ MOVEMENT 04 — MONUMENTAL INTIMACY ============ -->
+    <section class="mv-land" id="world" aria-label="The Maison — perfume from place, memory and skin" data-phase="0">
+      <div class="mv-land__sticky">
+        <div class="mv-land__media">
+          <picture>
+            <source type="image/webp" srcset="images/road1-1100.webp 1100w, images/road1-hi.webp 1672w" sizes="100vw" />
+            <img src="images/road1.jpg?v=1" width="1672" height="941" loading="lazy" decoding="async" alt="Two figures on a pale winding path through vast, sculpted green forms" />
+          </picture>
+          <span class="mv-land__grad" aria-hidden="true"></span>
+        </div>
+        <p class="mv-land__eyebrow mv-eyebrow">The Maison</p>
+        <div class="mv-land__copy">
+          <h2 class="mv-land__title is-1">Perfume from<br />place, memory<br /><em>&amp; skin.</em></h2>
+          <ul class="mv-land__laws is-2" aria-label="The principles of the maison">
+            <li><span class="mv-land__rule" aria-hidden="true"></span>Beauty needs <em>shadow.</em></li>
+            <li><span class="mv-land__rule" aria-hidden="true"></span>Time needs <em>room.</em></li>
+            <li><span class="mv-land__rule" aria-hidden="true"></span>Craft needs <em>devotion.</em></li>
+          </ul>
+          <p class="mv-land__sign is-3">Each fragrance is a chapter.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ MOVEMENT 05 — THE CURRENT CHAPTER ============ -->
+    <section class="mv-chapter" id="collection" aria-label="Beles · Fico d'India — the current chapter">
+      <p class="mv-chapter__num" aria-hidden="true">I</p>
+      <div class="mv-chapter__grid">
+        <figure class="mv-chapter__media" data-reveal="image">
+          <picture>
+            <source type="image/webp" srcset="images/beles-luxury.webp" />
+            <img class="mv-chapter__scene" src="images/beles-luxury.png" width="1254" height="1254" loading="lazy" decoding="async" alt="Beles · Fico d'India — sun-warmed prickly pear editorial" />
+          </picture>
+          <img class="mv-chapter__bottle" src="images/beles-no-background-hi.webp" width="1200" height="1200" loading="lazy" decoding="async" alt="The EILLON Beles flacon — square matte glass with the winged-leopard emblem" />
+        </figure>
+        <div class="mv-chapter__text">
+          <p class="mv-chapter__index">Chapter I · The current chapter</p>
+          <h2 class="mv-chapter__title" data-reveal="words">Beles<em>Fico d'India</em></h2>
+          <p class="mv-chapter__type">Oil-rich parfum · Watery fruit musk</p>
+          <p class="mv-chapter__desc" data-reveal="up">A green-pink cactus-fruit parfum, built to feel airy, watery, sun-warmed, and close to skin.</p>
+          <dl class="mv-chapter__notes" data-reveal="stagger" data-delay="120">
+            <div><dt>Top</dt><dd>Prickly pear · Cactus water · Pear skin</dd></div>
+            <div><dt>Heart</dt><dd>Hibiscus · Cactus bloom · Green leaves</dd></div>
+            <div><dt>Base</dt><dd>Soft musk · Mineral air · Warm stone</dd></div>
+          </dl>
+          <p class="mv-chapter__wear">Worn close to the skin — applied once and left to open, never rubbed.</p>
+          <p class="mv-chapter__status">Out of stock</p>
+          <div class="mv-chapter__actions">
+            <a class="qbtn magnetic" href="/beles#waitlist">Notify when Beles returns</a>
+            <a class="qlink" href="/beles">Open the chapter <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ MOVEMENT 06 — THE SCENT ATLAS ============ -->
+    <section class="mv-atlas" id="palette" aria-label="The scent atlas">
+      <header class="mv-atlas__head">
+        <div>
+          <p class="mv-eyebrow">The Scent Atlas</p>
+          <h2 class="mv-atlas__title" data-reveal="words">The scent worlds<br />of <em>EILLON.</em></h2>
+        </div>
+        <p class="mv-atlas__lead">Each fragrance begins as a memory of place — desert fruit, rain on stone, Red Sea citrus, and sacred resin.</p>
+      </header>
+      <ul class="mv-atlas__track">
+        <li class="mv-atlas__panel">
+          <a href="/beles">
+            <img class="mv-atlas__img" src="images/palette-desert-fruit.webp?v=1" width="1200" height="900" loading="lazy" decoding="async" alt="Sun-warmed prickly pear on a cactus pad — desert fruit" />
+            <div class="mv-atlas__meta">
+              <span class="mv-atlas__coord">01 — N 36° Tunisia</span>
+              <h3 class="mv-atlas__name">Desert Fruit</h3>
+              <p class="mv-atlas__ing">Prickly pear, cactus water, pear skin, hibiscus, and mineral air.</p>
+            </div>
+          </a>
+        </li>
+        <li class="mv-atlas__panel">
+          <a href="/asmara">
+            <img class="mv-atlas__img" src="images/palette-rain-stone.webp?v=1" width="1200" height="900" loading="lazy" decoding="async" alt="Old city stone under rain — petrichor and humid air" />
+            <div class="mv-atlas__meta">
+              <span class="mv-atlas__coord">02 — N 34° Fes</span>
+              <h3 class="mv-atlas__name">Rain on Stone</h3>
+              <p class="mv-atlas__ing">Petrichor, humid air, espresso, cardamom, jasmine, and amber.</p>
+            </div>
+          </a>
+        </li>
+        <li class="mv-atlas__panel">
+          <a href="/massawa">
+            <img class="mv-atlas__img" src="images/palette-red-sea-citrus.webp?v=1" width="1200" height="900" loading="lazy" decoding="async" alt="Red Sea coast — sun-warmed coastal citrus air" />
+            <div class="mv-atlas__meta">
+              <span class="mv-atlas__coord">03 — N 15° Massawa</span>
+              <h3 class="mv-atlas__name">Red Sea Citrus</h3>
+              <p class="mv-atlas__ing">Orange, papaya, sea air, salt skin, and sun-warmed coastal stone.</p>
+            </div>
+          </a>
+        </li>
+        <li class="mv-atlas__panel">
+          <a href="/ritual">
+            <img class="mv-atlas__img" src="images/palette-sacred-resin.webp?v=1" width="1200" height="900" loading="lazy" decoding="async" alt="Frankincense resin — sacred resin accord" />
+            <div class="mv-atlas__meta">
+              <span class="mv-atlas__coord">04 — N 17° Dhofar</span>
+              <h3 class="mv-atlas__name">Sacred Resin</h3>
+              <p class="mv-atlas__ing">Frankincense, myrrh, candle smoke, labdanum, woods, and warm skin.</p>
+            </div>
+          </a>
+        </li>
+      </ul>
+      <p class="palette__credits mv-atlas__credits">Imagery sourced from Wikimedia Commons — Habib M&rsquo;henni, Zil, David Stanley, Photohound.</p>
+    </section>
+
+    <!-- ============ MOVEMENT 07 — THE OBJECT ============ -->
+    <section class="mv-object" id="craft" aria-label="The object">
+      <header class="mv-object__head">
+        <p class="mv-eyebrow">The Object</p>
+        <h2 class="mv-object__title" data-reveal="words">A bottle cut from a <em>single block.</em></h2>
+      </header>
+      <div class="mv-object__stage">
+        <ol class="mv-object__col mv-object__col--left">
+          <li class="mv-object__detail" tabindex="0"><span class="n">01</span><h3>The Cap</h3><p>A tall rectangular stopper in brushed silver — proportioned to the square and weighted to close without fuss.</p></li>
+          <li class="mv-object__detail" tabindex="0"><span class="n">02</span><h3>The Block</h3><p>An opaque square flacon in matte glass, corners softly rounded — flat-faced, architectural, without band or label.</p></li>
+        </ol>
+        <div class="mv-object__bottle-wrap" data-reveal="image">
+          <span class="mv-object__halo" aria-hidden="true"></span>
+          <img class="mv-object__bottle" src="images/beles-no-background-hi.webp" width="1200" height="1200" loading="lazy" decoding="async" alt="The EILLON flacon — square matte glass with a brushed-silver cap and the winged-leopard emblem" />
+        </div>
+        <ol class="mv-object__col mv-object__col--right">
+          <li class="mv-object__detail" tabindex="0"><span class="n">03</span><h3>The Emblem</h3><p>A winged leopard stippled at the base in fine line, draped in classical cloth — the bottle's only figurative gesture.</p></li>
+          <li class="mv-object__detail" tabindex="0"><span class="n">04</span><h3>The Lettering</h3><p><em>EILLON</em>, Beles, and Fico d'India set in quiet serif above the emblem, pressed into the face.</p></li>
         </ol>
       </div>
     </section>
 
-    <!-- ============ MOOD / EDITORIAL ============ -->
-    <section class="mood">
-      <div class="mood__inner">
-        <span class="eyebrow reveal">Atmosphere</span>
-        <p class="mood__lead" data-reveal="up" data-delay="100">Sun on stone. Air warm.</p>
-        <h2 class="mood__title" data-reveal="words" data-delay="200">
-          Memory held<br />
-          <em>in light.</em>
-        </h2>
-        <p class="mood__body" data-reveal="up" data-delay="700">
-          EILLON is interpreted as atmosphere: desert fruit at high noon, rain on warm pavement,
-          Red Sea air at the coast, and sacred smoke drifting through dry evening air.
-        </p>
-      </div>
-    </section>
-
-    <!-- ============ WEAR / APPLICATION ============ -->
-    <section class="ritual ritual--wear" id="wear">
-      <div class="ritual__shell">
-        <figure class="ritual__media">
-          <video
-            class="ritual__video"
-            data-model-video
-            muted
-            loop
-            playsinline
-            preload="none"
-            poster="images/model-woman.webp"
-            aria-hidden="true"
-            src="images/model-woman.mp4?v=3"
-          ></video>
+    <!-- ============ MOVEMENT 08 — THE RITUAL & RETURN ============ -->
+    <section class="mv-ritual" id="wear" aria-label="The ritual of wear">
+      <div class="mv-ritual__grid">
+        <figure class="mv-ritual__media" data-reveal="image">
+          <img src="images/model-woman.webp" width="1200" height="1500" loading="lazy" decoding="async" alt="EILLON worn close to the skin at the pulse points" />
         </figure>
-        <div class="ritual__content">
-        <header class="ritual__head">
-          <span class="eyebrow reveal">Wear</span>
-          <h2 class="display" data-reveal="words">
-            Worn close<br />
-            to <em>warmth.</em>
-          </h2>
-        </header>
-
-        <div class="ritual__steps" data-reveal="stagger">
-          <article>
-            <span>01</span>
-            <h3>Pulse</h3>
-            <p>Apply once to wrist or collarbone, then let the accord open without rubbing.</p>
-          </article>
-          <article>
-            <span>02</span>
-            <h3>Cloth</h3>
-            <p>Mist lightly over a scarf or lining to carry a close-wearing trail through the day.</p>
-          </article>
-          <article>
-            <span>03</span>
-            <h3>Return</h3>
-            <p>Refresh with one spray before evening; the heart notes deepen rather than becoming louder.</p>
-          </article>
-        </div>
-        <p class="ritual__guide-link" data-reveal="up" data-delay="400">
-          <a href="/wear" class="link-arrow"><span>Full fragrance care guide</span><span class="arrow">→</span></a>
-        </p>
+        <div class="mv-ritual__content">
+          <header class="mv-ritual__head">
+            <p class="mv-eyebrow">The Wear</p>
+            <h2 class="mv-ritual__title" data-reveal="words">Worn close to <em>warmth.</em></h2>
+          </header>
+          <div class="mv-ritual__steps" data-reveal="stagger">
+            <article><span>01</span><div><h3>Pulse</h3><p>Apply once to wrist or collarbone, then let the accord open on warm skin — without rubbing.</p></div></article>
+            <article><span>02</span><div><h3>Cloth</h3><p>Mist lightly over a scarf or lining to carry a close-wearing trail through the day.</p></div></article>
+            <article><span>03</span><div><h3>Return</h3><p>Refresh with one spray before evening; the heart notes deepen rather than becoming louder.</p></div></article>
+          </div>
+          <p><a href="/wear" class="qlink">Full fragrance care guide <span aria-hidden="true">→</span></a></p>
         </div>
       </div>
     </section>
 
-    <!-- ============ PRESS QUOTE ============ -->
-    <section class="quote quote--studio-note">
-      <blockquote>
-        <p data-reveal="words">
-          “A perfume should not explain everything. It should leave a trace — fruit, stone, skin, memory.”
-        </p>
-        <cite data-reveal="up" data-delay="900">— EILLON studio note</cite>
-      </blockquote>
-    </section>
-
-    <!-- ============ BOUTIQUE CTA ============ -->
-    <section class="boutique-cta" id="boutique">
-      <div class="boutique-cta__inner">
-        <span class="eyebrow reveal">The Boutique</span>
-        <h2 class="display" data-reveal="words">Beles is out of stock.<br /><em>The maison continues.</em></h2>
-        <p data-reveal="up">Leave your email for a restock note, or explore all fragrance chapters in the boutique.</p>
-        <div class="boutique-cta__actions" data-reveal="up" data-delay="200">
-          <a class="btn btn--primary magnetic" href="/beles#waitlist"><span class="btn__label">Notify when Beles returns</span></a>
-          <a class="btn btn--ghost magnetic" href="/store"><span>Enter the Boutique</span><span class="arrow">→</span></a>
-        </div>
-      </div>
+    <!-- closing breath -->
+    <section class="mv-close" aria-label="Love this moment">
+      <p class="mv-close__manifesto" data-reveal="words">We do not make things that compete for attention. We make things that <em>reward it.</em></p>
+      <p class="mv-close__sign" data-reveal="up" data-delay="300">Love this moment.</p>
     </section>
   </main>
 
@@ -781,8 +560,9 @@
   </footer>
 
   <script src="/scripts/i18n.js" defer></script>
-  <script src="/scripts/site-nav.js?v=5" defer></script>
+  <script src="/scripts/site-nav.js?v=6" defer></script>
   <script src="data/products.js?v=13" defer></script>
   <script src="script.min.js?v=85" defer></script>
+  <script src="/scripts/home.js?v=2" defer></script>
 </body>
 </html>

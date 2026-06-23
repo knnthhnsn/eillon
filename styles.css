@@ -3,30 +3,53 @@
    A quiet-luxury editorial fragrance site.
    ===================================================== */
 
-/* ---------- TOKENS ---------- */
+/* ---------- TOKENS ----------
+   EILLON — monumental intimacy.
+   Sun-warmed limestone & bone, not cold Scandinavian white.
+   Afro-Mediterranean atmosphere held with Copenhagen discipline.
+*/
 :root {
-  /* Palette — quiet white, soft stone */
-  --bg:           #FAFAF8;   /* off-white page */
-  --bg-soft:      #F3F3F1;   /* soft white panels */
-  --bg-deep:      #ECECEA;   /* light stone */
-  --bg-warm:      #F7F7F5;   /* lifted neutral */
-  --paper:        #FFFFFF;   /* card white */
+  /* Neutral system — warm bone & limestone (no pure white) */
+  --bg:           #F3EFE6;   /* warm bone page */
+  --bg-soft:      #EEE9DD;   /* soft limestone panel */
+  --bg-deep:      #E6DFD0;   /* sun-warmed limestone */
+  --bg-warm:      #F0EBE0;   /* lifted neutral */
+  --paper:        #FBF8F1;   /* warm card white (not #FFF) */
 
-  --gold:         #B89968;   /* champagne gold accent */
-  --gold-light:   #C9AE82;
-  --gold-dark:    #8E7349;
+  /* Accent — sand-brass, retuned away from champagne-gold cliché */
+  --gold:         #A98A57;   /* warm brass accent */
+  --gold-light:   #C2A674;
+  --gold-dark:    #7E6638;
 
-  --stone:        #6E6E68;   /* cool muted stone */
-  --stone-soft:   #8A8A84;
-  --ink:          #1C1C1A;   /* near-black */
-  --ink-soft:     #3A3A36;
-  --ink-faint:    #6E6E66;
+  /* Ink — warm near-black (no pure black) */
+  --stone:        #6C655A;   /* warm muted stone */
+  --stone-soft:   #8A8378;
+  --ink:          #17150F;   /* warm near-black */
+  --ink-soft:     #38332A;
+  --ink-faint:    #6E665A;
 
-  --line:         rgba(28, 28, 26, 0.12);
-  --line-soft:    rgba(28, 28, 26, 0.06);
-  --line-faint:   rgba(28, 28, 26, 0.03);
-  --shadow-soft:  0 30px 80px -40px rgba(0, 0, 0, 0.12);
-  --shadow-deep:  0 60px 140px -60px rgba(0, 0, 0, 0.16);
+  /* Afro-Mediterranean atmosphere — used deliberately, never as UI fill */
+  --midnight:       #071018;   /* midnight ink */
+  --ink-deep:       #0C0F12;
+  --red-sea:        #07395F;   /* red sea blue */
+  --cobalt-night:   #052B4D;   /* cobalt night (hero sky) */
+  --cypress:        #151D12;
+  --forest-shadow:  #20281A;
+  --limestone:      #D8C9B4;   /* sun-warmed limestone */
+  --sand:           #B7A38D;   /* warm sand */
+  --mineral:        #BFC3C1;   /* mineral silver */
+  --skin-umber:     #7C5745;   /* skin umber */
+  --cactus:         #984336;   /* cactus fruit — rare sensory accent only */
+
+  --line:         rgba(23, 21, 15, 0.12);
+  --line-soft:    rgba(23, 21, 15, 0.06);
+  --line-faint:   rgba(23, 21, 15, 0.03);
+  --shadow-soft:  0 30px 80px -40px rgba(20, 16, 8, 0.14);
+  --shadow-deep:  0 60px 140px -60px rgba(20, 16, 8, 0.18);
+
+  /* Image overlays — for legibility & atmospheric transition only */
+  --scrim-cobalt: linear-gradient(180deg, rgba(5, 17, 31, 0.30) 0%, rgba(5, 17, 31, 0) 26%, rgba(5, 17, 31, 0) 58%, rgba(5, 17, 31, 0.46) 100%);
+  --scrim-forest: linear-gradient(180deg, rgba(10, 18, 14, 0.46) 0%, rgba(10, 18, 14, 0.22) 42%, rgba(10, 18, 14, 0.52) 100%), linear-gradient(90deg, rgba(10, 18, 14, 0.40) 0%, rgba(10, 18, 14, 0.12) 52%, rgba(10, 18, 14, 0.28) 100%);
 
   /* Type */
   --serif: 'Fraunces', 'Cormorant Garamond', 'Times New Roman', Georgia, serif;
@@ -34,12 +57,22 @@
 
   /* Layout */
   --max:     1480px;
+  --read:    62ch;           /* disciplined reading measure */
   --pad:     clamp(20px, 4vw, 64px);
   --gutter:  clamp(20px, 3vw, 48px);
+  --section-y: clamp(96px, 12vw, 184px);
 
-  /* Motion */
-  --ease:    cubic-bezier(0.22, 0.61, 0.36, 1);
-  --ease-out:cubic-bezier(0.16, 1, 0.3, 1);
+  /* Motion — slow, weighted, architectural */
+  --ease:      cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-out:  cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-quick:  0.4s;
+  --dur:        0.9s;
+  --dur-slow:   1.4s;
+  --dur-slower: 2.2s;
+
+  /* Focus — visible, never color-only */
+  --focus-ring: var(--gold-dark);
 }
 
 /* ---------- RESET ---------- */
@@ -64,8 +97,8 @@ body {
   max-width: 100%;
   min-width: 0;
   background-image:
-    radial-gradient(1200px 600px at 80% 0%, rgba(255, 255, 255, 0.85), transparent 60%),
-    radial-gradient(900px 500px at 0% 90%, rgba(0, 0, 0, 0.03), transparent 60%);
+    radial-gradient(1200px 600px at 80% 0%, rgba(251, 248, 241, 0.8), transparent 60%),
+    radial-gradient(900px 500px at 0% 90%, rgba(124, 87, 69, 0.05), transparent 60%);
 }
 
 main {
@@ -80,7 +113,7 @@ a { color: inherit; text-decoration: none; }
 ul, ol { list-style: none; padding: 0; margin: 0; }
 figure, blockquote { margin: 0; }
 
-::selection { background: var(--gold); color: var(--bg); }
+::selection { background: var(--cactus); color: var(--paper); }
 
 .sr-only {
   position: absolute;
@@ -114,9 +147,14 @@ figure, blockquote { margin: 0; }
 
 a:focus-visible,
 button:focus-visible,
-input:focus-visible {
-  outline: 2px solid var(--gold-dark);
-  outline-offset: 4px;
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+  /* Dual-tone halo — focus is legible on both bone and cobalt, never color-only */
+  box-shadow: 0 0 0 4px rgba(251, 248, 241, 0.7), 0 0 0 6px rgba(23, 21, 15, 0.5);
 }
 
 /* ---------- TYPOGRAPHY HELPERS ---------- */
@@ -942,16 +980,26 @@ body[data-nav-home="true"] .nav:not(.is-scrolled) .nav__story:hover {
   transform: none;
   filter: brightness(0.97) saturate(1.02);
 }
+/* Atmospheric scrim — deepens the cobalt night top & bottom for nav and
+   tagline legibility while keeping the mid-sky luminous. Blue hour. */
+.hero__bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: var(--scrim-cobalt);
+}
 
 .hero__bottle-stage {
   position: absolute;
   top: 50%;
-  right: clamp(2%, 6vw, 10%);
+  right: clamp(4%, 5vw, 7.5%);
   transform: translateY(-50%);
   z-index: 4;
   pointer-events: none;
-  height: min(56vh, 560px);
-  max-width: min(36vw, 420px);
+  height: min(50vh, 480px);
+  max-width: min(30vw, 360px);
   width: auto;
   display: flex;
   align-items: center;
@@ -1681,6 +1729,38 @@ body[data-nav-home="true"] .hero__cta .btn--primary:hover {
   gap: 20px;
   padding-top: 8px;
 }
+
+/* Maison principles — three quiet lines, a rhythm not a feature list */
+.maison-principles {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(18px, 1.8vw, 26px);
+  margin: 0;
+}
+.maison-principles li {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(18px, 1.6vw, 23px);
+  line-height: 1.3;
+  letter-spacing: 0.005em;
+  color: rgba(248, 246, 240, 0.9);
+  text-shadow: 0 1px 18px rgba(7, 16, 24, 0.4);
+}
+.maison-principles em {
+  font-style: italic;
+  color: #fff;
+}
+.maison-principles__rule {
+  flex: none;
+  width: 30px;
+  height: 1px;
+  margin-top: 0.62em;
+  background: var(--gold-light);
+  opacity: 0.7;
+}
 .vline {
   display: block;
   width: 1px;
@@ -2194,6 +2274,18 @@ body[data-nav-home="true"] .hero__cta .btn--primary:hover {
   text-transform: uppercase;
   font-weight: 500;
   color: var(--ink-faint);
+}
+/* Brand signature — the tagline rendered quietly in the maison serif,
+   not an imitation of handwriting. A close, not a banner. */
+.quote__signature {
+  margin: clamp(28px, 4vw, 44px) 0 0;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 300;
+  font-variation-settings: 'opsz' 72;
+  font-size: clamp(20px, 2.4vw, 32px);
+  letter-spacing: 0.01em;
+  color: var(--gold-dark);
 }
 
 /* ---------- SHOP ---------- */
@@ -2828,8 +2920,21 @@ body[data-nav-home="true"] .hero__cta .btn--primary:hover {
   grid-column: 1 / -1;
   max-width: min(640px, 100%);
   margin-inline: auto;
+  position: relative;
+}
+.chapter-gallery__video::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(10, 10, 9, 0.52) 0%, rgba(10, 10, 9, 0.2) 44%, rgba(10, 10, 9, 0.56) 100%),
+    radial-gradient(ellipse at 50% 46%, rgba(184, 153, 104, 0.1) 0%, rgba(0, 0, 0, 0.3) 72%);
 }
 .chapter-gallery__film {
+  position: relative;
+  z-index: 0;
   width: 100%;
   aspect-ratio: 16 / 9;
   object-fit: cover;
@@ -4254,7 +4359,13 @@ body.is-loaded .scroll-progress { opacity: 1; }
     overflow: hidden;
   }
   .hero__bg-video,
-  .hero__bg-img { object-position: center 38%; }
+  .hero__bg-img { object-position: 50% 34%; }
+  /* Mobile content sits over the top of the frame — give the centred
+     wordmark, tagline and CTAs a deeper cobalt backing for legibility. */
+  .hero__bg::after {
+    background:
+      linear-gradient(180deg, rgba(5, 17, 31, 0.52) 0%, rgba(5, 17, 31, 0.18) 34%, rgba(5, 17, 31, 0) 56%, rgba(5, 17, 31, 0.34) 100%);
+  }
   .hero__content {
     grid-area: content;
     position: relative;
@@ -4680,9 +4791,23 @@ body.is-loaded .scroll-progress { opacity: 1; }
   [data-parallax]  { transform: none !important; }
   [data-marquee]   { transform: none !important; }
 
-  /* Scroll reveals are brief, finite, one-shot — they play for everyone.
-     Only the *continuous* effects above (parallax, marquee, spotlight)
-     respect reduced motion. */
+  /* Reduced motion: content must be present immediately — never stuck
+     transparent or transformed waiting on an intersection event. */
+  .reveal,
+  [data-reveal],
+  [data-reveal] .word,
+  [data-reveal="stagger"] > *,
+  [data-reveal="stagger-right"] > * {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+    transition: none !important;
+  }
+  [data-reveal="line-h"],
+  [data-reveal="line-v"] { transform: none !important; }
+  /* The horizontal-mask cover must not stay over its content */
+  [data-reveal="mask-h"]::before { transform: scaleX(0) !important; transition: none !important; }
+
   .scroll-progress { display: none !important; }
 
   .accord-profile__photo--hover {
@@ -4769,6 +4894,17 @@ body.is-loaded .scroll-progress { opacity: 1; }
 
 .collection-panel__scrim {
   display: none;
+}
+
+.collection-preview .collection-panel__scrim {
+  display: block;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(10, 10, 9, 0.58) 0%, rgba(10, 10, 9, 0.24) 42%, rgba(10, 10, 9, 0.62) 100%),
+    radial-gradient(ellipse at 50% 46%, rgba(184, 153, 104, 0.1) 0%, rgba(0, 0, 0, 0.34) 72%);
 }
 
 .collection-panel__content {
@@ -4929,7 +5065,8 @@ a.product-card--link:focus-visible {
 .product-grid--boutique .product-card--compact .product-card__veil {
   opacity: 0.55;
 }
-.product-grid--boutique .product-card--compact.product-card--link {
+.product-grid--boutique .product-card--compact.product-card--link,
+.product-grid--preview .product-card--compact.product-card--link {
   display: block;
   padding: 0;
   aspect-ratio: 4 / 5;
@@ -4943,7 +5080,8 @@ a.product-card--link:focus-visible {
   display: none !important;
 }
 
-.product-grid--boutique .product-card--compact .product-card__media--showcase {
+.product-grid--boutique .product-card--compact .product-card__media--showcase,
+.product-grid--preview .product-card--compact .product-card__media--showcase {
   margin-bottom: 0;
   aspect-ratio: auto;
   width: 100%;
@@ -5858,11 +5996,17 @@ a.product-card--link:focus-visible {
   position: relative;
   width: min(640px, 100%);
   max-height: min(86vh, 820px);
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   background: var(--paper);
   border: 1px solid rgba(28, 28, 26, 0.08);
   box-shadow: 0 24px 80px rgba(18, 18, 16, 0.16);
   padding: clamp(24px, 4vw, 40px);
+}
+.maison-modal__surface::-webkit-scrollbar {
+  display: none;
 }
 .maison-modal__head {
   display: flex;
@@ -5871,13 +6015,24 @@ a.product-card--link:focus-visible {
   margin-bottom: 20px;
 }
 .maison-modal__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  margin: -6px -6px -6px 0;
+  padding: 0;
   border: none;
   background: transparent;
-  font: 500 11px/1 var(--sans);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
   color: var(--ink-soft);
   cursor: pointer;
+  transition: color 0.2s ease;
+}
+.maison-modal__close svg {
+  display: block;
+}
+.maison-modal__close:hover {
+  color: var(--ink);
 }
 .maison-modal__title {
   font-size: clamp(28px, 4vw, 42px);

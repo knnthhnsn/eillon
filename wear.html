@@ -28,7 +28,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/styles.min.css?v=138" />
+  <link rel="stylesheet" href="/styles.min.css?v=162" />
+  <link rel="stylesheet" href="/site.min.css?v=20" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -57,32 +58,44 @@
 <body class="editorial-page info-page" data-nav-current="maison">
   <a class="skip-link" href="#top">Skip to content</a>
   <script src="/scripts/i18n.js"></script>
-  <script src="/scripts/site-nav.js?v=4"></script>
+  <script src="/scripts/site-nav.js?v=6"></script>
 
-  <main class="editorial-page__main info-page__main" id="top">
-    <span class="eyebrow">Care</span>
-    <h1 class="display" style="font-size: clamp(36px, 5vw, 64px); margin: 12px 0 20px;">Fragrance <em>care</em></h1>
-    <p class="info-page__lead">
-      How to wear, store, and live with an oil-rich EILLON parfum — composed for closeness, not volume.
-    </p>
+  <main class="editorial-page__main info-page__main wear-page__main" id="top">
+    <section class="page-hero">
+      <div class="page-hero__media" aria-hidden="true">
+        <img src="images/model-woman.png" width="1200" height="1500" loading="eager" decoding="async" alt="" />
+        <span class="page-hero__veil"></span>
+      </div>
+      <div class="page-hero__inner">
+        <p class="page-hero__eyebrow sx-eyebrow">Care</p>
+        <h1 class="page-hero__title">Fragrance <em>care</em></h1>
+        <p class="page-hero__lead">How to wear, store, and live with an oil-rich EILLON parfum — composed for closeness, not volume.</p>
+      </div>
+    </section>
 
-    <figure class="info-page__hero">
-      <img src="images/model-woman.png" width="1200" height="1500" loading="eager" decoding="async" alt="Model wearing EILLON parfum at the collarbone — close, intimate application" />
-    </figure>
+    <div class="wear-chapters">
+      <article class="wear-panel" data-reveal="up">
+        <figure class="wear-panel__figure">
+          <img src="images/model-woman.png" width="1200" height="1500" loading="lazy" decoding="async" alt="Model wearing EILLON parfum at the collarbone — close, intimate application" />
+        </figure>
+        <div class="wear-panel__copy">
+          <p class="sx-eyebrow">Application</p>
+          <h2>Wear close<br /><em>to skin.</em></h2>
+          <p>
+            EILLON parfums are oil-rich and designed to sit on warm skin. A single spray is often enough;
+            the accord unfolds over hours rather than announcing itself across a room.
+          </p>
+          <ol class="info-page__steps">
+            <li><strong>Pulse</strong> — wrist, collarbone, or behind the ear. Do not rub; heat alone opens the formula.</li>
+            <li><strong>Cloth</strong> — a light mist on scarf, coat lining, or hair ends carries a quieter trail through the day.</li>
+            <li><strong>Return</strong> — one refresh before evening; base notes deepen on skin that has warmed the parfum all day.</li>
+          </ol>
+        </div>
+      </article>
+    </div>
 
-    <div class="info-page__body">
-      <h2>Application</h2>
-      <p>
-        EILLON parfums are oil-rich and designed to sit on warm skin. A single spray is often enough;
-        the accord unfolds over hours rather than announcing itself across a room.
-      </p>
-      <ol class="info-page__steps">
-        <li><strong>Pulse</strong> — wrist, collarbone, or behind the ear. Do not rub; heat alone opens the formula.</li>
-        <li><strong>Cloth</strong> — a light mist on scarf, coat lining, or hair ends carries a quieter trail through the day.</li>
-        <li><strong>Return</strong> — one refresh before evening; base notes deepen on skin that has warmed the parfum all day.</li>
-      </ol>
-
-      <h2>Storage</h2>
+    <div class="info-page__body wear-chapters">
+      <h2 data-reveal="words">Storage</h2>
       <ul>
         <li>Keep bottles upright, away from direct sun and bathroom steam.</li>
         <li>Store between 15–22°C; avoid rapid temperature swings that can stress natural materials.</li>
@@ -100,31 +113,38 @@
         <li><strong>Ritual beneath any chapter</strong> — a resin base worn under a lighter spray for evening.</li>
       </ul>
       <p>Apply the richer accord first, then the lighter chapter on top after a minute.</p>
+    </div>
 
-      <h2>Choosing by mood &amp; season</h2>
+    <section class="sx-interlude" aria-label="Choosing by mood and season">
+      <div class="sx-interlude__inner">
+      <p class="sx-eyebrow">The chapters</p>
+      <h2>Choosing by <em>mood &amp; season</em></h2>
       <div class="info-page__grid">
         <article class="info-page__card">
           <h3>Spring / morning</h3>
           <p class="info-page__card-copy">Beles — green-pink fruit, cactus water, mineral air. Light, watery, close to skin.</p>
-          <a class="info-page__card-link" href="/beles">Beles · Fico d'India <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="sx-link" href="/beles">Beles · Fico d'India <span aria-hidden="true">→</span></a>
         </article>
         <article class="info-page__card">
           <h3>After rain / city</h3>
           <p class="info-page__card-copy">Asmara — petrichor, espresso, jasmine over stone. Reflective, warm, slightly ambered.</p>
-          <a class="info-page__card-link" href="/asmara">Asmara · Rain on Stone <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="sx-link" href="/asmara">Asmara · Rain on Stone <span aria-hidden="true">→</span></a>
         </article>
         <article class="info-page__card">
           <h3>Summer / coast</h3>
           <p class="info-page__card-copy">Massawa — orange, papaya, salt skin, sea air. Solar, mineral, sun-warmed.</p>
-          <a class="info-page__card-link" href="/massawa">Massawa · Red Sea Citrus <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="sx-link" href="/massawa">Massawa · Red Sea Citrus <span aria-hidden="true">→</span></a>
         </article>
         <article class="info-page__card">
           <h3>Evening / ritual</h3>
           <p class="info-page__card-copy">Ritual — frankincense, myrrh, candle smoke, warm woods. Sacred, skin-held, slow.</p>
-          <a class="info-page__card-link" href="/ritual">Ritual · Frankincense &amp; Myrrh <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="sx-link" href="/ritual">Ritual · Frankincense &amp; Myrrh <span aria-hidden="true">→</span></a>
         </article>
       </div>
+      </div>
+    </section>
 
+    <div class="info-page__body wear-chapters">
       <h2>Explore the object</h2>
       <div class="bottle-explorer bottle-explorer--page" data-bottle-explorer>
         <img src="images/plain-bottle-with-logo.webp" width="1024" height="1536" loading="lazy" decoding="async" alt="EILLON square matte bottle — drag to tilt and explore the flacon" data-bottle-img />
@@ -132,18 +152,32 @@
       </div>
 
       <div class="info-page__actions">
-        <a class="btn btn--primary" href="/store">
-          <span class="btn__label">Explore the boutique</span>
-        </a>
-        <a class="btn btn--ghost" href="/craftsmanship">
-          <span>How we compose EILLON</span>
-          <span class="arrow">→</span>
-        </a>
+        <a class="sx-btn" href="/store">Explore the boutique</a>
+        <a class="sx-btn sx-btn--ghost" href="/craftsmanship">How we compose EILLON <span aria-hidden="true">→</span></a>
       </div>
       <p class="info-page__actions-more">
-        <a href="/about" class="info-page__actions-link">About the maison <span class="arrow">→</span></a>
+        <a href="/about" class="sx-link">About the maison <span aria-hidden="true">→</span></a>
       </p>
     </div>
+
+    <section class="sx-manifesto" aria-label="Closing thought">
+      <p class="sx-manifesto__line">We do not make things that compete for attention. We make things that <em>reward it.</em></p>
+      <p class="sx-manifesto__sign">Love this moment.</p>
+    </section>
+
+    <section class="sx-letter" id="letter">
+      <div class="sx-letter__inner">
+        <p class="sx-eyebrow">The Letter</p>
+        <h2>News from EILLON,<br /><em>sent slowly.</em></h2>
+        <p>Seasonal letters on wear, restock windows, and studio appointments.</p>
+        <form class="sx-letter__form" data-waitlist-form data-product-slug="all" data-source="newsletter" novalidate>
+          <input type="email" name="email" placeholder="Your email" aria-label="Email address" autocomplete="email" required />
+          <input type="text" name="website" class="shop__honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <button type="submit">Subscribe <span aria-hidden="true">→</span></button>
+        </form>
+        <p class="footer__status" aria-live="polite"></p>
+      </div>
+    </section>
   </main>
 
   <footer class="editorial-page__footer">

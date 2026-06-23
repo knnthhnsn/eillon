@@ -25,7 +25,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/styles.min.css?v=127" />
+  <link rel="stylesheet" href="/styles.min.css?v=162" />
+  <link rel="stylesheet" href="/site.min.css?v=20" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -46,35 +47,84 @@
 </head>
 <body class="editorial-page">
   <a class="skip-link" href="#top">Skip to content</a>
-  <script src="/scripts/site-nav.js?v=4"></script>
+  <script src="/scripts/site-nav.js?v=6"></script>
 
-  <main class="editorial-page__main article-page__main" id="top">
-    <span class="eyebrow">Maison</span>
-    <h1 class="display" style="font-size: clamp(36px, 5vw, 60px); margin: 12px 0 16px;">Journal</h1>
-    <p class="journal-index__lead">
-      Studio notes on composition, materials, and the objects we make — written slowly, for readers who care how a fragrance is built.
-    </p>
+  <main class="editorial-page__main journal-page__main" id="top">
+    <header class="journal-masthead page-hero">
+      <div class="page-hero__media" aria-hidden="true">
+        <img src="images/cactus-mood.jpg" width="900" height="1125" loading="eager" decoding="async" alt="" />
+        <span class="page-hero__veil"></span>
+      </div>
+      <div class="page-hero__inner">
+        <p class="sx-eyebrow page-hero__eyebrow">The Journal</p>
+        <h1 class="journal-masthead__title page-hero__title">Journal</h1>
+        <p class="journal-masthead__lead page-hero__lead">Studio notes on composition, materials, and the objects we make — written slowly, for readers who care how a fragrance is built.</p>
+      </div>
+    </header>
 
-    <div class="editorial-grid" style="margin-top: 36px;">
-      <article class="editorial-card">
-        <span class="eyebrow">Composition</span>
-        <h3>What Fico d'India means in Beles</h3>
-        <p>Prickly pear in Italian, sun on cactus pad, and why the fruit names an oil-rich parfum accord.</p>
-        <a href="/journal/fico-d-india">Read article →</a>
-      </article>
-      <article class="editorial-card">
-        <span class="eyebrow">The Object</span>
-        <h3>The bottle as architecture</h3>
-        <p>Square matte glass, brushed silver, and the winged leopard — a flacon drawn as a single block.</p>
-        <a href="/journal/the-bottle">Read article →</a>
-      </article>
-      <article class="editorial-card">
-        <span class="eyebrow">Boutique</span>
-        <h3>Beles · Fico d'India</h3>
-        <p>The full product page — composition, oil-rich parfum, FAQ, and restock signup.</p>
-        <a href="/beles">View Beles →</a>
+    <div class="journal-feed">
+      <article class="journal-entry journal-entry--feature" data-reveal="up">
+        <a class="journal-entry__media" href="/journal/fico-d-india" aria-label="What Fico d'India means in Beles">
+          <picture>
+            <source type="image/webp" srcset="images/accord-fruit.webp?v=2" />
+            <img src="images/cactus-mood.jpg" width="1200" height="900" loading="eager" decoding="async" alt="Ripe prickly pear on a sun-warmed cactus pad" />
+          </picture>
+        </a>
+        <div class="journal-entry__body">
+          <p class="journal-entry__cat">Composition</p>
+          <h2 class="journal-entry__title">What Fico d'India means in Beles</h2>
+          <p class="journal-entry__excerpt">Prickly pear in Italian, sun on cactus pad, and why the fruit names an oil-rich parfum accord — the green-pink memory at the centre of the first chapter.</p>
+          <a class="sx-link" href="/journal/fico-d-india">Read the article <span aria-hidden="true">→</span></a>
+        </div>
       </article>
     </div>
+
+    <div class="journal-grid">
+      <article class="journal-entry" data-reveal="up">
+        <a class="journal-entry__media" href="/journal/the-bottle" aria-label="The bottle as architecture">
+          <picture>
+            <source type="image/webp" srcset="images/beles-mood.webp" />
+            <img src="images/beles-mood.png" width="1122" height="1402" loading="lazy" decoding="async" alt="The EILLON Beles flacon in sun-warmed mineral light" />
+          </picture>
+        </a>
+        <p class="journal-entry__cat">The Object</p>
+        <h2 class="journal-entry__title">The bottle as architecture</h2>
+        <p class="journal-entry__excerpt">Square matte glass, brushed silver, and the winged leopard — a flacon drawn as a single block.</p>
+        <a class="sx-link" href="/journal/the-bottle">Read the article <span aria-hidden="true">→</span></a>
+      </article>
+
+      <article class="journal-entry" data-reveal="up">
+        <a class="journal-entry__media" href="/beles" aria-label="Beles · Fico d'India product page">
+          <picture>
+            <source type="image/webp" srcset="images/beles-luxury.webp?v=1" />
+            <img src="images/beles-luxury.png?v=1" width="1254" height="1254" loading="lazy" decoding="async" alt="Beles · Fico d'India — prickly pear editorial" />
+          </picture>
+        </a>
+        <p class="journal-entry__cat">Boutique</p>
+        <h2 class="journal-entry__title">Beles · Fico d'India</h2>
+        <p class="journal-entry__excerpt">The full chapter — composition, oil-rich parfum, the note pyramid, FAQ, and the restock signup.</p>
+        <a class="sx-link" href="/beles">View the chapter <span aria-hidden="true">→</span></a>
+      </article>
+    </div>
+
+    <section class="sx-manifesto" aria-label="Closing thought">
+      <p class="sx-manifesto__line">Studio notes for readers who care how a fragrance is <em>built.</em></p>
+      <p class="sx-manifesto__sign">Love this moment.</p>
+    </section>
+
+    <section class="sx-letter" id="letter">
+      <div class="sx-letter__inner">
+        <p class="sx-eyebrow">The Letter</p>
+        <h2>News from EILLON,<br /><em>sent slowly.</em></h2>
+        <p>Seasonal letters on composition, materials, and restock windows.</p>
+        <form class="sx-letter__form" data-waitlist-form data-product-slug="all" data-source="newsletter" novalidate>
+          <input type="email" name="email" placeholder="Your email" aria-label="Email address" autocomplete="email" required />
+          <input type="text" name="website" class="shop__honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <button type="submit">Subscribe <span aria-hidden="true">→</span></button>
+        </form>
+        <p class="footer__status" aria-live="polite"></p>
+      </div>
+    </section>
   </main>
 
   <footer class="editorial-page__footer">

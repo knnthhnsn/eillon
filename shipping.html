@@ -31,7 +31,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/styles.min.css?v=127" />
+  <link rel="stylesheet" href="/styles.min.css?v=162" />
+  <link rel="stylesheet" href="/site.min.css?v=20" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -130,19 +131,25 @@
     }
   </script>
 </head>
-<body class="legal-page info-page">
+<body class="editorial-page legal-page info-page">
   <a class="skip-link" href="#top">Skip to content</a>
   <script src="/scripts/i18n.js"></script>
-  <script src="/scripts/site-nav.js?v=4"></script>
+  <script src="/scripts/site-nav.js?v=6"></script>
 
   <main class="legal-page__main info-page__main" id="top">
-    <span class="eyebrow">Care</span>
-    <h1>Shipping &amp; returns</h1>
+    <section class="page-hero page-hero--compact">
+      <div class="page-hero__media" aria-hidden="true">
+        <img src="images/about-studio.jpg" width="1400" height="933" loading="eager" decoding="async" alt="" />
+        <span class="page-hero__veil"></span>
+      </div>
+      <div class="page-hero__inner">
+        <p class="page-hero__eyebrow sx-eyebrow">Care</p>
+        <h1 class="page-hero__title">Shipping &amp; <em>returns</em></h1>
+        <p class="page-hero__lead">How EILLON orders travel from the Copenhagen studio to you — and how returns work when a bottle is not quite right.</p>
+      </div>
+    </section>
 
-    <p class="info-page__lead">
-      How EILLON orders travel from the Copenhagen studio to you — and how returns work when a bottle is not quite right.
-    </p>
-
+    <div class="legal-page__content">
     <h2>Shipping</h2>
     <p>
       When bottles are offered for sale, orders ship with <strong>complimentary worldwide delivery</strong> unless otherwise
@@ -191,9 +198,29 @@
     </p>
 
     <p class="legal-page__updated">Last updated: 17 June 2026</p>
+    </div>
+
+    <section class="sx-manifesto" aria-label="Closing thought">
+      <p class="sx-manifesto__line">Each flacon travels from the Copenhagen studio with the same care it was <em>composed with.</em></p>
+      <p class="sx-manifesto__sign">Love this moment.</p>
+    </section>
+
+    <section class="sx-letter" id="letter">
+      <div class="sx-letter__inner">
+        <p class="sx-eyebrow">The Letter</p>
+        <h2>Restock notes,<br /><em>sent first.</em></h2>
+        <p>Private purchase links and studio letters before the public boutique opens.</p>
+        <form class="sx-letter__form" data-waitlist-form data-product-slug="all" data-source="newsletter" novalidate>
+          <input type="email" name="email" placeholder="Your email" aria-label="Email address" autocomplete="email" required />
+          <input type="text" name="website" class="shop__honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <button type="submit">Subscribe <span aria-hidden="true">→</span></button>
+        </form>
+        <p class="footer__status" aria-live="polite"></p>
+      </div>
+    </section>
   </main>
 
-  <footer class="legal-page__footer">
+  <footer class="editorial-page__footer">
     <span>© EILLON — Copenhagen</span>
     <span>
       <a href="/about">About</a> · <a href="/craftsmanship">Craft</a> · <a href="/shipping">Shipping</a> ·
