@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Shipping &amp; Returns — EILLON</title>
-  <meta name="description" content="EILLON shipping and returns — complimentary worldwide delivery on orders, 30-day returns on unopened bottles, and guidance on samples and engraved pieces." />
+  <meta name="description" content="EILLON shipping and returns — complimentary delivery in verified markets, 30-day returns on unopened bottles, and guidance on samples and engraved pieces." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://eillon.maison/shipping" />
   <link rel="alternate" hreflang="en-dk" href="https://eillon.maison/shipping" />
@@ -22,11 +22,11 @@
   <meta property="og:locale" content="en_DK" />
   <meta property="og:url" content="https://eillon.maison/shipping" />
   <meta property="og:title" content="Shipping &amp; Returns — EILLON" />
-  <meta property="og:description" content="Complimentary worldwide delivery and 30-day returns on unopened EILLON orders." />
+  <meta property="og:description" content="Complimentary delivery in verified markets and 30-day returns on unopened EILLON orders." />
   <meta property="og:image" content="https://eillon.maison/images/plain-bottle-with-logo.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Shipping &amp; Returns — EILLON" />
-  <meta name="twitter:description" content="Complimentary worldwide delivery and 30-day returns on unopened EILLON orders." />
+  <meta name="twitter:description" content="Complimentary delivery in verified markets and 30-day returns on unopened EILLON orders." />
   <meta name="twitter:image" content="https://eillon.maison/images/plain-bottle-with-logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -48,7 +48,7 @@
           "@type": "WebPage",
           "name": "Shipping & Returns — EILLON",
           "url": "https://eillon.maison/shipping",
-          "description": "Complimentary worldwide delivery and 30-day returns on unopened EILLON orders.",
+          "description": "Complimentary delivery in verified markets and 30-day returns on unopened EILLON orders.",
           "inLanguage": "en-DK",
           "isPartOf": { "@id": "https://eillon.maison/#website" },
           "about": { "@id": "https://eillon.maison/#organization" }
@@ -92,11 +92,19 @@
         },
         {
           "@type": "MerchantReturnPolicy",
-          "applicableCountry": ["DK", "SE", "NO", "DE", "FR", "GB", "US"],
+          "applicableCountry": ["DK", "SE", "NO", "DE", "FR"],
           "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
           "merchantReturnDays": 30,
           "returnMethod": "https://schema.org/ReturnByMail",
           "returnFees": "https://schema.org/FreeReturn"
+        },
+        {
+          "@type": "MerchantReturnPolicy",
+          "applicableCountry": ["GB", "US"],
+          "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+          "merchantReturnDays": 30,
+          "returnMethod": "https://schema.org/ReturnByMail",
+          "returnFees": "https://schema.org/ReturnShippingFees"
         },
         {
           "@type": "FAQPage",
@@ -106,7 +114,7 @@
               "name": "Does EILLON offer free shipping?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "When bottles are offered for sale, orders ship with complimentary worldwide delivery unless otherwise stated in your order confirmation."
+                "text": "When bottles are offered for sale, complimentary delivery applies to Denmark, Sweden, Norway, Germany, France, the United Kingdom, and the United States unless otherwise stated in your order confirmation."
               }
             },
             {
@@ -133,8 +141,7 @@
 </head>
 <body class="editorial-page legal-page info-page">
   <a class="skip-link" href="#top">Skip to content</a>
-  <script src="/scripts/i18n.js"></script>
-  <script src="/scripts/site-nav.js?v=6"></script>
+  <script src="/scripts/site-nav.js?v=7"></script>
 
   <main class="legal-page__main info-page__main" id="top">
     <section class="page-hero page-hero--compact">
@@ -155,9 +162,9 @@
     <div class="legal-page__content">
     <h2>Shipping</h2>
     <p>
-      When bottles are offered for sale, orders ship with <strong>complimentary worldwide delivery</strong> unless otherwise
-      stated in your order confirmation. Each flacon is hand-wrapped in archival cream paper and packed to protect the cap,
-      emblem, and glass faces in transit.
+      When bottles are offered for sale, <strong>complimentary delivery</strong> applies to Denmark, Sweden, Norway,
+      Germany, France, the United Kingdom, and the United States unless otherwise stated in your order confirmation.
+      Each flacon is hand-wrapped in archival cream paper and packed to protect the cap, emblem, and glass faces in transit.
     </p>
     <ul>
       <li><strong>Denmark &amp; EU</strong> — typically 2–5 business days after dispatch.</li>

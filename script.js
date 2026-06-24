@@ -1154,10 +1154,10 @@
 
   /* ---------- 9. WAITLIST ---------- */
   const waitlistMessages = {
-    beles: 'We will write when Beles is back in stock.',
-    asmara: 'We will write when Asmara is back in stock.',
-    massawa: 'We will write when Massawa is back in stock.',
-    ritual: 'We will write if Ritual returns from the lab.',
+    beles: 'You are on the Beles restock list.',
+    asmara: 'We will send studio notes as Asmara develops.',
+    massawa: 'We will send studio notes as Massawa develops.',
+    ritual: 'You are following the Ritual lab study.',
     all: 'You are on the letter list.',
   };
 
@@ -1283,10 +1283,13 @@
 
   /* ---------- 10. PRODUCT GRID RENDER ---------- */
   const isOutOfStock = (product) => (
-    product.status === 'out-of-stock' || product.status === 'waitlist-open'
+    ['awaiting-next-release', 'in-development', 'studio-archive', 'out-of-stock', 'waitlist-open'].includes(product.status)
   );
 
   const STATUS_CLASS = {
+    'awaiting-next-release': 'product-card__status--out-of-stock',
+    'in-development': 'product-card__status--out-of-stock',
+    'studio-archive': 'product-card__status--out-of-stock',
     'out-of-stock': 'product-card__status--out-of-stock',
     'waitlist-open': 'product-card__status--out-of-stock',
     'in-production': 'product-card__status--out-of-stock',
@@ -1295,9 +1298,30 @@
   };
 
   const getStockHint = (product) => {
-    if (product.slug === 'ritual') return 'Lab study — not offered';
+    if (product.slug === 'ritual') return 'Lab study — follow for notes';
+    if (product.status === 'in-development') return 'Future chapter — in development';
+    if (product.status === 'awaiting-next-release') return 'Join the restock list';
     return 'Notify when back in stock';
   };
+
+  const applyChapterPageStatus = () => {
+    const slug = document.body.dataset.chapterSlug;
+    if (!slug || !Array.isArray(window.EILLON_PRODUCTS)) return;
+    const product = window.EILLON_PRODUCTS.find((p) => p.slug === slug);
+    if (!product) return;
+
+    document.querySelectorAll('.stock-status').forEach((el) => {
+      el.textContent = product.statusLabel;
+    });
+
+    const submitLabel = document.querySelector('[data-waitlist-form] .btn__label');
+    if (submitLabel && product.ctaLabel) submitLabel.textContent = product.ctaLabel;
+
+    const submitHover = document.querySelector('[data-waitlist-form] .btn__hover');
+    if (submitHover && product.ctaHover) submitHover.textContent = product.ctaHover;
+  };
+
+  document.addEventListener('eillon:products-ready', applyChapterPageStatus);
 
   const buildStoreCardCaption = (product) => {
     const caption = document.createElement('div');
@@ -1733,4 +1757,6 @@
     wrap.addEventListener('pointerup', reset);
     wrap.addEventListener('pointerleave', reset);
   });
+
+  applyChapterPageStatus();
 })();

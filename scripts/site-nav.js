@@ -39,12 +39,7 @@
       </nav>
 
       <div class="nav__actions">
-        <div class="nav__lang" role="group" aria-label="Language">
-          <button type="button" class="nav__lang-btn is-active" data-lang-toggle="en" aria-pressed="true">EN</button>
-          <button type="button" class="nav__lang-btn" data-lang-toggle="da" aria-pressed="false">DA</button>
-          <button type="button" class="nav__lang-btn" data-lang-toggle="sv" aria-pressed="false">SV</button>
-        </div>
-        <button class="nav__story" type="button" data-maison-story-open aria-haspopup="dialog" data-i18n="nav.story">Our story</button>
+        <button class="nav__story" type="button" data-maison-story-open aria-haspopup="dialog">Our story</button>
         <button class="nav__menu" type="button" aria-label="Menu" data-i18n-aria="nav.menu" aria-controls="mobileNav" aria-expanded="false" id="menuToggle">
           <span></span>
           <span></span>
@@ -161,41 +156,17 @@
       </div>
       <div class="maison-modal__body">
         <h2 class="display maison-modal__title">Perfume from <em>place, memory &amp; skin.</em></h2>
-        <p data-lang-block="en">
+        <p>
           EILLON is an independent perfume house in Copenhagen — composing intimate, genderless parfums from Afro-Mediterranean memory. Red Sea air, desert fruit at high noon, rain on old city stone, café spice, sacred resin, and warm skin held close.
         </p>
-        <p data-lang-block="da" hidden aria-hidden="true">
-          EILLON er et uafhængigt parfumehus i København — intim, kønsløs parfume fra afro-middelhavsminner. Røde Havs-luft, ørkenfrugt, regn på gammel bysten, kaffekrydder, hellig harpiks og varm hud tæt på.
-        </p>
-        <p data-lang-block="sv" hidden aria-hidden="true">
-          EILLON är ett oberoende parfymhus i Köpenhamn — intim, könsneutral parfym från afro-medelhavets minnen. Röda havets luft, ökenfrukt i middagshettan, regn på gammal sten, kaffekryddor, helig harts och varm hud nära.
-        </p>
-        <p data-lang-block="en">
+        <p>
           Each fragrance is a chapter. Beles begins with prickly pear. Asmara follows rain on stone. Massawa turns toward the coast. Ritual studies frankincense in the lab. Formulas and objects are developed together — never rushed.
         </p>
-        <p data-lang-block="da" hidden aria-hidden="true">
-          Hver duft er et kapitel. Beles begynder med kaktusfigen. Asmara følger regn på sten. Massawa vender mod kysten. Ritual studerer røgelse i laboratoriet. Formler og objekter udvikles sammen — aldrig forhastet.
-        </p>
-        <p data-lang-block="sv" hidden aria-hidden="true">
-          Varje doft är ett kapitel. Beles börjar med kaktusfikon. Asmara följer regn på sten. Massawa vänder sig mot kusten. Ritual studerar rökelse i labbet. Formler och objekt utvecklas tillsammans — aldrig förhastat.
-        </p>
-        <ul class="maison-modal__ethos" data-lang-block="en">
+        <ul class="maison-modal__ethos">
           <li>Oil-rich parfums worn close — unfolding slowly on skin.</li>
           <li>Genderless compositions built from place, not trend.</li>
-          <li>Transparent release windows through waitlist and letters.</li>
+          <li>Transparent release windows through restock notes and letters.</li>
           <li>Hand-finished in Copenhagen in small batches.</li>
-        </ul>
-        <ul class="maison-modal__ethos" data-lang-block="da" hidden aria-hidden="true">
-          <li>Olieholdige parfumer tæt på huden — udfolder sig langsomt.</li>
-          <li>Kønsløse kompositioner bygget på sted, ikke trend.</li>
-          <li>Gennemsigtige release-vinduer via venteliste og breve.</li>
-          <li>Håndafsluttet i København i små batches.</li>
-        </ul>
-        <ul class="maison-modal__ethos" data-lang-block="sv" hidden aria-hidden="true">
-          <li>Oljerika parfymer nära huden — utvecklas långsamt.</li>
-          <li>Könsneutrala kompositioner byggda på plats, inte trend.</li>
-          <li>Transparenta lanseringsfönster via väntelista och brev.</li>
-          <li>Handfärdigade i Köpenhamn i små serier.</li>
         </ul>
         <div class="maison-modal__links">
           <a href="/about" class="btn btn--ghost">Full maison story <span class="arrow">→</span></a>
