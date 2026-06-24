@@ -1003,6 +1003,7 @@
     const amount = btn.dataset.amount;
     const size   = btn.dataset.size;
     selectedSize = size || selectedSize;
+    window.EILLON_ANALYTICS?.track?.('size_interest_selected', { chapter: 'beles', size });
     if (priceEl  && amount)              priceEl.textContent  = `€ ${amount}`;
     if (volumeEl && volumeMap[size])     volumeEl.textContent = volumeMap[size];
     if (shopImage && imageLabelMap[size]) shopImage.dataset.selectedVolume = imageLabelMap[size];
@@ -1182,10 +1183,20 @@
   };
 
   const submitWaitlistSignup = async ({ email, source, size, product_slug, name }) => {
+    const utm = window.EILLON_ANALYTICS?.getUtm?.() || {};
     const res = await fetch('/api/waitlist', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, source, size, product_slug, name }),
+      body: JSON.stringify({
+        email,
+        source,
+        size,
+        product_slug,
+        name,
+        utm_source: utm.utm_source || null,
+        utm_medium: utm.utm_medium || null,
+        utm_campaign: utm.utm_campaign || null,
+      }),
     });
     const data = await res.json().catch(() => ({}));
     if (!res.ok) throw new Error(data.error || 'Signup failed');
@@ -1220,6 +1231,16 @@
     } catch {
       // Waitlist still submits if storage is unavailable.
     }
+
+    let formStarted = false;
+    emailInput?.addEventListener('focus', () => {
+      if (formStarted) return;
+      formStarted = true;
+      window.EILLON_ANALYTICS?.track?.('restock_form_started', {
+        chapter: productSlug,
+        source,
+      });
+    });
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -1266,7 +1287,16 @@
           message: successMessage,
           isNewsletter,
         });
+        window.EILLON_ANALYTICS?.track?.('restock_form_submitted', {
+          chapter: productSlug,
+          source,
+          size: size || null,
+        });
       } catch {
+        window.EILLON_ANALYTICS?.track?.('restock_form_error', {
+          chapter: productSlug,
+          source,
+        });
         if (label && originalLabel) label.textContent = originalLabel;
         else if (submitButton && originalButtonText) submitButton.textContent = originalButtonText;
         if (submitButton) submitButton.disabled = false;

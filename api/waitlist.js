@@ -1,5 +1,7 @@
+const crypto = require('crypto');
 const { ensureTable, upsertSignup } = require('../lib/db');
 const { notifyWaitlistSignup } = require('../lib/waitlist-notify');
+const { getClientIp, checkRateLimit } = require('../lib/rate-limit');
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const VALID_PRODUCTS = new Set(['beles', 'asmara', 'massawa', 'ritual', 'all']);
@@ -51,6 +53,14 @@ module.exports = async (req, res) => {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
     json(res, 405, { error: 'Method not allowed' });
+    return;
+  }
+
+  const ip = getClientIp(req);
+  const rate = checkRateLimit(`waitlist:${ip}`, { limit: 10, windowMs: 60_000 });
+  if (!rate.allowed) {
+    res.setHeader('Retry-After', String(Math.ceil(rate.retryAfterMs / 1000)));
+    json(res, 429, { error: 'Too many requests. Please try again shortly.' });
     return;
   }
 

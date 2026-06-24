@@ -1,4 +1,22 @@
 (function () {
+  if (!window.__EILLON_ANALYTICS_BOOT__) {
+    window.__EILLON_ANALYTICS_BOOT__ = true;
+    window.va = window.va || function va() { (window.vaq = window.vaq || []).push(arguments); };
+    const host = window.location.hostname;
+    const isLocal = host === 'localhost' || host === '127.0.0.1';
+    const appendScript = (src) => {
+      const el = document.createElement('script');
+      el.src = src;
+      el.defer = true;
+      document.head.appendChild(el);
+    };
+    appendScript('/scripts/analytics.js?v=1');
+    if (!isLocal) {
+      appendScript('/_vercel/insights/script.js');
+      appendScript('/_vercel/speed-insights/script.js');
+    }
+  }
+
   const body = document.body;
   const isHome = body.dataset.navHome === 'true';
   const current = body.dataset.navCurrent || '';
@@ -333,7 +351,7 @@
           <span class="footer__visit-label">Copenhagen studio</span>
           <p>EILLON — 1050 Copenhagen, Denmark</p>
           <p>Private fragrance appointments, Thursday to Saturday, 12–18.</p>
-          <a href="mailto:care@eillon.maison?subject=Beles%20studio%20appointment">Request an appointment <span class="arrow">→</span></a>
+          <a href="mailto:care@eillon.maison?subject=Beles%20studio%20appointment" data-analytics-event="studio_appointment_click" data-analytics-label="footer">Request an appointment <span class="arrow">→</span></a>
         </div>
       </div>
       <div class="footer__cols">
