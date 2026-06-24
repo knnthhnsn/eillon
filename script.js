@@ -1154,6 +1154,8 @@
   }
 
   /* ---------- 9. WAITLIST ---------- */
+  const CONSENT_NOTICE_VERSION = '2026-06-24';
+
   const waitlistMessages = {
     beles: 'You are on the Beles restock list.',
     asmara: 'We will send studio notes as Asmara develops.',
@@ -1196,6 +1198,8 @@
         utm_source: utm.utm_source || null,
         utm_medium: utm.utm_medium || null,
         utm_campaign: utm.utm_campaign || null,
+        consent_marketing: true,
+        consent_notice_version: CONSENT_NOTICE_VERSION,
       }),
     });
     const data = await res.json().catch(() => ({}));
@@ -1209,6 +1213,23 @@
       || 'beles';
     const source = form.dataset.source || 'waitlist';
     const isNewsletter = productSlug === 'all' || source === 'newsletter';
+
+    if (!form.dataset.consentReady) {
+      form.dataset.consentReady = 'true';
+      const hasConsent = form.parentElement?.querySelector('.shop__waitlist-consent, .waitlist-consent');
+      if (!hasConsent) {
+        const note = document.createElement('p');
+        note.className = form.classList.contains('shop__waitlist') ? 'shop__waitlist-consent' : 'waitlist-consent';
+        const purpose = isNewsletter
+          ? 'the EILLON letter described above'
+          : productSlug === 'beles'
+            ? 'the Beles restock note described above'
+            : 'studio notes for the chapter you selected';
+        note.innerHTML = `By submitting, you agree to receive ${purpose}. Unsubscribe anytime at <a href="mailto:care@eillon.maison?subject=Unsubscribe">care@eillon.maison</a>.`;
+        form.insertAdjacentElement('afterend', note);
+      }
+    }
+
     const statusEl = form.querySelector('[aria-live="polite"]')
       || form.querySelector('.shop__waitlist-status')
       || form.querySelector('.beles-waitlist-status');

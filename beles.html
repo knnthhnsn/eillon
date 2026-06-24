@@ -33,7 +33,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.min.css?v=162" />
-  <link rel="stylesheet" href="/site.min.css?v=20" />
+  <link rel="stylesheet" href="/site.min.css?v=21" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -138,8 +138,34 @@
       </div>
     </section>
 
+    <section class="proof-layer proof-layer--beles" id="proof" data-analytics-section="proof" data-analytics-section-id="beles_proof">
+      <div class="proof-layer__inner">
+        <header class="proof-layer__header">
+          <p class="sx-eyebrow">Studio proof</p>
+          <h2>Beles today — <em>what exists in the studio</em></h2>
+          <p>Before the editorial story: the current development status of the first chapter, who composes it, and how we evaluate wear.</p>
+        </header>
+        <dl class="proof-status" aria-label="Beles development status">
+          <div><dt>Formula</dt><dd>Locked · pilot scale</dd></div>
+          <div><dt>Safety review</dt><dd>IFRA Cat 4 assessed</dd></div>
+          <div><dt>Production</dt><dd>Hand-filled in Copenhagen</dd></div>
+          <div><dt>Release</dt><dd>Awaiting next restock window</dd></div>
+        </dl>
+        <p class="proof-layer__note">
+          Composed by <strong>Kenneth Hansen</strong> with creative direction from <strong>Eillon Hansen</strong>.
+          Bottles shown are studio-filled pilot flacons — not concept renders.
+          Longevity figures below come from observed studio wear sessions (six wearers, eight-hour intervals); they describe our experience, not a universal guarantee.
+        </p>
+        <ul class="proof-layer__links">
+          <li><a class="sx-link" href="/craftsmanship#safety">IFRA &amp; batch traceability <span aria-hidden="true">→</span></a></li>
+          <li><a class="sx-link" href="/journal/beles-batch-bl001">Batch BL-001 notes <span aria-hidden="true">→</span></a></li>
+          <li><a class="sx-link" href="/about#people">Studio authorship <span aria-hidden="true">→</span></a></li>
+        </ul>
+      </div>
+    </section>
+
     <!-- ============ BOUTIQUE / WAITLIST ============ -->
-    <section class="shop shop--beles" id="waitlist" data-analytics-section="proof" data-analytics-section-id="beles_restock">
+    <section class="shop shop--beles" id="waitlist">
       <div class="shop__grid">
         <div class="shop__visual-column">
           <figure class="shop__image" data-reveal="image" data-selected-volume="100 ML" data-product-size="100" aria-label="Beles · Fico d'India — bottle with golden-hour wear imagery">
@@ -157,7 +183,7 @@
                   muted
                   loop
                   playsinline
-                  preload="auto"
+                  preload="none"
                   poster="images/ken-beles-poster.webp?v=1"
                 >
                   <source src="images/ken-beles.mp4?v=2" type="video/mp4" />
@@ -189,7 +215,7 @@
         </div>
 
         <div class="shop__info">
-          <span class="eyebrow reveal">Oil-rich parfum — <span class="stock-status">Out of stock</span></span>
+          <span class="eyebrow reveal">Oil-rich parfum — <span class="stock-status">Awaiting next release</span></span>
           <h2 class="display" data-reveal="words" data-delay="80">
             Beles <span class="product-qualifier">• Fico d'India</span><br />
             <em>Oil-rich Parfum</em>
@@ -245,6 +271,7 @@
               <span class="btn__hover" aria-hidden="true">We write when Beles returns</span>
             </button>
           </form>
+          <p class="shop__waitlist-consent">By joining, you agree to receive the Beles restock note described above. You may unsubscribe anytime at <a href="mailto:care@eillon.maison?subject=Unsubscribe">care@eillon.maison</a>.</p>
           <p class="shop__cta-caption" id="shopCtaCaption"><span class="stock-status">Awaiting next release</span> — leave your email and preferred size interest for the next restock window. Size selection records interest only; no purchase is taken.</p>
           <p class="shop__waitlist-status" id="waitlistStatus" aria-live="polite"></p>
 
@@ -264,7 +291,7 @@
                   <dt>Concentration</dt>
                   <dd>Parfum — high perfume-oil load</dd>
                   <dt>Longevity</dt>
-                  <dd>8-10 hours</dd>
+                  <dd>Observed 8–10 hours in studio wear tests</dd>
                   <dt>Sillage</dt>
                   <dd>Intimate to moderate</dd>
                   <dt>Season</dt>
@@ -306,7 +333,7 @@
             <details>
               <summary>Delivery &amp; returns</summary>
               <div>
-                <p>Restock subscribers receive a private purchase link when bottles return. Complimentary worldwide shipping applies at launch. Unopened orders may be returned within 30 days.</p>
+                <p>Restock subscribers receive a private purchase link when bottles return. Shipping regions and return terms are published on our <a href="/shipping">shipping page</a> before commerce opens.</p>
               </div>
             </details>
 
@@ -545,6 +572,6 @@
   </footer>
 
   <script src="/data/products.js?v=14" defer></script>
-  <script src="script.js?v=86" defer></script>
+  <script src="script.js?v=87" defer></script>
 </body>
 </html>

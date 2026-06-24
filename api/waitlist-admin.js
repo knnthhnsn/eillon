@@ -1,5 +1,5 @@
 const crypto = require('crypto');
-const { ensureTable, listSignups } = require('../lib/db');
+const { ensureTable, listSignups, countSignups } = require('../lib/db');
 const { getClientIp, checkRateLimit } = require('../lib/rate-limit');
 
 function json(res, status, body) {
@@ -45,8 +45,19 @@ module.exports = async (req, res) => {
 
   try {
     await ensureTable();
-    const signups = await listSignups();
-    json(res, 200, { count: signups.length, signups });
+    const limit = Math.min(Math.max(parseInt(String(req.query?.limit || '100'), 10) || 100, 1), 500);
+    const offset = Math.max(parseInt(String(req.query?.offset || '0'), 10) || 0, 0);
+    const [signups, total] = await Promise.all([
+      listSignups({ limit, offset }),
+      countSignups(),
+    ]);
+    json(res, 200, {
+      count: signups.length,
+      total,
+      limit,
+      offset,
+      signups,
+    });
   } catch (err) {
     console.error('waitlist admin failed', err);
     json(res, 500, { error: 'Could not load signups' });

@@ -1670,4 +1670,108 @@
 
 .sx-btn--block { display: flex; width: 100%; justify-content: center; }
 
+/* Proof layer — commercial evidence blocks */
+.proof-layer {
+  padding: clamp(48px, 8vw, 96px) clamp(20px, 5vw, 64px);
+  border-top: 1px solid rgba(26, 22, 18, 0.08);
+  border-bottom: 1px solid rgba(26, 22, 18, 0.08);
+  background: rgba(248, 246, 240, 0.45);
+}
+.proof-layer--beles { background: var(--paper); }
+.proof-layer__inner {
+  max-width: var(--content-max, 1120px);
+  margin: 0 auto;
+}
+.proof-layer__header { max-width: 52ch; margin-bottom: clamp(28px, 4vw, 44px); }
+.proof-layer__header h2 {
+  font-family: var(--serif);
+  font-size: clamp(1.75rem, 3.2vw, 2.35rem);
+  font-weight: 300;
+  line-height: 1.12;
+  margin: 0 0 12px;
+}
+.proof-layer__header p {
+  margin: 0;
+  color: rgba(26, 22, 18, 0.72);
+  font-size: 15px;
+  line-height: 1.65;
+}
+.proof-status {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1px;
+  margin: 0 0 24px;
+  padding: 0;
+  list-style: none;
+  background: rgba(26, 22, 18, 0.1);
+  border: 1px solid rgba(26, 22, 18, 0.1);
+}
+.proof-status > div {
+  background: var(--paper);
+  padding: 16px 18px;
+}
+.proof-status dt {
+  font-family: var(--sans);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(26, 22, 18, 0.48);
+  margin: 0 0 6px;
+}
+.proof-status dd {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  line-height: 1.35;
+  color: var(--ink);
+}
+.proof-layer__note {
+  margin: 0 0 16px;
+  max-width: 62ch;
+  font-size: 14px;
+  line-height: 1.65;
+  color: rgba(26, 22, 18, 0.68);
+}
+.proof-layer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 28px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.proof-people {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: clamp(20px, 3vw, 32px);
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.proof-people li {
+  padding-top: 12px;
+  border-top: 1px solid rgba(26, 22, 18, 0.12);
+}
+.proof-people strong {
+  display: block;
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-weight: 400;
+  margin-bottom: 4px;
+}
+.proof-people span {
+  display: block;
+  font-size: 14px;
+  line-height: 1.55;
+  color: rgba(26, 22, 18, 0.68);
+}
+.editorial-page .shop__waitlist-consent,
+.editorial-page .waitlist-consent {
+  margin: 12px 0 0;
+  font-size: 12px;
+  line-height: 1.55;
+  color: rgba(26, 22, 18, 0.55);
+}
+
 /* __END__ */

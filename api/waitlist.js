@@ -1,7 +1,7 @@
-const crypto = require('crypto');
 const { ensureTable, upsertSignup } = require('../lib/db');
 const { notifyWaitlistSignup } = require('../lib/waitlist-notify');
 const { getClientIp, checkRateLimit } = require('../lib/rate-limit');
+const { CONSENT_NOTICE_VERSION } = require('../lib/consent');
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const VALID_PRODUCTS = new Set(['beles', 'asmara', 'massawa', 'ritual', 'all']);
@@ -95,7 +95,16 @@ module.exports = async (req, res) => {
 
   try {
     await ensureTable();
-    const signup = await upsertSignup({ email, source, size, productSlug, name, utm });
+    const signup = await upsertSignup({
+      email,
+      source,
+      size,
+      productSlug,
+      name,
+      utm,
+      consentMarketing: true,
+      consentNoticeVersion: CONSENT_NOTICE_VERSION,
+    });
     json(res, 200, { ok: true });
 
     notifyWaitlistSignup(signup).catch((err) => {

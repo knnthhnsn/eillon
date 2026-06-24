@@ -30,9 +30,23 @@
   <meta name="twitter:image" content="https://eillon.maison/images/about-origin.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="preload" as="image" href="images/desert-architecture-1200.webp" type="image/webp" fetchpriority="high" />
+  <link
+    rel="preload"
+    as="style"
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=optional"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=optional"
+    rel="stylesheet"
+    media="print"
+    onload="this.media='all'"
+  />
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  </noscript>
   <link rel="stylesheet" href="/styles.min.css?v=162" />
-  <link rel="stylesheet" href="/site.min.css?v=20" />
+  <link rel="stylesheet" href="/site.min.css?v=21" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -125,7 +139,37 @@
           <p>
             Beles · Fico d'India opened the maison — prickly pear and cactus water composed as an oil-rich parfum.
             Asmara follows rain on stone. Massawa turns toward the coast. Ritual studies frankincense and myrrh in the lab.
-            Every chapter is currently out of stock; restock notes are open on each chapter page.
+            Beles awaits its next release; other chapters are in development or held as studio studies.
+          </p>
+        </div>
+      </article>
+
+      <article class="info-page__chapter info-page__chapter--reverse" id="people" data-reveal="up" data-analytics-section="proof" data-analytics-section-id="about_people">
+        <figure class="info-page__chapter-figure" data-reveal="image">
+          <picture>
+          <source type="image/webp" srcset="images/about-studio-1400.webp" />
+          <img src="images/about-studio.jpg" width="1400" height="933" loading="lazy" decoding="async" alt="Eillon and Kenneth Hansen at work in the Copenhagen studio" />
+        </picture>
+        </figure>
+        <div class="info-page__chapter-copy">
+          <h2>Who composes EILLON</h2>
+          <p>
+            EILLON is an independent studio — not an anonymous brand house. The people below lead composition,
+            object design, and the quiet release rhythm you see across the site.
+          </p>
+          <ul class="proof-people">
+            <li>
+              <strong>Eillon Hansen</strong>
+              <span>Founder · creative direction, narrative, and maison identity. Red Sea memory interpreted through Copenhagen precision.</span>
+            </li>
+            <li>
+              <strong>Kenneth Hansen</strong>
+              <span>Co-founder · in-house formulation, compounding, and studio operations. Leads Beles formula lock and pilot batches.</span>
+            </li>
+          </ul>
+          <p>
+            Appointments and press enquiries: <a href="mailto:care@eillon.maison?subject=Studio%20enquiry">care@eillon.maison</a>.
+            Formulation and safety documentation is published on <a href="/craftsmanship">craftsmanship</a>.
           </p>
         </div>
       </article>

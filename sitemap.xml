@@ -3,18 +3,17 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://eillon.maison/</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://eillon.maison/images/plain-bottle-with-logo.png</image:loc>
       <image:title>EILLON — Afro-Mediterranean Memory Perfumery</image:title>
-      <image:caption>Oil-rich parfum maison — Copenhagen, Denmark</image:caption>
     </image:image>
   </url>
   <url>
     <loc>https://eillon.maison/store</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <image:image>
@@ -24,18 +23,17 @@
   </url>
   <url>
     <loc>https://eillon.maison/beles</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
       <image:loc>https://eillon.maison/images/beles-no-background.png</image:loc>
       <image:title>Beles · Fico d'India — Oil-rich Parfum</image:title>
-      <image:caption>Prickly pear parfum by EILLON Copenhagen</image:caption>
     </image:image>
   </url>
   <url>
     <loc>https://eillon.maison/asmara</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -45,7 +43,7 @@
   </url>
   <url>
     <loc>https://eillon.maison/massawa</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -55,7 +53,7 @@
   </url>
   <url>
     <loc>https://eillon.maison/ritual</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -65,52 +63,59 @@
   </url>
   <url>
     <loc>https://eillon.maison/journal</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://eillon.maison/journal/fico-d-india</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
     <image:image>
       <image:loc>https://eillon.maison/images/beles-no-background.png</image:loc>
       <image:title>What Fico d'India means in Beles</image:title>
-      <image:caption>Prickly pear accord in EILLON oil-rich parfum</image:caption>
     </image:image>
   </url>
   <url>
     <loc>https://eillon.maison/journal/the-bottle</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
     <image:image>
-      <image:loc>https://eillon.maison/images/plain-bottle-with-logo.png</image:loc>
+      <image:loc>https://eillon.maison/images/beles-concept-1100.jpg</image:loc>
       <image:title>The EILLON Beles bottle</image:title>
-      <image:caption>Square matte flacon, silver cap, winged leopard</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://eillon.maison/journal/beles-batch-bl001</loc>
+    <lastmod>2026-06-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <image:image>
+      <image:loc>https://eillon.maison/images/beles-no-background.png</image:loc>
+      <image:title>Beles pilot batch BL-001 traceability</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://eillon.maison/wear</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.65</priority>
   </url>
   <url>
     <loc>https://eillon.maison/about</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
     <image:image>
       <image:loc>https://eillon.maison/images/about-origin.jpg</image:loc>
       <image:title>About EILLON — Copenhagen perfume maison</image:title>
-      <image:caption>Massawa coral stone — origin of Afro-Mediterranean memory</image:caption>
     </image:image>
   </url>
   <url>
     <loc>https://eillon.maison/craftsmanship</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
     <image:image>
@@ -120,25 +125,25 @@
   </url>
   <url>
     <loc>https://eillon.maison/shipping</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-24</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.55</priority>
   </url>
   <url>
     <loc>https://eillon.maison/privacy</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-24</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://eillon.maison/terms</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-24</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://eillon.maison/imprint</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-24</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
