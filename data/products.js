@@ -20,7 +20,7 @@ window.EILLON_PRODUCTS = [
     palette: ['cream', 'blush pink', 'cactus green', 'mineral aqua', 'sandstone'],
     moodImage: 'images/beles-luxury.webp',
     image: 'images/beles-luxury.webp',
-    fallbackImage: 'images/beles-luxury.png',
+    fallbackImage: 'images/beles-luxury-1254.jpg',
     url: '/beles',
     ctaLabel: 'Notify when back',
     waitlistEnabled: true,

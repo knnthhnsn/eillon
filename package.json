@@ -11,6 +11,7 @@
     "build:home": "npx clean-css-cli -o home.min.css home.css",
     "build:site": "npx clean-css-cli -o site.min.css site.css",
     "build:js": "npx terser script.js -o script.min.js -c -m",
+    "optimize:images": "python scripts/optimize-images.py",
     "build": "npm run build:css && npm run build:home && npm run build:site && npm run build:js"
   },
   "dependencies": {
