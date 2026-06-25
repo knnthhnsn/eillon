@@ -30,6 +30,14 @@ JOBS: list[tuple[str, int, int, int | None, bool]] = [
     ("beles-mood.png", 1122, 82, None, False),
     ("beles-splash.png", 900, 82, None, False),
     ("plain-bottle-with-logo.png", 1024, 82, None, False),
+    ("accord-fruit.jpg", 550, 80, 82, False),
+    ("accord-fruit-hover.jpg", 550, 80, 82, False),
+    ("accord-green.jpg", 550, 80, 82, False),
+    ("accord-green-hover.jpg", 550, 80, 82, False),
+    ("accord-bloom.jpg", 550, 80, 82, False),
+    ("accord-bloom-hover.jpg", 550, 80, 82, False),
+    ("accord-warmth.jpg", 550, 80, 82, False),
+    ("accord-warmth-hover.jpg", 550, 80, 82, False),
 ]
 
 
