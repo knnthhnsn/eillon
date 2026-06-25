@@ -109,17 +109,17 @@
           <span>Beles · Fico d'India</span>
           <small>Oil-rich parfum — full product page</small>
         </a>
-        <a href="/asmara" data-search-item data-search-keywords="asmara rain on stone out of stock chapter">
+        <a href="/asmara" data-search-item data-search-keywords="asmara rain on stone in development chapter">
           <span>Asmara · Rain on Stone</span>
-          <small>Chapter II — out of stock</small>
+          <small>Chapter II — in development</small>
         </a>
-        <a href="/massawa" data-search-item data-search-keywords="massawa red sea citrus out of stock chapter">
+        <a href="/massawa" data-search-item data-search-keywords="massawa red sea citrus in development chapter">
           <span>Massawa · Red Sea Citrus</span>
-          <small>Chapter III — out of stock</small>
+          <small>Chapter III — in development</small>
         </a>
-        <a href="/ritual" data-search-item data-search-keywords="ritual frankincense myrrh lab out of stock">
+        <a href="/ritual" data-search-item data-search-keywords="ritual frankincense myrrh lab studio archive">
           <span>Ritual · Frankincense & Myrrh</span>
-          <small>Lab study — out of stock</small>
+          <small>Studio archive — lab study</small>
         </a>
         <a href="/journal" data-search-item data-search-keywords="journal editorial fico d'india bottle article">
           <span>Journal</span>
@@ -129,9 +129,9 @@
           <span>The Boutique</span>
           <small>All fragrance chapters</small>
         </a>
-        <a href="${waitlistHref}" data-search-item data-search-keywords="restock beles fico d'india out of stock notify back">
+        <a href="${waitlistHref}" data-search-item data-search-keywords="restock beles fico d'india awaiting release join list">
           <span>Beles restock list</span>
-          <small>Notify when Beles is back in stock</small>
+          <small>Awaiting next release</small>
         </a>
         <a href="/wear" data-search-item data-search-keywords="wear application pulse points spray skin hair scarf storage layering season mood fragrance care guide">
           <span>Fragrance care guide</span>
@@ -149,7 +149,7 @@
           <span>Craftsmanship</span>
           <small>How EILLON parfums are made</small>
         </a>
-        <a href="/shipping" data-search-item data-search-keywords="shipping returns delivery worldwide 30 days">
+        <a href="/shipping" data-search-item data-search-keywords="shipping returns delivery EU regions 30 days">
           <span>Shipping &amp; returns</span>
           <small>Delivery and return policy</small>
         </a>
