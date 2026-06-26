@@ -410,8 +410,20 @@ body[data-nav-home="true"] .nav__waitlist {
    ===================================================== */
 .mv-house {
   position: relative;
-  background: var(--bone);
-  color: var(--ink);
+  background-color: #120606;
+  background-image:
+    linear-gradient(
+      105deg,
+      rgba(8, 2, 2, 0.92) 0%,
+      rgba(12, 4, 4, 0.78) 42%,
+      rgba(18, 6, 6, 0.42) 68%,
+      rgba(18, 6, 6, 0.18) 100%
+    ),
+    url("images/black-leopard-red.jpeg");
+  background-size: cover;
+  background-position: center right;
+  background-repeat: no-repeat;
+  color: var(--paper);
   padding: clamp(96px, 13vw, 200px) 0 clamp(96px, 13vw, 200px) clamp(20px, 5vw, 96px);
   overflow: hidden;
 }
@@ -428,10 +440,10 @@ body[data-nav-home="true"] .nav__waitlist {
 .mv-house__eyebrow {
   grid-column: 1 / 2;
   margin: 0 0 clamp(20px, 3vw, 36px);
-  color: var(--ink-faint);
+  color: rgba(248, 246, 240, 0.62);
   display: flex; align-items: center; gap: 16px;
 }
-.mv-house__eyebrow::before { content:""; width: 48px; height:1px; background: var(--gold-dark); opacity:.7; }
+.mv-house__eyebrow::before { content:""; width: 48px; height:1px; background: var(--gold-light); opacity:.85; }
 .mv-house__display {
   grid-area: display;
   margin: 0;
@@ -442,14 +454,16 @@ body[data-nav-home="true"] .nav__waitlist {
   line-height: 0.98;
   letter-spacing: -0.025em;
   max-width: 16ch;
+  color: var(--paper);
+  text-shadow: 0 2px 28px rgba(0, 0, 0, 0.45);
 }
-.mv-house__display em { font-style: italic; color: var(--gold-dark); }
-.mv-house__lede { grid-area: lede; max-width: 38ch; }
+.mv-house__display em { font-style: italic; color: var(--gold-light); }
+.mv-house__lede { grid-area: lede; max-width: 38ch; color: rgba(248, 246, 240, 0.82); }
 .mv-house__lede p {
   margin: 0;
   font-size: clamp(15px, 1.05vw, 18px);
   line-height: 1.8;
-  color: var(--ink-soft);
+  color: rgba(248, 246, 240, 0.78);
 }
 .mv-house__lede p:first-child::first-letter {
   font-family: var(--serif);
@@ -458,8 +472,9 @@ body[data-nav-home="true"] .nav__waitlist {
   float: left;
   line-height: 0.8;
   margin: 0.06em 0.1em 0 -0.02em;
-  color: var(--skin-umber);
+  color: var(--gold-light);
 }
+.mv-house__overview .qlink { color: rgba(248, 246, 240, 0.88); }
 .mv-house__laws { grid-area: laws; margin: 0; display: grid; gap: clamp(18px, 2vw, 28px); align-self: end; }
 .mv-house__laws li {
   display: grid;
@@ -470,18 +485,19 @@ body[data-nav-home="true"] .nav__waitlist {
   font-weight: 300;
   font-size: clamp(19px, 1.6vw, 25px);
   line-height: 1.2;
-  border-top: 1px solid var(--hair-dark);
+  border-top: 1px solid rgba(248, 246, 240, 0.18);
   padding-top: 14px;
+  color: rgba(248, 246, 240, 0.9);
 }
 .mv-house__laws li span {
   font-family: var(--sans);
   font-size: 10px;
   font-weight: 500;
   letter-spacing: 0.2em;
-  color: var(--ink-faint);
+  color: rgba(248, 246, 240, 0.48);
   transform: translateY(-2px);
 }
-.mv-house__laws em { font-style: italic; color: var(--skin-umber); }
+.mv-house__laws em { font-style: italic; color: var(--gold-light); }
 .mv-house__detail {
   grid-area: detail;
   margin: 0;
@@ -490,6 +506,7 @@ body[data-nav-home="true"] .nav__waitlist {
   min-height: clamp(420px, 52vw, 680px);
   margin-right: calc(-1 * clamp(20px, 5vw, 96px)); /* bleed to viewport edge */
   overflow: hidden;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
 }
 .mv-house__detail img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
 .mv-house__detail figcaption {
