@@ -427,26 +427,34 @@ body[data-nav-home="true"] .nav__waitlist {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    90deg,
-    rgba(8, 2, 2, 0.68) 0%,
-    rgba(12, 4, 4, 0.48) 28%,
-    rgba(18, 6, 6, 0.24) 46%,
-    rgba(18, 6, 6, 0.06) 58%,
-    transparent 72%
-  );
+  background:
+    linear-gradient(
+      90deg,
+      rgba(8, 2, 2, 0.62) 0%,
+      rgba(12, 4, 4, 0.42) 26%,
+      rgba(18, 6, 6, 0.12) 42%,
+      transparent 50%
+    ),
+    linear-gradient(
+      270deg,
+      rgba(8, 2, 2, 0.82) 0%,
+      rgba(12, 4, 4, 0.62) 22%,
+      rgba(18, 6, 6, 0.36) 40%,
+      rgba(18, 6, 6, 0.1) 52%,
+      transparent 64%
+    );
   pointer-events: none;
   z-index: 0;
 }
 .mv-house > * { position: relative; z-index: 1; }
 .mv-house__grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
   grid-template-areas:
-    "display display"
+    "display laws"
     "lede    laws";
-  column-gap: clamp(32px, 5vw, 88px);
-  row-gap: clamp(40px, 6vw, 88px);
+  column-gap: clamp(40px, 6vw, 100px);
+  row-gap: clamp(32px, 4vw, 56px);
   align-items: start;
 }
 .mv-house__eyebrow {
@@ -510,22 +518,6 @@ body[data-nav-home="true"] .nav__waitlist {
   transform: translateY(-2px);
 }
 .mv-house__laws em { font-style: italic; color: var(--gold-light); }
-.mv-house__detail {
-  grid-area: detail;
-  margin: 0;
-  position: relative;
-  align-self: stretch;
-  min-height: clamp(420px, 52vw, 680px);
-  margin-right: calc(-1 * clamp(20px, 5vw, 96px)); /* bleed to viewport edge */
-  overflow: hidden;
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
-}
-.mv-house__detail img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
-.mv-house__detail figcaption {
-  position: absolute; left: 18px; bottom: 16px;
-  font-family: var(--sans); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
-  color: rgba(248,246,240,0.92); text-shadow: 0 1px 12px rgba(0,0,0,0.5);
-}
 
 /* =====================================================
    MOVEMENT 04 — MONUMENTAL INTIMACY (pinned landscape)
@@ -1051,11 +1043,8 @@ body[data-nav-home="true"] .footer__legal a:hover { color: #fff; }
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
       "display display"
-      "lede    laws"
-      "detail  detail";
+      "lede    laws";
   }
-  .mv-house { padding-right: clamp(20px,5vw,96px); }
-  .mv-house__detail { margin-right: 0; min-height: clamp(360px, 60vw, 520px); }
   .mv-chapter__grid { grid-template-columns: 1fr; gap: clamp(28px,5vw,48px); }
   .mv-chapter__media { position: relative; top: auto; max-width: 520px; }
   .mv-object__stage { grid-template-columns: 1fr; gap: clamp(32px,6vw,56px); }
@@ -1109,11 +1098,10 @@ body[data-nav-home="true"] .footer__legal a:hover { color: #fff; }
   }
   .mv-house__grid {
     grid-template-columns: 1fr;
-    grid-template-areas: "display" "lede" "detail" "laws";
+    grid-template-areas: "display" "lede" "laws";
     row-gap: clamp(32px,7vw,52px);
   }
   .mv-house__display { font-size: clamp(38px, 11vw, 60px); max-width: none; }
-  .mv-house__detail { margin: 0 calc(-1 * var(--pad)); min-height: 72vw; }
 
   /* M04 landscape — unpinned full-bleed on mobile */
   .mv-land { height: auto; background: var(--cypress); }
