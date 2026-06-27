@@ -76,7 +76,7 @@
     .veil { position: fixed; inset: 0; z-index: 9999; pointer-events: none; }
   </style>
   <link rel="stylesheet" href="styles.min.css?v=162" />
-  <link rel="stylesheet" href="home.min.css?v=21" />
+  <link rel="stylesheet" href="home.min.css?v=22" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -302,7 +302,18 @@
     <!-- ============ MOVEMENT 02 — THE NAME ============ -->
     <section class="mv-name" aria-label="The house">
       <p class="mv-name__meta">The house between heat &amp; shadow</p>
-      <h2 class="mv-name__fill" aria-hidden="true">EILLON</h2>
+      <h2 class="sr-only">EILLON</h2>
+      <div class="mv-name__carousel" aria-hidden="true">
+        <div class="mv-name__track">
+          <span class="mv-name__word">EILLON</span>
+          <span class="mv-name__logo">
+            <picture>
+              <source type="image/webp" srcset="images/eillon_logo_veil.webp" />
+              <img src="images/eillon_logo_transparent.png" width="640" height="200" alt="" decoding="async" />
+            </picture>
+          </span>
+        </div>
+      </div>
       <p class="mv-name__sub">A perfume house where Red Sea heat meets Copenhagen precision — <em>memory made physical.</em></p>
     </section>
 
@@ -560,6 +571,6 @@
   <script src="/scripts/site-nav.js?v=8" defer></script>
   <script src="data/products.js?v=14" defer></script>
   <script src="script.min.js?v=87" defer></script>
-  <script src="/scripts/home.js?v=2" defer></script>
+  <script src="/scripts/home.js?v=3" defer></script>
 </body>
 </html>

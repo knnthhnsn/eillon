@@ -59,8 +59,43 @@
   if (reduceMq.addEventListener) {
     reduceMq.addEventListener('change', changeHandler);
     smallMq.addEventListener('change', changeHandler);
-  } else if (reduceMq.addListener) {
+  } else   if (reduceMq.addListener) {
     reduceMq.addListener(changeHandler);
     smallMq.addListener(changeHandler);
   }
+})();
+
+(function initNameMarquee() {
+  'use strict';
+
+  var track = document.querySelector('.mv-name__track');
+  if (!track) return;
+
+  var reduceMq = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (reduceMq.matches) return;
+
+  track.innerHTML += track.innerHTML;
+
+  var offset = 0;
+  var speed = 0.28;
+  var halfW = 0;
+
+  function measure() {
+    halfW = track.scrollWidth / 2;
+  }
+
+  measure();
+  window.addEventListener('resize', measure);
+
+  function step() {
+    offset -= speed;
+    if (halfW > 0) {
+      if (offset <= -halfW) offset += halfW;
+      if (offset > 0) offset -= halfW;
+    }
+    track.style.transform = 'translate3d(' + offset + 'px, 0, 0)';
+    window.requestAnimationFrame(step);
+  }
+
+  step();
 })();
