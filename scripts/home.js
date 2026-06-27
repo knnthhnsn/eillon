@@ -89,7 +89,7 @@
         pin: pin,
         pinType: 'fixed',
         pinSpacing: true,
-        pinReparent: mobile,
+        pinReparent: false,
         scrub: mobile ? true : 0.5,
         anticipatePin: mobile ? 0 : 1,
         fastScrollEnd: true,
@@ -111,9 +111,9 @@
       .to(word, { y: mobile ? -12 : -18, duration: 0.16, ease: 'none' }, 0.06)
       .to(tag, { opacity: 1, y: 0, duration: 0.12, ease: 'none' }, 0.14)
       .to(cta, { opacity: 1, y: 0, duration: 0.12, ease: 'none' }, 0.2)
-      .to(track, { x: slideX, duration: 0.38, ease: 'none' }, 0.48)
-      .to(nameMeta, { opacity: 1, y: 0, duration: 0.1, ease: 'none' }, 0.58)
-      .to(nameSub, { opacity: 1, y: 0, duration: 0.1, ease: 'none' }, 0.66);
+      .to(track, { x: slideX, duration: 0.38, ease: 'none' }, 0.48);
+    if (nameMeta) tl.to(nameMeta, { opacity: 1, y: 0, duration: 0.1, ease: 'none' }, 0.58);
+    if (nameSub) tl.to(nameSub, { opacity: 1, y: 0, duration: 0.1, ease: 'none' }, 0.66);
 
     return tl.scrollTrigger;
   }
@@ -136,6 +136,13 @@
       return mobile ? overflow : Math.min(overflow, 96);
     }
 
+    function revealAll() {
+      gsap.set(lines, { opacity: 1, y: 0 });
+      gsap.set(lede, { opacity: 1, y: 0 });
+      gsap.set(laws, { opacity: 1, x: 0 });
+      gsap.set(grid, { y: 0 });
+    }
+
     gsap.set(house, { '--house-p': 0 });
     gsap.set(grid, { y: 0 });
     gsap.set(lines, { opacity: 0, y: mobile ? 20 : 36 });
@@ -149,15 +156,19 @@
         end: function () {
           return '+=' + Math.round(window.innerHeight * (mobile ? 1.25 : 1.9));
         },
-        pin: stage,
+        pin: house,
         pinType: 'fixed',
         pinSpacing: true,
-        pinReparent: mobile,
+        pinReparent: false,
         scrub: mobile ? true : 0.65,
         anticipatePin: mobile ? 0 : 1,
         fastScrollEnd: true,
         refreshPriority: 1,
-        invalidateOnRefresh: true
+        invalidateOnRefresh: true,
+        onLeave: revealAll,
+        onLeaveBack: function () {
+          gsap.set(grid, { y: 0 });
+        }
       }
     });
 
@@ -206,7 +217,7 @@
     }, {
       refreshPriority: 2,
       anticipatePin: mobile ? 0 : 1,
-      pinReparent: mobile,
+      pinReparent: false,
       scrub: mobile ? true : true
     });
 

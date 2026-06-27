@@ -621,6 +621,8 @@ body[data-nav-home="true"] .nav__waitlist {
 }
 .mv-house.mv-house--pin-js {
   padding: 0;
+  min-height: 100svh;
+  overflow: hidden;
 }
 .mv-house__stage {
   position: relative;
@@ -632,12 +634,67 @@ body[data-nav-home="true"] .nav__waitlist {
   padding: clamp(96px, 13vw, 200px) clamp(20px, 5vw, 96px);
 }
 .mv-house.mv-house--pin-js .mv-house__stage {
+  min-height: 100svh;
+  height: 100svh;
+  box-sizing: border-box;
+}
+.mv-house__backdrop,
+.mv-house__scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.mv-house__backdrop {
+  z-index: 0;
+  transform: scale(calc(1.04 + 0.08 * var(--house-p, 0)));
+  transform-origin: center 78%;
+  background:
+    radial-gradient(
+      ellipse 34% 40% at 52% 78%,
+      rgba(248, 246, 240, 0.08) 0%,
+      rgba(248, 246, 240, 0.02) 55%,
+      transparent 78%
+    ),
+    url("images/white-stone-stairs.png") no-repeat center center / cover;
+}
+.mv-house__scrim {
+  z-index: 1;
+  opacity: calc(1 - (var(--house-p, 0) * 0.18));
+  background:
+    linear-gradient(
+      90deg,
+      rgba(8, 7, 6, 0.78) 0%,
+      rgba(10, 9, 8, 0.52) 26%,
+      rgba(12, 11, 10, 0.16) 42%,
+      transparent 54%
+    ),
+    linear-gradient(
+      270deg,
+      rgba(8, 7, 6, 0.82) 0%,
+      rgba(10, 9, 8, 0.56) 22%,
+      rgba(12, 11, 10, 0.28) 40%,
+      rgba(12, 11, 10, 0.06) 52%,
+      transparent 66%
+    );
+}
+.mv-house.mv-house--pin-js .mv-house__eyebrow,
+.mv-house.mv-house--pin-js .mv-house__grid {
+  position: relative;
+  z-index: 2;
+}
+.mv-house.mv-house--pin-js .mv-house__stage {
   justify-content: flex-start;
   padding-top: clamp(72px, 9vh, 112px);
   padding-bottom: clamp(28px, 4vh, 48px);
-  box-sizing: border-box;
-  max-height: 100svh;
-  overflow: hidden;
+  overflow: visible;
+}
+.mv-house__backdrop,
+.mv-house__scrim {
+  display: none;
+}
+.mv-house.mv-house--pin-js .mv-house__backdrop,
+.mv-house.mv-house--pin-js .mv-house__scrim {
+  display: block;
 }
 .mv-house::before {
   content: "";
@@ -679,6 +736,10 @@ body[data-nav-home="true"] .nav__waitlist {
     );
   pointer-events: none;
   z-index: 1;
+}
+.mv-house.mv-house--pin-js::before,
+.mv-house.mv-house--pin-js::after {
+  display: none;
 }
 .mv-house > * { position: relative; z-index: 3; }
 .mv-house__grid {
@@ -1438,7 +1499,7 @@ body[data-nav-home="true"] .footer__legal a:hover { color: #fff; }
       var(--pad)
       calc(16px + env(safe-area-inset-bottom, 0px));
     min-height: 100svh;
-    max-height: 100svh;
+    height: 100svh;
   }
   .mv-house.mv-house--pin-js .mv-house__eyebrow {
     margin-bottom: clamp(10px, 2.5vw, 16px);
