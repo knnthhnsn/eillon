@@ -513,29 +513,6 @@ body[data-nav-home="true"] .nav__waitlist {
   pointer-events: none;
   z-index: 0;
 }
-.mv-house::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(
-      90deg,
-      rgba(8, 2, 2, 0.62) 0%,
-      rgba(12, 4, 4, 0.42) 26%,
-      rgba(18, 6, 6, 0.12) 42%,
-      transparent 50%
-    ),
-    linear-gradient(
-      270deg,
-      rgba(8, 2, 2, 0.82) 0%,
-      rgba(12, 4, 4, 0.62) 22%,
-      rgba(18, 6, 6, 0.36) 40%,
-      rgba(18, 6, 6, 0.1) 52%,
-      transparent 64%
-    );
-  pointer-events: none;
-  z-index: 1;
-}
 .mv-house > * { position: relative; z-index: 3; }
 .mv-house__grid {
   display: grid;
@@ -1196,22 +1173,6 @@ body[data-nav-home="true"] .footer__legal a:hover { color: #fff; }
 
   /* M03 house */
   .mv-house { padding: clamp(72px,16vw,110px) var(--pad); }
-  .mv-house::after {
-    background:
-      linear-gradient(
-        180deg,
-        rgba(8, 2, 2, 0.72) 0%,
-        rgba(12, 4, 4, 0.48) 38%,
-        rgba(18, 6, 6, 0.28) 62%,
-        rgba(18, 6, 6, 0.55) 100%
-      ),
-      linear-gradient(
-        270deg,
-        rgba(8, 2, 2, 0.65) 0%,
-        rgba(18, 6, 6, 0.2) 35%,
-        transparent 55%
-      );
-  }
   .mv-house__grid {
     grid-template-columns: 1fr;
     grid-template-areas: "display" "laws" "lede";
