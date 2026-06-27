@@ -26,7 +26,7 @@
 
 .home { position: relative; }
 
-/* Per-section WebGL shader canvases (hero photo layer + name/object backgrounds) */
+/* Per-section WebGL shader canvases */
 .mv-shader {
   position: absolute !important;
   inset: 0;
@@ -39,23 +39,55 @@
 .mv-shader--photo {
   z-index: 1 !important;
 }
+.mv-shader--mid {
+  z-index: 2 !important;
+}
 .mv-shader--blend {
   z-index: 0 !important;
 }
-.mv-hero__veil {
+.mv-hero__veil,
+.mv-land__grad {
   z-index: 2;
 }
+.mv-house::before { z-index: 0; }
 .mv-name > *:not(.mv-shader),
 .mv-house > *:not(.mv-shader),
 .mv-object > *:not(.mv-shader) {
   position: relative;
-  z-index: 1;
+  z-index: 3;
+}
+.mv-land__eyebrow,
+.mv-land__copy {
+  z-index: 3;
 }
 .mv-hero,
 .mv-name,
 .mv-house,
+.mv-land,
+.mv-land__sticky,
 .mv-object {
   isolation: isolate;
+}
+body[data-nav-home="true"] .footer {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: transparent;
+}
+body[data-nav-home="true"] .footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--mv-dark);
+  z-index: 0;
+  pointer-events: none;
+}
+body[data-nav-home="true"] .footer .mv-shader {
+  z-index: 1 !important;
+}
+body[data-nav-home="true"] .footer > *:not(.mv-shader) {
+  position: relative;
+  z-index: 2;
 }
 
 /* Shared homepage primitives ------------------------------------------- */
@@ -502,9 +534,9 @@ body[data-nav-home="true"] .nav__waitlist {
       transparent 64%
     );
   pointer-events: none;
-  z-index: 0;
+  z-index: 1;
 }
-.mv-house > * { position: relative; z-index: 1; }
+.mv-house > * { position: relative; z-index: 3; }
 .mv-house__grid {
   display: grid;
   grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
@@ -624,7 +656,7 @@ body[data-nav-home="true"] .nav__waitlist {
   left: clamp(20px, 6vw, 120px);
   right: clamp(20px, 6vw, 120px);
   bottom: clamp(56px, 12vh, 140px);
-  z-index: 2;
+  z-index: 3;
   max-width: min(920px, 100%);
 }
 .mv-land__title,
@@ -1020,7 +1052,7 @@ body[data-nav-home="true"] .nav__waitlist {
    FOOTER — deep-ink correspondence + monumental wordmark
    ===================================================== */
 body[data-nav-home="true"] .footer {
-  background: var(--mv-dark);
+  background: transparent;
   color: rgba(248,246,240,0.82);
   border-top: 0;
   padding: clamp(72px, 9vw, 130px) clamp(20px, 5vw, 96px) 0;

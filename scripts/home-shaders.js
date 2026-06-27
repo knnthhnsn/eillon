@@ -11,15 +11,19 @@
   var TARGETS = [
     { sel: '.mv-hero', mount: '.mv-hero__media', before: '.mv-hero__veil', key: 'hero', blend: 'overlay', layer: 'photo' },
     { sel: '.mv-name', key: 'name', prepend: true },
-    { sel: '.mv-house', key: 'house', prepend: true, blend: 'overlay', layer: 'bg' },
+    { sel: '.mv-house', key: 'house', prepend: true, blend: 'overlay', layer: 'mid' },
+    { sel: '.mv-land', mount: '.mv-land__media', before: '.mv-land__grad', key: 'land', blend: 'overlay', layer: 'photo' },
     { sel: '.mv-object', key: 'object', prepend: true },
+    { sel: 'body[data-nav-home="true"] .footer', key: 'footer', prepend: true, blend: 'overlay', layer: 'mid' },
   ];
 
   var THEMES = {
     hero:   { c1: [0.01, 0.04, 0.12], c2: [0.05, 0.28, 0.62], c3: [0.82, 0.48, 0.12], opacity: 0.52, scale: 1.35, speed: 1.75 },
     name:   { c1: [0.03, 0.02, 0.05], c2: [0.28, 0.07, 0.05], c3: [0.06, 0.14, 0.28], opacity: 0.82, scale: 1.1, speed: 1.1 },
-    house:  { c1: [0.05, 0.01, 0.02], c2: [0.24, 0.04, 0.06], c3: [0.48, 0.10, 0.08], opacity: 0.36, scale: 1.2, speed: 1.05 },
+    house:  { c1: [0.18, 0.04, 0.06], c2: [0.58, 0.14, 0.16], c3: [0.92, 0.52, 0.22], opacity: 0.62, scale: 1.2, speed: 1.35 },
+    land:   { c1: [0.02, 0.07, 0.04], c2: [0.10, 0.28, 0.14], c3: [0.24, 0.48, 0.26], opacity: 0.50, scale: 1.35, speed: 1.2 },
     object: { c1: [0.02, 0.04, 0.07], c2: [0.08, 0.14, 0.20], c3: [0.20, 0.26, 0.30], opacity: 0.55, scale: 1.25, speed: 1.05 },
+    footer: { c1: [0.02, 0.04, 0.07], c2: [0.06, 0.16, 0.28], c3: [0.16, 0.32, 0.48], opacity: 0.80, scale: 1.05, speed: 0.95 },
   };
 
   var VERT = [
@@ -76,6 +80,7 @@
       antialias: false,
       depth: false,
       stencil: false,
+      preserveDrawingBuffer: true,
       powerPreference: 'low-power',
     });
     if (!gl) return null;
@@ -129,7 +134,10 @@
     this.canvas = document.createElement('canvas');
     this.canvas.className = 'mv-shader';
     if (config.blend) {
-      this.canvas.classList.add(config.layer === 'photo' ? 'mv-shader--photo' : 'mv-shader--blend');
+      var layerClass = config.layer === 'photo' ? 'mv-shader--photo'
+        : config.layer === 'mid' ? 'mv-shader--mid'
+        : 'mv-shader--blend';
+      this.canvas.classList.add(layerClass);
       this.canvas.style.mixBlendMode = config.blend;
     }
     this.canvas.setAttribute('aria-hidden', 'true');
@@ -169,6 +177,9 @@
     var gl = s.gl;
     var theme = this.theme;
 
+    gl.viewport(0, 0, this.canvas.width, this.canvas.height);
+    gl.clearColor(0, 0, 0, 0);
+    gl.clear(gl.COLOR_BUFFER_BIT);
     gl.useProgram(s.prog);
     gl.bindBuffer(gl.ARRAY_BUFFER, s.buf);
     gl.enableVertexAttribArray(s.aPos);
