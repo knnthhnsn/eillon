@@ -11,7 +11,25 @@
       document.head.appendChild(el);
     };
     appendScript('/scripts/analytics.js?v=1');
-    appendScript('/scripts/site-shaders.js?v=48');
+    var loadShaders = function () {
+    appendScript('/scripts/site-shaders.js?v=51');
+    };
+    if (document.readyState === 'complete') {
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(loadShaders, { timeout: 3000 });
+      } else {
+        setTimeout(loadShaders, 1500);
+      }
+    } else {
+      window.addEventListener('load', function onLoad() {
+        window.removeEventListener('load', onLoad);
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(loadShaders, { timeout: 3000 });
+        } else {
+          setTimeout(loadShaders, 1500);
+        }
+      });
+    }
     if (!isLocal) {
       appendScript('/_vercel/insights/script.js');
       appendScript('/_vercel/speed-insights/script.js');

@@ -2,11 +2,16 @@
 <html lang="en-DK">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>The Boutique — EILLON Afro-Mediterranean Memory Perfumery</title>
   <meta name="description" content="The EILLON fragrance chapters — oil-rich parfums composed in Copenhagen. Beles awaits its next release; Asmara and Massawa are in development; Ritual is a studio archive." />
-  <meta name="robots" content="index, follow" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
   <link rel="canonical" href="https://eillon.maison/store" />
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+  <link rel="alternate" hreflang="en-dk" href="https://eillon.maison/store" />
+  <link rel="alternate" hreflang="en" href="https://eillon.maison/store" />
+  <link rel="alternate" hreflang="x-default" href="https://eillon.maison/store" />
   <link rel="alternate" hreflang="en-dk" href="https://eillon.maison/store" />
   <link rel="alternate" hreflang="en" href="https://eillon.maison/store" />
   <link rel="alternate" hreflang="x-default" href="https://eillon.maison/store" />
@@ -30,7 +35,9 @@
   <meta name="twitter:image" content="https://eillon.maison/images/beles-no-background.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=optional" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=optional" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=optional" rel="stylesheet" /></noscript>
   <link rel="stylesheet" href="styles.min.css?v=162" />
   <link rel="stylesheet" href="site.min.css?v=34" />
   <script type="application/ld+json">
@@ -68,7 +75,7 @@
 </head>
 <body class="editorial-page store-page" data-nav-current="boutique">
   <a class="skip-link" href="#top">Skip to content</a>
-  <script src="/scripts/site-nav.js?v=18"></script>
+  <script src="/scripts/site-nav.js?v=23" defer></script>
 
   <main class="editorial-page__main boutique-page__main" id="top">
     <!-- Masthead -->

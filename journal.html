@@ -2,11 +2,16 @@
 <html lang="en-DK">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Journal — EILLON · Copenhagen fragrance house</title>
   <meta name="description" content="Editorial journal from EILLON — notes on Beles · Fico d'India, oil-rich parfum, prickly pear, and the Copenhagen studio." />
-  <meta name="robots" content="index, follow" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
   <link rel="canonical" href="https://eillon.maison/journal" />
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+  <link rel="alternate" hreflang="en-dk" href="https://eillon.maison/journal" />
+  <link rel="alternate" hreflang="en" href="https://eillon.maison/journal" />
+  <link rel="alternate" hreflang="x-default" href="https://eillon.maison/journal" />
   <meta name="geo.region" content="DK-84" />
   <meta name="geo.placename" content="Copenhagen, Capital Region of Denmark" />
   <meta name="geo.country" content="DK" />
@@ -17,16 +22,19 @@
   <meta property="og:title" content="EILLON Journal" />
   <meta property="og:description" content="Studio notes on Beles · Fico d'India and the EILLON bottle." />
   <meta property="og:url" content="https://eillon.maison/journal" />
-  <meta property="og:image" content="https://eillon.maison/images/plain-bottle-with-logo.png" />
+  <meta property="og:image" content="https://eillon.maison/images/about-studio-1400.webp" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="EILLON Journal" />
   <meta name="twitter:description" content="Studio notes on Beles · Fico d'India and the EILLON bottle." />
-  <meta name="twitter:image" content="https://eillon.maison/images/plain-bottle-with-logo.png" />
+  <meta name="twitter:image" content="https://eillon.maison/images/about-studio-1400.webp" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="preload" as="image" href="images/about-studio-1400.webp" type="image/webp" fetchpriority="high" />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=optional" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=optional" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=optional" rel="stylesheet" /></noscript>
   <link rel="stylesheet" href="/styles.min.css?v=162" />
-  <link rel="stylesheet" href="/site.min.css?v=29" />
+  <link rel="stylesheet" href="/site.min.css?v=59" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -46,16 +54,16 @@
     }
   </script>
 </head>
-<body class="editorial-page">
+<body class="editorial-page journal-index-page">
   <a class="skip-link" href="#top">Skip to content</a>
-  <script src="/scripts/site-nav.js?v=16"></script>
+  <script src="/scripts/site-nav.js?v=23" defer></script>
 
   <main class="editorial-page__main journal-page__main" id="top">
     <header class="journal-masthead page-hero">
       <div class="page-hero__media" aria-hidden="true">
         <picture>
-          <source type="image/webp" srcset="images/cactus-mood-1200.webp" />
-          <img src="images/cactus-mood.jpg" width="900" height="1125" loading="eager" decoding="async" alt="" />
+          <source type="image/webp" srcset="images/about-studio-1400.webp" />
+          <img src="images/about-studio-1400.jpg" width="1400" height="1750" loading="eager" decoding="async" fetchpriority="high" alt="" />
         </picture>
         <span class="page-hero__veil"></span>
       </div>
@@ -66,68 +74,83 @@
       </div>
     </header>
 
-    <div class="journal-feed">
-      <article class="journal-entry journal-entry--feature" data-reveal="up">
-        <a class="journal-entry__media" href="/journal/fico-d-india" aria-label="What Fico d'India means in Beles">
-          <picture>
-            <source type="image/webp" srcset="images/accord-fruit.webp?v=2" />
-            <img src="images/cactus-mood.jpg" width="1200" height="900" loading="eager" decoding="async" alt="Ripe prickly pear on a sun-warmed cactus pad" />
-          </picture>
-        </a>
-        <div class="journal-entry__body">
-          <p class="journal-entry__cat">Composition</p>
-          <h2 class="journal-entry__title">What Fico d'India means in Beles</h2>
-          <p class="journal-entry__excerpt">Prickly pear in Italian, sun on cactus pad, and why the fruit names an oil-rich parfum accord — the green-pink memory at the centre of the first chapter.</p>
-          <a class="sx-link" href="/journal/fico-d-india">Read the article <span aria-hidden="true">→</span></a>
+    <div class="journal-shader-band journal-shader-band--index">
+      <div class="journal-index">
+        <header class="journal-index__bar">
+          <p class="journal-index__count"><span class="journal-index__count-num">03</span> entries</p>
+          <p class="journal-index__tag">Composed slowly · Copenhagen studio</p>
+        </header>
+
+        <section class="journal-feed" aria-label="Featured entry">
+          <article class="journal-entry journal-entry--feature" data-reveal="up">
+            <a class="journal-entry__media" href="/journal/fico-d-india" aria-label="What Fico d'India means in Beles">
+              <picture>
+                <source type="image/webp" srcset="images/beles-mood-1122.webp" />
+                <img src="images/beles-mood-1122.jpg" width="1122" height="1402" loading="eager" decoding="async" alt="Beles · Fico d'India in sun-warmed mineral light" />
+              </picture>
+            </a>
+            <div class="journal-entry__body">
+              <p class="journal-entry__cat">Composition · Latest</p>
+              <h2 class="journal-entry__title"><a href="/journal/fico-d-india">What Fico d'India means in Beles</a></h2>
+              <p class="journal-entry__excerpt">Prickly pear in Italian, sun on cactus pad, and why the fruit names an oil-rich parfum accord — the green-pink memory at the centre of the first chapter.</p>
+              <a class="sx-link" href="/journal/fico-d-india">Read the article <span aria-hidden="true">→</span></a>
+            </div>
+          </article>
+        </section>
+
+        <div class="journal-grid" aria-label="Journal entries">
+          <article class="journal-entry" data-reveal="up">
+            <a class="journal-entry__media" href="/journal/beles-batch-bl001" aria-label="Beles batch BL-001 traceability notes">
+              <picture>
+                <source type="image/webp" srcset="images/cactus-craft-900.webp" />
+                <img src="images/cactus-craft-900.jpg" width="900" height="1125" loading="lazy" decoding="async" alt="Raw materials and compounding in the EILLON studio" />
+              </picture>
+            </a>
+            <div class="journal-entry__body">
+              <p class="journal-entry__cat">Provenance</p>
+              <h2 class="journal-entry__title"><a href="/journal/beles-batch-bl001">Beles batch BL-001</a></h2>
+              <p class="journal-entry__excerpt">Pilot compounding, supplier lots, IFRA Category 4 review, and the wear sessions tied to the first Beles release window.</p>
+              <a class="sx-link" href="/journal/beles-batch-bl001">Read the article <span aria-hidden="true">→</span></a>
+            </div>
+          </article>
+
+          <article class="journal-entry" data-reveal="up">
+            <a class="journal-entry__media" href="/journal/the-bottle" aria-label="The bottle as architecture">
+              <picture>
+                <source type="image/webp" srcset="images/beles-concept-1100.webp" />
+                <img src="images/beles-concept-1100.jpg" width="1100" height="1375" loading="lazy" decoding="async" alt="The EILLON flacon drawn as architectural form" />
+              </picture>
+            </a>
+            <div class="journal-entry__body">
+              <p class="journal-entry__cat">The Object</p>
+              <h2 class="journal-entry__title"><a href="/journal/the-bottle">The bottle as architecture</a></h2>
+              <p class="journal-entry__excerpt">Square matte glass, brushed silver, and the winged leopard — a flacon drawn as a single block.</p>
+              <a class="sx-link" href="/journal/the-bottle">Read the article <span aria-hidden="true">→</span></a>
+            </div>
+          </article>
+
+          <article class="journal-entry journal-entry--boutique" data-reveal="up">
+            <a class="journal-entry__media" href="/beles" aria-label="Beles · Fico d'India product page">
+              <picture>
+                <source type="image/webp" srcset="images/beles-luxury-1254.webp" />
+                <img src="images/beles-luxury-1254.jpg" width="1254" height="1254" loading="lazy" decoding="async" alt="Beles · Fico d'India — prickly pear editorial" />
+              </picture>
+            </a>
+            <div class="journal-entry__body">
+              <p class="journal-entry__cat">Boutique</p>
+              <h2 class="journal-entry__title"><a href="/beles">Beles · Fico d'India</a></h2>
+              <p class="journal-entry__excerpt">The full chapter — composition, oil-rich parfum, the note pyramid, FAQ, and the restock signup.</p>
+              <a class="sx-link" href="/beles">View the chapter <span aria-hidden="true">→</span></a>
+            </div>
+          </article>
         </div>
-      </article>
+
+        <section class="sx-manifesto sx-manifesto--band" aria-label="Closing thought">
+          <p class="sx-manifesto__line">Studio notes for readers who care how a fragrance is <em>built.</em></p>
+          <p class="sx-manifesto__sign">Love this moment.</p>
+        </section>
+      </div>
     </div>
-
-    <div class="journal-grid">
-      <article class="journal-entry" data-reveal="up">
-        <a class="journal-entry__media" href="/journal/beles-batch-bl001" aria-label="Beles batch BL-001 traceability notes">
-          <picture>
-            <source type="image/webp" srcset="images/beles-no-background.webp" />
-            <img src="images/beles-no-background.png" width="1024" height="1536" loading="lazy" decoding="async" alt="Beles · Fico d'India pilot flacon — batch BL-001" />
-          </picture>
-        </a>
-        <p class="journal-entry__cat">Provenance</p>
-        <h2 class="journal-entry__title">Beles batch BL-001</h2>
-        <p class="journal-entry__excerpt">Pilot compounding, supplier lots, IFRA Category 4 review, and the wear sessions tied to the first Beles release window.</p>
-        <a class="sx-link" href="/journal/beles-batch-bl001">Read the article <span aria-hidden="true">→</span></a>
-      </article>
-
-      <article class="journal-entry" data-reveal="up">
-        <a class="journal-entry__media" href="/journal/the-bottle" aria-label="The bottle as architecture">
-          <picture>
-            <source type="image/webp" srcset="images/beles-mood.webp" />
-            <img src="images/beles-mood-1122.jpg" width="1122" height="1402" loading="lazy" decoding="async" alt="The EILLON Beles flacon in sun-warmed mineral light" />
-          </picture>
-        </a>
-        <p class="journal-entry__cat">The Object</p>
-        <h2 class="journal-entry__title">The bottle as architecture</h2>
-        <p class="journal-entry__excerpt">Square matte glass, brushed silver, and the winged leopard — a flacon drawn as a single block.</p>
-        <a class="sx-link" href="/journal/the-bottle">Read the article <span aria-hidden="true">→</span></a>
-      </article>
-
-      <article class="journal-entry" data-reveal="up">
-        <a class="journal-entry__media" href="/beles" aria-label="Beles · Fico d'India product page">
-          <picture>
-            <source type="image/webp" srcset="images/beles-luxury-1254.webp?v=2" />
-            <img src="images/beles-luxury-1254.jpg?v=2" width="1254" height="1254" loading="lazy" decoding="async" alt="Beles · Fico d'India — prickly pear editorial" />
-          </picture>
-        </a>
-        <p class="journal-entry__cat">Boutique</p>
-        <h2 class="journal-entry__title">Beles · Fico d'India</h2>
-        <p class="journal-entry__excerpt">The full chapter — composition, oil-rich parfum, the note pyramid, FAQ, and the restock signup.</p>
-        <a class="sx-link" href="/beles">View the chapter <span aria-hidden="true">→</span></a>
-      </article>
-    </div>
-
-    <section class="sx-manifesto" aria-label="Closing thought">
-      <p class="sx-manifesto__line">Studio notes for readers who care how a fragrance is <em>built.</em></p>
-      <p class="sx-manifesto__sign">Love this moment.</p>
-    </section>
 
     <section class="sx-letter" id="letter">
       <div class="sx-letter__inner">

@@ -48,24 +48,8 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" as="image" href="images/cowboy-cowgirl-1100.webp" type="image/webp" fetchpriority="high" />
-  <link
-    rel="preload"
-    as="style"
-    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400&display=optional"
-  />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400&display=optional"
-    rel="stylesheet"
-    media="print"
-    onload="this.media='all'"
-  />
-  <noscript>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400&display=optional"
-      rel="stylesheet"
-    />
-  </noscript>
+  <link rel="preload" as="image" href="images/cowboy-cowgirl-720.webp" type="image/webp" fetchpriority="high" media="(max-width: 900px)" />
+  <link rel="preload" as="image" href="images/cowboy-cowgirl-1100.webp" type="image/webp" fetchpriority="high" media="(min-width: 901px)" />
 
   <style>
     :root { --bg: #F3EFE6; --ink: #17150F; }
@@ -73,10 +57,21 @@
     .mv-hero { position: relative; min-height: 100svh; background: #060d14; overflow: hidden; }
     .mv-hero__media { position: absolute; inset: 0; }
     .mv-hero__img { width: 100%; height: 100%; object-fit: cover; object-position: 60% center; }
+    .mv-hero__word {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-synthesis: style;
+    }
     .veil { position: fixed; inset: 0; z-index: 9999; pointer-events: none; }
+    @media (max-width: 900px) {
+      .veil { display: none !important; }
+      .mv-hero__word {
+        font-family: Georgia, 'Times New Roman', serif !important;
+        font-variation-settings: normal !important;
+      }
+    }
   </style>
   <link rel="stylesheet" href="styles.min.css?v=162" />
-  <link rel="stylesheet" href="home.min.css?v=50" />
+  <link rel="stylesheet" href="home.min.css?v=51" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -277,8 +272,9 @@
     <section class="mv-hero" id="hero" aria-label="EILLON — Afro-Mediterranean memory perfumery">
       <div class="mv-hero__media">
         <picture>
-          <source type="image/webp" srcset="images/cowboy-cowgirl-1100.webp 1100w, images/cowboy-cowgirl-hi.webp 1672w" sizes="100vw" />
-          <img class="mv-hero__img" src="images/cowboy-cowgirl.jpg?v=1" width="1672" height="941" alt="A couple held close at blue hour beneath a luminous white hat" fetchpriority="high" decoding="async" />
+          <source type="image/webp" media="(max-width: 900px)" srcset="images/cowboy-cowgirl-720.webp" />
+          <source type="image/webp" media="(min-width: 901px)" srcset="images/cowboy-cowgirl-1100.webp" />
+          <img class="mv-hero__img" src="images/cowboy-cowgirl-720.webp" width="720" height="405" alt="A couple held close at blue hour beneath a luminous white hat" fetchpriority="high" decoding="sync" loading="eager" />
         </picture>
         <span class="mv-hero__veil" aria-hidden="true"></span>
       </div>
@@ -341,8 +337,9 @@
       <div class="mv-land__sticky">
         <div class="mv-land__media">
           <picture>
-            <source type="image/webp" srcset="images/road1-1100.webp 1100w, images/road1-hi.webp 1672w" sizes="100vw" />
-            <img src="images/road1.jpg?v=1" width="1672" height="941" loading="lazy" decoding="async" alt="Two figures on a pale winding path through vast, sculpted green forms" />
+            <source type="image/webp" media="(max-width: 900px)" srcset="images/road1-1100.webp" />
+            <source type="image/webp" media="(min-width: 901px)" srcset="images/road1-1100.webp 1100w, images/road1-hi.webp 1672w" sizes="(min-width: 1200px) 1100px, 100vw" />
+            <img src="images/road1-1100.webp" width="1100" height="619" loading="lazy" decoding="async" alt="Two figures on a pale winding path through vast, sculpted green forms" />
           </picture>
           <span class="mv-land__grad" aria-hidden="true"></span>
         </div>
@@ -577,9 +574,22 @@
     </div>
   </footer>
 
-  <script src="/scripts/site-nav.js?v=22" defer></script>
+  <script src="/scripts/site-nav.js?v=23" defer></script>
   <script src="data/products.js?v=14" defer></script>
   <script src="script.min.js?v=87" defer></script>
   <script src="/scripts/home.js?v=4" defer></script>
+  <script>
+    (function () {
+      var href = 'https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Inter:wght@300;400&display=swap';
+      function loadFonts() {
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = href;
+        document.head.appendChild(link);
+      }
+      if ('requestIdleCallback' in window) requestIdleCallback(loadFonts, { timeout: 3500 });
+      else window.addEventListener('load', function () { setTimeout(loadFonts, 800); });
+    })();
+  </script>
 </body>
 </html>

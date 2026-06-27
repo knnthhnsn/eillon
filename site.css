@@ -618,76 +618,8 @@
 }
 
 /* =====================================================
-   JOURNAL — editorial index (image-led, no empty void)
+   JOURNAL — index (see cinematic masthead + water shader feed)
    ===================================================== */
-.editorial-page .journal-page__main { padding-left: var(--pad); padding-right: var(--pad); }
-.journal-masthead {
-  max-width: var(--max); margin: 0 auto;
-  padding: clamp(40px, 6vw, 88px) 0 clamp(36px, 4vw, 56px);
-  border-bottom: 1px solid var(--hair-dark, rgba(23,21,15,.14));
-}
-.journal-masthead__title {
-  margin: 16px 0 18px;
-  font-family: var(--serif); font-weight: 300; font-variation-settings: 'opsz' 144;
-  font-size: clamp(48px, 8vw, 120px); line-height: 0.92; letter-spacing: -0.03em;
-}
-.journal-masthead__lead {
-  margin: 0; max-width: 52ch;
-  font-family: var(--serif); font-style: italic; font-weight: 300;
-  font-size: clamp(17px, 1.5vw, 22px); line-height: 1.55; color: var(--ink-soft);
-}
-.journal-feed {
-  max-width: var(--max); margin: 0 auto;
-  padding: clamp(48px, 6vw, 88px) 0 clamp(24px, 4vw, 48px);
-  display: grid; gap: clamp(40px, 5vw, 80px);
-}
-.journal-entry__media { display: block; position: relative; overflow: hidden; background: var(--bg-soft); }
-.journal-entry__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
-.journal-entry:hover .journal-entry__media img { transform: scale(1.04); }
-.journal-entry__cat {
-  margin: 0 0 14px; font-family: var(--sans); font-size: 11px; font-weight: 500;
-  letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink-faint);
-  display: inline-flex; align-items: center; gap: 12px;
-}
-.journal-entry__cat::before { content: ""; width: 36px; height: 1px; background: var(--gold-dark); opacity: 0.7; }
-.journal-entry__title {
-  margin: 0 0 16px;
-  font-family: var(--serif); font-weight: 300; font-variation-settings: 'opsz' 144;
-  font-size: clamp(28px, 3vw, 46px); line-height: 1.0; letter-spacing: -0.02em;
-}
-.journal-entry__excerpt { margin: 0 0 22px; font-size: clamp(15px,1.05vw,17px); line-height: 1.7; color: var(--ink-soft); max-width: 42ch; }
-
-/* Featured entry — image left, copy right, dark editorial band */
-.journal-entry--feature {
-  display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-  gap: clamp(32px, 5vw, 80px); align-items: center;
-  background: #060d14;
-  color: var(--paper);
-  width: 100vw;
-  max-width: 100vw;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
-  padding: clamp(48px, 6vw, 72px) var(--pad);
-}
-.journal-entry--feature .journal-entry__media { aspect-ratio: 4 / 3; }
-.journal-entry--feature .journal-entry__title { font-size: clamp(34px, 4.4vw, 64px); color: var(--paper); }
-.journal-entry--feature .journal-entry__cat { color: var(--gold-light); }
-.journal-entry--feature .journal-entry__excerpt { color: rgba(248,246,240,0.72); }
-.journal-entry--feature .sx-link { color: rgba(248,246,240,0.82); }
-
-/* Secondary entries — image-top, side by side */
-.journal-grid {
-  max-width: var(--max); margin: 0 auto;
-  padding: 0 0 clamp(40px, 6vw, 80px);
-  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(32px, 4vw, 64px);
-}
-.journal-grid .journal-entry__media { aspect-ratio: 5 / 4; margin-bottom: 26px; }
-
-@media (max-width: 860px) {
-  .journal-entry--feature { grid-template-columns: 1fr; gap: 24px; }
-  .journal-entry--feature .journal-entry__media { aspect-ratio: 16/10; }
-  .journal-grid { grid-template-columns: 1fr; gap: clamp(40px,8vw,56px); }
-}
 
 /* =====================================================
    PRODUCT INTRO — cinematic chapter entry (Beles + chapters)
@@ -1397,10 +1329,15 @@
 .editorial-page .journal-masthead .journal-masthead__title {
   color: var(--paper); margin: 18px 0 0;
 }
-.editorial-page .journal-masthead .journal-masthead__lead { color: rgba(248,246,240,0.78); }
-.editorial-page .journal-feed,
-.editorial-page .journal-grid {
-  padding-left: var(--pad); padding-right: var(--pad);
+.editorial-page .journal-masthead .journal-masthead__lead {
+  margin: 0;
+  max-width: 52ch;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(17px, 1.5vw, 22px);
+  line-height: 1.55;
+  color: rgba(248, 246, 240, 0.78);
 }
 
 /* =====================================================
@@ -2664,6 +2601,228 @@
 }
 
 /* =====================================================
+   JOURNAL — water shader (index feed)
+   ===================================================== */
+.editorial-page .journal-shader-band--index {
+  position: relative;
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  overflow: hidden;
+  isolation: isolate;
+  background-color: #060d18;
+  background-image:
+    radial-gradient(ellipse 110% 88% at 14% 10%, rgba(255, 255, 255, 0.07) 0%, transparent 48%),
+    radial-gradient(ellipse 95% 75% at 86% 88%, rgba(4, 12, 32, 0.65) 0%, transparent 52%),
+    linear-gradient(168deg, #0a1830 0%, #081424 42%, #060d18 68%, #0c1c34 100%);
+  padding: 0;
+  color: rgba(248, 246, 240, 0.94);
+}
+.editorial-page .journal-shader-band--index > *:not(.mv-shader) {
+  position: relative;
+  z-index: 2;
+}
+.editorial-page .journal-shader-band--index .journal-index {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(56px, 8vw, 96px) var(--pad) 0;
+}
+.editorial-page .journal-shader-band--index .journal-index__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px 24px;
+  padding-bottom: clamp(28px, 4vw, 40px);
+  margin-bottom: clamp(40px, 6vw, 64px);
+  border-bottom: 1px solid rgba(248, 246, 240, 0.14);
+}
+.editorial-page .journal-shader-band--index .journal-index__count {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 300;
+  font-variation-settings: 'opsz' 144;
+  font-size: clamp(22px, 2.6vw, 34px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--paper);
+}
+.editorial-page .journal-shader-band--index .journal-index__count-num {
+  font-size: clamp(34px, 4.8vw, 56px);
+  letter-spacing: -0.03em;
+}
+.editorial-page .journal-shader-band--index .journal-index__tag {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(248, 246, 240, 0.48);
+}
+.editorial-page .journal-shader-band--index .journal-feed {
+  margin: 0 0 clamp(56px, 8vw, 96px);
+}
+.editorial-page .journal-shader-band--index .journal-entry__media {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  background: rgba(4, 10, 22, 0.42);
+  border: 1px solid rgba(248, 246, 240, 0.12);
+  box-shadow: 0 28px 72px rgba(0, 0, 0, 0.32);
+}
+.editorial-page .journal-shader-band--index .journal-entry__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.2s var(--ease);
+}
+.editorial-page .journal-shader-band--index .journal-entry:hover .journal-entry__media img {
+  transform: scale(1.04);
+}
+.editorial-page .journal-shader-band--index .journal-entry__cat {
+  margin: 0 0 14px;
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(248, 246, 240, 0.48);
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.editorial-page .journal-shader-band--index .journal-entry__cat::before {
+  content: "";
+  width: 36px;
+  height: 1px;
+  background: rgba(184, 212, 240, 0.55);
+  opacity: 0.85;
+}
+.editorial-page .journal-shader-band--index .journal-entry__title {
+  margin: 0 0 16px;
+  font-family: var(--serif);
+  font-weight: 300;
+  font-variation-settings: 'opsz' 144;
+  font-size: clamp(28px, 3vw, 46px);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  color: var(--paper);
+}
+.editorial-page .journal-shader-band--index .journal-entry__title a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 0;
+  transition: color 0.45s var(--ease);
+}
+.editorial-page .journal-shader-band--index .journal-entry__title a:hover {
+  color: #d8f0ff;
+}
+.editorial-page .journal-shader-band--index .journal-entry__excerpt {
+  margin: 0 0 22px;
+  font-size: clamp(15px, 1.05vw, 17px);
+  line-height: 1.75;
+  color: rgba(248, 246, 240, 0.72);
+  max-width: 42ch;
+}
+.editorial-page .journal-shader-band--index .journal-entry .sx-link {
+  color: rgba(248, 246, 240, 0.88);
+  border-bottom-color: rgba(248, 246, 240, 0.32);
+}
+.editorial-page .journal-shader-band--index .journal-entry .sx-link:hover {
+  color: #d8f0ff;
+  border-bottom-color: rgba(216, 240, 255, 0.45);
+}
+.editorial-page .journal-shader-band--index .journal-entry .sx-link::after {
+  background: currentColor;
+}
+.editorial-page .journal-shader-band--index .journal-entry--feature {
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: center;
+}
+.editorial-page .journal-shader-band--index .journal-entry--feature .journal-entry__media {
+  aspect-ratio: 4 / 5;
+}
+.editorial-page .journal-shader-band--index .journal-entry--feature .journal-entry__title {
+  font-size: clamp(34px, 4.2vw, 58px);
+}
+.editorial-page .journal-shader-band--index .journal-entry--feature .journal-entry__cat {
+  color: rgba(184, 212, 240, 0.72);
+}
+.editorial-page .journal-shader-band--index .journal-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(32px, 4vw, 56px);
+  padding-bottom: clamp(48px, 7vw, 80px);
+  border-top: 1px solid rgba(248, 246, 240, 0.1);
+  padding-top: clamp(48px, 7vw, 80px);
+}
+.editorial-page .journal-shader-band--index .journal-grid .journal-entry__media {
+  aspect-ratio: 4 / 5;
+  margin-bottom: clamp(22px, 3vw, 28px);
+}
+.editorial-page .journal-shader-band--index .journal-entry--boutique .journal-entry__media {
+  aspect-ratio: 1;
+}
+.editorial-page .journal-shader-band--index .sx-manifesto--band {
+  background: transparent;
+  color: rgba(248, 246, 240, 0.9);
+  width: auto;
+  max-width: none;
+  margin: 0 calc(-1 * var(--pad));
+  padding: clamp(80px, 12vw, 170px) var(--pad) clamp(96px, 13vw, 140px);
+  border-top: 1px solid rgba(248, 246, 240, 0.14);
+  text-align: center;
+}
+.editorial-page .journal-shader-band--index .sx-manifesto--band .sx-manifesto__line {
+  color: var(--paper);
+}
+.editorial-page .journal-shader-band--index .sx-manifesto--band .sx-manifesto__line em {
+  color: #b8d4f0;
+  font-style: italic;
+}
+.editorial-page .journal-shader-band--index .sx-manifesto--band .sx-manifesto__sign {
+  color: #b8d4f0;
+}
+@media (max-width: 1024px) {
+  .editorial-page .journal-shader-band--index .journal-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .editorial-page .journal-shader-band--index .journal-entry--boutique {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: clamp(24px, 4vw, 40px);
+    align-items: center;
+  }
+  .editorial-page .journal-shader-band--index .journal-entry--boutique .journal-entry__media {
+    margin-bottom: 0;
+  }
+}
+@media (max-width: 860px) {
+  .editorial-page .journal-shader-band--index .journal-entry--feature {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .editorial-page .journal-shader-band--index .journal-entry--feature .journal-entry__media {
+    aspect-ratio: 16 / 10;
+  }
+  .editorial-page .journal-shader-band--index .journal-grid {
+    grid-template-columns: 1fr;
+    gap: clamp(40px, 8vw, 56px);
+  }
+  .editorial-page .journal-shader-band--index .journal-entry--boutique {
+    grid-template-columns: 1fr;
+  }
+  .editorial-page .journal-shader-band--index .journal-entry--boutique .journal-entry__media {
+    margin-bottom: clamp(22px, 3vw, 28px);
+  }
+}
+
+/* =====================================================
    WEAR PAGE — application band (warm skin shader)
    ===================================================== */
 .editorial-page .wear-shader-band {
@@ -2924,4 +3083,67 @@ footer.editorial-page__footer > *:not(.mv-shader) {
   .mv-shader { display: none; }
 }
 
-/* __END__ */
+/* =====================================================
+   MOBILE — editorial + journal polish (≤720px)
+   ===================================================== */
+@media (max-width: 720px) {
+  .editorial-page .page-hero__title,
+  .editorial-page .journal-masthead .journal-masthead__title {
+    font-size: clamp(42px, 12vw, 72px);
+    line-height: 0.95;
+  }
+  .editorial-page .page-hero__lead,
+  .editorial-page .journal-masthead .journal-masthead__lead {
+    font-size: clamp(16px, 4.2vw, 19px);
+    max-width: none;
+  }
+  .editorial-page .page-hero__inner {
+    padding-bottom: calc(28px + env(safe-area-inset-bottom, 0px));
+  }
+  .editorial-page .journal-shader-band--index .journal-index__bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .editorial-page .journal-shader-band--index .journal-index__count {
+    font-size: clamp(18px, 5vw, 24px);
+  }
+  .editorial-page .journal-shader-band--index .journal-index__count-num {
+    font-size: clamp(28px, 9vw, 40px);
+  }
+  .editorial-page .sx-letter__form {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .editorial-page .sx-letter__form input[type="email"],
+  .editorial-page .sx-letter__form button {
+    width: 100%;
+    min-height: 48px;
+  }
+  .editorial-page .info-page__chapter,
+  .editorial-page .craft-panel,
+  .editorial-page .wear-panel {
+    grid-template-columns: 1fr;
+    gap: clamp(24px, 6vw, 36px);
+  }
+  .editorial-page .article-body,
+  .editorial-page .info-page__body {
+    padding-left: max(var(--pad), env(safe-area-inset-left, 0px));
+    padding-right: max(var(--pad), env(safe-area-inset-right, 0px));
+  }
+  .editorial-page .sx-manifesto__line {
+    max-width: 18ch;
+    font-size: clamp(26px, 7.5vw, 40px);
+  }
+}
+
+@media (max-width: 480px) {
+  .editorial-page .journal-shader-band--index .journal-entry__title {
+    font-size: clamp(24px, 7vw, 32px);
+  }
+  .editorial-page .journal-shader-band--index .journal-entry--feature .journal-entry__title {
+    font-size: clamp(28px, 8vw, 38px);
+  }
+}
+

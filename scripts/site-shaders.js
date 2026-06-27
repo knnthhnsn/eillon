@@ -20,6 +20,7 @@
     { sel: '.about-shader-band--leopard', key: 'leopardWarm', mode: 'leopardTone', prepend: true, blend: 'overlay' },
     { sel: '.craft-shader-band--studio', key: 'productionStill', mode: 'studioSettle', prepend: true, blend: 'overlay' },
     { sel: '.journal-shader-band--article', key: 'journalArchive', mode: 'journalWater', prepend: true, blend: 'screen' },
+    { sel: '.journal-shader-band--index', key: 'journalArchive', mode: 'journalWater', prepend: true, blend: 'screen' },
     { sel: '.wear-shader-band--application', key: 'wearSkin', prepend: true, blend: 'screen' },
     { sel: '.boutique-shader-band--atlas', key: 'boutiqueAtlas', prepend: true, blend: 'overlay' },
     { sel: '.boutique-chapter-band--beles', key: 'belesNotes', prepend: true, blend: 'screen' },
@@ -427,6 +428,7 @@
     ensureObservers();
 
     TARGETS.forEach(function (target) {
+      if (target.sel === '.mv-hero' && mobileMq.matches) return;
       document.querySelectorAll(target.sel).forEach(function (root) {
         if (root.dataset.mvShaderMounted === 'true') return;
 
