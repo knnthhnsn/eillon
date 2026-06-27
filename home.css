@@ -26,32 +26,23 @@
 
 .home { position: relative; }
 
-/* Per-section WebGL shader canvases (injected by home-shaders.js) */
+/* Per-section WebGL shader canvases — background only (name + object) */
 .mv-shader {
   position: absolute !important;
   inset: 0;
   width: 100%;
   height: 100%;
-  z-index: 1 !important;
+  z-index: 0 !important;
   pointer-events: none;
   display: block;
 }
-.mv-shader--blend {
-  z-index: 1 !important;
+.mv-name > *:not(.mv-shader),
+.mv-object > *:not(.mv-shader) {
+  position: relative;
+  z-index: 1;
 }
-.mv-hero__veil,
-.mv-land__grad {
-  z-index: 2;
-}
-.mv-hero,
 .mv-name,
-.mv-house,
-.mv-land__sticky,
-.mv-chapter,
-.mv-atlas,
-.mv-object,
-.mv-ritual,
-.mv-close {
+.mv-object {
   isolation: isolate;
 }
 

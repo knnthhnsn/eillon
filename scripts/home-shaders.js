@@ -9,27 +9,13 @@
   var mobileMq = window.matchMedia('(max-width: 900px)');
 
   var TARGETS = [
-    { sel: '.mv-hero', mount: '.mv-hero__media', before: '.mv-hero__veil', key: 'hero', blend: 'overlay' },
-    { sel: '.mv-name', key: 'name' },
-    { sel: '.mv-house', key: 'house', blend: 'multiply' },
-    { sel: '.mv-land__sticky', mount: '.mv-land__media', before: '.mv-land__grad', key: 'land', blend: 'overlay' },
-    { sel: '.mv-chapter', key: 'chapter' },
-    { sel: '.mv-atlas', key: 'atlas' },
-    { sel: '.mv-object', key: 'object' },
-    { sel: '.mv-ritual', key: 'ritual' },
-    { sel: '.mv-close', key: 'close' },
+    { sel: '.mv-name', key: 'name', prepend: true },
+    { sel: '.mv-object', key: 'object', prepend: true },
   ];
 
   var THEMES = {
-    hero:    { c1: [0.01, 0.04, 0.12], c2: [0.05, 0.28, 0.62], c3: [0.82, 0.48, 0.12], opacity: 0.58, scale: 1.35, speed: 1.75 },
-    name:    { c1: [0.03, 0.02, 0.05], c2: [0.28, 0.07, 0.05], c3: [0.06, 0.14, 0.28], opacity: 0.82, scale: 1.1, speed: 1.1 },
-    house:   { c1: [0.04, 0.01, 0.02], c2: [0.22, 0.04, 0.06], c3: [0.42, 0.10, 0.08], opacity: 0.32, scale: 1.2, speed: 0.95 },
-    land:    { c1: [0.02, 0.06, 0.04], c2: [0.08, 0.22, 0.12], c3: [0.18, 0.38, 0.22], opacity: 0.38, scale: 1.4, speed: 1.2 },
-    chapter: { c1: [0.88, 0.84, 0.78], c2: [0.94, 0.88, 0.82], c3: [0.68, 0.48, 0.36], opacity: 0.28, scale: 1.05, speed: 0.85 },
-    atlas:   { c1: [0.02, 0.05, 0.09], c2: [0.06, 0.16, 0.28], c3: [0.12, 0.28, 0.42], opacity: 0.75, scale: 1.15, speed: 1.0 },
-    object:  { c1: [0.02, 0.04, 0.07], c2: [0.08, 0.14, 0.20], c3: [0.20, 0.26, 0.30], opacity: 0.55, scale: 1.25, speed: 1.05 },
-    ritual:  { c1: [0.91, 0.88, 0.83], c2: [0.82, 0.72, 0.62], c3: [0.62, 0.44, 0.32], opacity: 0.24, scale: 1.0, speed: 0.8 },
-    close:   { c1: [0.90, 0.87, 0.82], c2: [0.82, 0.74, 0.64], c3: [0.62, 0.46, 0.34], opacity: 0.22, scale: 1.0, speed: 0.75 },
+    name:   { c1: [0.03, 0.02, 0.05], c2: [0.28, 0.07, 0.05], c3: [0.06, 0.14, 0.28], opacity: 0.82, scale: 1.1, speed: 1.1 },
+    object: { c1: [0.02, 0.04, 0.07], c2: [0.08, 0.14, 0.20], c3: [0.20, 0.26, 0.30], opacity: 0.55, scale: 1.25, speed: 1.05 },
   };
 
   var VERT = [
@@ -137,12 +123,13 @@
     this.mount = mount;
 
     this.canvas = document.createElement('canvas');
-    this.canvas.className = 'mv-shader' + (config.blend ? ' mv-shader--blend' : '');
+    this.canvas.className = 'mv-shader';
     this.canvas.setAttribute('aria-hidden', 'true');
     this.canvas.style.opacity = String(theme.opacity);
-    if (config.blend) this.canvas.style.mixBlendMode = config.blend;
 
-    if (config.before) {
+    if (config.prepend) {
+      mount.insertBefore(this.canvas, mount.firstChild);
+    } else if (config.before) {
       var beforeEl = mount.querySelector(config.before);
       if (beforeEl) mount.insertBefore(this.canvas, beforeEl);
       else mount.appendChild(this.canvas);
