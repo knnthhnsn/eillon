@@ -803,8 +803,7 @@ body[data-nav-home="true"] .nav__waitlist {
   padding: clamp(8px, 1.2vw, 16px) 0;
 }
 .mv-house__laws li {
-  display: grid;
-  grid-template-columns: auto 1fr;
+  display: flex;
   gap: 16px;
   align-items: baseline;
   white-space: nowrap;

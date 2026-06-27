@@ -27,11 +27,20 @@
     }
   }
 
+  function triggerStart(el) {
+    return function () {
+      var node = el.parentElement && el.parentElement.classList.contains('pin-spacer')
+        ? el.parentElement
+        : el;
+      return node.offsetTop + ' top';
+    };
+  }
+
   function pinStage(section, stage, end, onUpdate, options) {
     var opts = options || {};
     return ScrollTrigger.create({
       trigger: section,
-      start: 'top top',
+      start: triggerStart(section),
       end: end,
       pin: stage,
       pinType: 'fixed',
@@ -152,7 +161,7 @@
     var tl = gsap.timeline({
       scrollTrigger: {
         trigger: house,
-        start: 'top top',
+        start: triggerStart(house),
         end: function () {
           return '+=' + Math.round(window.innerHeight * (mobile ? 1.25 : 1.9));
         },
@@ -227,11 +236,18 @@
 
   function build(mobile) {
     enableNormalizeScroll();
-    var triggers = [
-      initIntro(mobile),
-      initHouse(mobile),
-      initLand(mobile)
-    ].filter(Boolean);
+    var triggers = [];
+    var introSt = initIntro(mobile);
+    if (introSt) triggers.push(introSt);
+    ScrollTrigger.refresh();
+
+    var houseSt = initHouse(mobile);
+    if (houseSt) triggers.push(houseSt);
+    ScrollTrigger.refresh();
+
+    var landSt = initLand(mobile);
+    if (landSt) triggers.push(landSt);
+
     ScrollTrigger.sort();
     ScrollTrigger.refresh();
     return triggers;
