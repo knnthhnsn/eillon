@@ -27,32 +27,18 @@
     }
   }
 
-  function triggerStart(el) {
+  function refreshPins() {
+    ScrollTrigger.sort();
+    ScrollTrigger.refresh();
+  }
+
+  function sectionScrollTop(el) {
     return function () {
       var node = el.parentElement && el.parentElement.classList.contains('pin-spacer')
         ? el.parentElement
         : el;
-      return node.offsetTop + ' top';
+      return Math.round(node.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop));
     };
-  }
-
-  function pinStage(section, stage, end, onUpdate, options) {
-    var opts = options || {};
-    return ScrollTrigger.create({
-      trigger: section,
-      start: triggerStart(section),
-      end: end,
-      pin: stage,
-      pinType: 'fixed',
-      pinSpacing: true,
-      anticipatePin: opts.anticipatePin != null ? opts.anticipatePin : 1,
-      fastScrollEnd: true,
-      refreshPriority: opts.refreshPriority != null ? opts.refreshPriority : 2,
-      pinReparent: !!opts.pinReparent,
-      scrub: opts.scrub != null ? opts.scrub : true,
-      invalidateOnRefresh: true,
-      onUpdate: onUpdate
-    });
   }
 
   function initIntro(mobile) {
@@ -88,24 +74,7 @@
     if (nameMeta) gsap.set(nameMeta, { opacity: 0, y: mobile ? 14 : 18 });
     if (nameSub) gsap.set(nameSub, { opacity: 0, y: mobile ? 12 : 16 });
 
-    var tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: intro,
-        start: 'top top',
-        end: function () {
-          return '+=' + Math.round(window.innerHeight * (mobile ? 2.05 : 2.35));
-        },
-        pin: pin,
-        pinType: 'fixed',
-        pinSpacing: true,
-        pinReparent: false,
-        scrub: mobile ? true : 0.5,
-        anticipatePin: mobile ? 0 : 1,
-        fastScrollEnd: true,
-        refreshPriority: 0,
-        invalidateOnRefresh: true
-      }
-    });
+    var tl = gsap.timeline({ paused: true });
 
     tl.to(kicker, { opacity: 0, y: -16, duration: 0.1, ease: 'none' }, 0.04)
       .to(scrollHint, { opacity: 0, duration: 0.08, ease: 'none' }, 0.05)
@@ -116,7 +85,22 @@
     if (nameMeta) tl.to(nameMeta, { opacity: 1, y: 0, duration: 0.1, ease: 'none' }, 0.58);
     if (nameSub) tl.to(nameSub, { opacity: 1, y: 0, duration: 0.1, ease: 'none' }, 0.66);
 
-    return tl.scrollTrigger;
+    return ScrollTrigger.create({
+      id: 'mv-intro',
+      trigger: intro,
+      start: 'top top',
+      end: '+=' + Math.round(window.innerHeight * (mobile ? 2.05 : 2.35)),
+      pin: pin,
+      pinType: 'fixed',
+      pinSpacing: true,
+      pinReparent: false,
+      animation: tl,
+      scrub: mobile ? true : 0.5,
+      anticipatePin: mobile ? 0 : 1,
+      fastScrollEnd: true,
+      refreshPriority: 0,
+      invalidateOnRefresh: true
+    });
   }
 
   function initHouse(mobile) {
@@ -150,28 +134,9 @@
     gsap.set(lede, { opacity: 0, y: mobile ? 16 : 28 });
     gsap.set(laws, { opacity: 0, x: mobile ? 16 : 28 });
 
-    var tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: house,
-        start: triggerStart(house),
-        end: function () {
-          return '+=' + Math.round(window.innerHeight * (mobile ? 1.25 : 1.9));
-        },
-        pin: house,
-        pinType: 'fixed',
-        pinSpacing: true,
-        pinReparent: false,
-        scrub: mobile ? true : 0.65,
-        anticipatePin: mobile ? 0 : 1,
-        fastScrollEnd: true,
-        refreshPriority: 1,
-        invalidateOnRefresh: true,
-        onLeave: revealAll,
-        onLeaveBack: function () {
-          gsap.set(grid, { y: 0 });
-        }
-      }
-    });
+    var houseStart = sectionScrollTop(house)();
+    var houseScroll = Math.round(window.innerHeight * (mobile ? 1.25 : 1.9));
+    var tl = gsap.timeline({ paused: true });
 
     tl.to(house, { '--house-p': 1, duration: 1, ease: 'none' }, 0);
 
@@ -189,7 +154,26 @@
         .to(grid, { y: function () { return -houseShift(); }, duration: 0.22, ease: 'none' }, 0.72);
     }
 
-    return tl.scrollTrigger;
+    return ScrollTrigger.create({
+      id: 'mv-house',
+      trigger: house,
+      start: houseStart,
+      end: houseStart + houseScroll,
+      pin: house,
+      pinType: 'fixed',
+      pinSpacing: true,
+      pinReparent: false,
+      animation: tl,
+      scrub: mobile ? true : 0.65,
+      anticipatePin: mobile ? 0 : 1,
+      fastScrollEnd: true,
+      refreshPriority: 1,
+      invalidateOnRefresh: true,
+      onLeave: revealAll,
+      onLeaveBack: function () {
+        gsap.set(grid, { y: 0 });
+      }
+    });
   }
 
   function initLand(mobile) {
@@ -213,36 +197,79 @@
       setPhase(p >= 0.62 ? 2 : (p >= 0.32 ? 1 : 0));
     }
 
-    var st = pinStage(land, sticky, 'bottom bottom', function (self) {
-      applyProgress(self.progress);
-    }, {
-      refreshPriority: 2,
+    var landStart = sectionScrollTop(land)();
+    var landScroll = Math.max(land.offsetHeight - window.innerHeight, 0);
+
+    var st = ScrollTrigger.create({
+      id: 'mv-land',
+      trigger: land,
+      start: landStart,
+      end: landStart + landScroll,
+      pin: sticky,
+      pinType: 'fixed',
+      pinSpacing: true,
       anticipatePin: mobile ? 0 : 1,
+      fastScrollEnd: true,
+      refreshPriority: 2,
       pinReparent: false,
-      scrub: mobile ? true : true
+      scrub: true,
+      invalidateOnRefresh: true,
+      onUpdate: function (self) {
+        applyProgress(self.progress);
+      }
     });
 
     applyProgress(st.progress);
     return st;
   }
 
-  function build(mobile) {
-    enableNormalizeScroll();
-    var triggers = [];
+  function runPinSetup(mobile) {
     var introSt = initIntro(mobile);
-    if (introSt) triggers.push(introSt);
     ScrollTrigger.refresh();
 
     var houseSt = initHouse(mobile);
-    if (houseSt) triggers.push(houseSt);
     ScrollTrigger.refresh();
 
     var landSt = initLand(mobile);
-    if (landSt) triggers.push(landSt);
+    refreshPins();
 
-    ScrollTrigger.sort();
-    ScrollTrigger.refresh();
-    return triggers;
+    return [introSt, houseSt, landSt].filter(Boolean);
+  }
+
+  function pinsNeedReconcile() {
+    var house = document.querySelector('.mv-house');
+    var land = document.querySelector('.mv-land');
+    if (!house || !land) return false;
+
+    var houseSt = ScrollTrigger.getById('mv-house');
+    var landSt = ScrollTrigger.getById('mv-land');
+    var introSt = ScrollTrigger.getById('mv-intro');
+    if (!houseSt || !landSt || !introSt) return false;
+
+    var houseTop = sectionScrollTop(house)();
+    var landTop = sectionScrollTop(land)();
+    return Math.abs(houseSt.start - houseTop) > 32
+      || Math.abs(landSt.start - landTop) > 32;
+  }
+
+  function build(mobile, state) {
+    enableNormalizeScroll();
+    state.triggers = runPinSetup(mobile);
+
+    if (pinsNeedReconcile()) {
+      teardown(state.triggers);
+      ScrollTrigger.refresh();
+      state.triggers = runPinSetup(mobile);
+    }
+
+    requestAnimationFrame(function () {
+      if (!pinsNeedReconcile()) return;
+      teardown(state.triggers);
+      ScrollTrigger.refresh();
+      state.triggers = runPinSetup(mobile);
+    });
+
+    return state.triggers;
   }
 
   function teardown(triggers) {
@@ -302,23 +329,28 @@
   }
 
   ctx = gsap.context(function () {
-    var active = [];
+    var state = { triggers: [] };
     var mm = gsap.matchMedia();
 
     mm.add('(max-width: 900px)', function () {
-      active = build(true);
-      return function () { teardown(active); active = []; };
+      build(true, state);
+      return function () { teardown(state.triggers); state.triggers = []; };
     });
 
     mm.add('(min-width: 901px)', function () {
-      active = build(false);
-      return function () { teardown(active); active = []; };
+      build(false, state);
+      return function () { teardown(state.triggers); state.triggers = []; };
     });
   });
 
-  window.addEventListener('load', function () {
-    ScrollTrigger.refresh();
-  });
+  function refreshAfterLayout() {
+    refreshPins();
+  }
+
+  window.addEventListener('load', refreshAfterLayout);
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(refreshAfterLayout);
+  }
 
   if (reduceMq.addEventListener) {
     reduceMq.addEventListener('change', function () {
