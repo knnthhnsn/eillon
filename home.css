@@ -430,6 +430,57 @@ body[data-nav-home="true"] .nav__waitlist {
 @keyframes mvScroll { 0%{transform:scaleY(0);transform-origin:top} 40%{transform:scaleY(1);transform-origin:top} 60%{transform:scaleY(1);transform-origin:bottom} 100%{transform:scaleY(0);transform-origin:bottom} }
 
 /* =====================================================
+   INTRO — hero slides sideways into the name section
+   ===================================================== */
+.mv-intro {
+  position: relative;
+}
+.mv-intro__pin,
+.mv-intro__track {
+  position: relative;
+}
+.mv-intro.mv-intro--pin-js .mv-intro__pin {
+  height: 100svh;
+  overflow: hidden;
+}
+.mv-intro.mv-intro--pin-js .mv-intro__track {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 200vw;
+  height: 100svh;
+  will-change: transform;
+}
+.mv-intro.mv-intro--pin-js .mv-hero,
+.mv-intro.mv-intro--pin-js .mv-name {
+  flex: 0 0 100vw;
+  width: 100vw;
+  height: 100svh;
+  min-height: 100svh;
+  box-sizing: border-box;
+}
+.mv-intro.mv-intro--pin-js .mv-hero {
+  min-height: 100svh;
+}
+.mv-intro.mv-intro--pin-js .mv-hero__stage {
+  height: 100%;
+  min-height: 100%;
+}
+.mv-intro.mv-intro--pin-js .mv-name {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-top: 0;
+  padding: clamp(64px, 11vw, 140px) clamp(20px, 5vw, 96px);
+  overflow: hidden;
+}
+.mv-intro.mv-intro--pin-js .mv-name__meta {
+  margin-bottom: clamp(18px, 3vw, 36px);
+}
+.mv-intro.mv-intro--pin-js .mv-name__sub {
+  margin-top: clamp(20px, 3vw, 40px);
+}
+
+/* =====================================================
    MOVEMENT 02 — THE NAME (image inside the letterforms)
    ===================================================== */
 .mv-name {
@@ -1366,6 +1417,12 @@ body[data-nav-home="true"] .footer__legal a:hover { color: #fff; }
 
   /* M02 name */
   .mv-name { padding: clamp(64px,16vw,96px) var(--pad); }
+  .mv-intro.mv-intro--pin-js .mv-name {
+    padding:
+      calc(64px + env(safe-area-inset-top, 0px))
+      var(--pad)
+      calc(32px + env(safe-area-inset-bottom, 0px));
+  }
   .mv-name__carousel { margin: 0 calc(-1 * var(--pad)); }
   .mv-name__word { font-size: clamp(48px, 18vw, 110px); }
   .mv-name__logo { --logo-mark: clamp(45px, 12vw, 78px); }

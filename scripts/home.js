@@ -46,11 +46,14 @@
     });
   }
 
-  function initHero(mobile) {
-    var hero = document.querySelector('.mv-hero');
-    var stage = hero && hero.querySelector('.mv-hero__stage');
-    if (!hero || !stage) return null;
+  function initIntro(mobile) {
+    var intro = document.querySelector('.mv-intro');
+    var pin = intro && intro.querySelector('.mv-intro__pin');
+    var track = intro && intro.querySelector('.mv-intro__track');
+    var hero = intro && intro.querySelector('.mv-hero');
+    if (!intro || !pin || !track || !hero) return null;
 
+    intro.classList.add('mv-intro--pin-js');
     hero.classList.add('mv-hero--pin-js');
 
     var kicker = hero.querySelector('.mv-hero__kicker');
@@ -58,7 +61,9 @@
     var tag = hero.querySelector('.mv-hero__tag');
     var cta = hero.querySelector('.mv-hero__cta');
     var scrollHint = hero.querySelector('.mv-hero__scroll');
-    var end = mobile ? '+=115%' : '+=130%';
+    var nameMeta = intro.querySelector('.mv-name__meta');
+    var nameSub = intro.querySelector('.mv-name__sub');
+    var slideX = function () { return -window.innerWidth; };
 
     gsap.set(hero, {
       '--hero-scale': 1,
@@ -68,19 +73,25 @@
       '--hero-origin-y': mobile ? '28%' : '50%',
       '--hero-veil': 1
     });
+    gsap.set(track, { x: 0 });
     gsap.set([tag, cta], { opacity: 0, y: mobile ? 16 : 22 });
     gsap.set(scrollHint, { opacity: 1 });
+    if (nameMeta) gsap.set(nameMeta, { opacity: 0, y: mobile ? 14 : 18 });
+    if (nameSub) gsap.set(nameSub, { opacity: 0, y: mobile ? 12 : 16 });
 
     var tl = gsap.timeline({
       scrollTrigger: {
-        trigger: hero,
+        trigger: intro,
         start: 'top top',
-        end: end,
-        pin: stage,
+        end: function () {
+          return '+=' + Math.round(window.innerHeight * (mobile ? 2.05 : 2.35));
+        },
+        pin: pin,
         pinType: 'fixed',
         pinSpacing: true,
-        scrub: mobile ? 0.45 : 0.55,
-        anticipatePin: 1,
+        pinReparent: mobile,
+        scrub: mobile ? true : 0.5,
+        anticipatePin: mobile ? 0 : 1,
         fastScrollEnd: true,
         refreshPriority: 0,
         invalidateOnRefresh: true
@@ -92,14 +103,17 @@
       '--hero-focus-x': mobile ? '50%' : '56%',
       '--hero-focus-y': mobile ? '24%' : '46%',
       '--hero-veil': mobile ? 0.82 : 0.88,
-      duration: 1,
+      duration: 0.42,
       ease: 'none'
     }, 0)
-      .to(kicker, { opacity: 0, y: -16, duration: 0.22, ease: 'none' }, 0.08)
-      .to(scrollHint, { opacity: 0, duration: 0.18, ease: 'none' }, 0.1)
-      .to(word, { y: mobile ? -12 : -18, duration: 0.42, ease: 'none' }, 0.12)
-      .to(tag, { opacity: 1, y: 0, duration: 0.28, ease: 'none' }, 0.38)
-      .to(cta, { opacity: 1, y: 0, duration: 0.28, ease: 'none' }, 0.52);
+      .to(kicker, { opacity: 0, y: -16, duration: 0.1, ease: 'none' }, 0.04)
+      .to(scrollHint, { opacity: 0, duration: 0.08, ease: 'none' }, 0.05)
+      .to(word, { y: mobile ? -12 : -18, duration: 0.16, ease: 'none' }, 0.06)
+      .to(tag, { opacity: 1, y: 0, duration: 0.12, ease: 'none' }, 0.14)
+      .to(cta, { opacity: 1, y: 0, duration: 0.12, ease: 'none' }, 0.2)
+      .to(track, { x: slideX, duration: 0.38, ease: 'none' }, 0.48)
+      .to(nameMeta, { opacity: 1, y: 0, duration: 0.1, ease: 'none' }, 0.58)
+      .to(nameSub, { opacity: 1, y: 0, duration: 0.1, ease: 'none' }, 0.66);
 
     return tl.scrollTrigger;
   }
@@ -203,7 +217,7 @@
   function build(mobile) {
     enableNormalizeScroll();
     var triggers = [
-      initHero(mobile),
+      initIntro(mobile),
       initHouse(mobile),
       initLand(mobile)
     ].filter(Boolean);
@@ -218,6 +232,9 @@
     });
     disableNormalizeScroll();
 
+    document.querySelectorAll('.mv-intro--pin-js').forEach(function (el) {
+      el.classList.remove('mv-intro--pin-js');
+    });
     document.querySelectorAll('.mv-hero--pin-js').forEach(function (el) {
       el.classList.remove('mv-hero--pin-js');
     });
@@ -248,6 +265,16 @@
     if (house) {
       house.style.removeProperty('--house-p');
     }
+
+    var track = document.querySelector('.mv-intro__track');
+    if (track) {
+      gsap.set(track, { clearProps: 'transform' });
+    }
+
+    var nameMeta = document.querySelector('.mv-name__meta');
+    var nameSub = document.querySelector('.mv-name__sub');
+    if (nameMeta) gsap.set(nameMeta, { clearProps: 'opacity,transform' });
+    if (nameSub) gsap.set(nameSub, { clearProps: 'opacity,transform' });
 
     var grid = document.querySelector('.mv-house__grid');
     if (grid) {
