@@ -456,9 +456,10 @@ body[data-nav-home="true"] .nav__waitlist {
   padding-left: clamp(20px, 5vw, 96px);
 }
 .mv-name__segment {
+  --segment-gap: clamp(64px, 10vw, 148px);
   display: inline-flex;
   align-items: center;
-  gap: clamp(64px, 10vw, 148px);
+  gap: var(--segment-gap);
   flex-shrink: 0;
 }
 .mv-name__word {
@@ -488,6 +489,7 @@ body[data-nav-home="true"] .nav__waitlist {
   flex: 0 0 var(--orbit-box);
   width: var(--orbit-box);
   height: var(--orbit-box);
+  margin-right: var(--segment-gap, clamp(64px, 10vw, 148px));
   overflow: visible;
 }
 .mv-name__logo-orbit {
