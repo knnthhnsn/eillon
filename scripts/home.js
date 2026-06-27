@@ -94,13 +94,13 @@
       start: houseStart,
       end: houseStart + houseScroll,
       pin: house,
-      pinType: 'transform',
+      pinType: mobile ? 'transform' : 'fixed',
       pinSpacing: true,
       pinReparent: false,
       animation: tl,
-      scrub: mobile ? true : 0.65,
-      anticipatePin: mobile ? 0 : 1,
-      fastScrollEnd: true,
+      scrub: true,
+      anticipatePin: 0,
+      fastScrollEnd: !mobile,
       refreshPriority: 0,
       invalidateOnRefresh: true,
       onLeave: revealAll,
@@ -112,10 +112,7 @@
 
   function initLand(mobile) {
     var land = document.querySelector('.mv-land');
-    var sticky = land && land.querySelector('.mv-land__sticky');
-    if (!land || !sticky) return null;
-
-    land.classList.add('mv-land--pin-js');
+    if (!land) return null;
 
     var lastPhase = -1;
     function setPhase(phase) {
@@ -125,29 +122,52 @@
     }
 
     function applyProgress(p) {
-      if (!mobile) {
-        land.style.setProperty('--p', p.toFixed(3));
-      }
+      land.style.setProperty('--p', p.toFixed(3));
       setPhase(p >= 0.62 ? 2 : (p >= 0.32 ? 1 : 0));
     }
 
     var landStart = sectionScrollTop(land)();
     var landScroll = landScrollDistance(land);
 
+    if (mobile) {
+      var sticky = land.querySelector('.mv-land__sticky');
+      if (!sticky) return null;
+
+      land.classList.add('mv-land--pin-js');
+
+      var pinned = ScrollTrigger.create({
+        id: 'mv-land',
+        trigger: land,
+        start: landStart,
+        end: landStart + landScroll,
+        pin: sticky,
+        pinType: 'transform',
+        pinSpacing: true,
+        anticipatePin: 0,
+        fastScrollEnd: true,
+        refreshPriority: 1,
+        pinReparent: false,
+        scrub: true,
+        invalidateOnRefresh: true,
+        onUpdate: function (self) {
+          applyProgress(self.progress);
+        }
+      });
+
+      applyProgress(pinned.progress);
+      return pinned;
+    }
+
+    land.classList.add('mv-land--scroll-js');
+
     var st = ScrollTrigger.create({
       id: 'mv-land',
       trigger: land,
       start: landStart,
       end: landStart + landScroll,
-      pin: sticky,
-      pinType: 'transform',
-      pinSpacing: true,
-      anticipatePin: mobile ? 0 : 1,
-      fastScrollEnd: true,
-      refreshPriority: 1,
-      pinReparent: false,
       scrub: true,
       invalidateOnRefresh: true,
+      refreshPriority: 1,
       onUpdate: function (self) {
         applyProgress(self.progress);
       }
@@ -177,6 +197,9 @@
     });
     document.querySelectorAll('.mv-land--pin-js').forEach(function (el) {
       el.classList.remove('mv-land--pin-js');
+    });
+    document.querySelectorAll('.mv-land--scroll-js').forEach(function (el) {
+      el.classList.remove('mv-land--scroll-js');
     });
 
     var land = document.querySelector('.mv-land');

@@ -956,8 +956,21 @@ body[data-nav-home="true"] .nav__waitlist {
 .mv-land[data-phase="1"] .mv-land__laws.is-2   { opacity: 1; transform: none; }
 .mv-land[data-phase="2"] .mv-land__sign.is-3     { opacity: 1; transform: none; }
 
+@media (min-width: 901px) {
+  .mv-land.mv-land--scroll-js .mv-land__title,
+  .mv-land.mv-land--scroll-js .mv-land__laws,
+  .mv-land.mv-land--scroll-js .mv-land__sign {
+    transition: none;
+  }
+}
+
 .mv-land.mv-land--pin-js {
   height: 300vh;
+}
+.mv-land.mv-land--pin-js .mv-land__title,
+.mv-land.mv-land--pin-js .mv-land__laws,
+.mv-land.mv-land--pin-js .mv-land__sign {
+  transition: none;
 }
 .mv-land.mv-land--pin-js .mv-land__sticky {
   position: relative;
