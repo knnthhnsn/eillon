@@ -1,5 +1,5 @@
 /* EILLON homepage — per-section WebGL gradient shaders.
-   Pauses off-screen; disabled under reduced motion and on small screens. */
+   Pauses off-screen; static frame under reduced motion. */
 (function () {
   'use strict';
 
@@ -9,10 +9,10 @@
   var mobileMq = window.matchMedia('(max-width: 900px)');
 
   var TARGETS = [
-    { sel: '.mv-hero', key: 'hero', over: true },
+    { sel: '.mv-hero', mount: '.mv-hero__media', before: '.mv-hero__veil', key: 'hero', blend: 'overlay' },
     { sel: '.mv-name', key: 'name' },
-    { sel: '.mv-house', key: 'house', over: true },
-    { sel: '.mv-land__sticky', key: 'land', over: true },
+    { sel: '.mv-house', key: 'house', blend: 'multiply' },
+    { sel: '.mv-land__sticky', mount: '.mv-land__media', before: '.mv-land__grad', key: 'land', blend: 'overlay' },
     { sel: '.mv-chapter', key: 'chapter' },
     { sel: '.mv-atlas', key: 'atlas' },
     { sel: '.mv-object', key: 'object' },
@@ -21,15 +21,15 @@
   ];
 
   var THEMES = {
-    hero:    { c1: [0.02, 0.04, 0.07], c2: [0.04, 0.12, 0.22], c3: [0.10, 0.24, 0.40], opacity: 0.36, scale: 1.25 },
-    name:    { c1: [0.04, 0.03, 0.05], c2: [0.20, 0.06, 0.05], c3: [0.05, 0.10, 0.18], opacity: 0.68, scale: 1.05 },
-    house:   { c1: [0.05, 0.01, 0.02], c2: [0.16, 0.03, 0.05], c3: [0.28, 0.06, 0.08], opacity: 0.40, scale: 1.15 },
-    land:    { c1: [0.03, 0.06, 0.04], c2: [0.06, 0.13, 0.09], c3: [0.11, 0.20, 0.14], opacity: 0.42, scale: 1.35 },
-    chapter: { c1: [0.90, 0.86, 0.80], c2: [0.96, 0.91, 0.86], c3: [0.76, 0.58, 0.46], opacity: 0.50, scale: 1.0 },
-    atlas:   { c1: [0.02, 0.05, 0.08], c2: [0.05, 0.11, 0.17], c3: [0.08, 0.18, 0.28], opacity: 0.62, scale: 1.2 },
-    object:  { c1: [0.02, 0.04, 0.06], c2: [0.06, 0.10, 0.14], c3: [0.14, 0.18, 0.20], opacity: 0.48, scale: 1.25 },
-    ritual:  { c1: [0.93, 0.90, 0.85], c2: [0.86, 0.78, 0.70], c3: [0.72, 0.54, 0.42], opacity: 0.42, scale: 1.0 },
-    close:   { c1: [0.92, 0.89, 0.84], c2: [0.86, 0.80, 0.72], c3: [0.70, 0.55, 0.42], opacity: 0.38, scale: 1.0 },
+    hero:    { c1: [0.01, 0.04, 0.12], c2: [0.05, 0.28, 0.62], c3: [0.82, 0.48, 0.12], opacity: 0.58, scale: 1.35, speed: 1.75 },
+    name:    { c1: [0.03, 0.02, 0.05], c2: [0.28, 0.07, 0.05], c3: [0.06, 0.14, 0.28], opacity: 0.82, scale: 1.1, speed: 1.1 },
+    house:   { c1: [0.04, 0.01, 0.02], c2: [0.22, 0.04, 0.06], c3: [0.42, 0.10, 0.08], opacity: 0.32, scale: 1.2, speed: 0.95 },
+    land:    { c1: [0.02, 0.06, 0.04], c2: [0.08, 0.22, 0.12], c3: [0.18, 0.38, 0.22], opacity: 0.38, scale: 1.4, speed: 1.2 },
+    chapter: { c1: [0.88, 0.84, 0.78], c2: [0.94, 0.88, 0.82], c3: [0.68, 0.48, 0.36], opacity: 0.28, scale: 1.05, speed: 0.85 },
+    atlas:   { c1: [0.02, 0.05, 0.09], c2: [0.06, 0.16, 0.28], c3: [0.12, 0.28, 0.42], opacity: 0.75, scale: 1.15, speed: 1.0 },
+    object:  { c1: [0.02, 0.04, 0.07], c2: [0.08, 0.14, 0.20], c3: [0.20, 0.26, 0.30], opacity: 0.55, scale: 1.25, speed: 1.05 },
+    ritual:  { c1: [0.91, 0.88, 0.83], c2: [0.82, 0.72, 0.62], c3: [0.62, 0.44, 0.32], opacity: 0.24, scale: 1.0, speed: 0.8 },
+    close:   { c1: [0.90, 0.87, 0.82], c2: [0.82, 0.74, 0.64], c3: [0.62, 0.46, 0.34], opacity: 0.22, scale: 1.0, speed: 0.75 },
   };
 
   var VERT = [
@@ -44,25 +44,27 @@
   var FRAG = [
     'precision mediump float;',
     'uniform float uTime;',
+    'uniform float uSpeed;',
     'uniform vec2 uScale;',
     'uniform vec3 uC1;',
     'uniform vec3 uC2;',
     'uniform vec3 uC3;',
     'varying vec2 vUv;',
     'float wave(vec2 p, float t){',
-    '  return sin(p.x * 2.4 + t) * cos(p.y * 1.7 - t * 0.6)',
-    '       + sin(p.x * 1.2 - t * 0.45 + p.y * 3.0) * 0.55',
-    '       + cos(p.x * 3.8 + p.y * 1.1 + t * 0.25) * 0.25;',
+    '  return sin(p.x * 2.8 + t) * cos(p.y * 2.1 - t * 0.75)',
+    '       + sin(p.x * 1.4 - t * 0.55 + p.y * 3.4) * 0.6',
+    '       + cos(p.x * 4.2 + p.y * 1.3 + t * 0.35) * 0.3;',
     '}',
     'void main(){',
     '  vec2 uv = vUv * uScale;',
-    '  float t = uTime * 0.35;',
-    '  float w1 = wave(uv, t);',
-    '  float w2 = wave(uv * 1.55 + 1.9, t * 0.82 + 1.4);',
-    '  float m = smoothstep(-0.65, 0.85, w1 + w2 * 0.72);',
+    '  float t = uTime * uSpeed;',
+    '  vec2 warp = vec2(wave(uv * 0.9, t * 0.7), wave(uv * 0.9 + 2.4, t * 0.65));',
+    '  float w1 = wave(uv + warp * 0.45, t);',
+    '  float w2 = wave(uv * 1.7 + warp * 0.25 + 1.6, t * 1.08);',
+    '  float m = smoothstep(-0.25, 0.95, w1 + w2 * 0.68);',
     '  vec3 col = mix(uC1, uC2, m);',
-    '  float pulse = sin(t * 0.55 + uv.x * 4.2 + uv.y * 2.8) * 0.5 + 0.5;',
-    '  col = mix(col, uC3, pulse * 0.42);',
+    '  float pulse = sin(t * 1.1 + uv.x * 5.5 + uv.y * 3.8) * 0.5 + 0.5;',
+    '  col = mix(col, uC3, pulse * 0.58);',
     '  gl_FragColor = vec4(col, 1.0);',
     '}',
   ].join('\n');
@@ -108,6 +110,7 @@
       buf: buf,
       aPos: gl.getAttribLocation(prog, 'aPosition'),
       uTime: gl.getUniformLocation(prog, 'uTime'),
+      uSpeed: gl.getUniformLocation(prog, 'uSpeed'),
       uScale: gl.getUniformLocation(prog, 'uScale'),
       uC1: gl.getUniformLocation(prog, 'uC1'),
       uC2: gl.getUniformLocation(prog, 'uC2'),
@@ -115,16 +118,38 @@
     };
   }
 
-  function ShaderLayer(root, theme, over) {
-    this.root = root;
+  function isInView(el) {
+    var rect = el.getBoundingClientRect();
+    return rect.bottom > 0 && rect.top < window.innerHeight;
+  }
+
+  function ShaderLayer(config) {
+    var theme = THEMES[config.key];
+    this.config = config;
+    this.root = document.querySelector(config.sel);
     this.theme = theme;
     this.active = false;
     this.animate = !reduceMq.matches;
+    if (!this.root || !theme) return;
+
+    var mount = config.mount ? this.root.querySelector(config.mount) : this.root;
+    if (!mount) mount = this.root;
+    this.mount = mount;
+
     this.canvas = document.createElement('canvas');
-    this.canvas.className = 'mv-shader' + (over ? ' mv-shader--over' : '');
+    this.canvas.className = 'mv-shader' + (config.blend ? ' mv-shader--blend' : '');
     this.canvas.setAttribute('aria-hidden', 'true');
     this.canvas.style.opacity = String(theme.opacity);
-    root.appendChild(this.canvas);
+    if (config.blend) this.canvas.style.mixBlendMode = config.blend;
+
+    if (config.before) {
+      var beforeEl = mount.querySelector(config.before);
+      if (beforeEl) mount.insertBefore(this.canvas, beforeEl);
+      else mount.appendChild(this.canvas);
+    } else {
+      mount.appendChild(this.canvas);
+    }
+
     this.state = createGL(this.canvas);
     this.resize();
     if (this.state && !this.animate) this.draw(0);
@@ -133,8 +158,8 @@
   ShaderLayer.prototype.resize = function () {
     if (!this.state) return;
     var dpr = mobileMq.matches ? 1 : Math.min(window.devicePixelRatio || 1, 1.75);
-    var w = this.root.clientWidth;
-    var h = this.root.clientHeight;
+    var w = this.mount.clientWidth;
+    var h = this.mount.clientHeight;
     if (w < 2 || h < 2) return;
     this.canvas.width = Math.max(1, Math.floor(w * dpr));
     this.canvas.height = Math.max(1, Math.floor(h * dpr));
@@ -154,6 +179,7 @@
     gl.enableVertexAttribArray(s.aPos);
     gl.vertexAttribPointer(s.aPos, 2, gl.FLOAT, false, 0, 0);
     gl.uniform1f(s.uTime, time * 0.001);
+    gl.uniform1f(s.uSpeed, theme.speed || 1);
     gl.uniform2f(s.uScale, theme.scale, theme.scale);
     gl.uniform3fv(s.uC1, new Float32Array(theme.c1));
     gl.uniform3fv(s.uC2, new Float32Array(theme.c2));
@@ -165,10 +191,8 @@
 
   function boot() {
     TARGETS.forEach(function (target) {
-      var root = document.querySelector(target.sel);
-      var theme = THEMES[target.key];
-      if (!root || !theme) return;
-      layers.push(new ShaderLayer(root, theme, !!target.over));
+      var layer = new ShaderLayer(target);
+      if (layer.root && layer.state) layers.push(layer);
     });
 
     if (!layers.length) return;
@@ -179,11 +203,11 @@
           entry.target.__mvShaderActive = entry.isIntersecting;
         });
       },
-      { root: null, rootMargin: '20% 0px', threshold: 0 },
+      { root: null, rootMargin: '10% 0px', threshold: 0 },
     );
 
     layers.forEach(function (layer) {
-      layer.root.__mvShaderActive = false;
+      layer.root.__mvShaderActive = isInView(layer.root);
       io.observe(layer.root);
     });
 
@@ -199,8 +223,8 @@
 
     function frame(time) {
       layers.forEach(function (layer) {
-        layer.active = !!layer.root.__mvShaderActive;
-        if (!layer.active || !layer.animate) return;
+        if (!layer.animate) return;
+        if (!layer.root.__mvShaderActive) return;
         layer.draw(time);
       });
       window.requestAnimationFrame(frame);

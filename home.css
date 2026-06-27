@@ -32,13 +32,16 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  z-index: 0 !important;
+  z-index: 1 !important;
   pointer-events: none;
   display: block;
 }
-.mv-shader--over {
-  z-index: 2 !important;
-  mix-blend-mode: soft-light;
+.mv-shader--blend {
+  z-index: 1 !important;
+}
+.mv-hero__veil,
+.mv-land__grad {
+  z-index: 2;
 }
 .mv-hero,
 .mv-name,
