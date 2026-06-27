@@ -19,6 +19,7 @@
 .editorial-page {
   position: relative;
   background: var(--bg);
+  overflow-x: clip;
 }
 /* styles.css sets flex:1 on main for sticky-footer — that leaves a cream band
    below full-bleed sections when content is shorter than the viewport */
@@ -3144,6 +3145,37 @@ footer.editorial-page__footer > *:not(.mv-shader) {
   }
   .editorial-page .journal-shader-band--index .journal-entry--feature .journal-entry__title {
     font-size: clamp(28px, 8vw, 38px);
+  }
+}
+
+/* =====================================================
+   MOBILE — prevent horizontal bleed (100vw bands, orbits)
+   ===================================================== */
+@media (max-width: 900px) {
+  .editorial-page .journal-shader-band--index,
+  .editorial-page .journal-shader-band--article,
+  .editorial-page .about-shader-band--leopard,
+  .editorial-page .craft-shader-band--studio,
+  .editorial-page .wear-shader-band,
+  .editorial-page .boutique-shader-band--memory,
+  .editorial-page .boutique-shader-band--atlas,
+  .editorial-page [class*="chapter-shader-band"],
+  .editorial-page [class*="boutique-chapter-band"],
+  .editorial-page .page-hero,
+  .editorial-page .article-hero,
+  .editorial-page .product-intro,
+  .editorial-page .sx-full-bleed,
+  .editorial-page .sx-manifesto,
+  .editorial-page .sx-interlude {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .editorial-page .journal-shader-band--index .sx-manifesto--band {
+    margin-left: 0;
+    margin-right: 0;
   }
 }
 
