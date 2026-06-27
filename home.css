@@ -39,16 +39,21 @@
 .mv-shader--photo {
   z-index: 1 !important;
 }
+.mv-shader--blend {
+  z-index: 0 !important;
+}
 .mv-hero__veil {
   z-index: 2;
 }
 .mv-name > *:not(.mv-shader),
+.mv-house > *:not(.mv-shader),
 .mv-object > *:not(.mv-shader) {
   position: relative;
   z-index: 1;
 }
 .mv-hero,
 .mv-name,
+.mv-house,
 .mv-object {
   isolation: isolate;
 }

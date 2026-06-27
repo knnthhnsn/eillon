@@ -9,14 +9,16 @@
   var mobileMq = window.matchMedia('(max-width: 900px)');
 
   var TARGETS = [
-    { sel: '.mv-hero', mount: '.mv-hero__media', before: '.mv-hero__veil', key: 'hero', blend: 'overlay' },
+    { sel: '.mv-hero', mount: '.mv-hero__media', before: '.mv-hero__veil', key: 'hero', blend: 'overlay', layer: 'photo' },
     { sel: '.mv-name', key: 'name', prepend: true },
+    { sel: '.mv-house', key: 'house', prepend: true, blend: 'overlay', layer: 'bg' },
     { sel: '.mv-object', key: 'object', prepend: true },
   ];
 
   var THEMES = {
     hero:   { c1: [0.01, 0.04, 0.12], c2: [0.05, 0.28, 0.62], c3: [0.82, 0.48, 0.12], opacity: 0.52, scale: 1.35, speed: 1.75 },
     name:   { c1: [0.03, 0.02, 0.05], c2: [0.28, 0.07, 0.05], c3: [0.06, 0.14, 0.28], opacity: 0.82, scale: 1.1, speed: 1.1 },
+    house:  { c1: [0.05, 0.01, 0.02], c2: [0.24, 0.04, 0.06], c3: [0.48, 0.10, 0.08], opacity: 0.36, scale: 1.2, speed: 1.05 },
     object: { c1: [0.02, 0.04, 0.07], c2: [0.08, 0.14, 0.20], c3: [0.20, 0.26, 0.30], opacity: 0.55, scale: 1.25, speed: 1.05 },
   };
 
@@ -125,10 +127,13 @@
     this.mount = mount;
 
     this.canvas = document.createElement('canvas');
-    this.canvas.className = 'mv-shader' + (config.blend ? ' mv-shader--photo' : '');
+    this.canvas.className = 'mv-shader';
+    if (config.blend) {
+      this.canvas.classList.add(config.layer === 'photo' ? 'mv-shader--photo' : 'mv-shader--blend');
+      this.canvas.style.mixBlendMode = config.blend;
+    }
     this.canvas.setAttribute('aria-hidden', 'true');
     this.canvas.style.opacity = String(theme.opacity);
-    if (config.blend) this.canvas.style.mixBlendMode = config.blend;
 
     if (config.prepend) {
       mount.insertBefore(this.canvas, mount.firstChild);
