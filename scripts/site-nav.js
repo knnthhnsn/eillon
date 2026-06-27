@@ -12,7 +12,7 @@
     };
     appendScript('/scripts/analytics.js?v=1');
     var loadShaders = function () {
-    appendScript('/scripts/site-shaders.js?v=51');
+    appendScript('/scripts/site-shaders.js?v=52');
     };
     if (document.readyState === 'complete') {
       if ('requestIdleCallback' in window) {

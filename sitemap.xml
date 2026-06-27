@@ -87,7 +87,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
     <image:image>
-      <image:loc>https://eillon.maison/images/beles-concept-1100.jpg</image:loc>
+      <image:loc>https://eillon.maison/images/beles-concept-1100.webp</image:loc>
       <image:title>The EILLON Beles bottle</image:title>
     </image:image>
   </url>
@@ -113,7 +113,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
     <image:image>
-      <image:loc>https://eillon.maison/images/about-origin.jpg</image:loc>
+      <image:loc>https://eillon.maison/images/about-origin-1400.webp</image:loc>
       <image:title>About EILLON — Copenhagen perfume maison</image:title>
     </image:image>
   </url>

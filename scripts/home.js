@@ -9,19 +9,36 @@
   if (!land) return;
 
   var reduceMq = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var mobileMq = window.matchMedia('(max-width: 900px)');
   var clamp = function (v, a, b) { return Math.min(b, Math.max(a, v)); };
   var ticking = false;
   var bound = false;
+  var lastPhase = -1;
+  var scrollTotal = 0;
+
+  function measure() {
+    scrollTotal = land.offsetHeight - window.innerHeight;
+  }
 
   function update() {
     ticking = false;
+    if (scrollTotal <= 0) {
+      if (lastPhase !== 2) {
+        lastPhase = 2;
+        land.dataset.phase = '2';
+      }
+      return;
+    }
+
     var rect = land.getBoundingClientRect();
-    var total = land.offsetHeight - window.innerHeight;
-    if (total <= 0) { land.dataset.phase = '2'; return; }
-    var p = clamp(-rect.top / total, 0, 1);
-    land.style.setProperty('--p', p.toFixed(3));
+    var p = clamp(-rect.top / scrollTotal, 0, 1);
+    if (!mobileMq.matches) land.style.setProperty('--p', p.toFixed(3));
+
     var phase = p >= 0.62 ? 2 : (p >= 0.32 ? 1 : 0);
-    if (land.dataset.phase !== String(phase)) land.dataset.phase = String(phase);
+    if (phase !== lastPhase) {
+      lastPhase = phase;
+      land.dataset.phase = String(phase);
+    }
   }
 
   function onScroll() {
@@ -31,16 +48,24 @@
   function enable() {
     if (bound) return;
     bound = true;
+    lastPhase = -1;
+    measure();
     window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
+    window.addEventListener('resize', onResize);
     update();
+  }
+
+  function onResize() {
+    measure();
+    onScroll();
   }
 
   function disable() {
     if (!bound) return;
     bound = false;
+    lastPhase = -1;
     window.removeEventListener('scroll', onScroll);
-    window.removeEventListener('resize', onScroll);
+    window.removeEventListener('resize', onResize);
     land.style.removeProperty('--p');
   }
 
@@ -57,8 +82,10 @@
   var changeHandler = function () { evaluate(); };
   if (reduceMq.addEventListener) {
     reduceMq.addEventListener('change', changeHandler);
+    mobileMq.addEventListener('change', changeHandler);
   } else if (reduceMq.addListener) {
     reduceMq.addListener(changeHandler);
+    mobileMq.addListener(changeHandler);
   }
 })();
 

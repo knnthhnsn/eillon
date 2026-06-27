@@ -428,7 +428,7 @@
     ensureObservers();
 
     TARGETS.forEach(function (target) {
-      if (target.sel === '.mv-hero' && mobileMq.matches) return;
+      if ((target.sel === '.mv-hero' || target.sel === '.mv-land') && mobileMq.matches) return;
       document.querySelectorAll(target.sel).forEach(function (root) {
         if (root.dataset.mvShaderMounted === 'true') return;
 
