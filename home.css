@@ -494,7 +494,7 @@ body[data-nav-home="true"] .nav__waitlist {
    ===================================================== */
 .mv-house {
   position: relative;
-  background-color: #120606;
+  background-color: #0c0a08;
   color: var(--paper);
   padding: clamp(96px, 13vw, 200px) clamp(20px, 5vw, 96px);
   overflow: hidden;
@@ -505,12 +505,12 @@ body[data-nav-home="true"] .nav__waitlist {
   inset: 0;
   background:
     radial-gradient(
-      ellipse 22% 30% at 32% 40%,
-      rgba(255, 175, 95, 0.14) 0%,
-      rgba(255, 140, 70, 0.05) 45%,
-      transparent 72%
+      ellipse 34% 40% at 52% 78%,
+      rgba(248, 246, 240, 0.08) 0%,
+      rgba(248, 246, 240, 0.02) 55%,
+      transparent 78%
     ),
-    url("images/black-leopard-red.jpeg") no-repeat center center / cover;
+    url("images/white-stone-stairs.png") no-repeat center center / cover;
   pointer-events: none;
   z-index: 0;
 }
@@ -521,18 +521,18 @@ body[data-nav-home="true"] .nav__waitlist {
   background:
     linear-gradient(
       90deg,
-      rgba(8, 2, 2, 0.62) 0%,
-      rgba(12, 4, 4, 0.42) 26%,
-      rgba(18, 6, 6, 0.12) 42%,
-      transparent 50%
+      rgba(8, 7, 6, 0.78) 0%,
+      rgba(10, 9, 8, 0.52) 26%,
+      rgba(12, 11, 10, 0.16) 42%,
+      transparent 54%
     ),
     linear-gradient(
       270deg,
-      rgba(8, 2, 2, 0.82) 0%,
-      rgba(12, 4, 4, 0.62) 22%,
-      rgba(18, 6, 6, 0.36) 40%,
-      rgba(18, 6, 6, 0.1) 52%,
-      transparent 64%
+      rgba(8, 7, 6, 0.82) 0%,
+      rgba(10, 9, 8, 0.56) 22%,
+      rgba(12, 11, 10, 0.28) 40%,
+      rgba(12, 11, 10, 0.06) 52%,
+      transparent 66%
     );
   pointer-events: none;
   z-index: 1;
@@ -1011,6 +1011,24 @@ body[data-nav-home="true"] .nav__waitlist {
 }
 .mv-ritual__media { position: relative; aspect-ratio: 4 / 5; overflow: hidden; }
 .mv-ritual__media img { width: 100%; height: 100%; object-fit: cover; }
+.mv-ritual__media--duo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(8px, 1vw, 12px);
+  aspect-ratio: auto;
+}
+.mv-ritual__media--duo .mv-ritual__shot {
+  display: block;
+  margin: 0;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+}
+.mv-ritual__media--duo .mv-ritual__shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
 .mv-ritual__head .mv-eyebrow { color: var(--ink-faint); margin-bottom: 18px; display:flex; align-items:center; gap:14px; }
 .mv-ritual__head .mv-eyebrow::before { content:""; width:44px; height:1px; background: var(--gold-dark); opacity:.7; }
 .mv-ritual__title {
@@ -1201,15 +1219,15 @@ body[data-nav-home="true"] .footer__legal a:hover { color: #fff; }
     background:
       linear-gradient(
         180deg,
-        rgba(8, 2, 2, 0.72) 0%,
-        rgba(12, 4, 4, 0.48) 38%,
-        rgba(18, 6, 6, 0.28) 62%,
-        rgba(18, 6, 6, 0.55) 100%
+        rgba(8, 7, 6, 0.74) 0%,
+        rgba(10, 9, 8, 0.46) 38%,
+        rgba(12, 11, 10, 0.22) 62%,
+        rgba(12, 11, 10, 0.5) 100%
       ),
       linear-gradient(
         270deg,
-        rgba(8, 2, 2, 0.65) 0%,
-        rgba(18, 6, 6, 0.2) 35%,
+        rgba(8, 7, 6, 0.64) 0%,
+        rgba(12, 11, 10, 0.16) 35%,
         transparent 55%
       );
   }
@@ -1271,6 +1289,7 @@ body[data-nav-home="true"] .footer__legal a:hover { color: #fff; }
   .mv-ritual { padding: clamp(72px,15vw,110px) var(--pad); }
   .mv-ritual__grid { grid-template-columns: 1fr; gap: clamp(32px,7vw,48px); }
   .mv-ritual__media { max-width: 460px; }
+  .mv-ritual__media--duo { max-width: none; width: 100%; }
   .mv-close { padding: clamp(64px,15vw,110px) var(--pad) clamp(80px,18vw,130px); }
 
   /* footer */
