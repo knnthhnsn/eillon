@@ -176,7 +176,7 @@
   max-width: none;
   width: 100%;
   margin-top: clamp(80px, 12vw, 160px);
-  background: #060d14;
+  background-color: #060d14;
   color: rgba(248, 246, 240, 0.82);
   border-top: 0;
   border-radius: 0;
@@ -322,12 +322,13 @@
 }
 .page-hero__veil {
   position: absolute; inset: 0;
+  z-index: 2;
   background:
     linear-gradient(180deg, rgba(5,12,20,0.62) 0%, rgba(5,12,20,0.12) 40%, rgba(5,12,20,0.78) 100%),
     linear-gradient(90deg, rgba(5,12,20,0.6) 0%, rgba(5,12,20,0) 60%);
 }
 .page-hero__inner {
-  position: relative; z-index: 2;
+  position: relative; z-index: 3;
   width: 100%; max-width: var(--max); margin: 0 auto;
   padding: clamp(40px, 7vh, 96px) var(--pad);
 }
@@ -714,12 +715,13 @@
 .product-intro--ritual .product-intro__media img { object-position: center 45%; }
 .product-intro__veil {
   position: absolute; inset: 0;
+  z-index: 2;
   background:
     linear-gradient(180deg, rgba(5,12,20,0.55) 0%, rgba(5,12,20,0.08) 38%, rgba(5,12,20,0.82) 100%),
     linear-gradient(90deg, rgba(5,12,20,0.65) 0%, rgba(5,12,20,0.05) 55%);
 }
 .product-intro__inner {
-  position: relative; z-index: 2;
+  position: relative; z-index: 3;
   width: 100%; max-width: var(--max); margin: 0 auto;
   padding: clamp(48px, 8vh, 110px) var(--pad);
   display: grid;
@@ -848,9 +850,15 @@
   left: auto;
   right: auto;
   padding: clamp(80px, 12vw, 160px) var(--pad);
-  background: #060d14;
+  background-color: #060d14;
   color: rgba(248,246,240,0.88);
   border: 0;
+  overflow: hidden;
+  isolation: isolate;
+}
+.editorial-page .notes > *:not(.mv-shader) {
+  position: relative;
+  z-index: 2;
 }
 .editorial-page .notes__head {
   max-width: var(--max); margin: 0 auto clamp(56px, 8vw, 100px);
@@ -1772,6 +1780,37 @@
   font-size: 12px;
   line-height: 1.55;
   color: rgba(26, 22, 18, 0.55);
+}
+
+/* =====================================================
+   WEBGL SHADERS — moving gradient overlays (site-wide)
+   ===================================================== */
+.mv-shader {
+  position: absolute !important;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0 !important;
+  pointer-events: none;
+  display: block;
+}
+.mv-shader--photo { z-index: 1 !important; }
+.mv-shader--mid { z-index: 2 !important; }
+
+.footer,
+footer.editorial-page__footer {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.footer > *:not(.mv-shader),
+footer.editorial-page__footer > *:not(.mv-shader) {
+  position: relative;
+  z-index: 2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mv-shader { display: none; }
 }
 
 /* __END__ */

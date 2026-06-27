@@ -11,6 +11,7 @@
       document.head.appendChild(el);
     };
     appendScript('/scripts/analytics.js?v=1');
+    appendScript('/scripts/site-shaders.js?v=12');
     if (!isLocal) {
       appendScript('/_vercel/insights/script.js');
       appendScript('/_vercel/speed-insights/script.js');
@@ -412,9 +413,17 @@
     legacy.outerHTML = editorialFooterHtml;
   };
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', mountEditorialFooter);
-  } else {
+  const finishNav = () => {
     mountEditorialFooter();
+    document.dispatchEvent(new CustomEvent('eillon:nav-ready'));
+    if (typeof window.__EILLON_MOUNT_SHADERS__ === 'function') {
+      window.__EILLON_MOUNT_SHADERS__();
+    }
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', finishNav);
+  } else {
+    finishNav();
   }
 })();
