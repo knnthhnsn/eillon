@@ -71,7 +71,7 @@
     }
   </style>
   <link rel="stylesheet" href="styles.min.css?v=162" />
-  <link rel="stylesheet" href="home.min.css?v=67" />
+  <link rel="stylesheet" href="home.min.css?v=69" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -270,6 +270,7 @@
   <main id="top" class="home">
     <!-- ============ MOVEMENT 01 — THE THRESHOLD ============ -->
     <section class="mv-hero" id="hero" aria-label="EILLON — Afro-Mediterranean memory perfumery">
+      <div class="mv-hero__stage">
       <div class="mv-hero__media">
         <picture>
           <source type="image/webp" media="(max-width: 900px)" srcset="images/cowboy-cowgirl-720.webp" />
@@ -293,6 +294,7 @@
       </div>
 
       <span class="mv-hero__scroll" aria-hidden="true">Scroll</span>
+      </div>
     </section>
 
     <!-- ============ MOVEMENT 02 — THE NAME ============ -->
@@ -301,16 +303,18 @@
       <h2 class="sr-only">EILLON</h2>
       <div class="mv-name__carousel" aria-hidden="true">
         <div class="mv-name__track">
-          <span class="mv-name__segment">
-            <span class="mv-name__word">EILLON</span>
-            <span class="mv-name__logo">
-              <span class="mv-name__logo-orbit">
-                <span class="mv-name__logo-orbit-item"><img src="images/logo.png" width="512" height="512" alt="" decoding="async" /></span>
-                <span class="mv-name__logo-orbit-item"><img src="images/logo.png" width="512" height="512" alt="" decoding="async" /></span>
-                <span class="mv-name__logo-orbit-item"><img src="images/logo.png" width="512" height="512" alt="" decoding="async" /></span>
+          <div class="mv-name__loop">
+            <span class="mv-name__segment">
+              <span class="mv-name__word">EILLON</span>
+              <span class="mv-name__logo">
+                <span class="mv-name__logo-orbit">
+                  <span class="mv-name__logo-orbit-item"><img src="images/logo.png" width="512" height="512" alt="" decoding="async" /></span>
+                  <span class="mv-name__logo-orbit-item"><img src="images/logo.png" width="512" height="512" alt="" decoding="async" /></span>
+                  <span class="mv-name__logo-orbit-item"><img src="images/logo.png" width="512" height="512" alt="" decoding="async" /></span>
+                </span>
               </span>
             </span>
-          </span>
+          </div>
         </div>
       </div>
       <p class="mv-name__sub">A perfume house where Red Sea heat meets Copenhagen precision — <em>memory made physical.</em></p>
@@ -318,18 +322,20 @@
 
     <!-- ============ MOVEMENT 03 — THE HOUSE OF MEMORY ============ -->
     <section class="mv-house" id="maison" aria-label="The house of memory">
+      <div class="mv-house__stage">
       <p class="mv-house__eyebrow mv-eyebrow">The House of Memory</p>
       <div class="mv-house__grid">
-        <h2 class="mv-house__display" data-reveal="words"><span class="mv-house__display-line">A maison</span><span class="mv-house__display-line">composed</span><em>from memory.</em></h2>
-        <div class="mv-house__lede" data-reveal="up">
+        <h2 class="mv-house__display"><span class="mv-house__display-line">A maison</span><span class="mv-house__display-line">composed</span><em>from memory.</em></h2>
+        <div class="mv-house__lede">
           <p>EILLON composes intimate, oil-rich parfums from Afro-Mediterranean memory — Red Sea air, desert fruit, rain on stone, café spices, sacred resins, and warm skin, hand-finished in Copenhagen. Each fragrance is a chapter: Beles begins with prickly pear and cactus water; Asmara follows rain on old city stone; Massawa turns toward the Red Sea coast.</p>
           <p class="mv-house__overview"><button type="button" class="qlink" data-maison-story-open>The maison, in brief <span aria-hidden="true">→</span></button></p>
         </div>
-        <ol class="mv-house__laws" data-reveal="stagger" data-delay="120">
+        <ol class="mv-house__laws">
           <li><span>01</span> Beauty needs <em>shadow.</em></li>
           <li><span>02</span> Time needs <em>room.</em></li>
           <li><span>03</span> Craft needs <em>devotion.</em></li>
         </ol>
+      </div>
       </div>
     </section>
 
@@ -580,7 +586,7 @@
   <script src="script.min.js?v=87" defer></script>
   <script src="/scripts/vendor/gsap.min.js?v=1" defer></script>
   <script src="/scripts/vendor/ScrollTrigger.min.js?v=1" defer></script>
-  <script src="/scripts/home.js?v=12" defer></script>
+  <script src="/scripts/home.js?v=14" defer></script>
   <script>
     (function () {
       var href = 'https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Inter:wght@300;400&display=swap';
