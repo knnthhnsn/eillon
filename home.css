@@ -495,19 +495,31 @@ body[data-nav-home="true"] .nav__waitlist {
   color: var(--gold-light);
 }
 .mv-house__overview .qlink { color: rgba(248, 246, 240, 0.88); }
-.mv-house__laws { grid-area: laws; margin: 0; display: grid; gap: clamp(18px, 2vw, 28px); align-self: end; }
+.mv-house__laws {
+  grid-area: laws;
+  margin: 0;
+  display: grid;
+  gap: clamp(18px, 2vw, 28px);
+  align-self: center;
+  justify-self: end;
+  width: 100%;
+  max-width: 32ch;
+  padding: clamp(8px, 1.2vw, 16px) 0;
+}
 .mv-house__laws li {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 16px;
   align-items: baseline;
+  white-space: nowrap;
   font-family: var(--serif);
   font-weight: 300;
   font-size: clamp(19px, 1.6vw, 25px);
   line-height: 1.2;
   border-top: 1px solid rgba(248, 246, 240, 0.18);
   padding-top: 14px;
-  color: rgba(248, 246, 240, 0.9);
+  color: rgba(248, 246, 240, 0.92);
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.45);
 }
 .mv-house__laws li span {
   font-family: var(--sans);
@@ -1042,9 +1054,10 @@ body[data-nav-home="true"] .footer__legal a:hover { color: #fff; }
   .mv-house__grid {
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
-      "display display"
+      "display laws"
       "lede    laws";
   }
+  .mv-house__laws { max-width: none; justify-self: stretch; }
   .mv-chapter__grid { grid-template-columns: 1fr; gap: clamp(28px,5vw,48px); }
   .mv-chapter__media { position: relative; top: auto; max-width: 520px; }
   .mv-object__stage { grid-template-columns: 1fr; gap: clamp(32px,6vw,56px); }
@@ -1088,19 +1101,33 @@ body[data-nav-home="true"] .footer__legal a:hover { color: #fff; }
   /* M03 house */
   .mv-house { padding: clamp(72px,16vw,110px) var(--pad); }
   .mv-house::after {
-    background: linear-gradient(
-      180deg,
-      rgba(8, 2, 2, 0.72) 0%,
-      rgba(12, 4, 4, 0.52) 38%,
-      rgba(18, 6, 6, 0.28) 62%,
-      rgba(18, 6, 6, 0.1) 100%
-    );
+    background:
+      linear-gradient(
+        180deg,
+        rgba(8, 2, 2, 0.72) 0%,
+        rgba(12, 4, 4, 0.48) 38%,
+        rgba(18, 6, 6, 0.28) 62%,
+        rgba(18, 6, 6, 0.55) 100%
+      ),
+      linear-gradient(
+        270deg,
+        rgba(8, 2, 2, 0.65) 0%,
+        rgba(18, 6, 6, 0.2) 35%,
+        transparent 55%
+      );
   }
   .mv-house__grid {
     grid-template-columns: 1fr;
-    grid-template-areas: "display" "lede" "laws";
+    grid-template-areas: "display" "laws" "lede";
     row-gap: clamp(32px,7vw,52px);
   }
+  .mv-house__laws {
+    align-self: start;
+    justify-self: start;
+    max-width: none;
+    padding: 0;
+  }
+  .mv-house__laws li { white-space: normal; }
   .mv-house__display { font-size: clamp(38px, 11vw, 60px); max-width: none; }
 
   /* M04 landscape — unpinned full-bleed on mobile */
