@@ -26,6 +26,32 @@
 
 .home { position: relative; }
 
+/* Per-section WebGL shader canvases (injected by home-shaders.js) */
+.mv-shader {
+  position: absolute !important;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0 !important;
+  pointer-events: none;
+  display: block;
+}
+.mv-shader--over {
+  z-index: 2 !important;
+  mix-blend-mode: soft-light;
+}
+.mv-hero,
+.mv-name,
+.mv-house,
+.mv-land__sticky,
+.mv-chapter,
+.mv-atlas,
+.mv-object,
+.mv-ritual,
+.mv-close {
+  isolation: isolate;
+}
+
 /* Shared homepage primitives ------------------------------------------- */
 .mv-eyebrow {
   font-family: var(--sans);
@@ -1064,6 +1090,7 @@ body[data-nav-home="true"] .footer__legal a:hover { color: #fff; }
    ===================================================== */
 @media (prefers-reduced-motion: reduce) {
   .grain { display: none; }
+  .mv-shader { display: none; }
   .mv-hero__scroll::after { animation: none; transform: scaleY(1); }
   .mv-name__carousel { display: flex; justify-content: center; }
   .mv-name__track { transform: none !important; padding-left: 0; }
