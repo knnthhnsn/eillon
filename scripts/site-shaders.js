@@ -24,7 +24,7 @@
   var THEMES = {
     hero:     { c1: [0.01, 0.04, 0.12], c2: [0.05, 0.28, 0.62], c3: [0.82, 0.48, 0.12], opacity: 0.52, scale: 1.35, speed: 1.75 },
     name:     { c1: [0.03, 0.02, 0.05], c2: [0.28, 0.07, 0.05], c3: [0.06, 0.14, 0.28], opacity: 0.82, scale: 1.1, speed: 1.1 },
-    house:    { c1: [0.18, 0.04, 0.06], c2: [0.58, 0.14, 0.16], c3: [0.92, 0.52, 0.22], opacity: 0.62, scale: 1.2, speed: 1.35 },
+    house:    { c1: [0.18, 0.04, 0.06], c2: [0.58, 0.14, 0.16], c3: [0.92, 0.52, 0.22], opacity: 1, baseAlpha: 0.38, scale: 1.2, speed: 1.35, spot: [0.33, 0.60, 0.20, 1.0] },
     land:     { c1: [0.04, 0.12, 0.06], c2: [0.20, 0.48, 0.26], c3: [0.82, 0.58, 0.14], opacity: 0.68, scale: 1.35, speed: 1.45 },
     object:   { c1: [0.02, 0.04, 0.07], c2: [0.08, 0.14, 0.20], c3: [0.20, 0.26, 0.30], opacity: 0.55, scale: 1.25, speed: 1.05 },
     pageHero: { c1: [0.01, 0.04, 0.12], c2: [0.06, 0.32, 0.68], c3: [0.86, 0.52, 0.14], opacity: 0.56, scale: 1.35, speed: 1.65 },
@@ -49,6 +49,8 @@
     'uniform vec3 uC1;',
     'uniform vec3 uC2;',
     'uniform vec3 uC3;',
+    'uniform vec4 uSpot;',
+    'uniform float uBaseAlpha;',
     'varying vec2 vUv;',
     'float wave(vec2 p, float t){',
     '  return sin(p.x * 2.8 + t) * cos(p.y * 2.1 - t * 0.75)',
@@ -65,7 +67,16 @@
     '  vec3 col = mix(uC1, uC2, m);',
     '  float pulse = sin(t * 1.1 + uv.x * 5.5 + uv.y * 3.8) * 0.5 + 0.5;',
     '  col = mix(col, uC3, pulse * 0.58);',
-    '  gl_FragColor = vec4(col, 1.0);',
+    '  float alpha = uBaseAlpha;',
+    '  if (uSpot.w > 0.0) {',
+    '    float d = distance(vUv, uSpot.xy);',
+    '    float head = 1.0 - smoothstep(uSpot.z * 0.2, uSpot.z, d);',
+    '    head = clamp(head * uSpot.w, 0.0, 1.0);',
+    '    vec3 fill = mix(vec3(0.62, 0.22, 0.14), vec3(0.96, 0.58, 0.24), pulse);',
+    '    col = mix(col, fill, head * 0.72);',
+    '    alpha = mix(alpha, min(uBaseAlpha + 0.34, 0.82), head);',
+    '  }',
+    '  gl_FragColor = vec4(col, alpha);',
     '}',
   ].join('\n');
 
@@ -122,6 +133,8 @@
       uC1: gl.getUniformLocation(prog, 'uC1'),
       uC2: gl.getUniformLocation(prog, 'uC2'),
       uC3: gl.getUniformLocation(prog, 'uC3'),
+      uSpot: gl.getUniformLocation(prog, 'uSpot'),
+      uBaseAlpha: gl.getUniformLocation(prog, 'uBaseAlpha'),
     };
   }
 
@@ -152,7 +165,7 @@
       this.canvas.style.mixBlendMode = config.blend;
     }
     this.canvas.setAttribute('aria-hidden', 'true');
-    this.canvas.style.opacity = String(theme.opacity);
+    this.canvas.style.opacity = theme.baseAlpha != null ? '1' : String(theme.opacity);
 
     if (config.prepend) {
       mount.insertBefore(this.canvas, mount.firstChild);
@@ -194,6 +207,8 @@
     gl.viewport(0, 0, this.canvas.width, this.canvas.height);
     gl.clearColor(0, 0, 0, 0);
     gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
     gl.useProgram(s.prog);
     gl.bindBuffer(gl.ARRAY_BUFFER, s.buf);
     gl.enableVertexAttribArray(s.aPos);
@@ -204,6 +219,13 @@
     gl.uniform3fv(s.uC1, new Float32Array(theme.c1));
     gl.uniform3fv(s.uC2, new Float32Array(theme.c2));
     gl.uniform3fv(s.uC3, new Float32Array(theme.c3));
+    if (s.uSpot) {
+      var spot = theme.spot || [0, 0, 0, 0];
+      gl.uniform4f(s.uSpot, spot[0], spot[1], spot[2], spot[3] || 0);
+    }
+    if (s.uBaseAlpha) {
+      gl.uniform1f(s.uBaseAlpha, theme.baseAlpha != null ? theme.baseAlpha : (theme.opacity || 1));
+    }
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
   };
 

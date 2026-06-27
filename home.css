@@ -503,7 +503,14 @@ body[data-nav-home="true"] .nav__waitlist {
   content: "";
   position: absolute;
   inset: 0;
-  background: url("images/black-leopard-red.jpeg") no-repeat center center / cover;
+  background:
+    radial-gradient(
+      ellipse 22% 30% at 32% 40%,
+      rgba(255, 175, 95, 0.14) 0%,
+      rgba(255, 140, 70, 0.05) 45%,
+      transparent 72%
+    ),
+    url("images/black-leopard-red.jpeg") no-repeat center center / cover;
   pointer-events: none;
   z-index: 0;
 }
