@@ -32,7 +32,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.min.css?v=162" />
-  <link rel="stylesheet" href="site.min.css?v=29" />
+  <link rel="stylesheet" href="site.min.css?v=34" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -68,7 +68,7 @@
 </head>
 <body class="editorial-page store-page" data-nav-current="boutique">
   <a class="skip-link" href="#top">Skip to content</a>
-  <script src="/scripts/site-nav.js?v=16"></script>
+  <script src="/scripts/site-nav.js?v=18"></script>
 
   <main class="editorial-page__main boutique-page__main" id="top">
     <!-- Masthead -->
@@ -92,14 +92,17 @@
 
     <!-- Editorial chapter index -->
     <section class="boutique-index" id="chapters" aria-label="Fragrance collection">
-      <header class="boutique-index__head" data-reveal="up">
-        <div>
-          <p class="sx-eyebrow">The Collection</p>
-          <h2>An olfactory atlas,<br /><em>composed in chapters.</em></h2>
-        </div>
-        <p class="boutique-index__count">Four chapters · Beles awaiting release · three in development or archive</p>
-      </header>
+      <div class="boutique-shader-band boutique-shader-band--atlas">
+        <header class="boutique-index__head" data-reveal="up">
+          <div>
+            <p class="sx-eyebrow">The Collection</p>
+            <h2>An olfactory atlas,<br /><em>composed in chapters.</em></h2>
+          </div>
+          <p class="boutique-index__count">Four chapters · Beles awaiting release · three in development or archive</p>
+        </header>
+      </div>
 
+      <div class="boutique-chapter-band boutique-chapter-band--beles">
       <article class="chapter-row" data-reveal="up">
         <p class="chapter-row__num">I</p>
         <div class="chapter-row__body">
@@ -115,7 +118,9 @@
           <img src="images/beles-luxury-1254.webp?v=2" width="1254" height="1254" loading="lazy" decoding="async" alt="Beles · Fico d'India — sun-warmed prickly pear" />
         </a>
       </article>
+      </div>
 
+      <div class="boutique-chapter-band boutique-chapter-band--asmara">
       <article class="chapter-row" data-reveal="up">
         <p class="chapter-row__num">II</p>
         <div class="chapter-row__body">
@@ -134,7 +139,9 @@
         </picture>
         </a>
       </article>
+      </div>
 
+      <div class="boutique-chapter-band boutique-chapter-band--massawa">
       <article class="chapter-row" data-reveal="up">
         <p class="chapter-row__num">III</p>
         <div class="chapter-row__body">
@@ -153,7 +160,9 @@
         </picture>
         </a>
       </article>
+      </div>
 
+      <div class="boutique-chapter-band boutique-chapter-band--ritual">
       <article class="chapter-row" data-reveal="up">
         <p class="chapter-row__num">IV</p>
         <div class="chapter-row__body">
@@ -172,6 +181,7 @@
         </picture>
         </a>
       </article>
+      </div>
     </section>
 
     <!-- Availability -->
@@ -198,10 +208,12 @@
       </div>
     </section>
 
-    <section class="sx-manifesto" aria-label="Closing thought">
-      <p class="sx-manifesto__line">Each fragrance begins as a memory of place — composed slowly, hand-finished in <em>Copenhagen.</em></p>
-      <p class="sx-manifesto__sign">Love this moment.</p>
-    </section>
+    <div class="boutique-shader-band boutique-shader-band--memory">
+      <section class="sx-manifesto sx-manifesto--band" aria-label="Closing thought">
+        <p class="sx-manifesto__line">Each fragrance begins as a memory of place — composed slowly, hand-finished in <em>Copenhagen.</em></p>
+        <p class="sx-manifesto__sign">Love this moment.</p>
+      </section>
+    </div>
 
     <!-- The letter -->
     <section class="sx-letter" id="letter">

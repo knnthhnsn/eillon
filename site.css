@@ -367,8 +367,8 @@
   padding: 0;
 }
 .boutique-index {
-  max-width: var(--max); margin: 0 auto;
-  padding: clamp(72px, 10vw, 140px) 0 clamp(40px, 6vw, 80px);
+  max-width: none; margin: 0 auto;
+  padding: 0;
   overflow: visible;
 }
 .boutique-index__head {
@@ -2128,6 +2128,771 @@
   color: var(--gold-light);
   border-bottom-color: currentColor;
 }
+
+/* =====================================================
+   ABOUT — leopard-toned moving shader (Origin → manifesto)
+   ===================================================== */
+.editorial-page .about-shader-band--leopard {
+  position: relative;
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  overflow: hidden;
+  isolation: isolate;
+  background-color: #6b4528;
+  background-image:
+    radial-gradient(ellipse 115% 90% at 12% 0%, rgba(196, 148, 92, 0.72) 0%, transparent 58%),
+    radial-gradient(ellipse 100% 80% at 88% 100%, rgba(36, 20, 12, 0.42) 0%, transparent 62%),
+    linear-gradient(168deg, #b8895a 0%, #946840 36%, #5c381f 64%, #8f6238 100%);
+  padding: 0 var(--pad) clamp(80px, 12vw, 140px);
+  color: rgba(248, 246, 240, 0.9);
+}
+.editorial-page .about-shader-band--leopard > *:not(.mv-shader) {
+  position: relative;
+  z-index: 2;
+}
+.editorial-page .about-shader-band--leopard .info-page__chapters {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(72px, 10vw, 140px) 0 clamp(40px, 6vw, 80px);
+  background: transparent;
+}
+.editorial-page .about-shader-band--leopard .info-page__chapter-figure {
+  background: rgba(8, 6, 4, 0.28);
+  border: 1px solid rgba(248, 246, 240, 0.14);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.32);
+}
+.editorial-page .about-shader-band--leopard .info-page__chapter-copy h2 {
+  color: var(--paper);
+}
+.editorial-page .about-shader-band--leopard .info-page__chapter-copy h2::before {
+  color: rgba(248, 246, 240, 0.5);
+}
+.editorial-page .about-shader-band--leopard .info-page__chapter-copy p,
+.editorial-page .about-shader-band--leopard .info-page__chapter-copy li {
+  color: rgba(248, 246, 240, 0.76);
+}
+.editorial-page .about-shader-band--leopard .info-page__chapter-copy li {
+  border-top-color: rgba(248, 246, 240, 0.14);
+}
+.editorial-page .about-shader-band--leopard .info-page__chapter-copy a {
+  color: #f0d4a0;
+  border-bottom-color: currentColor;
+}
+.editorial-page .about-shader-band--leopard .info-page__chapter-copy > p:first-of-type::first-letter {
+  color: #f0d4a0;
+}
+.editorial-page .about-shader-band--leopard .proof-people {
+  margin-top: clamp(28px, 4vw, 40px);
+  padding: clamp(28px, 4vw, 40px) 0 0;
+  background: none;
+  border: none;
+  border-top: 1px solid rgba(248, 246, 240, 0.14);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(28px, 4vw, 36px);
+  align-items: start;
+}
+@media (min-width: 720px) {
+  .editorial-page .about-shader-band--leopard .proof-people {
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(40px, 6vw, 72px);
+  }
+}
+.editorial-page .about-shader-band--leopard .proof-people li {
+  font-family: inherit;
+  font-style: normal;
+  font-size: inherit;
+  line-height: inherit;
+  padding: 0;
+  border: 0;
+  color: inherit;
+}
+.editorial-page .about-shader-band--leopard .proof-people strong {
+  display: block;
+  font-family: var(--sans);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  line-height: 1.4;
+  color: rgba(248, 246, 240, 0.52);
+  margin: 0 0 12px;
+}
+.editorial-page .about-shader-band--leopard .proof-people span {
+  display: block;
+  font-family: var(--serif);
+  font-size: clamp(15px, 1.05vw, 17px);
+  line-height: 1.75;
+  color: rgba(248, 246, 240, 0.74);
+  max-width: 38ch;
+}
+.editorial-page .about-shader-band--leopard .about-people__note {
+  max-width: none;
+  margin: clamp(36px, 5vw, 52px) 0 0;
+  padding-top: clamp(24px, 3vw, 32px);
+  border-top: 1px solid rgba(248, 246, 240, 0.12);
+  font-family: var(--sans);
+  font-size: 12px;
+  line-height: 1.75;
+  color: rgba(248, 246, 240, 0.5);
+}
+.editorial-page .about-shader-band--leopard .about-people__note a {
+  color: rgba(248, 246, 240, 0.72);
+  border-bottom-color: rgba(248, 246, 240, 0.28);
+}
+.editorial-page .about-shader-band--leopard .about-people__note a:hover {
+  color: #f0d4a0;
+  border-bottom-color: currentColor;
+}
+.editorial-page .about-shader-band--leopard .info-page__body {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(48px, 6vw, 80px) 0 clamp(24px, 4vw, 48px);
+  border-top: 1px solid rgba(248, 246, 240, 0.14);
+  background: transparent;
+}
+.editorial-page .about-shader-band--leopard .info-page__actions-more .sx-link {
+  color: rgba(248, 246, 240, 0.84);
+  font-size: 11px;
+}
+.editorial-page .about-shader-band--leopard .info-page__actions-more .sx-link:hover {
+  color: #f0d4a0;
+}
+.editorial-page .about-shader-band--leopard .sx-btn--ghost {
+  --qfg: var(--paper);
+  color: rgba(248, 246, 240, 0.88);
+  border-color: rgba(248, 246, 240, 0.3);
+}
+.editorial-page .about-shader-band--leopard .sx-btn--ghost:hover {
+  color: #2a1810;
+  border-color: #f0d4a0;
+  background: #f0d4a0;
+}
+.editorial-page .about-shader-band--leopard .sx-manifesto--band {
+  background: transparent;
+  color: rgba(248, 246, 240, 0.9);
+  width: auto;
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(56px, 7vw, 88px) 0 0;
+  border-top: 1px solid rgba(248, 246, 240, 0.14);
+  text-align: center;
+}
+.editorial-page .about-shader-band--leopard .sx-manifesto--band .sx-manifesto__line {
+  color: var(--paper);
+}
+.editorial-page .about-shader-band--leopard .sx-manifesto--band .sx-manifesto__line em {
+  color: #f0d4a0;
+  font-style: italic;
+}
+.editorial-page .about-shader-band--leopard .sx-manifesto--band .sx-manifesto__sign {
+  color: #f0d4a0;
+}
+
+/* =====================================================
+   CRAFTSMANSHIP — studio laminar shader (Studio → manifesto)
+   ===================================================== */
+.editorial-page .craft-shader-band--studio {
+  position: relative;
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  overflow: hidden;
+  isolation: isolate;
+  background-color: #2a3228;
+  background-image:
+    radial-gradient(ellipse 110% 88% at 10% 4%, rgba(118, 138, 102, 0.58) 0%, transparent 56%),
+    radial-gradient(ellipse 98% 78% at 90% 96%, rgba(22, 28, 22, 0.48) 0%, transparent 60%),
+    linear-gradient(170deg, #465240 0%, #384038 38%, #242a22 66%, #3a4636 100%);
+  padding: 0;
+  color: rgba(248, 246, 240, 0.9);
+}
+.editorial-page .craft-shader-band--studio > *:not(.mv-shader) {
+  position: relative;
+  z-index: 2;
+}
+.editorial-page .craft-shader-band--studio .craft-chapters {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(72px, 10vw, 140px) var(--pad) clamp(40px, 6vw, 80px);
+  background: transparent;
+}
+.editorial-page .craft-shader-band--studio .craft-chapters__intro {
+  border-bottom-color: rgba(248, 246, 240, 0.14);
+}
+.editorial-page .craft-shader-band--studio .craft-chapters__intro h2 {
+  color: var(--paper);
+}
+.editorial-page .craft-shader-band--studio .craft-chapters__intro h2 em {
+  color: rgba(248, 246, 240, 0.78);
+  font-style: italic;
+}
+.editorial-page .craft-shader-band--studio .craft-chapters__intro p {
+  color: rgba(248, 246, 240, 0.72);
+}
+.editorial-page .craft-shader-band--studio .sx-eyebrow {
+  color: rgba(248, 246, 240, 0.52);
+}
+.editorial-page .craft-shader-band--studio .proof-layer {
+  margin: 0 calc(-1 * var(--pad));
+  padding: clamp(48px, 8vw, 96px) var(--pad);
+  background: transparent;
+  border-top-color: rgba(248, 246, 240, 0.12);
+  border-bottom-color: rgba(248, 246, 240, 0.12);
+}
+.editorial-page .craft-shader-band--studio .proof-layer__header h2 {
+  color: var(--paper);
+}
+.editorial-page .craft-shader-band--studio .proof-layer__header h2 em {
+  color: rgba(248, 246, 240, 0.78);
+  font-style: italic;
+}
+.editorial-page .craft-shader-band--studio .proof-layer__header p {
+  color: rgba(248, 246, 240, 0.68);
+}
+.editorial-page .craft-shader-band--studio .proof-people {
+  margin-top: clamp(28px, 4vw, 40px);
+  padding: clamp(28px, 4vw, 40px) 0 0;
+  background: none;
+  border: none;
+  border-top: 1px solid rgba(248, 246, 240, 0.14);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(28px, 4vw, 36px);
+  align-items: start;
+}
+@media (min-width: 720px) {
+  .editorial-page .craft-shader-band--studio .proof-people {
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(40px, 6vw, 72px);
+  }
+}
+.editorial-page .craft-shader-band--studio .proof-people li {
+  font-family: inherit;
+  font-style: normal;
+  font-size: inherit;
+  line-height: inherit;
+  padding: 0;
+  border: 0;
+  color: inherit;
+}
+.editorial-page .craft-shader-band--studio .proof-people strong {
+  display: block;
+  font-family: var(--sans);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  line-height: 1.4;
+  color: rgba(248, 246, 240, 0.52);
+  margin: 0 0 12px;
+}
+.editorial-page .craft-shader-band--studio .proof-people span {
+  display: block;
+  font-family: var(--serif);
+  font-size: clamp(15px, 1.05vw, 17px);
+  line-height: 1.75;
+  color: rgba(248, 246, 240, 0.74);
+  max-width: 38ch;
+}
+.editorial-page .craft-shader-band--studio .craft-panel__figure {
+  background: rgba(8, 10, 8, 0.28);
+  border: 1px solid rgba(248, 246, 240, 0.12);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.28);
+}
+.editorial-page .craft-shader-band--studio .craft-panel__copy h2 {
+  color: var(--paper);
+}
+.editorial-page .craft-shader-band--studio .craft-panel__copy p,
+.editorial-page .craft-shader-band--studio .craft-panel__copy li {
+  color: rgba(248, 246, 240, 0.72);
+}
+.editorial-page .craft-shader-band--studio .sx-interlude {
+  background: transparent;
+  color: rgba(248, 246, 240, 0.88);
+  width: auto;
+  max-width: none;
+  margin: 0;
+  margin-left: 0;
+  margin-right: 0;
+  padding: clamp(80px, 10vw, 128px) var(--pad);
+  border-top: 1px solid rgba(248, 246, 240, 0.12);
+}
+.editorial-page .craft-shader-band--studio .sx-interlude__inner {
+  max-width: var(--max);
+  margin: 0 auto;
+}
+.editorial-page .craft-shader-band--studio .sx-interlude h2 {
+  color: var(--paper);
+}
+.editorial-page .craft-shader-band--studio .sx-interlude h2 em {
+  color: rgba(248, 246, 240, 0.78);
+  font-style: italic;
+}
+.editorial-page .craft-shader-band--studio .sx-interlude p,
+.editorial-page .craft-shader-band--studio .sx-interlude li {
+  color: rgba(248, 246, 240, 0.72);
+}
+.editorial-page .craft-shader-band--studio .sx-interlude a {
+  color: #c8d4b8;
+  border-bottom-color: rgba(200, 212, 184, 0.35);
+}
+.editorial-page .craft-shader-band--studio .sx-interlude a:hover {
+  color: #e8ead8;
+}
+.editorial-page .craft-shader-band--studio .info-page__table-wrap {
+  border-color: rgba(248, 246, 240, 0.14);
+}
+.editorial-page .craft-shader-band--studio .info-page__table thead th {
+  color: rgba(248, 246, 240, 0.52);
+  border-bottom-color: rgba(248, 246, 240, 0.14);
+}
+.editorial-page .craft-shader-band--studio .info-page__table th,
+.editorial-page .craft-shader-band--studio .info-page__table td {
+  color: rgba(248, 246, 240, 0.72);
+  border-color: rgba(248, 246, 240, 0.1);
+}
+.editorial-page .craft-shader-band--studio .info-page__table tbody th[scope="row"] {
+  color: rgba(248, 246, 240, 0.84);
+}
+.editorial-page .craft-shader-band--studio .info-page__body.craft-chapters {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(72px, 10vw, 120px) var(--pad) clamp(40px, 6vw, 80px);
+  background: transparent;
+  border-top: 1px solid rgba(248, 246, 240, 0.12);
+}
+.editorial-page .craft-shader-band--studio .sx-interlude + .info-page__body.craft-chapters {
+  padding-top: clamp(80px, 10vw, 128px);
+  border-top: 0;
+}
+.editorial-page .craft-shader-band--studio .info-page__body.craft-chapters + .info-page__body.craft-chapters {
+  border-top: 1px solid rgba(248, 246, 240, 0.12);
+}
+.editorial-page .craft-shader-band--studio .info-page__body.craft-chapters h2 {
+  color: var(--paper);
+  margin-top: clamp(40px, 5vw, 56px);
+}
+.editorial-page .craft-shader-band--studio .info-page__body.craft-chapters h2:first-child {
+  margin-top: 0;
+}
+.editorial-page .craft-shader-band--studio .info-page__body.craft-chapters p,
+.editorial-page .craft-shader-band--studio .info-page__body.craft-chapters li {
+  color: rgba(248, 246, 240, 0.72);
+}
+.editorial-page .craft-shader-band--studio .info-page__body.craft-chapters li strong {
+  color: rgba(248, 246, 240, 0.88);
+}
+.editorial-page .craft-shader-band--studio .info-page__steps li {
+  border-top-color: rgba(248, 246, 240, 0.14);
+  color: rgba(248, 246, 240, 0.72);
+}
+.editorial-page .craft-shader-band--studio .info-page__steps li::before {
+  color: #c8d4b8;
+}
+.editorial-page .craft-shader-band--studio .info-page__steps li strong {
+  color: var(--paper);
+}
+.editorial-page .craft-shader-band--studio .info-page__actions {
+  border-top-color: rgba(248, 246, 240, 0.12);
+}
+.editorial-page .craft-shader-band--studio .info-page__actions-chips {
+  max-width: var(--max);
+  margin: clamp(28px, 4vw, 40px) auto 0;
+  padding: clamp(24px, 3vw, 32px) var(--pad) 0;
+  border-top: 1px solid rgba(248, 246, 240, 0.12);
+}
+.editorial-page .craft-shader-band--studio .info-page__action-chip {
+  background: transparent;
+  border: 1px solid rgba(248, 246, 240, 0.22);
+  color: rgba(248, 246, 240, 0.82);
+}
+.editorial-page .craft-shader-band--studio .info-page__action-chip.sx-link::after {
+  display: none;
+}
+.editorial-page .craft-shader-band--studio .info-page__action-chip:hover {
+  background: rgba(248, 246, 240, 0.06);
+  border-color: rgba(248, 246, 240, 0.4);
+  color: var(--paper);
+}
+.editorial-page .craft-shader-band--studio .sx-btn--ghost {
+  --qfg: var(--paper);
+  color: rgba(248, 246, 240, 0.88);
+  border-color: rgba(248, 246, 240, 0.28);
+}
+.editorial-page .craft-shader-band--studio .sx-btn--ghost:hover {
+  color: #2a3228;
+  border-color: #c8d4b8;
+  background: #c8d4b8;
+}
+.editorial-page .craft-shader-band--studio .sx-manifesto--band {
+  background: transparent;
+  color: rgba(248, 246, 240, 0.9);
+  width: auto;
+  max-width: none;
+  margin: 0;
+  margin-left: 0;
+  margin-right: 0;
+  padding: clamp(80px, 12vw, 170px) var(--pad) clamp(96px, 13vw, 140px);
+  border-top: 1px solid rgba(248, 246, 240, 0.14);
+  text-align: center;
+}
+.editorial-page .craft-shader-band--studio .sx-manifesto--band .sx-manifesto__line {
+  color: var(--paper);
+}
+.editorial-page .craft-shader-band--studio .sx-manifesto--band .sx-manifesto__line em {
+  color: #c8d4b8;
+  font-style: italic;
+}
+.editorial-page .craft-shader-band--studio .sx-manifesto--band .sx-manifesto__sign {
+  color: #c8d4b8;
+}
+
+/* =====================================================
+   JOURNAL — water shader (article body band)
+   ===================================================== */
+.editorial-page .journal-shader-band--article {
+  position: relative;
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  overflow: hidden;
+  isolation: isolate;
+  background-color: #062840;
+  background-image:
+    radial-gradient(ellipse 115% 90% at 12% 8%, rgba(72, 168, 228, 0.45) 0%, transparent 52%),
+    radial-gradient(ellipse 100% 78% at 78% 22%, rgba(140, 210, 255, 0.22) 0%, transparent 48%),
+    radial-gradient(ellipse 88% 70% at 50% 100%, rgba(8, 32, 58, 0.55) 0%, transparent 55%),
+    linear-gradient(168deg, #0a4878 0%, #083858 35%, #062840 62%, #0c5088 100%);
+  padding: 0;
+  color: rgba(248, 246, 240, 0.94);
+}
+.editorial-page .journal-shader-band--article > *:not(.mv-shader) {
+  position: relative;
+  z-index: 2;
+}
+.editorial-page .journal-shader-band--article .article-body {
+  max-width: min(640px, 100%);
+  margin: 0 auto;
+  padding: clamp(56px, 8vw, 100px) var(--pad) clamp(48px, 6vw, 80px);
+  background: transparent;
+}
+.editorial-page .journal-shader-band--article .article-body p {
+  color: rgba(248, 246, 240, 0.74);
+}
+.editorial-page .journal-shader-band--article .article-body p strong {
+  color: rgba(248, 246, 240, 0.9);
+}
+.editorial-page .journal-shader-band--article .article-body h2 {
+  color: var(--paper);
+}
+.editorial-page .journal-shader-band--article .article-body a {
+  color: #d8f0ff;
+  border-bottom-color: rgba(216, 240, 255, 0.35);
+}
+.editorial-page .journal-shader-band--article .article-body a:hover {
+  color: #ffffff;
+}
+.editorial-page .journal-shader-band--article .article-body .sx-link::after {
+  background: currentColor;
+}
+.editorial-page .journal-shader-band--article .info-page__table-wrap {
+  border-color: rgba(248, 246, 240, 0.14);
+  margin: 1.6em 0;
+}
+.editorial-page .journal-shader-band--article .info-page__table thead th {
+  color: rgba(248, 246, 240, 0.82);
+  background: rgba(4, 24, 48, 0.78);
+  border-bottom-color: rgba(216, 240, 255, 0.22);
+}
+.editorial-page .journal-shader-band--article .info-page__table tbody tr:nth-child(even) td,
+.editorial-page .journal-shader-band--article .info-page__table tbody tr:nth-child(even) th[scope="row"] {
+  background: rgba(8, 36, 64, 0.32);
+}
+.editorial-page .journal-shader-band--article .info-page__table th,
+.editorial-page .journal-shader-band--article .info-page__table td {
+  color: rgba(248, 246, 240, 0.72);
+  border-color: rgba(248, 246, 240, 0.1);
+}
+.editorial-page .journal-shader-band--article .info-page__table tbody th[scope="row"] {
+  color: rgba(248, 246, 240, 0.86);
+}
+.editorial-page .journal-shader-band--article .info-page__figure {
+  margin: 0 0 2em;
+  background: rgba(8, 6, 4, 0.24);
+  border: 1px solid rgba(248, 246, 240, 0.12);
+}
+.editorial-page .journal-shader-band--article .info-page__figure--concept img {
+  padding: clamp(20px, 3vw, 48px);
+}
+.editorial-page .journal-shader-band--article .info-page__figure figcaption {
+  color: rgba(248, 246, 240, 0.52);
+  border-top-color: rgba(248, 246, 240, 0.1);
+}
+.editorial-page .journal-shader-band--article .article-page__cta {
+  max-width: min(640px, 100%);
+  margin: 0 auto;
+  padding: clamp(40px, 5vw, 64px) var(--pad) clamp(72px, 10vw, 120px);
+  border-top: 1px solid rgba(248, 246, 240, 0.14);
+  background: transparent;
+  text-align: center;
+}
+.editorial-page .journal-shader-band--article .article-page__cta .eyebrow {
+  color: rgba(248, 246, 240, 0.52);
+}
+.editorial-page .journal-shader-band--article .article-page__cta p {
+  color: rgba(248, 246, 240, 0.68);
+}
+.editorial-page .journal-shader-band--article .article-page__cta .btn--primary {
+  background: rgba(248, 246, 240, 0.92);
+  border-color: rgba(248, 246, 240, 0.92);
+  color: #060d14;
+}
+.editorial-page .journal-shader-band--article .article-page__cta .btn--primary:hover {
+  background: #d8f0ff;
+  border-color: #d8f0ff;
+  color: #062840;
+}
+
+/* =====================================================
+   WEAR PAGE — application band (warm skin shader)
+   ===================================================== */
+.editorial-page .wear-shader-band {
+  position: relative;
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  overflow: hidden;
+  isolation: isolate;
+  background-color: #140a08;
+  color: rgba(248,246,240,0.88);
+  padding: clamp(72px, 10vw, 140px) var(--pad);
+}
+.editorial-page .wear-shader-band > *:not(.mv-shader) {
+  position: relative;
+  z-index: 2;
+}
+.editorial-page .wear-shader-band .wear-panel {
+  max-width: var(--max);
+  margin: 0 auto;
+  margin-bottom: 0;
+}
+.editorial-page .wear-shader-band .wear-panel__figure {
+  background: rgba(248,246,240,0.04);
+  border: 1px solid rgba(248,246,240,0.1);
+}
+.editorial-page .wear-shader-band .sx-eyebrow { color: rgba(248,246,240,0.55); }
+.editorial-page .wear-shader-band .wear-panel__copy h2 { color: var(--paper); }
+.editorial-page .wear-shader-band .wear-panel__copy h2 em {
+  color: rgba(248,246,240,0.78);
+  font-style: italic;
+}
+.editorial-page .wear-shader-band .wear-panel__copy p,
+.editorial-page .wear-shader-band .wear-panel__copy li {
+  color: rgba(248,246,240,0.72);
+}
+.editorial-page .wear-shader-band .info-page__steps li {
+  border-top-color: rgba(248,246,240,0.14);
+}
+.editorial-page .wear-shader-band .info-page__steps li::before { color: var(--gold-light); }
+.editorial-page .wear-shader-band .info-page__steps li strong { color: var(--paper); }
+
+.editorial-page .wear-shader-band .info-page__body.wear-chapters {
+  max-width: var(--max);
+  margin: clamp(64px, 8vw, 100px) auto 0;
+  padding: clamp(48px, 6vw, 72px) 0 0;
+  border-top: 1px solid rgba(248,246,240,0.14);
+  background: transparent;
+}
+.editorial-page .wear-shader-band .info-page__body.wear-chapters h2 {
+  color: var(--paper);
+  margin-top: clamp(40px, 5vw, 56px);
+}
+.editorial-page .wear-shader-band .info-page__body.wear-chapters h2:first-child {
+  margin-top: 0;
+}
+.editorial-page .wear-shader-band .info-page__body.wear-chapters p,
+.editorial-page .wear-shader-band .info-page__body.wear-chapters li {
+  color: rgba(248,246,240,0.72);
+}
+.editorial-page .wear-shader-band .info-page__body.wear-chapters li strong {
+  color: var(--paper);
+}
+.editorial-page .wear-shader-band .info-page__body.wear-chapters ul {
+  margin: 0;
+  padding-left: 1.2em;
+}
+
+/* Explore the object + manifesto (second band) */
+.editorial-page .wear-shader-band .wear-chapters--object {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+.editorial-page .wear-shader-band .bottle-explorer {
+  margin: clamp(28px, 4vw, 40px) auto;
+}
+.editorial-page .wear-shader-band .bottle-explorer__hint {
+  color: rgba(248,246,240,0.5);
+}
+.editorial-page .wear-shader-band .info-page__actions {
+  max-width: none;
+  margin: clamp(32px, 5vw, 48px) 0 0;
+  padding: 0;
+  border-top: 0;
+  justify-content: flex-start;
+}
+.editorial-page .wear-shader-band .info-page__actions-more {
+  margin: 20px 0 0;
+}
+.editorial-page .wear-shader-band .info-page__actions-more .sx-link {
+  color: rgba(248,246,240,0.82);
+  font-size: 11px;
+}
+.editorial-page .wear-shader-band .info-page__actions-more .sx-link:hover {
+  color: var(--gold-light);
+}
+.editorial-page .wear-shader-band .sx-btn--on-dark.sx-btn--ghost {
+  --qfg: var(--paper);
+  color: rgba(248,246,240,0.82);
+  border-color: rgba(248,246,240,0.28);
+}
+.editorial-page .wear-shader-band .sx-btn--on-dark.sx-btn--ghost:hover {
+  color: var(--ink);
+  border-color: var(--paper);
+}
+
+.editorial-page .wear-shader-band .sx-manifesto--band {
+  background: transparent;
+  color: rgba(248,246,240,0.88);
+  width: auto;
+  max-width: none;
+  margin: clamp(64px, 8vw, 100px) 0 0;
+  margin-left: 0;
+  margin-right: 0;
+  padding: clamp(48px, 6vw, 72px) 0 0;
+  border-top: 1px solid rgba(248,246,240,0.14);
+  text-align: center;
+}
+.editorial-page .wear-shader-band .sx-manifesto--band .sx-manifesto__line {
+  color: var(--paper);
+}
+.editorial-page .wear-shader-band .sx-manifesto--band .sx-manifesto__line em {
+  color: rgba(248,246,240,0.78);
+}
+.editorial-page .wear-shader-band .sx-manifesto--band .sx-manifesto__sign {
+  color: var(--gold-light);
+}
+
+/* =====================================================
+   BOUTIQUE — atlas header, chapter rows, memory close
+   ===================================================== */
+.editorial-page .boutique-shader-band,
+.editorial-page .boutique-chapter-band {
+  position: relative;
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  overflow: hidden;
+  isolation: isolate;
+  color: rgba(248,246,240,0.88);
+}
+.editorial-page .boutique-shader-band > *:not(.mv-shader),
+.editorial-page .boutique-chapter-band > *:not(.mv-shader) {
+  position: relative;
+  z-index: 2;
+}
+
+/* The Collection — light parchment atlas (subtle overlay shader) */
+.editorial-page .boutique-shader-band--atlas {
+  background-color: var(--bg);
+  background-image: linear-gradient(
+    180deg,
+    var(--bg) 0%,
+    rgba(235, 228, 216, 0.45) 100%
+  );
+  padding: clamp(72px, 10vw, 140px) var(--pad) clamp(48px, 6vw, 72px);
+  border-bottom: 1px solid var(--hair-dark, rgba(23,21,15,.12));
+  color: var(--ink);
+}
+.editorial-page .boutique-shader-band--atlas .boutique-index__head {
+  max-width: var(--max);
+  margin: 0 auto;
+  margin-bottom: 0;
+}
+.editorial-page .boutique-shader-band--atlas .sx-eyebrow { color: var(--ink-faint); }
+.editorial-page .boutique-shader-band--atlas .boutique-index__head h2 { color: var(--ink); }
+.editorial-page .boutique-shader-band--atlas .boutique-index__head h2 em {
+  color: var(--skin-umber);
+  font-style: italic;
+}
+.editorial-page .boutique-shader-band--atlas .boutique-index__count { color: var(--ink-faint); }
+
+/* Chapter rows — per-chapter tint */
+.editorial-page .boutique-chapter-band {
+  padding: clamp(36px, 5vw, 56px) var(--pad);
+  border-top: 1px solid rgba(248,246,240,0.1);
+}
+.editorial-page .boutique-chapter-band--beles { background-color: #0a1208; }
+.editorial-page .boutique-chapter-band--asmara { background-color: #0e0c0a; }
+.editorial-page .boutique-chapter-band--massawa { background-color: #120a06; }
+.editorial-page .boutique-chapter-band--ritual { background-color: #100808; }
+.editorial-page .boutique-chapter-band .chapter-row {
+  max-width: var(--max);
+  margin: 0 auto;
+  border-top: 0;
+  min-height: clamp(300px, 38vw, 540px);
+}
+.editorial-page .boutique-chapter-band .chapter-row::before { display: none; }
+.editorial-page .boutique-chapter-band .chapter-row:last-child { border-bottom: 0; }
+.editorial-page .boutique-chapter-band .chapter-row__num { color: var(--gold-light); opacity: 0.75; }
+.editorial-page .boutique-chapter-band .chapter-row__name { color: var(--paper); }
+.editorial-page .boutique-chapter-band .chapter-row__name em { color: rgba(248,246,240,0.78); }
+.editorial-page .boutique-chapter-band .chapter-row__meta { color: rgba(248,246,240,0.5); }
+.editorial-page .boutique-chapter-band .chapter-row__desc { color: rgba(248,246,240,0.72); }
+.editorial-page .boutique-chapter-band .chapter-row__status { color: rgba(248,246,240,0.55); }
+.editorial-page .boutique-chapter-band .chapter-row__status::before { background: rgba(248,246,240,0.35); }
+.editorial-page .boutique-chapter-band .chapter-row__status--beles { color: #9fd4a0; }
+.editorial-page .boutique-chapter-band .chapter-row__status--beles::before { background: #9fd4a0; }
+.editorial-page .boutique-chapter-band .chapter-row__actions .sx-link { color: rgba(248,246,240,0.82); }
+.editorial-page .boutique-chapter-band .chapter-row__actions .sx-link:hover { color: var(--gold-light); }
+.editorial-page .boutique-chapter-band .chapter-row__media {
+  border: 1px solid rgba(248,246,240,0.1);
+}
+
+/* Memory close — Copenhagen manifesto */
+.editorial-page .boutique-shader-band--memory {
+  background-color: #100c0a;
+  padding: clamp(80px, 12vw, 170px) var(--pad) clamp(96px, 13vw, 190px);
+}
+.editorial-page .boutique-shader-band--memory .sx-manifesto--band {
+  background: transparent;
+  color: rgba(248,246,240,0.88);
+  width: auto;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  border-top: 0;
+  text-align: center;
+}
+.editorial-page .boutique-shader-band--memory .sx-manifesto__line { color: var(--paper); }
+.editorial-page .boutique-shader-band--memory .sx-manifesto__line em {
+  color: rgba(248,246,240,0.78);
+  font-style: italic;
+}
+.editorial-page .boutique-shader-band--memory .sx-manifesto__sign { color: var(--gold-light); }
 
 /* =====================================================
    WEBGL SHADERS — moving gradient overlays (site-wide)

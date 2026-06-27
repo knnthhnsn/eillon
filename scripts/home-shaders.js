@@ -10,7 +10,7 @@
 
   var TARGETS = [
     { sel: '.mv-hero', mount: '.mv-hero__media', before: '.mv-hero__veil', key: 'hero', blend: 'overlay', layer: 'photo' },
-    { sel: '.mv-name', key: 'name', prepend: true },
+    { sel: '.mv-name', key: 'name', prepend: true, blend: 'screen' },
     { sel: '.mv-house', key: 'house', prepend: true, blend: 'overlay', layer: 'mid' },
     { sel: '.mv-land', mount: '.mv-land__media', before: '.mv-land__grad', key: 'land', blend: 'overlay', layer: 'photo' },
     { sel: '.mv-object', key: 'object', prepend: true },
@@ -19,7 +19,7 @@
 
   var THEMES = {
     hero:   { c1: [0.01, 0.04, 0.12], c2: [0.05, 0.28, 0.62], c3: [0.82, 0.48, 0.12], opacity: 0.52, scale: 1.35, speed: 1.75 },
-    name:   { c1: [0.03, 0.02, 0.05], c2: [0.28, 0.07, 0.05], c3: [0.06, 0.14, 0.28], opacity: 0.82, scale: 1.1, speed: 1.1 },
+    name:   { c1: [0.03, 0.04, 0.06], c2: [0.98, 0.99, 1.0], c3: [0.82, 0.88, 0.96], opacity: 0.70, baseAlpha: 0.48, scale: 1.14, speed: 1.02 },
     house:  { c1: [0.18, 0.04, 0.06], c2: [0.58, 0.14, 0.16], c3: [0.92, 0.52, 0.22], opacity: 0.62, scale: 1.2, speed: 1.35 },
     land:   { c1: [0.04, 0.12, 0.06], c2: [0.20, 0.48, 0.26], c3: [0.82, 0.58, 0.14], opacity: 0.68, scale: 1.35, speed: 1.45 },
     object: { c1: [0.02, 0.04, 0.07], c2: [0.08, 0.14, 0.20], c3: [0.20, 0.26, 0.30], opacity: 0.55, scale: 1.25, speed: 1.05 },

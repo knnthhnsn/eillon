@@ -46,7 +46,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   </noscript>
   <link rel="stylesheet" href="/styles.min.css?v=162" />
-  <link rel="stylesheet" href="/site.min.css?v=29" />
+  <link rel="stylesheet" href="/site.min.css?v=48" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -78,7 +78,7 @@
 </head>
 <body class="editorial-page info-page about-page" data-nav-current="about">
   <a class="skip-link" href="#top">Skip to content</a>
-  <script src="/scripts/site-nav.js?v=16"></script>
+  <script src="/scripts/site-nav.js?v=20"></script>
 
   <main class="editorial-page__main info-page__main about-page__main" id="top">
     <section class="page-hero">
@@ -96,6 +96,7 @@
       </div>
     </section>
 
+    <div class="about-shader-band about-shader-band--leopard">
     <div class="info-page__chapters">
       <article class="info-page__chapter" id="origin" data-reveal="up" data-analytics-section="proof" data-analytics-section-id="about_origin">
         <figure class="info-page__chapter-figure" data-reveal="image">
@@ -144,12 +145,9 @@
         </div>
       </article>
 
-      <article class="info-page__chapter info-page__chapter--reverse" id="people" data-reveal="up" data-analytics-section="proof" data-analytics-section-id="about_people">
+      <article class="info-page__chapter" id="people" data-reveal="up" data-analytics-section="proof" data-analytics-section-id="about_people">
         <figure class="info-page__chapter-figure" data-reveal="image">
-          <picture>
-          <source type="image/webp" srcset="images/about-studio-1400.webp" />
-          <img src="images/about-studio.jpg" width="1400" height="933" loading="lazy" decoding="async" alt="Eillon and Kenneth Hansen at work in the Copenhagen studio" />
-        </picture>
+          <img src="images/back-to-back1.png" width="1400" height="933" loading="lazy" decoding="async" alt="Eillon and Kenneth Hansen — founders of EILLON, photographed back to back" />
         </figure>
         <div class="info-page__chapter-copy">
           <h2>Who composes EILLON</h2>
@@ -164,17 +162,17 @@
             </li>
             <li>
               <strong>Kenneth Hansen</strong>
-              <span>Co-founder · developer of the maison's website, systems, and digital studio.</span>
+              <span>Co-founder · developer and designer of the maison's website, systems, digital and visual studio.</span>
             </li>
           </ul>
-          <p>
+          <p class="about-people__note">
             Appointments and press enquiries: <a href="mailto:care@eillon.maison?subject=Studio%20enquiry">care@eillon.maison</a>.
             Formulation and safety documentation is published on <a href="/craftsmanship">craftsmanship</a>.
           </p>
         </div>
       </article>
 
-      <article class="info-page__chapter" id="studio" data-reveal="up">
+      <article class="info-page__chapter info-page__chapter--reverse" id="studio" data-reveal="up">
         <figure class="info-page__chapter-figure" data-reveal="image">
           <picture>
           <source type="image/webp" srcset="images/about-studio-1400.webp" />
@@ -198,7 +196,7 @@
         </div>
       </article>
 
-      <article class="info-page__chapter info-page__chapter--reverse" id="ethos" data-reveal="up">
+      <article class="info-page__chapter" id="ethos" data-reveal="up">
         <figure class="info-page__chapter-figure info-page__chapter-figure--concept" data-reveal="image">
           <picture>
           <source type="image/webp" srcset="images/beles-concept-1100.webp" />
@@ -227,10 +225,11 @@
       </p>
     </div>
 
-    <section class="sx-manifesto" aria-label="Closing thought">
+    <section class="sx-manifesto sx-manifesto--band" aria-label="Closing thought">
       <p class="sx-manifesto__line">A maison composed from memory — Red Sea heat meets Copenhagen <em>precision.</em></p>
       <p class="sx-manifesto__sign">Love this moment.</p>
     </section>
+    </div>
 
     <section class="sx-letter" id="letter">
       <div class="sx-letter__inner">
