@@ -20,6 +20,12 @@
   position: relative;
   background: var(--bg);
 }
+/* styles.css sets flex:1 on main for sticky-footer — that leaves a cream band
+   below full-bleed sections when content is shorter than the viewport */
+.editorial-page > main {
+  flex: 0 0 auto;
+  width: 100%;
+}
 
 /* Full-bleed breakout from any centered parent — do NOT use left:50% + margin:-50vw */
 .sx-full-bleed {
