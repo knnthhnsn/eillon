@@ -107,15 +107,7 @@
       }
     });
 
-    tl.to(hero, {
-      '--hero-scale': mobile ? 1.07 : 1.1,
-      '--hero-focus-x': mobile ? '50%' : '56%',
-      '--hero-focus-y': mobile ? '24%' : '46%',
-      '--hero-veil': mobile ? 0.82 : 0.88,
-      duration: 0.42,
-      ease: 'none'
-    }, 0)
-      .to(kicker, { opacity: 0, y: -16, duration: 0.1, ease: 'none' }, 0.04)
+    tl.to(kicker, { opacity: 0, y: -16, duration: 0.1, ease: 'none' }, 0.04)
       .to(scrollHint, { opacity: 0, duration: 0.08, ease: 'none' }, 0.05)
       .to(word, { y: mobile ? -12 : -18, duration: 0.16, ease: 'none' }, 0.06)
       .to(tag, { opacity: 1, y: 0, duration: 0.12, ease: 'none' }, 0.14)
