@@ -2568,12 +2568,11 @@
   margin-right: calc(50% - 50vw);
   overflow: hidden;
   isolation: isolate;
-  background-color: #062840;
+  background-color: #060d18;
   background-image:
-    radial-gradient(ellipse 115% 90% at 12% 8%, rgba(72, 168, 228, 0.45) 0%, transparent 52%),
-    radial-gradient(ellipse 100% 78% at 78% 22%, rgba(140, 210, 255, 0.22) 0%, transparent 48%),
-    radial-gradient(ellipse 88% 70% at 50% 100%, rgba(8, 32, 58, 0.55) 0%, transparent 55%),
-    linear-gradient(168deg, #0a4878 0%, #083858 35%, #062840 62%, #0c5088 100%);
+    radial-gradient(ellipse 110% 88% at 14% 10%, rgba(255, 255, 255, 0.07) 0%, transparent 48%),
+    radial-gradient(ellipse 95% 75% at 86% 88%, rgba(4, 12, 32, 0.65) 0%, transparent 52%),
+    linear-gradient(168deg, #0a1830 0%, #081424 42%, #060d18 68%, #0c1c34 100%);
   padding: 0;
   color: rgba(248, 246, 240, 0.94);
 }
@@ -2597,11 +2596,11 @@
   color: var(--paper);
 }
 .editorial-page .journal-shader-band--article .article-body a {
-  color: #d8f0ff;
-  border-bottom-color: rgba(216, 240, 255, 0.35);
+  color: #ffffff;
+  border-bottom-color: rgba(255, 255, 255, 0.35);
 }
 .editorial-page .journal-shader-band--article .article-body a:hover {
-  color: #ffffff;
+  color: rgba(255, 255, 255, 0.78);
 }
 .editorial-page .journal-shader-band--article .article-body .sx-link::after {
   background: currentColor;
@@ -2611,13 +2610,13 @@
   margin: 1.6em 0;
 }
 .editorial-page .journal-shader-band--article .info-page__table thead th {
-  color: rgba(248, 246, 240, 0.82);
-  background: rgba(4, 24, 48, 0.78);
-  border-bottom-color: rgba(216, 240, 255, 0.22);
+  color: rgba(255, 255, 255, 0.88);
+  background: rgba(4, 10, 24, 0.85);
+  border-bottom-color: rgba(255, 255, 255, 0.18);
 }
 .editorial-page .journal-shader-band--article .info-page__table tbody tr:nth-child(even) td,
 .editorial-page .journal-shader-band--article .info-page__table tbody tr:nth-child(even) th[scope="row"] {
-  background: rgba(8, 36, 64, 0.32);
+  background: rgba(6, 14, 32, 0.38);
 }
 .editorial-page .journal-shader-band--article .info-page__table th,
 .editorial-page .journal-shader-band--article .info-page__table td {

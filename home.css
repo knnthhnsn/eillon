@@ -419,12 +419,15 @@ body[data-nav-home="true"] .nav__waitlist {
    ===================================================== */
 .mv-name {
   position: relative;
-  background-color: #0a1018;
-  background-image: linear-gradient(90deg, #080c10 0%, #0e141c 45%, #142028 100%);
-  color: var(--paper);
+  background-color: #f8fbff;
+  background-image:
+    radial-gradient(ellipse 100% 85% at 20% 10%, rgba(255, 255, 255, 1) 0%, transparent 58%),
+    radial-gradient(ellipse 95% 75% at 80% 90%, rgba(60, 140, 255, 0.14) 0%, transparent 52%),
+    linear-gradient(118deg, #ffffff 0%, #f0f6ff 45%, #e4efff 100%);
+  color: var(--ink);
   padding: clamp(80px, 12vw, 160px) clamp(20px, 5vw, 96px);
   overflow: hidden;
-  border-top: 1px solid rgba(248,246,240,0.08);
+  border-top: 1px solid rgba(23, 21, 15, 0.08);
 }
 .mv-name__meta {
   margin: 0 0 clamp(24px, 4vw, 48px);
@@ -432,9 +435,9 @@ body[data-nav-home="true"] .nav__waitlist {
   font-family: var(--sans);
   font-size: 11px; font-weight: 500;
   letter-spacing: 0.34em; text-transform: uppercase;
-  color: rgba(248,246,240,0.56);
+  color: var(--ink-faint);
 }
-.mv-name__meta::before { content:""; width: clamp(40px, 6vw, 90px); height:1px; background: rgba(248,246,240,0.4); }
+.mv-name__meta::before { content:""; width: clamp(40px, 6vw, 90px); height:1px; background: rgba(23, 21, 15, 0.22); }
 .mv-name__carousel {
   position: relative;
   margin: 0 calc(-1 * clamp(20px, 5vw, 96px));
@@ -470,13 +473,39 @@ body[data-nav-home="true"] .nav__waitlist {
   align-items: center;
   flex-shrink: 0;
 }
-.mv-name__logo img {
+.mv-name__logo-orbit {
+  --orbit-r: clamp(72px, 11vw, 128px);
+  --logo-mark: clamp(68px, 10.5vw, 128px);
+  --orbit-dur: 20s;
+  position: relative;
+  width: calc(var(--orbit-r) * 2 + var(--logo-mark));
+  height: calc(var(--orbit-r) * 2 + var(--logo-mark));
+}
+.mv-name__logo-orbit-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--logo-mark);
+  height: var(--logo-mark);
+  margin: calc(var(--logo-mark) / -2) 0 0 calc(var(--logo-mark) / -2);
+  transform-origin: center center;
+  animation: mvLogoPath var(--orbit-dur) linear infinite;
+  will-change: transform;
+}
+.mv-name__logo-orbit-item:nth-child(1) { animation-delay: 0s; }
+.mv-name__logo-orbit-item:nth-child(2) { animation-delay: calc(var(--orbit-dur) * -0.25); }
+.mv-name__logo-orbit-item:nth-child(3) { animation-delay: calc(var(--orbit-dur) * -0.5); }
+.mv-name__logo-orbit-item:nth-child(4) { animation-delay: calc(var(--orbit-dur) * -0.75); }
+.mv-name__logo-orbit-item img {
   display: block;
-  width: auto;
-  height: clamp(28px, 5vw, 64px);
+  width: 100%;
+  height: 100%;
   object-fit: contain;
-  filter: brightness(0) invert(1);
   opacity: 0.9;
+}
+@keyframes mvLogoPath {
+  from { transform: rotate(0deg) translateY(calc(-1 * var(--orbit-r))) rotate(0deg); }
+  to { transform: rotate(360deg) translateY(calc(-1 * var(--orbit-r))) rotate(-360deg); }
 }
 .mv-name__sub {
   margin: clamp(28px, 4vw, 52px) 0 0 auto;
@@ -487,9 +516,9 @@ body[data-nav-home="true"] .nav__waitlist {
   font-weight: 300;
   font-size: clamp(18px, 2vw, 30px);
   line-height: 1.4;
-  color: rgba(248,246,240,0.78);
+  color: var(--ink-soft);
 }
-.mv-name__sub em { color: #fff; }
+.mv-name__sub em { color: var(--ink); }
 
 /* =====================================================
    MOVEMENT 03 — THE HOUSE OF MEMORY (luminous editorial)
@@ -1153,6 +1182,12 @@ body[data-nav-home="true"] .footer__legal a:hover { color: #fff; }
   .mv-hero__scroll::after { animation: none; transform: scaleY(1); }
   .mv-name__carousel { display: flex; justify-content: center; }
   .mv-name__track { transform: none !important; padding-left: 0; }
+  .mv-name__logo-orbit { animation: none; }
+  .mv-name__logo-orbit-item { animation: none; }
+  .mv-name__logo-orbit-item:nth-child(1) { transform: rotate(0deg) translateY(calc(-1 * var(--orbit-r))) rotate(0deg); }
+  .mv-name__logo-orbit-item:nth-child(2) { transform: rotate(90deg) translateY(calc(-1 * var(--orbit-r))) rotate(-90deg); }
+  .mv-name__logo-orbit-item:nth-child(3) { transform: rotate(180deg) translateY(calc(-1 * var(--orbit-r))) rotate(-180deg); }
+  .mv-name__logo-orbit-item:nth-child(4) { transform: rotate(270deg) translateY(calc(-1 * var(--orbit-r))) rotate(-270deg); }
   .mv-land { height: auto; }
   .mv-land__sticky { position: static; height: auto; min-height: 88svh; }
   .mv-land__media img { transform: none; }
@@ -1211,7 +1246,7 @@ body[data-nav-home="true"] .footer__legal a:hover { color: #fff; }
   .mv-name { padding: clamp(64px,16vw,96px) var(--pad); }
   .mv-name__carousel { margin: 0 calc(-1 * var(--pad)); }
   .mv-name__word { font-size: clamp(48px, 18vw, 110px); }
-  .mv-name__logo img { height: clamp(24px, 6vw, 44px); }
+  .mv-name__logo-orbit { --orbit-r: clamp(52px, 14vw, 88px); --logo-mark: clamp(48px, 13vw, 88px); }
   .mv-name__sub { margin-left: 0; text-align: left; max-width: none; }
   .mv-name__meta::before { width: 36px; }
 

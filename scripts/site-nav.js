@@ -11,7 +11,7 @@
       document.head.appendChild(el);
     };
     appendScript('/scripts/analytics.js?v=1');
-    appendScript('/scripts/site-shaders.js?v=44');
+    appendScript('/scripts/site-shaders.js?v=48');
     if (!isLocal) {
       appendScript('/_vercel/insights/script.js');
       appendScript('/_vercel/speed-insights/script.js');

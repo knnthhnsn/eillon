@@ -10,7 +10,7 @@
 
   var TARGETS = [
     { sel: '.mv-hero', mount: '.mv-hero__media', before: '.mv-hero__veil', key: 'hero', blend: 'overlay', layer: 'photo' },
-    { sel: '.mv-name', key: 'name', prepend: true, blend: 'screen' },
+    { sel: '.mv-name', key: 'name', mode: 'nameLight', prepend: true, blend: 'overlay' },
     { sel: '.mv-house', key: 'house', prepend: true, blend: 'overlay', layer: 'mid' },
     { sel: '.mv-land', mount: '.mv-land__media', before: '.mv-land__grad', key: 'land', blend: 'overlay', layer: 'photo' },
     { sel: '.mv-object', key: 'object', prepend: true },
@@ -38,14 +38,14 @@
 
   var THEMES = {
     hero:     { c1: [0.01, 0.04, 0.12], c2: [0.05, 0.28, 0.62], c3: [0.82, 0.48, 0.12], opacity: 0.52, scale: 1.35, speed: 1.75 },
-    name:     { c1: [0.03, 0.04, 0.06], c2: [0.98, 0.99, 1.0], c3: [0.82, 0.88, 0.96], opacity: 0.70, baseAlpha: 0.48, scale: 1.14, speed: 1.02 },
+    name:     { c1: [0.94, 0.97, 1.0], c2: [0.04, 0.42, 0.96], c3: [1.0, 1.0, 1.0], opacity: 0.72, baseAlpha: 0.76, scale: 1.28, speed: 1.32 },
     house:    { c1: [0.08, 0.07, 0.06], c2: [0.42, 0.38, 0.34], c3: [0.92, 0.72, 0.38], opacity: 1, baseAlpha: 0.38, scale: 1.2, speed: 1.35 },
     land:     { c1: [0.04, 0.12, 0.06], c2: [0.20, 0.48, 0.26], c3: [0.82, 0.58, 0.14], opacity: 0.68, scale: 1.35, speed: 1.45 },
     object:   { c1: [0.02, 0.04, 0.07], c2: [0.08, 0.14, 0.20], c3: [0.20, 0.26, 0.30], opacity: 0.55, scale: 1.25, speed: 1.05 },
     pageHero: { c1: [0.01, 0.04, 0.12], c2: [0.06, 0.32, 0.68], c3: [0.86, 0.52, 0.14], opacity: 0.56, scale: 1.35, speed: 1.65 },
     leopardWarm:  { c1: [0.0, 0.0, 0.0], c2: [0.78, 0.54, 0.30], c3: [0.96, 0.84, 0.58], opacity: 0.52, baseAlpha: 0.48, scale: 1.14, speed: 0.86 },
     productionStill: { c1: [0.04, 0.05, 0.04], c2: [0.28, 0.34, 0.26], c3: [0.74, 0.72, 0.60], opacity: 0.48, baseAlpha: 0.44, scale: 1.06, speed: 0.64 },
-    journalArchive: { c1: [0.03, 0.14, 0.32], c2: [0.14, 0.48, 0.82], c3: [0.97, 0.99, 1.0], opacity: 0.64, baseAlpha: 0.52, scale: 1.32, speed: 1.55 },
+    journalArchive: { c1: [0.02, 0.05, 0.14], c2: [0.06, 0.14, 0.34], c3: [1.0, 1.0, 1.0], opacity: 0.66, baseAlpha: 0.54, scale: 1.30, speed: 1.48 },
     wearSkin:     { c1: [0.16, 0.06, 0.05], c2: [0.68, 0.32, 0.24], c3: [0.98, 0.78, 0.52], opacity: 0.54, scale: 1.14, speed: 0.88 },
     boutiqueAtlas:  { c1: [0.90, 0.84, 0.74], c2: [0.58, 0.44, 0.32], c3: [0.98, 0.88, 0.58], opacity: 0.34, scale: 1.02, speed: 0.68 },
     boutiqueMemory: { c1: [0.12, 0.06, 0.08], c2: [0.54, 0.32, 0.22], c3: [0.90, 0.68, 0.44], opacity: 0.50, scale: 1.12, speed: 0.90 },
@@ -101,6 +101,36 @@
     '    col = mix(col, fill, head * 0.72);',
     '    alpha = mix(alpha, min(uBaseAlpha + 0.34, 0.82), head);',
     '  }',
+    '  gl_FragColor = vec4(col, alpha);',
+    '}',
+  ].join('\n');
+
+  var FRAG_NAME_LIGHT = [
+    'precision mediump float;',
+    'uniform float uTime;',
+    'uniform float uSpeed;',
+    'uniform vec2 uScale;',
+    'uniform vec3 uC1;',
+    'uniform vec3 uC2;',
+    'uniform vec3 uC3;',
+    'uniform float uBaseAlpha;',
+    'varying vec2 vUv;',
+    'float wave(vec2 p, float t){',
+    '  return sin(p.x * 2.8 + t) * cos(p.y * 2.1 - t * 0.75)',
+    '       + sin(p.x * 1.4 - t * 0.55 + p.y * 3.4) * 0.6',
+    '       + cos(p.x * 4.2 + p.y * 1.3 + t * 0.35) * 0.3;',
+    '}',
+    'void main(){',
+    '  vec2 uv = vUv * uScale;',
+    '  float t = uTime * uSpeed;',
+    '  vec2 warp = vec2(wave(uv * 0.9, t * 0.72), wave(uv * 0.9 + 2.4, t * 0.66));',
+    '  float w1 = wave(uv + warp * 0.42, t);',
+    '  float w2 = wave(uv * 1.7 + warp * 0.22 + 1.6, t * 1.1);',
+    '  float m = smoothstep(-0.12, 0.94, w1 + w2 * 0.68);',
+    '  vec3 col = mix(uC2, uC3, m);',
+    '  float pulse = sin(t * 1.2 + uv.x * 5.8 + uv.y * 4.0) * 0.5 + 0.5;',
+    '  col = mix(col, uC3, pulse * 0.52 * smoothstep(0.32, 0.9, m));',
+    '  float alpha = uBaseAlpha * mix(0.08, 1.0, smoothstep(0.18, 0.88, m));',
     '  gl_FragColor = vec4(col, alpha);',
     '}',
   ].join('\n');
@@ -202,21 +232,19 @@
     '  float w2 = ripple(uv * 1.9 + warp * 0.55 + 1.2, t * 1.35);',
     '  float m = smoothstep(-0.2, 0.96, w1 + w2 * 0.68);',
     '  vec3 col = mix(uC1, uC2, m);',
-    '  vec3 foam = vec3(0.96, 0.99, 1.0);',
-    '  vec3 skyBlue = vec3(0.52, 0.82, 0.98);',
-    '  float crest = smoothstep(0.46, 0.9, m);',
+    '  vec3 foam = vec3(1.0, 1.0, 1.0);',
+    '  float crest = smoothstep(0.50, 0.92, m);',
     '  float foamPulse = sin(t * 1.45 + uv.x * 8.2 + uv.y * 4.8) * 0.5 + 0.5;',
-    '  col = mix(col, skyBlue, crest * (0.28 + foamPulse * 0.24));',
-    '  col = mix(col, foam, crest * foamPulse * 0.52);',
+    '  col = mix(col, foam, crest * foamPulse * 0.62);',
     '  float shimmer = sin(t * 1.75 + uv.x * 10.5 + uv.y * 3.2) * 0.5 + 0.5;',
-    '  col = mix(col, uC3, shimmer * 0.42 * smoothstep(0.38, 0.88, m));',
+    '  col = mix(col, uC3, shimmer * 0.48 * smoothstep(0.42, 0.90, m));',
     '  float caustic = sin(uv.x * 14.0 + t * 2.1) * sin(uv.y * 11.0 - t * 1.65);',
     '  caustic = caustic * 0.5 + 0.5;',
-    '  col = mix(col, foam, caustic * 0.16 * smoothstep(0.32, 0.82, m));',
+    '  col = mix(col, foam, caustic * 0.20 * smoothstep(0.36, 0.84, m));',
     '  float swell = sin(t * 0.88 + uv.y * 3.8 + uv.x * 0.6) * 0.5 + 0.5;',
-    '  col = mix(col, mix(uC2, skyBlue, 0.6), swell * 0.12);',
-    '  float dark = smoothstep(0.64, 0.0, m);',
-    '  col = mix(col, uC1, dark * 0.12);',
+    '  col = mix(col, mix(uC2, foam, 0.35), swell * 0.08);',
+    '  float dark = smoothstep(0.58, 0.0, m);',
+    '  col = mix(col, uC1, dark * 0.28);',
     '  gl_FragColor = vec4(col, uBaseAlpha);',
     '}',
   ].join('\n');
@@ -253,6 +281,7 @@
     var fsSrc = mode === 'leopardTone' ? FRAG_LEOPARD_TONE
       : mode === 'studioSettle' ? FRAG_STUDIO_SETTLE
       : mode === 'journalWater' ? FRAG_JOURNAL_WATER
+      : mode === 'nameLight' ? FRAG_NAME_LIGHT
       : FRAG;
     var vs = compileShader(gl, gl.VERTEX_SHADER, VERT);
     var fs = compileShader(gl, gl.FRAGMENT_SHADER, fsSrc);
