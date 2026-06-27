@@ -473,11 +473,12 @@ body[data-nav-home="true"] .nav__waitlist {
   font-size: clamp(40px, 6.4vw, 104px);
   line-height: 0.98;
   letter-spacing: -0.025em;
-  max-width: 16ch;
+  max-width: none;
   color: var(--paper);
   text-shadow: 0 2px 28px rgba(0, 0, 0, 0.45);
 }
-.mv-house__display em { font-style: italic; color: var(--gold-light); }
+.mv-house__display-line { display: block; white-space: nowrap; }
+.mv-house__display em { font-style: italic; color: var(--gold-light); display: block; white-space: nowrap; }
 .mv-house__lede { grid-area: lede; max-width: 38ch; color: rgba(248, 246, 240, 0.82); }
 .mv-house__lede p {
   margin: 0;
@@ -1129,7 +1130,8 @@ body[data-nav-home="true"] .footer__legal a:hover { color: #fff; }
   }
   .mv-house__laws li { white-space: normal; }
   .mv-house__display { font-size: clamp(38px, 11vw, 60px); max-width: none; }
-  .mv-house__display-line { white-space: normal; }
+  .mv-house__display-line,
+  .mv-house__display em { white-space: normal; }
 
   /* M04 landscape — unpinned full-bleed on mobile */
   .mv-land { height: auto; background: var(--cypress); }
