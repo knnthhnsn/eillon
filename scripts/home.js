@@ -1,4 +1,4 @@
-/* EILLON homepage — GSAP ScrollTrigger pinned sequences (hero, house, maison). */
+/* EILLON homepage — GSAP ScrollTrigger pinned sequences (house, maison). */
 (function initHomeScrollPins() {
   'use strict';
 
@@ -34,70 +34,6 @@
 
   function landScrollDistance(land) {
     return Math.max(land.offsetHeight - window.innerHeight, 0);
-  }
-
-  function initIntro(mobile) {
-    var intro = document.querySelector('.mv-intro');
-    var pin = intro && intro.querySelector('.mv-intro__pin');
-    var track = intro && intro.querySelector('.mv-intro__track');
-    var hero = intro && intro.querySelector('.mv-hero');
-    if (!intro || !pin || !track || !hero) return null;
-
-    intro.classList.add('mv-intro--pin-js');
-    hero.classList.add('mv-hero--pin-js');
-
-    var kicker = hero.querySelector('.mv-hero__kicker');
-    var word = hero.querySelector('.mv-hero__word');
-    var tag = hero.querySelector('.mv-hero__tag');
-    var cta = hero.querySelector('.mv-hero__cta');
-    var scrollHint = hero.querySelector('.mv-hero__scroll');
-    var nameMeta = intro.querySelector('.mv-name__meta');
-    var nameSub = intro.querySelector('.mv-name__sub');
-    var slideX = function () { return -window.innerWidth; };
-
-    gsap.set(hero, {
-      '--hero-scale': 1,
-      '--hero-focus-x': mobile ? '46%' : '60%',
-      '--hero-focus-y': mobile ? '28%' : '50%',
-      '--hero-origin-x': mobile ? '46%' : '60%',
-      '--hero-origin-y': mobile ? '28%' : '50%',
-      '--hero-veil': 1
-    });
-    gsap.set(track, { x: 0 });
-    gsap.set([tag, cta], { opacity: 0, y: mobile ? 16 : 22 });
-    gsap.set(scrollHint, { opacity: 1 });
-    if (nameMeta) gsap.set(nameMeta, { opacity: 0, y: mobile ? 14 : 18 });
-    if (nameSub) gsap.set(nameSub, { opacity: 0, y: mobile ? 12 : 16 });
-
-    var tl = gsap.timeline({ paused: true });
-
-    tl.to(kicker, { opacity: 0, y: -16, duration: 0.1, ease: 'none' }, 0.04)
-      .to(scrollHint, { opacity: 0, duration: 0.08, ease: 'none' }, 0.05)
-      .to(word, { y: mobile ? -12 : -18, duration: 0.16, ease: 'none' }, 0.06)
-      .to(tag, { opacity: 1, y: 0, duration: 0.12, ease: 'none' }, 0.14)
-      .to(cta, { opacity: 1, y: 0, duration: 0.12, ease: 'none' }, 0.2)
-      .to(track, { x: slideX, duration: 0.38, ease: 'none' }, 0.48);
-    if (nameMeta) tl.to(nameMeta, { opacity: 1, y: 0, duration: 0.1, ease: 'none' }, 0.58);
-    if (nameSub) tl.to(nameSub, { opacity: 1, y: 0, duration: 0.1, ease: 'none' }, 0.66);
-
-    return ScrollTrigger.create({
-      id: 'mv-intro',
-      trigger: intro,
-      start: 'top top',
-      end: function () {
-        return '+=' + Math.round(window.innerHeight * (mobile ? 2.05 : 2.35));
-      },
-      pin: pin,
-      pinType: 'transform',
-      pinSpacing: true,
-      pinReparent: false,
-      animation: tl,
-      scrub: mobile ? true : 0.5,
-      anticipatePin: mobile ? 0 : 1,
-      fastScrollEnd: true,
-      refreshPriority: 0,
-      invalidateOnRefresh: true
-    });
   }
 
   function initHouse(mobile) {
@@ -165,7 +101,7 @@
       scrub: mobile ? true : 0.65,
       anticipatePin: mobile ? 0 : 1,
       fastScrollEnd: true,
-      refreshPriority: 1,
+      refreshPriority: 0,
       invalidateOnRefresh: true,
       onLeave: revealAll,
       onLeaveBack: function () {
@@ -208,7 +144,7 @@
       pinSpacing: true,
       anticipatePin: mobile ? 0 : 1,
       fastScrollEnd: true,
-      refreshPriority: 2,
+      refreshPriority: 1,
       pinReparent: false,
       scrub: true,
       invalidateOnRefresh: true,
@@ -222,16 +158,13 @@
   }
 
   function runPinSetup(mobile) {
-    var introSt = initIntro(mobile);
-    ScrollTrigger.refresh();
-
     var houseSt = initHouse(mobile);
     ScrollTrigger.refresh();
 
     var landSt = initLand(mobile);
     refreshPins();
 
-    return [introSt, houseSt, landSt].filter(Boolean);
+    return [houseSt, landSt].filter(Boolean);
   }
 
   function teardown(triggers) {
@@ -239,12 +172,6 @@
       if (st && st.kill) st.kill(true);
     });
 
-    document.querySelectorAll('.mv-intro--pin-js').forEach(function (el) {
-      el.classList.remove('mv-intro--pin-js');
-    });
-    document.querySelectorAll('.mv-hero--pin-js').forEach(function (el) {
-      el.classList.remove('mv-hero--pin-js');
-    });
     document.querySelectorAll('.mv-house--pin-js').forEach(function (el) {
       el.classList.remove('mv-house--pin-js');
     });
@@ -258,30 +185,10 @@
       land.style.removeProperty('--p');
     }
 
-    var hero = document.querySelector('.mv-hero');
-    if (hero) {
-      hero.style.removeProperty('--hero-scale');
-      hero.style.removeProperty('--hero-focus-x');
-      hero.style.removeProperty('--hero-focus-y');
-      hero.style.removeProperty('--hero-origin-x');
-      hero.style.removeProperty('--hero-origin-y');
-      hero.style.removeProperty('--hero-veil');
-    }
-
     var house = document.querySelector('.mv-house');
     if (house) {
       house.style.removeProperty('--house-p');
     }
-
-    var track = document.querySelector('.mv-intro__track');
-    if (track) {
-      gsap.set(track, { clearProps: 'transform' });
-    }
-
-    var nameMeta = document.querySelector('.mv-name__meta');
-    var nameSub = document.querySelector('.mv-name__sub');
-    if (nameMeta) gsap.set(nameMeta, { clearProps: 'opacity,transform' });
-    if (nameSub) gsap.set(nameSub, { clearProps: 'opacity,transform' });
 
     var grid = document.querySelector('.mv-house__grid');
     if (grid) {
