@@ -449,7 +449,7 @@ body[data-nav-home="true"] .nav__waitlist {
 .mv-house > * { position: relative; z-index: 1; }
 .mv-house__grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+  grid-template-columns: minmax(0, 1.28fr) minmax(0, 0.72fr);
   grid-template-areas:
     "display laws"
     "lede    laws";
@@ -470,14 +470,15 @@ body[data-nav-home="true"] .nav__waitlist {
   font-family: var(--serif);
   font-weight: 300;
   font-variation-settings: 'opsz' 144;
-  font-size: clamp(40px, 6.4vw, 104px);
+  font-size: clamp(40px, 5.6vw, 92px);
   line-height: 0.98;
   letter-spacing: -0.025em;
-  max-width: 20ch;
+  max-width: none;
   color: var(--paper);
   text-shadow: 0 2px 28px rgba(0, 0, 0, 0.45);
 }
-.mv-house__display em { font-style: italic; color: var(--gold-light); }
+.mv-house__display-line { white-space: nowrap; }
+.mv-house__display em { font-style: italic; color: var(--gold-light); display: inline-block; }
 .mv-house__lede { grid-area: lede; max-width: 38ch; color: rgba(248, 246, 240, 0.82); }
 .mv-house__lede p {
   margin: 0;
