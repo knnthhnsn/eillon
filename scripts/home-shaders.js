@@ -21,7 +21,7 @@
     hero:   { c1: [0.01, 0.04, 0.12], c2: [0.05, 0.28, 0.62], c3: [0.82, 0.48, 0.12], opacity: 0.52, scale: 1.35, speed: 1.75 },
     name:   { c1: [0.03, 0.02, 0.05], c2: [0.28, 0.07, 0.05], c3: [0.06, 0.14, 0.28], opacity: 0.82, scale: 1.1, speed: 1.1 },
     house:  { c1: [0.18, 0.04, 0.06], c2: [0.58, 0.14, 0.16], c3: [0.92, 0.52, 0.22], opacity: 0.62, scale: 1.2, speed: 1.35 },
-    land:   { c1: [0.02, 0.07, 0.04], c2: [0.10, 0.28, 0.14], c3: [0.24, 0.48, 0.26], opacity: 0.50, scale: 1.35, speed: 1.2 },
+    land:   { c1: [0.04, 0.12, 0.06], c2: [0.20, 0.48, 0.26], c3: [0.82, 0.58, 0.14], opacity: 0.68, scale: 1.35, speed: 1.45 },
     object: { c1: [0.02, 0.04, 0.07], c2: [0.08, 0.14, 0.20], c3: [0.20, 0.26, 0.30], opacity: 0.55, scale: 1.25, speed: 1.05 },
     footer: { c1: [0.05, 0.10, 0.18], c2: [0.20, 0.52, 0.82], c3: [0.96, 0.62, 0.16], opacity: 0.78, scale: 1.2, speed: 1.3 },
   };
@@ -164,11 +164,14 @@
     var w = this.mount.clientWidth;
     var h = this.mount.clientHeight;
     if (w < 2 || h < 2) return;
-    this.canvas.width = Math.max(1, Math.floor(w * dpr));
-    this.canvas.height = Math.max(1, Math.floor(h * dpr));
-    this.canvas.style.width = w + 'px';
-    this.canvas.style.height = h + 'px';
-    this.state.gl.viewport(0, 0, this.canvas.width, this.canvas.height);
+    var bw = Math.max(1, Math.floor(w * dpr));
+    var bh = Math.max(1, Math.floor(h * dpr));
+    if (this.canvas.width === bw && this.canvas.height === bh) return;
+    this.canvas.width = bw;
+    this.canvas.height = bh;
+    this.canvas.style.width = '100%';
+    this.canvas.style.height = '100%';
+    this.state.gl.viewport(0, 0, bw, bh);
   };
 
   ShaderLayer.prototype.draw = function (time) {
@@ -217,6 +220,15 @@
       io.observe(layer.root);
     });
 
+    if (window.ResizeObserver) {
+      var mountObserver = new ResizeObserver(function () {
+        layers.forEach(function (layer) { layer.resize(); });
+      });
+      layers.forEach(function (layer) {
+        mountObserver.observe(layer.mount);
+      });
+    }
+
     var resizeTick = false;
     window.addEventListener('resize', function () {
       if (resizeTick) return;
@@ -225,6 +237,10 @@
         resizeTick = false;
         layers.forEach(function (layer) { layer.resize(); });
       });
+    });
+
+    window.addEventListener('load', function () {
+      layers.forEach(function (layer) { layer.resize(); });
     });
 
     function frame(time) {

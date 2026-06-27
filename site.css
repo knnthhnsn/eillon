@@ -833,6 +833,132 @@
   letter-spacing: 0.2em; font-size: 11px;
 }
 
+/* =====================================================
+   CHAPTER SHADER BAND — one moving shader across shop → composition
+   ===================================================== */
+.chapter-shader-band {
+  position: relative;
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  left: auto;
+  right: auto;
+  overflow: hidden;
+  isolation: isolate;
+}
+.chapter-shader-band > *:not(.mv-shader) {
+  position: relative;
+  z-index: 2;
+}
+.chapter-shader-band--beles { background-color: #0a1208; color: rgba(248,246,240,0.88); }
+.chapter-shader-band--asmara { background-color: #0e0c0a; color: rgba(248,246,240,0.88); }
+.chapter-shader-band--massawa { background-color: #120a06; color: rgba(248,246,240,0.88); }
+.chapter-shader-band--ritual { background-color: #100808; color: rgba(248,246,240,0.88); }
+
+.chapter-shader-band .shop {
+  background: transparent;
+  box-shadow: none;
+}
+.chapter-shader-band .shop::before { display: none; }
+.chapter-shader-band .shop__info .eyebrow { color: rgba(248,246,240,0.55); }
+.chapter-shader-band .shop__info .display,
+.chapter-shader-band .shop__price { color: var(--paper); }
+.chapter-shader-band .shop__price-meta { color: rgba(248,246,240,0.55); }
+.chapter-shader-band .shop__desc,
+.chapter-shader-band .shop__features li,
+.chapter-shader-band .shop__cta-caption,
+.chapter-shader-band .shop__waitlist-consent,
+.chapter-shader-band .shop__waitlist-status { color: rgba(248,246,240,0.72); }
+.chapter-shader-band .shop__features li { border-top-color: rgba(248,246,240,0.14); }
+.chapter-shader-band .shop__details { border-top-color: rgba(248,246,240,0.14); }
+.chapter-shader-band .shop__details summary {
+  color: rgba(248,246,240,0.82);
+  border-bottom-color: rgba(248,246,240,0.12);
+}
+.chapter-shader-band .shop__details p,
+.chapter-shader-band .shop__details dd,
+.chapter-shader-band .shop__details dt,
+.chapter-shader-band .shop__details li { color: rgba(248,246,240,0.68); }
+.chapter-shader-band .shop__details a { color: var(--gold-light); }
+.chapter-shader-band .shop__image {
+  background: rgba(248,246,240,0.04);
+  border-color: rgba(248,246,240,0.12);
+}
+.chapter-shader-band .shop--beles .shop__column-luxury,
+.chapter-shader-band .shop--beles .shop__column-splash {
+  border-color: rgba(248,246,240,0.12);
+}
+.chapter-shader-band .size {
+  border-color: rgba(248,246,240,0.22);
+  color: rgba(248,246,240,0.82);
+}
+.chapter-shader-band .size.is-active {
+  border-color: var(--gold-light);
+  color: var(--paper);
+}
+.chapter-shader-band .size-guide { border-color: rgba(248,246,240,0.14); }
+.chapter-shader-band .size-guide__kicker { color: rgba(248,246,240,0.55); }
+.chapter-shader-band .size-guide__text p { color: rgba(248,246,240,0.72); }
+.chapter-shader-band .size-guide__choices button {
+  border-color: rgba(248,246,240,0.22);
+  color: rgba(248,246,240,0.72);
+}
+.chapter-shader-band .size-guide__choices button.is-active {
+  border-color: var(--gold-light);
+  color: var(--paper);
+}
+.chapter-shader-band .shop__waitlist-field input {
+  border-color: rgba(248,246,240,0.28);
+  color: var(--paper);
+  background: transparent;
+}
+.chapter-shader-band .shop__waitlist-label { color: rgba(248,246,240,0.55); }
+.chapter-shader-band .shop__info .btn--primary {
+  background: var(--paper);
+  border-color: var(--paper);
+  color: var(--ink);
+}
+
+.chapter-shader-band .notes {
+  background: transparent;
+  isolation: auto;
+  margin-left: 0;
+  margin-right: 0;
+  width: 100%;
+  max-width: none;
+}
+.chapter-shader-band .notes--beles,
+.chapter-shader-band .notes--asmara,
+.chapter-shader-band .notes--massawa,
+.chapter-shader-band .notes--ritual {
+  background: transparent;
+}
+
+.chapter-shader-band .chapter-visuals {
+  background: transparent;
+  border-top: 1px solid rgba(248,246,240,0.14);
+  margin-left: 0;
+  margin-right: 0;
+  width: 100%;
+  max-width: none;
+}
+.chapter-shader-band .chapter-visuals__head .sx-eyebrow { color: rgba(248,246,240,0.55); }
+.chapter-shader-band .chapter-visuals__head .display { color: var(--paper); }
+.chapter-shader-band .chapter-visuals__head .display em { color: rgba(248,246,240,0.78); }
+
+.chapter-shader-band .beles-section {
+  background: transparent;
+  border-top: 1px solid rgba(248,246,240,0.14);
+  max-width: var(--max);
+  margin-left: auto;
+  margin-right: auto;
+  width: auto;
+}
+.chapter-shader-band .beles-section h2 { color: var(--paper); }
+.chapter-shader-band .beles-section p { color: rgba(248,246,240,0.72); }
+.chapter-shader-band .beles-section a { color: var(--gold-light); border-bottom-color: currentColor; }
+
 /* Chapter hero in shop — taller, cinematic */
 .editorial-page .chapter-hero {
   aspect-ratio: 4 / 5; min-height: clamp(420px, 52vh, 640px);
@@ -1788,6 +1914,219 @@
   font-size: 12px;
   line-height: 1.55;
   color: rgba(26, 22, 18, 0.55);
+}
+
+/* =====================================================
+   CHAPTER SHADER BAND — cascade-safe dark theme (late wins)
+   ===================================================== */
+.editorial-page .chapter-shader-band {
+  position: relative;
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  overflow: hidden;
+  isolation: isolate;
+  color: rgba(248,246,240,0.88);
+}
+.editorial-page .chapter-shader-band--beles { background-color: #0a1208; }
+.editorial-page .chapter-shader-band--asmara { background-color: #0e0c0a; }
+.editorial-page .chapter-shader-band--massawa { background-color: #120a06; }
+.editorial-page .chapter-shader-band--ritual { background-color: #100808; }
+.editorial-page .chapter-shader-band > *:not(.mv-shader) {
+  position: relative;
+  z-index: 2;
+}
+
+/* Studio proof (Beles) */
+.editorial-page .chapter-shader-band .proof-layer,
+.editorial-page .chapter-shader-band .proof-layer--beles {
+  background: transparent !important;
+  border-top: 0;
+  border-bottom-color: rgba(248,246,240,0.1);
+  color: rgba(248,246,240,0.88);
+}
+.editorial-page .chapter-shader-band .proof-layer__header .sx-eyebrow { color: rgba(248,246,240,0.55); }
+.editorial-page .chapter-shader-band .proof-layer__header h2 { color: var(--paper); }
+.editorial-page .chapter-shader-band .proof-layer__header h2 em {
+  color: rgba(248,246,240,0.78);
+  font-style: italic;
+}
+.editorial-page .chapter-shader-band .proof-layer__header p { color: rgba(248,246,240,0.68); }
+.editorial-page .chapter-shader-band .proof-status {
+  background: rgba(248,246,240,0.08);
+  border-color: rgba(248,246,240,0.14);
+}
+.editorial-page .chapter-shader-band .proof-status > div {
+  background: rgba(248,246,240,0.04);
+}
+.editorial-page .chapter-shader-band .proof-status dt { color: rgba(248,246,240,0.5); }
+.editorial-page .chapter-shader-band .proof-status dd { color: var(--paper); }
+.editorial-page .chapter-shader-band .proof-layer__note { color: rgba(248,246,240,0.62); }
+.editorial-page .chapter-shader-band .proof-layer__note strong { color: rgba(248,246,240,0.88); }
+.editorial-page .chapter-shader-band .proof-layer__links .sx-link { color: rgba(248,246,240,0.82); }
+.editorial-page .chapter-shader-band .proof-layer__links .sx-link:hover { color: var(--gold-light); }
+
+/* Shop band */
+.editorial-page .chapter-shader-band .shop {
+  background: transparent !important;
+  box-shadow: none;
+}
+.editorial-page .chapter-shader-band .shop::before { display: none; }
+.editorial-page .chapter-shader-band .shop .eyebrow,
+.editorial-page .chapter-shader-band .shop__info .eyebrow {
+  color: rgba(248,246,240,0.55);
+}
+.editorial-page .chapter-shader-band .shop__info .display,
+.editorial-page .chapter-shader-band .shop__price { color: var(--paper); }
+.editorial-page .chapter-shader-band .shop__info .display em { color: rgba(248,246,240,0.78); }
+.editorial-page .chapter-shader-band .product-qualifier { color: rgba(248,246,240,0.45); }
+.editorial-page .chapter-shader-band .stock-status { color: #e8a0a0; }
+.editorial-page .chapter-shader-band .shop__price-meta { color: rgba(248,246,240,0.55); }
+.editorial-page .chapter-shader-band .shop__desc,
+.editorial-page .chapter-shader-band .shop__features li,
+.editorial-page .chapter-shader-band .shop__cta-caption,
+.editorial-page .chapter-shader-band .shop__waitlist-consent,
+.editorial-page .chapter-shader-band .shop__waitlist-status { color: rgba(248,246,240,0.72); }
+.editorial-page .chapter-shader-band .shop__features li { border-top-color: rgba(248,246,240,0.14); }
+.editorial-page .chapter-shader-band .shop__features li::before { background: var(--gold-light); }
+.editorial-page .chapter-shader-band .shop__image {
+  background: rgba(248,246,240,0.04) !important;
+  border-color: rgba(248,246,240,0.12);
+}
+.editorial-page .chapter-shader-band .shop__image.chapter-hero {
+  background: #060d14 !important;
+}
+.editorial-page .chapter-shader-band .shop--beles .shop__column-luxury,
+.editorial-page .chapter-shader-band .shop--beles .shop__column-splash {
+  border-color: rgba(248,246,240,0.12);
+}
+
+/* Size selectors */
+.editorial-page .chapter-shader-band .size {
+  border-color: rgba(248,246,240,0.22);
+  color: rgba(248,246,240,0.82);
+}
+.editorial-page .chapter-shader-band .size > span:first-child { color: rgba(248,246,240,0.82); }
+.editorial-page .chapter-shader-band .size__price { color: rgba(248,246,240,0.5); }
+.editorial-page .chapter-shader-band .size.is-active {
+  background: rgba(248,246,240,0.08);
+  border-color: var(--gold-light);
+}
+.editorial-page .chapter-shader-band .size.is-active > span:first-child { color: var(--paper); }
+.editorial-page .chapter-shader-band .size.is-active .size__price { color: var(--gold-light); }
+.editorial-page .chapter-shader-band .size-guide { border-top-color: rgba(248,246,240,0.14); }
+.editorial-page .chapter-shader-band .size-guide__kicker { color: rgba(248,246,240,0.55); }
+.editorial-page .chapter-shader-band .size-guide__text p { color: rgba(248,246,240,0.72); }
+.editorial-page .chapter-shader-band .size-guide__choices button {
+  border-color: rgba(248,246,240,0.22);
+  color: rgba(248,246,240,0.72);
+}
+.editorial-page .chapter-shader-band .size-guide__choices button.is-active {
+  background: rgba(248,246,240,0.1);
+  border-color: var(--gold-light);
+  color: var(--paper);
+}
+
+/* Waitlist + CTA */
+.editorial-page .chapter-shader-band .shop__waitlist-field { border-bottom-color: rgba(248,246,240,0.22); }
+.editorial-page .chapter-shader-band .shop__waitlist-field input {
+  border-color: rgba(248,246,240,0.28);
+  color: var(--paper);
+  background: transparent;
+}
+.editorial-page .chapter-shader-band .shop__waitlist-field input::placeholder {
+  color: rgba(248,246,240,0.38);
+}
+.editorial-page .chapter-shader-band .shop__waitlist-label { color: rgba(248,246,240,0.55); }
+.editorial-page .chapter-shader-band .shop__waitlist-consent a { color: var(--gold-light); }
+.editorial-page .chapter-shader-band .shop__info .btn--primary {
+  background: var(--paper);
+  border-color: var(--paper);
+  color: var(--ink);
+}
+.editorial-page .chapter-shader-band .shop__info .btn--primary .btn__hover {
+  background: var(--gold-light);
+  color: var(--ink);
+}
+
+/* Accordion / details */
+.editorial-page .chapter-shader-band .shop__details { border-top-color: rgba(248,246,240,0.14); }
+.editorial-page .chapter-shader-band .shop__details details { border-bottom-color: rgba(248,246,240,0.12); }
+.editorial-page .chapter-shader-band .shop__details summary {
+  color: rgba(248,246,240,0.82);
+  border-bottom-color: rgba(248,246,240,0.12);
+}
+.editorial-page .chapter-shader-band .shop__details summary::after { color: rgba(248,246,240,0.55); }
+.editorial-page .chapter-shader-band .shop__details p,
+.editorial-page .chapter-shader-band .shop__details dd,
+.editorial-page .chapter-shader-band .shop__details li { color: rgba(248,246,240,0.68); }
+.editorial-page .chapter-shader-band .shop__details dt { color: rgba(248,246,240,0.5); }
+.editorial-page .chapter-shader-band .shop__details a { color: var(--gold-light); }
+
+/* Scent timeline + FAQ */
+.editorial-page .chapter-shader-band .scent-timeline { border-top-color: rgba(248,246,240,0.14); }
+.editorial-page .chapter-shader-band .scent-timeline li { border-bottom-color: rgba(248,246,240,0.12); }
+.editorial-page .chapter-shader-band .scent-timeline li::before {
+  background: transparent;
+  border-color: var(--gold-light);
+}
+.editorial-page .chapter-shader-band .scent-timeline span { color: rgba(248,246,240,0.5); }
+.editorial-page .chapter-shader-band .scent-timeline strong { color: var(--paper); }
+.editorial-page .chapter-shader-band .shop__details .scent-timeline p { color: rgba(248,246,240,0.62); }
+.editorial-page .chapter-shader-band .faq-list { border-top-color: rgba(248,246,240,0.14); }
+.editorial-page .chapter-shader-band .shop__details .faq-list div { border-bottom-color: rgba(248,246,240,0.12); }
+.editorial-page .chapter-shader-band .faq-list dt { color: var(--paper); }
+.editorial-page .chapter-shader-band .faq-list dd { color: rgba(248,246,240,0.62); }
+
+/* Composition notes — transparent so one shader reads through */
+.editorial-page .chapter-shader-band .notes,
+.editorial-page .chapter-shader-band .notes--beles,
+.editorial-page .chapter-shader-band .notes--asmara,
+.editorial-page .chapter-shader-band .notes--massawa,
+.editorial-page .chapter-shader-band .notes--ritual {
+  background: transparent !important;
+  background-color: transparent !important;
+  isolation: auto;
+  overflow: visible;
+  margin-left: 0;
+  margin-right: 0;
+  width: 100%;
+  max-width: none;
+  color: rgba(248,246,240,0.88);
+}
+
+/* Imagery gallery */
+.editorial-page .chapter-shader-band .chapter-visuals {
+  background: transparent !important;
+  border-top-color: rgba(248,246,240,0.14);
+  margin-left: 0;
+  margin-right: 0;
+  width: 100%;
+  max-width: none;
+}
+.editorial-page .chapter-shader-band .chapter-visuals__head .eyebrow,
+.editorial-page .chapter-shader-band .chapter-visuals__head .sx-eyebrow { color: rgba(248,246,240,0.55); }
+.editorial-page .chapter-shader-band .chapter-visuals__head .display { color: var(--paper); }
+.editorial-page .chapter-shader-band .chapter-visuals__head .display em { color: rgba(248,246,240,0.78); }
+.editorial-page .chapter-shader-band .chapter-gallery figure {
+  border: 1px solid rgba(248,246,240,0.1);
+}
+
+/* Beles closing copy inside band */
+.editorial-page .chapter-shader-band .beles-section {
+  background: transparent !important;
+  border-top-color: rgba(248,246,240,0.14);
+  max-width: var(--max);
+  margin-left: auto;
+  margin-right: auto;
+  width: auto;
+}
+.editorial-page .chapter-shader-band .beles-section h2 { color: var(--paper); }
+.editorial-page .chapter-shader-band .beles-section p { color: rgba(248,246,240,0.72); }
+.editorial-page .chapter-shader-band .beles-section a {
+  color: var(--gold-light);
+  border-bottom-color: currentColor;
 }
 
 /* =====================================================
