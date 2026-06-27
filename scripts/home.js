@@ -27,7 +27,8 @@
     }
   }
 
-  function pinStage(section, stage, end, onUpdate) {
+  function pinStage(section, stage, end, onUpdate, options) {
+    var opts = options || {};
     return ScrollTrigger.create({
       trigger: section,
       start: 'top top',
@@ -35,7 +36,11 @@
       pin: stage,
       pinType: 'fixed',
       pinSpacing: true,
-      anticipatePin: 1,
+      anticipatePin: opts.anticipatePin != null ? opts.anticipatePin : 1,
+      fastScrollEnd: true,
+      refreshPriority: opts.refreshPriority != null ? opts.refreshPriority : 2,
+      pinReparent: !!opts.pinReparent,
+      scrub: opts.scrub != null ? opts.scrub : true,
       invalidateOnRefresh: true,
       onUpdate: onUpdate
     });
@@ -76,6 +81,8 @@
         pinSpacing: true,
         scrub: mobile ? 0.45 : 0.55,
         anticipatePin: 1,
+        fastScrollEnd: true,
+        refreshPriority: 0,
         invalidateOnRefresh: true
       }
     });
@@ -100,30 +107,42 @@
   function initHouse(mobile) {
     var house = document.querySelector('.mv-house');
     var stage = house && house.querySelector('.mv-house__stage');
-    if (!house || !stage) return null;
+    var grid = house && house.querySelector('.mv-house__grid');
+    if (!house || !stage || !grid) return null;
 
     house.classList.add('mv-house--pin-js');
 
     var lines = house.querySelectorAll('.mv-house__display-line, .mv-house__display em');
     var lede = house.querySelector('.mv-house__lede');
     var laws = house.querySelectorAll('.mv-house__laws li');
-    var end = mobile ? '+=165%' : '+=190%';
+
+    function houseShift() {
+      var overflow = stage.scrollHeight - window.innerHeight + 28;
+      if (overflow <= 0) return 0;
+      return mobile ? overflow : Math.min(overflow, 96);
+    }
 
     gsap.set(house, { '--house-p': 0 });
-    gsap.set(lines, { opacity: 0, y: mobile ? 28 : 36 });
-    gsap.set(lede, { opacity: 0, y: mobile ? 22 : 28 });
-    gsap.set(laws, { opacity: 0, x: mobile ? 20 : 28 });
+    gsap.set(grid, { y: 0 });
+    gsap.set(lines, { opacity: 0, y: mobile ? 20 : 36 });
+    gsap.set(lede, { opacity: 0, y: mobile ? 16 : 28 });
+    gsap.set(laws, { opacity: 0, x: mobile ? 16 : 28 });
 
     var tl = gsap.timeline({
       scrollTrigger: {
         trigger: house,
         start: 'top top',
-        end: end,
+        end: function () {
+          return '+=' + Math.round(window.innerHeight * (mobile ? 1.25 : 1.9));
+        },
         pin: stage,
         pinType: 'fixed',
         pinSpacing: true,
-        scrub: mobile ? 0.5 : 0.65,
-        anticipatePin: 1,
+        pinReparent: mobile,
+        scrub: mobile ? true : 0.65,
+        anticipatePin: mobile ? 0 : 1,
+        fastScrollEnd: true,
+        refreshPriority: 1,
         invalidateOnRefresh: true
       }
     });
@@ -131,11 +150,18 @@
     tl.to(house, { '--house-p': 1, duration: 1, ease: 'none' }, 0);
 
     lines.forEach(function (line, i) {
-      tl.to(line, { opacity: 1, y: 0, duration: 0.14, ease: 'none' }, 0.06 + i * 0.11);
+      tl.to(line, { opacity: 1, y: 0, duration: 0.14, ease: 'none' }, 0.04 + i * (mobile ? 0.08 : 0.11));
     });
 
-    tl.to(lede, { opacity: 1, y: 0, duration: 0.2, ease: 'none' }, 0.42)
-      .to(laws, { opacity: 1, x: 0, duration: 0.12, stagger: 0.08, ease: 'none' }, 0.62);
+    if (mobile) {
+      tl.to(laws, { opacity: 1, x: 0, duration: 0.12, stagger: 0.06, ease: 'none' }, 0.28)
+        .to(lede, { opacity: 1, y: 0, duration: 0.18, ease: 'none' }, 0.46)
+        .to(grid, { y: function () { return -houseShift(); }, duration: 0.28, ease: 'none' }, 0.58);
+    } else {
+      tl.to(lede, { opacity: 1, y: 0, duration: 0.2, ease: 'none' }, 0.42)
+        .to(laws, { opacity: 1, x: 0, duration: 0.12, stagger: 0.08, ease: 'none' }, 0.62)
+        .to(grid, { y: function () { return -houseShift(); }, duration: 0.22, ease: 'none' }, 0.72);
+    }
 
     return tl.scrollTrigger;
   }
@@ -163,6 +189,11 @@
 
     var st = pinStage(land, sticky, 'bottom bottom', function (self) {
       applyProgress(self.progress);
+    }, {
+      refreshPriority: 2,
+      anticipatePin: mobile ? 0 : 1,
+      pinReparent: mobile,
+      scrub: mobile ? true : true
     });
 
     applyProgress(st.progress);
@@ -176,6 +207,7 @@
       initHouse(mobile),
       initLand(mobile)
     ].filter(Boolean);
+    ScrollTrigger.sort();
     ScrollTrigger.refresh();
     return triggers;
   }
@@ -215,6 +247,11 @@
     var house = document.querySelector('.mv-house');
     if (house) {
       house.style.removeProperty('--house-p');
+    }
+
+    var grid = document.querySelector('.mv-house__grid');
+    if (grid) {
+      gsap.set(grid, { clearProps: 'transform' });
     }
   }
 
