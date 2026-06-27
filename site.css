@@ -866,8 +866,13 @@
   position: relative;
   z-index: 2;
 }
+.editorial-page .notes--beles { background-color: #0a1208; }
+.editorial-page .notes--asmara { background-color: #0e0c0a; }
+.editorial-page .notes--massawa { background-color: #120a06; }
+.editorial-page .notes--ritual { background-color: #100808; }
 .editorial-page .notes__head {
   max-width: var(--max); margin: 0 auto clamp(56px, 8vw, 100px);
+  display: grid;
   grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
   align-items: end;
 }
@@ -1077,7 +1082,8 @@
   padding: clamp(20px, 3vw, 36px);
 }
 .editorial-page .beles-section.beles-section--dark .info-page__figure--concept img {
-  background: rgba(248,246,240,0.96);
+  background: transparent;
+  border: 1px solid rgba(248,246,240,0.14);
 }
 .editorial-page .beles-section.beles-section--dark figcaption {
   color: rgba(248,246,240,0.55);
@@ -1100,10 +1106,6 @@
 }
 .editorial-page .beles-section a { color: var(--skin-umber); border-bottom: 1px solid currentColor; }
 .editorial-page .beles-section--inset { padding-left: var(--pad); padding-right: var(--pad); }
-.editorial-page #object .info-page__figure--concept {
-  max-width: min(280px, 100%); margin: 0 0 24px;
-  background: var(--bg-soft); padding: clamp(16px, 2vw, 32px);
-}
 
 /* =====================================================
    INFO PAGES — craftsmanship, wear (page-hero + editorial body)
