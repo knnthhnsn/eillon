@@ -413,10 +413,10 @@ body[data-nav-home="true"] .nav__waitlist {
 .mv-name__logo img {
   display: block;
   width: auto;
-  height: clamp(56px, 10vw, 140px);
+  height: clamp(64px, 12vw, 160px);
   object-fit: contain;
   filter: brightness(0) invert(1);
-  opacity: 0.92;
+  opacity: 0.9;
 }
 .mv-name__sub {
   margin: clamp(28px, 4vw, 52px) 0 0 auto;
@@ -1125,7 +1125,7 @@ body[data-nav-home="true"] .footer__legal a:hover { color: #fff; }
   .mv-name { padding: clamp(64px,16vw,96px) var(--pad); }
   .mv-name__carousel { margin: 0 calc(-1 * var(--pad)); }
   .mv-name__word { font-size: clamp(78px, 30vw, 200px); }
-  .mv-name__logo img { height: clamp(40px, 11vw, 72px); }
+  .mv-name__logo img { height: clamp(48px, 13vw, 88px); }
   .mv-name__sub { margin-left: 0; text-align: left; max-width: none; }
   .mv-name__meta::before { width: 36px; }
 

@@ -74,7 +74,9 @@
   var reduceMq = window.matchMedia('(prefers-reduced-motion: reduce)');
   if (reduceMq.matches) return;
 
-  track.innerHTML += track.innerHTML;
+  Array.from(track.children).forEach(function (child) {
+    track.appendChild(child.cloneNode(true));
+  });
 
   var offset = 0;
   var speed = 0.28;
