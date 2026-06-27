@@ -457,8 +457,8 @@ body[data-nav-home="true"] .nav__waitlist {
 }
 .mv-name__word {
   font-family: var(--serif);
-  font-weight: 400;
-  font-variation-settings: 'opsz' 144;
+  font-weight: 600;
+  font-variation-settings: 'opsz' 144, 'wght' 600;
   font-size: clamp(56px, 16vw, 260px);
   line-height: 0.82;
   letter-spacing: -0.05em;
@@ -478,8 +478,10 @@ body[data-nav-home="true"] .nav__waitlist {
   flex-shrink: 0;
 }
 .mv-name__logo-orbit {
-  --orbit-r: clamp(72px, 11vw, 128px);
-  --logo-mark: clamp(68px, 10.5vw, 128px);
+  --orbit-n: 3;
+  --orbit-offset: 90deg;
+  --orbit-r: clamp(138px, 21vw, 234px);
+  --logo-mark: clamp(138px, 21vw, 234px);
   --orbit-dur: 20s;
   position: relative;
   width: calc(var(--orbit-r) * 2 + var(--logo-mark));
@@ -497,9 +499,8 @@ body[data-nav-home="true"] .nav__waitlist {
   will-change: transform;
 }
 .mv-name__logo-orbit-item:nth-child(1) { animation-delay: 0s; }
-.mv-name__logo-orbit-item:nth-child(2) { animation-delay: calc(var(--orbit-dur) * -0.25); }
-.mv-name__logo-orbit-item:nth-child(3) { animation-delay: calc(var(--orbit-dur) * -0.5); }
-.mv-name__logo-orbit-item:nth-child(4) { animation-delay: calc(var(--orbit-dur) * -0.75); }
+.mv-name__logo-orbit-item:nth-child(2) { animation-delay: calc(var(--orbit-dur) / -3); }
+.mv-name__logo-orbit-item:nth-child(3) { animation-delay: calc(var(--orbit-dur) * -2 / 3); }
 .mv-name__logo-orbit-item img {
   display: block;
   width: 100%;
@@ -508,8 +509,8 @@ body[data-nav-home="true"] .nav__waitlist {
   opacity: 0.9;
 }
 @keyframes mvLogoPath {
-  from { transform: rotate(0deg) translateY(calc(-1 * var(--orbit-r))) rotate(0deg); }
-  to { transform: rotate(360deg) translateY(calc(-1 * var(--orbit-r))) rotate(-360deg); }
+  from { transform: rotate(var(--orbit-offset)) translateY(calc(-1 * var(--orbit-r))) rotate(calc(-1 * var(--orbit-offset))); }
+  to { transform: rotate(calc(360deg + var(--orbit-offset))) translateY(calc(-1 * var(--orbit-r))) rotate(calc(-360deg - var(--orbit-offset))); }
 }
 .mv-name__sub {
   margin: clamp(28px, 4vw, 52px) 0 0 auto;
@@ -1188,10 +1189,9 @@ body[data-nav-home="true"] .footer__legal a:hover { color: #fff; }
   .mv-name__track { transform: none !important; padding-left: 0; }
   .mv-name__logo-orbit { animation: none; }
   .mv-name__logo-orbit-item { animation: none; }
-  .mv-name__logo-orbit-item:nth-child(1) { transform: rotate(0deg) translateY(calc(-1 * var(--orbit-r))) rotate(0deg); }
-  .mv-name__logo-orbit-item:nth-child(2) { transform: rotate(90deg) translateY(calc(-1 * var(--orbit-r))) rotate(-90deg); }
-  .mv-name__logo-orbit-item:nth-child(3) { transform: rotate(180deg) translateY(calc(-1 * var(--orbit-r))) rotate(-180deg); }
-  .mv-name__logo-orbit-item:nth-child(4) { transform: rotate(270deg) translateY(calc(-1 * var(--orbit-r))) rotate(-270deg); }
+  .mv-name__logo-orbit-item:nth-child(1) { transform: rotate(90deg) translateY(calc(-1 * var(--orbit-r))) rotate(-90deg); }
+  .mv-name__logo-orbit-item:nth-child(2) { transform: rotate(210deg) translateY(calc(-1 * var(--orbit-r))) rotate(-210deg); }
+  .mv-name__logo-orbit-item:nth-child(3) { transform: rotate(330deg) translateY(calc(-1 * var(--orbit-r))) rotate(-330deg); }
   .mv-land { height: auto; }
   .mv-land__sticky { position: static; height: auto; min-height: 88svh; }
   .mv-land__media img { transform: none; }
@@ -1256,7 +1256,6 @@ body[data-nav-home="true"] .footer__legal a:hover { color: #fff; }
   .mv-hero__cta { max-width: 100%; }
   .mv-name { contain: paint; }
   .mv-name__carousel { margin-inline: calc(-1 * var(--pad)); }
-  .mv-name__logo-orbit { --orbit-r: clamp(44px, 12vw, 72px); --logo-mark: clamp(44px, 11vw, 72px); }
   .mv-shader { overflow: hidden; max-width: 100%; }
   .mv-hero__base { flex-direction: column; align-items: flex-start; gap: 24px; }
   .mv-hero__tag { font-size: clamp(16px, 4.4vw, 20px); }
@@ -1268,7 +1267,7 @@ body[data-nav-home="true"] .footer__legal a:hover { color: #fff; }
   .mv-name { padding: clamp(64px,16vw,96px) var(--pad); }
   .mv-name__carousel { margin: 0 calc(-1 * var(--pad)); }
   .mv-name__word { font-size: clamp(48px, 18vw, 110px); }
-  .mv-name__logo-orbit { --orbit-r: clamp(52px, 14vw, 88px); --logo-mark: clamp(48px, 13vw, 88px); }
+  .mv-name__logo-orbit { --orbit-r: clamp(96px, 25.5vw, 162px); --logo-mark: clamp(90px, 24vw, 156px); }
   .mv-name__sub { margin-left: 0; text-align: left; max-width: none; }
   .mv-name__meta::before { width: 36px; }
 
@@ -1306,20 +1305,43 @@ body[data-nav-home="true"] .footer__legal a:hover { color: #fff; }
   .mv-house__display-line,
   .mv-house__display em { white-space: normal; }
 
-  /* M04 landscape — unpinned full-bleed on mobile */
-  .mv-land { height: auto; background: var(--cypress); }
-  .mv-land__sticky { position: relative; height: auto; min-height: 96svh; display: flex; }
-  .mv-land__media img { object-position: 42% 46%; transform: none; }
+  /* M04 landscape — full-viewport pin + phased scroll */
+  .mv-land {
+    height: 280vh;
+    height: 280svh;
+    overflow-x: clip;
+  }
+  .mv-land__sticky {
+    height: 100vh;
+    height: 100svh;
+    max-height: 100vh;
+    max-height: 100svh;
+  }
+  .mv-land__media img { object-position: 42% 46%; }
   .mv-land__grad {
     background: linear-gradient(180deg, rgba(8,14,10,0.5) 0%, rgba(8,14,10,0) 26%, rgba(8,14,10,0.2) 54%, rgba(8,14,10,0.86) 100%);
   }
-  .mv-land__eyebrow { position: absolute; top: calc(84px + env(safe-area-inset-top,0px)); }
-  .mv-land__copy { position: absolute; left: var(--pad); right: var(--pad); bottom: clamp(48px, 10vh, 90px); display: grid; gap: clamp(20px, 4vh, 32px); max-width: none; }
-  .mv-land__title, .mv-land__laws, .mv-land__sign { position: static; grid-area: auto; opacity: 1 !important; transform: none !important; }
+  .mv-land__eyebrow {
+    top: calc(72px + env(safe-area-inset-top, 0px));
+    left: var(--pad);
+  }
+  .mv-land__copy {
+    left: var(--pad);
+    right: var(--pad);
+    bottom: calc(clamp(36px, 8svh, 72px) + env(safe-area-inset-bottom, 0px));
+    max-width: none;
+    min-height: 36svh;
+  }
+  .mv-land__title,
+  .mv-land__laws,
+  .mv-land__sign {
+    width: 100%;
+    max-width: 100%;
+  }
   .mv-land__title { font-size: clamp(36px, 9vw, 52px); max-width: none; }
   .mv-land__laws { gap: 14px; max-width: none; }
   .mv-land__laws li { font-size: clamp(17px, 4.2vw, 21px); }
-  .mv-land__sign { font-size: clamp(20px, 5vw, 28px); margin-top: 0; }
+  .mv-land__sign { font-size: clamp(20px, 5vw, 28px); }
 
   /* M05 chapter */
   .mv-chapter { padding: clamp(72px,15vw,110px) var(--pad); }

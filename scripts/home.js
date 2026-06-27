@@ -1,7 +1,7 @@
 /* EILLON homepage — signature interaction: the pinned landscape sequence.
    Native sticky positioning + scroll progress (no scroll hijacking).
-   Falls back to a static, fully-legible composition on mobile and under
-   reduced motion. All reveal entrances are handled by the shared engine. */
+   Falls back to a static, fully-legible composition only under reduced motion.
+   All reveal entrances are handled by the shared engine. */
 (function () {
   'use strict';
 
@@ -9,7 +9,6 @@
   if (!land) return;
 
   var reduceMq = window.matchMedia('(prefers-reduced-motion: reduce)');
-  var smallMq = window.matchMedia('(max-width: 900px)');
   var clamp = function (v, a, b) { return Math.min(b, Math.max(a, v)); };
   var ticking = false;
   var bound = false;
@@ -46,9 +45,9 @@
   }
 
   function evaluate() {
-    if (reduceMq.matches || smallMq.matches) {
+    if (reduceMq.matches) {
       disable();
-      land.dataset.phase = '0'; /* mobile / reduced motion: stack all lines via CSS */
+      land.dataset.phase = '0';
     } else {
       enable();
     }
@@ -58,10 +57,8 @@
   var changeHandler = function () { evaluate(); };
   if (reduceMq.addEventListener) {
     reduceMq.addEventListener('change', changeHandler);
-    smallMq.addEventListener('change', changeHandler);
-  } else   if (reduceMq.addListener) {
+  } else if (reduceMq.addListener) {
     reduceMq.addListener(changeHandler);
-    smallMq.addListener(changeHandler);
   }
 })();
 
