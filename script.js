@@ -122,9 +122,14 @@
 
   const saveData = navigator.connection && navigator.connection.saveData;
 
+  const letterEntryEl = document.getElementById('letterEntry');
+
   if (prefersReduced || mobileLayout.matches || veilSeen || saveData) {
     dropped = true;
     dropVeil();
+  } else if (letterEntryEl && !veilSeen) {
+    document.addEventListener('eillon:letter-entry-complete', releaseVeil, { once: true });
+    setTimeout(releaseVeil, minHold + 9000);
   } else {
     if (document.fonts && document.fonts.ready) {
       Promise.race([

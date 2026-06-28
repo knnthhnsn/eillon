@@ -58,20 +58,22 @@
     .mv-hero__media { position: absolute; inset: 0; }
     .mv-hero__img { width: 100%; height: 100%; object-fit: cover; object-position: 60% center; }
     .mv-hero__word {
-      font-family: Georgia, 'Times New Roman', serif;
-      font-synthesis: style;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 400;
+      font-style: italic;
     }
     .veil { position: fixed; inset: 0; z-index: 9999; pointer-events: none; }
     @media (max-width: 900px) {
       .veil { display: none !important; }
       .mv-hero__word {
-        font-family: Georgia, 'Times New Roman', serif !important;
-        font-variation-settings: normal !important;
+        font-family: 'Cormorant Garamond', Georgia, serif !important;
+        font-weight: 400 !important;
       }
     }
   </style>
   <link rel="stylesheet" href="styles.min.css?v=162" />
-  <link rel="stylesheet" href="home.min.css?v=74" />
+  <link rel="stylesheet" href="home.min.css?v=77" />
+  <link rel="stylesheet" href="letters.min.css?v=21" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -233,6 +235,7 @@
       .reveal, [data-reveal] { opacity: 1 !important; transform: none !important; clip-path: none !important; }
       [data-reveal] .word { opacity: 1 !important; transform: none !important; }
       .veil { display: none !important; }
+      .letter-entry { display: none !important; }
       .mv-land { height: auto !important; }
       .mv-land__sticky { position: static !important; height: auto !important; min-height: 88svh; }
       .mv-land__title, .mv-land__laws, .mv-land__sign { position: static !important; opacity: 1 !important; transform: none !important; }
@@ -245,6 +248,41 @@
   </script>
   <script>try{var h=location.hostname;if(h!=='localhost'&&h!=='127.0.0.1'&&sessionStorage.getItem('eillon-veil-seen'))document.body.classList.add('is-loaded');}catch(e){}</script>
   <a class="skip-link" href="#maison">Skip to the maison</a>
+
+  <!-- ============ LETTER ENTRY ============ -->
+  <div class="letter-entry" id="letterEntry" aria-hidden="true" aria-label="Welcome correspondence from EILLON">
+    <div class="letter-entry__desk" aria-hidden="true"></div>
+    <div class="letter-entry__light" aria-hidden="true"></div>
+    <button type="button" class="letter-entry__skip">Continue</button>
+    <div class="letter-entry__stage">
+      <div class="entry-env">
+        <div class="entry-env__cast" aria-hidden="true"></div>
+        <div class="entry-env__back" aria-hidden="true"></div>
+        <div class="entry-env__liner" aria-hidden="true"></div>
+        <article class="entry-env__sheet">
+          <span class="entry-env__grain" aria-hidden="true"></span>
+          <div class="entry-env__sheet-body">
+            <p class="entry-env__kicker">Correspondence · Copenhagen</p>
+            <h1 class="entry-env__heading">Beautiful Letters</h1>
+            <p class="entry-env__message">A living archive of memory, craft, and correspondence — pressed slowly into paper, kept for the one who asks.</p>
+          </div>
+          <span class="entry-env__sheet-crease" aria-hidden="true"></span>
+          <span class="entry-env__sheet-fold" aria-hidden="true"></span>
+        </article>
+        <div class="entry-env__front" aria-hidden="true"></div>
+        <div class="entry-env__fold-line" aria-hidden="true"></div>
+        <div class="entry-env__flap" aria-hidden="true"><span class="entry-env__flap-inner"></span></div>
+        <div class="entry-env__wax" aria-hidden="true"><span>E</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ LETTER READING DESK ============ -->
+  <div class="letter-reader" id="letterReader" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="letterReaderTitle">
+    <div class="letter-reader__veil" aria-hidden="true"></div>
+    <button type="button" class="letter-reader__close"><span aria-hidden="true">↩</span> Return to the desk</button>
+    <div class="letter-reader__focus"></div>
+  </div>
 
   <!-- ============ SCROLL PROGRESS BAR ============ -->
   <div class="scroll-progress" aria-hidden="true"></div>
@@ -308,7 +346,6 @@
               <span class="mv-name__word">EILLON</span>
               <span class="mv-name__logo">
                 <span class="mv-name__logo-orbit">
-                  <span class="mv-name__logo-orbit-item"><img src="images/logo.png" width="512" height="512" alt="" decoding="async" /></span>
                   <span class="mv-name__logo-orbit-item"><img src="images/logo.png" width="512" height="512" alt="" decoding="async" /></span>
                   <span class="mv-name__logo-orbit-item"><img src="images/logo.png" width="512" height="512" alt="" decoding="async" /></span>
                 </span>
@@ -500,10 +537,28 @@
       </div>
     </section>
 
-    <!-- closing breath -->
+    <!-- ============ MOVEMENT 09 — CLOSING MANIFESTO ============ -->
     <section class="mv-close" aria-label="Love this moment">
       <p class="mv-close__manifesto" data-reveal="words">We do not make things that compete for attention. We make things that <em>reward it.</em></p>
       <p class="mv-close__sign" data-reveal="up" data-delay="300">Love this moment.</p>
+    </section>
+
+    <!-- ============ MOVEMENT 10 — BEAUTIFUL LETTERS ============ -->
+    <section class="mv-letters" id="letters" aria-labelledby="letters-heading">
+      <div class="mv-letters__inner">
+        <header class="mv-letters__hub">
+          <p class="mv-eyebrow">House Correspondence</p>
+          <h2 class="mv-letters__title" id="letters-heading" data-reveal="words">Letters from the <em>Archive</em></h2>
+          <p class="mv-letters__lede" data-reveal="up">Principles, rituals, and private notes — six letters folded on the desk, waiting to be opened.</p>
+        </header>
+        <div class="mv-letters__archive">
+          <div class="mv-letters__well" aria-hidden="true">
+            <p class="mv-letters__well-verse">Open one.</p>
+            <p class="mv-letters__well-sub">House archive · private correspondence</p>
+          </div>
+          <ul class="mv-letters__table" aria-live="polite"></ul>
+        </div>
+      </div>
     </section>
   </main>
 
@@ -585,13 +640,15 @@
 
   <script src="/scripts/site-nav.js?v=24" defer></script>
   <script src="data/products.js?v=14" defer></script>
-  <script src="script.min.js?v=87" defer></script>
+  <script src="script.min.js?v=88" defer></script>
   <script src="/scripts/vendor/gsap.min.js?v=1" defer></script>
   <script src="/scripts/vendor/ScrollTrigger.min.js?v=1" defer></script>
+  <script src="data/letters.js?v=5" defer></script>
+  <script src="/scripts/letters.js?v=11" defer></script>
   <script src="/scripts/home.js?v=26" defer></script>
   <script>
     (function () {
-      var href = 'https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Inter:wght@300;400&display=swap';
+      var href = 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Inter:wght@300;400&family=La+Belle+Aurore&display=swap';
       function loadFonts() {
         var link = document.createElement('link');
         link.rel = 'stylesheet';
