@@ -516,6 +516,11 @@ body[data-nav-home="true"] .nav__waitlist {
   width: max-content;
   will-change: transform;
   padding-left: clamp(20px, 5vw, 96px);
+  animation: mvNameMarquee var(--marquee-duration, 24s) linear infinite;
+}
+@keyframes mvNameMarquee {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(calc(-1 * var(--marquee-shift, 0px)), 0, 0); }
 }
 .mv-name__loop {
   display: inline-flex;
@@ -561,7 +566,7 @@ body[data-nav-home="true"] .nav__waitlist {
   width: var(--logo-mark);
   height: auto;
   max-width: 100%;
-  aspect-ratio: 1219 / 687;
+  aspect-ratio: 280 / 158;
   object-fit: contain;
   object-position: center center;
   opacity: 0.9;
@@ -1379,7 +1384,7 @@ body[data-nav-home="true"] .footer__legal a:hover { color: #fff; }
   .mv-shader { display: none; }
   .mv-hero__scroll::after { animation: none; transform: scaleY(1); }
   .mv-name__carousel { display: flex; justify-content: center; }
-  .mv-name__track { transform: none !important; padding-left: 0; }
+  .mv-name__track { transform: none !important; padding-left: 0; animation: none !important; }
   .mv-land { height: auto; }
   .mv-land__scroll { display: none; }
   .mv-land__sticky { position: static; height: auto; min-height: 88svh; }

@@ -122,6 +122,7 @@
     }
 
     function runSequence() {
+      root.classList.add('is-armed');
       document.body.classList.add('letter-entry-active');
       root.setAttribute('aria-hidden', 'false');
       if (skipBtn) skipBtn.focus({ preventScroll: true });
@@ -501,12 +502,24 @@
       return;
     }
 
-    LetterOpeningExperience(entryRoot).start();
+    var entry = LetterOpeningExperience(entryRoot);
+    function startEntry() { entry.start(); }
+    if (mobileMq.matches || prefersReduced()) {
+      entryRoot.remove();
+      finishSiteEntry();
+      return;
+    }
+    if ('requestIdleCallback' in window) requestIdleCallback(startEntry, { timeout: 3200 });
+    else window.addEventListener('load', function () { setTimeout(startEntry, 600); }, { once: true });
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', boot);
-  } else {
-    boot();
+  function scheduleBoot() {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', boot, { once: true });
+    } else {
+      boot();
+    }
   }
+
+  scheduleBoot();
 })();

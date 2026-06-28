@@ -2,10 +2,17 @@
 (function initHomeScrollPins() {
   'use strict';
 
-  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
-
   var reduceMq = window.matchMedia('(prefers-reduced-motion: reduce)');
-  if (reduceMq.matches) return;
+  var started = false;
+
+  function boot() {
+    if (started) return true;
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return false;
+    if (reduceMq.matches) {
+      started = true;
+      return true;
+    }
+    started = true;
 
   gsap.registerPlugin(ScrollTrigger);
   ScrollTrigger.config({ ignoreMobileResize: true });
@@ -289,6 +296,63 @@
       }
     });
   }
+
+    return true;
+  }
+
+  function loadScript(src) {
+    return new Promise(function (resolve) {
+      var script = document.createElement('script');
+      script.src = src;
+      script.onload = resolve;
+      document.body.appendChild(script);
+    });
+  }
+
+  function loadGsapBundle() {
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+      return Promise.resolve();
+    }
+    return loadScript('/scripts/vendor/gsap.min.js?v=1').then(function () {
+      return loadScript('/scripts/vendor/ScrollTrigger.min.js?v=1');
+    });
+  }
+
+  function scheduleBoot() {
+    if (boot()) return;
+    var tries = 0;
+    var timer = setInterval(function () {
+      if (boot() || ++tries > 60) clearInterval(timer);
+    }, 50);
+  }
+
+  function startPinLoader() {
+    loadGsapBundle().then(scheduleBoot);
+  }
+
+  function whenPinsNeeded(callback) {
+    var targets = document.querySelectorAll('.mv-house, .mv-land, .mv-intro');
+    if (!targets.length || !('IntersectionObserver' in window)) {
+      callback();
+      return;
+    }
+    var done = false;
+    var run = function () {
+      if (done) return;
+      done = true;
+      observer.disconnect();
+      callback();
+    };
+    var observer = new IntersectionObserver(function (entries) {
+      if (entries.some(function (entry) { return entry.isIntersecting; })) run();
+    }, { rootMargin: '160px 0px' });
+    targets.forEach(function (target) { observer.observe(target); });
+    window.addEventListener('load', function () {
+      if (window.scrollY > 48) run();
+    }, { once: true });
+  }
+
+  whenPinsNeeded(startPinLoader);
 })();
 
 (function initNameMarquee() {
@@ -301,18 +365,16 @@
   var reduceMq = window.matchMedia('(prefers-reduced-motion: reduce)');
   if (reduceMq.matches) return;
 
-  track.appendChild(loop.cloneNode(true));
+  var speed = 44;
 
-    var speed = 44;
-  var loopW = 0;
-  var startTime = performance.now();
+  track.appendChild(loop.cloneNode(true));
 
   function readLoopWidth() {
     var loops = track.querySelectorAll('.mv-name__loop');
     if (!loops.length) return 0;
 
-    var prevTransform = track.style.transform;
-    track.style.transform = 'none';
+    var prevAnimation = track.style.animation;
+    track.style.animation = 'none';
 
     var width = loops[0].offsetWidth;
     if (loops.length > 1) {
@@ -320,50 +382,30 @@
       if (step > 0) width = step;
     }
 
-    track.style.transform = prevTransform;
+    track.style.animation = prevAnimation;
     return width;
   }
 
-  function measure() {
-    var nextW = readLoopWidth();
-    if (nextW <= 0) return;
-
-    if (loopW > 0 && nextW !== loopW) {
-      var traveled = ((performance.now() - startTime) / 1000) * speed;
-      var ratio = (traveled % loopW) / loopW;
-      loopW = nextW;
-      startTime = performance.now() - (ratio * loopW / speed) * 1000;
-    } else {
-      loopW = nextW;
-    }
-  }
-
-  function ensureFill() {
-    measure();
+  function applyMarquee() {
+    var loopW = readLoopWidth();
     if (!loopW) return;
 
     var loops = track.querySelectorAll('.mv-name__loop');
     while (track.scrollWidth - parseFloat(getComputedStyle(track).paddingLeft || 0) < window.innerWidth + loopW * 2) {
       track.appendChild(loops[0].cloneNode(true));
     }
-    measure();
+
+    loopW = readLoopWidth();
+    if (!loopW) return;
+
+    track.style.setProperty('--marquee-shift', loopW + 'px');
+    track.style.setProperty('--marquee-duration', (loopW / speed) + 's');
   }
 
-  function render(now) {
-    if (loopW > 0) {
-      var traveled = ((now - startTime) / 1000) * speed;
-      var phasePx = -(traveled % loopW);
-      track.style.transform = 'translate3d(' + phasePx + 'px,0,0)';
-    }
-    window.requestAnimationFrame(render);
-  }
-
-  ensureFill();
-  window.addEventListener('resize', ensureFill);
-  window.addEventListener('load', ensureFill);
+  applyMarquee();
+  window.addEventListener('resize', applyMarquee);
+  window.addEventListener('load', applyMarquee);
   if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(ensureFill);
+    document.fonts.ready.then(applyMarquee);
   }
-
-  window.requestAnimationFrame(render);
 })();

@@ -439,7 +439,7 @@
 .letter-entry.is-ink .entry-env__heading,
 .letter-entry.is-ink .entry-env__message { opacity: 1; }
 
-body.letter-entry-active { overflow: hidden; }
+body.letter-entry-active { touch-action: none; }
 body.letter-entry-active .veil { visibility: hidden !important; opacity: 0 !important; }
 
 /* ===================== ARCHIVE SECTION ===================== */

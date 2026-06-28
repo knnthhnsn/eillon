@@ -12,9 +12,22 @@
     };
     appendScript('/scripts/analytics.js?v=1');
     var loadShaders = function () {
-    appendScript('/scripts/site-shaders.js?v=52');
+      appendScript('/scripts/site-shaders.js?v=53');
     };
-    if (document.readyState === 'complete') {
+    var shaderTargets = document.querySelectorAll('.mv-shader, .mv-house, .mv-land, .mv-shader-band');
+    if (document.body.dataset.navHome === 'true' && shaderTargets.length && 'IntersectionObserver' in window) {
+      var shadersLoaded = false;
+      var loadOnce = function () {
+        if (shadersLoaded) return;
+        shadersLoaded = true;
+        observer.disconnect();
+        loadShaders();
+      };
+      var observer = new IntersectionObserver(function (entries) {
+        if (entries.some(function (entry) { return entry.isIntersecting; })) loadOnce();
+      }, { rootMargin: '180px 0px' });
+      shaderTargets.forEach(function (target) { observer.observe(target); });
+    } else if (document.readyState === 'complete') {
       if ('requestIdleCallback' in window) {
         requestIdleCallback(loadShaders, { timeout: 3000 });
       } else {

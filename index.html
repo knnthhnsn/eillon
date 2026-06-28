@@ -48,32 +48,79 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&display=swap" /></noscript>
+  <link rel="preload" href="styles.min.css?v=163" as="style" />
+  <link rel="preload" href="home.min.css?v=83" as="style" />
   <link rel="preload" as="image" href="images/cowboy-cowgirl-720.webp" type="image/webp" fetchpriority="high" media="(max-width: 900px)" />
   <link rel="preload" as="image" href="images/cowboy-cowgirl-1100.webp" type="image/webp" fetchpriority="high" media="(min-width: 901px)" />
 
   <style>
-    :root { --bg: #F3EFE6; --ink: #17150F; }
+    :root { --bg: #F3EFE6; --ink: #17150F; --paper: #F8F6F0; }
+    html { scrollbar-gutter: stable; }
     body { margin: 0; background: var(--bg); color: var(--ink); }
-    .mv-hero { position: relative; min-height: 100svh; background: #060d14; overflow: hidden; }
-    .mv-hero__media { position: absolute; inset: 0; }
+    .mv-hero { position: relative; min-height: 100svh; background: #060d14; overflow: hidden; color: var(--paper); }
+    .mv-hero__stage { position: relative; height: 100svh; min-height: 100svh; width: 100%; overflow: hidden; }
+    .mv-hero__media { position: absolute; inset: 0; z-index: 0; }
     .mv-hero__img { width: 100%; height: 100%; object-fit: cover; object-position: 60% center; }
+    .mv-hero__veil {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(90deg, rgba(5,17,31,0.78) 0%, rgba(5,17,31,0.32) 34%, rgba(5,17,31,0) 60%),
+        linear-gradient(0deg, rgba(4,12,21,0.85) 0%, rgba(4,12,21,0.12) 34%, rgba(4,12,21,0) 60%);
+    }
+    .mv-hero__lockup {
+      position: absolute;
+      left: clamp(20px, 5vw, 96px);
+      right: clamp(20px, 5vw, 96px);
+      bottom: clamp(40px, 7vh, 88px);
+      z-index: 3;
+      display: grid;
+      gap: clamp(20px, 3vw, 34px);
+    }
     .mv-hero__word {
+      margin: 0;
       font-family: 'Cormorant Garamond', Georgia, serif;
       font-weight: 400;
       font-style: italic;
+      font-size: clamp(86px, 21vw, 320px);
+      line-height: 0.78;
+      letter-spacing: -0.02em;
+      color: var(--paper);
+      text-shadow: 0 2px 60px rgba(0,0,0,0.35);
     }
+    .mv-hero__tag {
+      margin: 0;
+      font-family: Georgia, 'Times New Roman', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(18px, 1.7vw, 26px);
+      line-height: 1.4;
+      color: rgba(248, 246, 240, 0.9);
+      max-width: 22ch;
+    }
+    .letter-entry:not(.is-armed) { opacity: 0; visibility: hidden; pointer-events: none; }
     .veil { position: fixed; inset: 0; z-index: 9999; pointer-events: none; }
     @media (max-width: 900px) {
       .veil { display: none !important; }
+      .mv-hero__lockup {
+        left: clamp(20px, 5vw, 48px);
+        right: clamp(20px, 5vw, 48px);
+        bottom: calc(36px + env(safe-area-inset-bottom, 0px));
+        gap: 22px;
+      }
       .mv-hero__word {
+        font-size: clamp(48px, 16.5vw, 120px);
         font-family: 'Cormorant Garamond', Georgia, serif !important;
         font-weight: 400 !important;
       }
+      .mv-hero__img { object-position: 46% 28%; }
     }
   </style>
-  <link rel="stylesheet" href="styles.min.css?v=162" />
-  <link rel="stylesheet" href="home.min.css?v=81" />
-  <link rel="stylesheet" href="letters.min.css?v=21" />
+  <link rel="stylesheet" href="styles.min.css?v=163" />
+  <link rel="stylesheet" href="home.min.css?v=83" />
+  <link rel="stylesheet" href="letters.min.css?v=22" media="print" onload="this.media='all'" />
+  <noscript><link rel="stylesheet" href="letters.min.css?v=22" /></noscript>
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -345,7 +392,7 @@
             <span class="mv-name__segment">
               <span class="mv-name__word">EILLON</span>
               <span class="mv-name__logo">
-                <img src="images/logo.png" width="1219" height="687" alt="" decoding="async" />
+                <img src="images/logo-mark-280.webp" width="280" height="158" alt="" decoding="async" loading="lazy" />
               </span>
             </span>
           </div>
@@ -635,25 +682,37 @@
     </div>
   </footer>
 
-  <script src="/scripts/site-nav.js?v=24" defer></script>
-  <script src="data/products.js?v=14" defer></script>
+  <script src="/scripts/site-nav.js?v=25" defer></script>
   <script src="script.min.js?v=88" defer></script>
-  <script src="/scripts/vendor/gsap.min.js?v=1" defer></script>
-  <script src="/scripts/vendor/ScrollTrigger.min.js?v=1" defer></script>
-  <script src="data/letters.js?v=5" defer></script>
-  <script src="/scripts/letters.js?v=11" defer></script>
-  <script src="/scripts/home.js?v=27" defer></script>
+  <script src="/scripts/home.js?v=29" defer></script>
   <script>
     (function () {
-      var href = 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Inter:wght@300;400&family=La+Belle+Aurore&display=swap';
+      var href = 'https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Inter:wght@300;400&family=La+Belle+Aurore&display=optional';
       function loadFonts() {
         var link = document.createElement('link');
         link.rel = 'stylesheet';
         link.href = href;
         document.head.appendChild(link);
       }
-      if ('requestIdleCallback' in window) requestIdleCallback(loadFonts, { timeout: 3500 });
-      else window.addEventListener('load', function () { setTimeout(loadFonts, 800); });
+      if ('requestIdleCallback' in window) requestIdleCallback(loadFonts, { timeout: 4500 });
+      else window.addEventListener('load', function () { setTimeout(loadFonts, 1200); });
+    })();
+    (function () {
+      var queue = [
+        'data/products.js?v=14',
+        'data/letters.js?v=12',
+        '/scripts/letters.js?v=13'
+      ];
+      function loadNext(urls, index) {
+        if (index >= urls.length) return;
+        var script = document.createElement('script');
+        script.src = urls[index];
+        script.onload = function () { loadNext(urls, index + 1); };
+        document.body.appendChild(script);
+      }
+      function kick() { loadNext(queue, 0); }
+      if ('requestIdleCallback' in window) requestIdleCallback(kick, { timeout: 3200 });
+      else window.addEventListener('load', function () { setTimeout(kick, 400); });
     })();
   </script>
 </body>
