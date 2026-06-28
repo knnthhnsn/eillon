@@ -303,7 +303,7 @@
 
   track.appendChild(loop.cloneNode(true));
 
-  var speed = 28;
+    var speed = 44;
   var loopW = 0;
   var startTime = performance.now();
 
