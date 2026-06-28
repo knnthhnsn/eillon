@@ -2,10 +2,8 @@
 (function initBeautifulLetters() {
   'use strict';
 
-  var ENTRY_KEY = 'eillon-letter-entry-seen';
   var reduceMq = window.matchMedia('(prefers-reduced-motion: reduce)');
   var mobileMq = window.matchMedia('(max-width: 900px)');
-  var isLocalDev = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
 
   /* Fixed art-directed positions — only letter content shuffles */
   var DESK_PLACES = [
@@ -28,30 +26,6 @@
 
   function prefersReduced() { return reduceMq.matches; }
 
-  function entrySeen() {
-    if (isLocalDev) return false;
-    try { return sessionStorage.getItem(ENTRY_KEY) === '1'; } catch (_) { return false; }
-  }
-
-  function markEntrySeen() {
-    if (isLocalDev) return;
-    try {
-      sessionStorage.setItem(ENTRY_KEY, '1');
-      sessionStorage.setItem('eillon-veil-seen', '1');
-    } catch (_) {}
-  }
-
-  function dispatchEntryComplete() {
-    document.dispatchEvent(new CustomEvent('eillon:letter-entry-complete'));
-  }
-
-  function finishSiteEntry() {
-    markEntrySeen();
-    document.body.classList.remove('letter-entry-active');
-    document.body.classList.add('is-loaded');
-    dispatchEntryComplete();
-  }
-
   function shuffleArray(list) {
     var arr = list.slice();
     for (var i = arr.length - 1; i > 0; i -= 1) {
@@ -67,19 +41,6 @@
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;');
-  }
-
-  function runStages(root, stages, onDone) {
-    var timers = [];
-    var t = 0;
-    stages.forEach(function (stage) {
-      t += stage.at;
-      timers.push(setTimeout(function () {
-        if (stage.cls) root.classList.add(stage.cls);
-      }, t));
-    });
-    timers.push(setTimeout(onDone, t + (stages[stages.length - 1].hold || 500)));
-    return function clear() { timers.forEach(clearTimeout); };
   }
 
   function scriptLine(text) {
@@ -100,57 +61,6 @@
 
   function letterName(letter) {
     return letter.heading || coverTitle(letter);
-  }
-
-  /* ---------- Entry envelope ---------- */
-  function LetterOpeningExperience(root) {
-    if (!root) return { start: function () {}, skip: function () {} };
-
-    var skipBtn = root.querySelector('.letter-entry__skip');
-    var env = root.querySelector('.entry-env');
-    var finished = false;
-    var clearRun = null;
-
-    function exit() {
-      if (finished) return;
-      finished = true;
-      if (clearRun) clearRun();
-      root.classList.add('is-exiting');
-      root.setAttribute('aria-hidden', 'true');
-      finishSiteEntry();
-      setTimeout(function () { root.remove(); }, prefersReduced() ? 240 : 1200);
-    }
-
-    function runSequence() {
-      root.classList.add('is-armed');
-      document.body.classList.add('letter-entry-active');
-      root.setAttribute('aria-hidden', 'false');
-      if (skipBtn) skipBtn.focus({ preventScroll: true });
-
-      if (prefersReduced()) {
-        root.classList.add('is-ink', 'is-open', 'is-unfold');
-        setTimeout(exit, 560);
-        return;
-      }
-
-      clearRun = runStages(root, [
-        { at: 800, cls: 'is-breathe' },
-        { at: 600, cls: 'is-lift' },
-        { at: 500, cls: 'is-wax' },
-        { at: 700, cls: 'is-flap' },
-        { at: 850, cls: 'is-rise' },
-        { at: 900, cls: 'is-open' },
-        { at: 1000, cls: 'is-unfold' },
-        { at: 800, cls: 'is-ink', hold: 1800 },
-      ], exit);
-    }
-
-    if (skipBtn) skipBtn.addEventListener('click', exit);
-    root.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape') { e.preventDefault(); exit(); }
-    });
-
-    return { start: runSequence, skip: exit };
   }
 
   function waxSealClass(letter) {
@@ -486,40 +396,13 @@
   }
 
   function boot() {
-    var entryRoot = document.getElementById('letterEntry');
     var lettersSection = document.getElementById('letters');
-
     if (lettersSection) LetterArchiveSection(lettersSection);
-
-    if (!entryRoot) {
-      if (!document.body.classList.contains('is-loaded')) finishSiteEntry();
-      return;
-    }
-
-    if (entrySeen()) {
-      entryRoot.remove();
-      if (!document.body.classList.contains('is-loaded')) finishSiteEntry();
-      return;
-    }
-
-    var entry = LetterOpeningExperience(entryRoot);
-    function startEntry() { entry.start(); }
-    if (mobileMq.matches || prefersReduced()) {
-      entryRoot.remove();
-      finishSiteEntry();
-      return;
-    }
-    if ('requestIdleCallback' in window) requestIdleCallback(startEntry, { timeout: 3200 });
-    else window.addEventListener('load', function () { setTimeout(startEntry, 600); }, { once: true });
   }
 
-  function scheduleBoot() {
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', boot, { once: true });
-    } else {
-      boot();
-    }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot, { once: true });
+  } else {
+    boot();
   }
-
-  scheduleBoot();
 })();

@@ -99,10 +99,7 @@
       color: rgba(248, 246, 240, 0.9);
       max-width: 22ch;
     }
-    .letter-entry:not(.is-armed) { opacity: 0; visibility: hidden; pointer-events: none; }
-    .veil { position: fixed; inset: 0; z-index: 9999; pointer-events: none; }
     @media (max-width: 900px) {
-      .veil { display: none !important; }
       .mv-hero__lockup {
         left: clamp(20px, 5vw, 48px);
         right: clamp(20px, 5vw, 48px);
@@ -281,48 +278,14 @@
     <style>
       .reveal, [data-reveal] { opacity: 1 !important; transform: none !important; clip-path: none !important; }
       [data-reveal] .word { opacity: 1 !important; transform: none !important; }
-      .veil { display: none !important; }
-      .letter-entry { display: none !important; }
       .mv-land { height: auto !important; }
       .mv-land__sticky { position: static !important; height: auto !important; min-height: 88svh; }
       .mv-land__title, .mv-land__laws, .mv-land__sign { position: static !important; opacity: 1 !important; transform: none !important; }
     </style>
   </noscript>
 </head>
-<body data-nav-home="true">
-  <script>
-    if (window.matchMedia('(max-width: 900px)').matches) document.body.classList.add('is-loaded');
-  </script>
-  <script>try{var h=location.hostname;if(h!=='localhost'&&h!=='127.0.0.1'&&sessionStorage.getItem('eillon-veil-seen'))document.body.classList.add('is-loaded');}catch(e){}</script>
+<body data-nav-home="true" class="is-loaded">
   <a class="skip-link" href="#maison">Skip to the maison</a>
-
-  <!-- ============ LETTER ENTRY ============ -->
-  <div class="letter-entry" id="letterEntry" aria-hidden="true" aria-label="Welcome correspondence from EILLON">
-    <div class="letter-entry__desk" aria-hidden="true"></div>
-    <div class="letter-entry__light" aria-hidden="true"></div>
-    <button type="button" class="letter-entry__skip">Continue</button>
-    <div class="letter-entry__stage">
-      <div class="entry-env">
-        <div class="entry-env__cast" aria-hidden="true"></div>
-        <div class="entry-env__back" aria-hidden="true"></div>
-        <div class="entry-env__liner" aria-hidden="true"></div>
-        <article class="entry-env__sheet">
-          <span class="entry-env__grain" aria-hidden="true"></span>
-          <div class="entry-env__sheet-body">
-            <p class="entry-env__kicker">Correspondence · Copenhagen</p>
-            <h1 class="entry-env__heading">Beautiful Letters</h1>
-            <p class="entry-env__message">A living archive of memory, craft, and correspondence — pressed slowly into paper, kept for the one who asks.</p>
-          </div>
-          <span class="entry-env__sheet-crease" aria-hidden="true"></span>
-          <span class="entry-env__sheet-fold" aria-hidden="true"></span>
-        </article>
-        <div class="entry-env__front" aria-hidden="true"></div>
-        <div class="entry-env__fold-line" aria-hidden="true"></div>
-        <div class="entry-env__flap" aria-hidden="true"><span class="entry-env__flap-inner"></span></div>
-        <div class="entry-env__wax" aria-hidden="true"><span>E</span></div>
-      </div>
-    </div>
-  </div>
 
   <!-- ============ LETTER READING DESK ============ -->
   <div class="letter-reader" id="letterReader" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="letterReaderTitle">
@@ -333,24 +296,6 @@
 
   <!-- ============ SCROLL PROGRESS BAR ============ -->
   <div class="scroll-progress" aria-hidden="true"></div>
-
-  <!-- ============ INTRO VEIL ============ -->
-  <div class="veil" aria-hidden="true">
-    <span class="veil__panel veil__panel--top"></span>
-    <span class="veil__panel veil__panel--bottom"></span>
-    <div class="veil__content">
-      <span class="veil__rule veil__rule--top"></span>
-      <span class="veil__caption">Home of EILLON — Copenhagen</span>
-      <div class="veil__logo">
-        <picture>
-          <source type="image/webp" srcset="images/eillon_logo_veil.webp" />
-          <img src="images/eillon_logo_transparent.png" width="640" height="200" alt="EILLON" decoding="async" fetchpriority="low" />
-        </picture>
-      </div>
-      <span class="veil__sub">Red Sea memories, bottled.</span>
-      <span class="veil__rule veil__rule--bottom"></span>
-    </div>
-  </div>
 
   <main id="top" class="home">
     <!-- ============ MOVEMENT 01 — THE THRESHOLD ============ -->
@@ -683,7 +628,7 @@
   </footer>
 
   <script src="/scripts/site-nav.js?v=25" defer></script>
-  <script src="script.min.js?v=88" defer></script>
+  <script src="script.min.js?v=89" defer></script>
   <script src="/scripts/home.js?v=29" defer></script>
   <script>
     (function () {
@@ -701,7 +646,7 @@
       var queue = [
         'data/products.js?v=14',
         'data/letters.js?v=12',
-        '/scripts/letters.js?v=13'
+        '/scripts/letters.js?v=14'
       ];
       function loadNext(urls, index) {
         if (index >= urls.length) return;

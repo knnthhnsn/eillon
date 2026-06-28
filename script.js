@@ -89,58 +89,8 @@
     video.load();
   };
 
-  /* ---------- 1. CINEMATIC INTRO VEIL ---------- */
-  // The veil holds the screen while typography reveals, then curtains slide
-  // apart vertically to expose the hero.
-  // Timing is anchored to performance.timeOrigin so every visit gets the full
-  // sequence regardless of font cache state or script-parse latency.
-  const afterVeil = [];
-  const minHold = prefersReduced ? 0 : 220;
-
-  let dropped = false;
-  const markVeilSeen = () => {
-    if (isLocalDev) return;
-    try { sessionStorage.setItem('eillon-veil-seen', '1'); } catch (_) {}
-  };
-  const dropVeil = () => {
-    document.body.classList.add('is-loaded');
-    markVeilSeen();
-    afterVeil.forEach((fn) => fn());
-  };
-  const releaseVeil = () => {
-    if (dropped) return;
-    dropped = true;
-    const elapsed = performance.now();
-    const wait = Math.max(0, minHold - elapsed);
-    setTimeout(dropVeil, wait);
-  };
-
-  let veilSeen = false;
-  if (!isLocalDev) {
-    try { veilSeen = sessionStorage.getItem('eillon-veil-seen') === '1'; } catch (_) {}
-  }
-
-  const saveData = navigator.connection && navigator.connection.saveData;
-
-  const letterEntryEl = document.getElementById('letterEntry');
-
-  if (prefersReduced || mobileLayout.matches || veilSeen || saveData) {
-    dropped = true;
-    dropVeil();
-  } else if (letterEntryEl && !veilSeen) {
-    document.addEventListener('eillon:letter-entry-complete', releaseVeil, { once: true });
-    setTimeout(releaseVeil, minHold + 9000);
-  } else {
-    if (document.fonts && document.fonts.ready) {
-      Promise.race([
-        document.fonts.ready,
-        new Promise((r) => setTimeout(r, 450)),
-      ]).then(releaseVeil);
-    } else {
-      window.addEventListener('load', releaseVeil);
-    }
-    setTimeout(releaseVeil, minHold + 500);
-  }
+  /* ---------- 1. PAGE READY ---------- */
+  document.body.classList.add('is-loaded');
 
   /* ---------- 2. REVEAL ON SCROLL ----------
      Two systems:
@@ -549,11 +499,7 @@
 
     const queueHeroVideo = () => scheduleHeroVideo(beginHeroVideo);
 
-    if (document.body.classList.contains('is-loaded')) {
-      queueHeroVideo();
-    } else {
-      afterVeil.push(queueHeroVideo);
-    }
+    queueHeroVideo();
 
     document.addEventListener('visibilitychange', () => {
       if (!heroVideoStarted || prefersReduced) return;
@@ -905,8 +851,7 @@
         setTimeout(primeShopVideo, 500);
       }
     };
-    if (document.body.classList.contains('is-loaded')) run();
-    else afterVeil.push(run);
+    run();
   };
 
   const syncShopVideo = (shouldPlay) => {
