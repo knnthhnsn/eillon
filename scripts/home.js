@@ -303,40 +303,59 @@
 
   track.appendChild(loop.cloneNode(true));
 
-  var offset = 0;
   var speed = 28;
   var loopW = 0;
-  var lastTime = 0;
+  var startTime = performance.now();
 
-  function measure() {
+  function readLoopWidth() {
     var loops = track.querySelectorAll('.mv-name__loop');
-    if (!loops.length) return;
-    var width = loops[0].getBoundingClientRect().width;
+    if (!loops.length) return 0;
+
+    var prevTransform = track.style.transform;
+    track.style.transform = 'none';
+
+    var width = loops[0].offsetWidth;
     if (loops.length > 1) {
-      var step = loops[1].getBoundingClientRect().left - loops[0].getBoundingClientRect().left;
+      var step = loops[1].offsetLeft - loops[0].offsetLeft;
       if (step > 0) width = step;
     }
-    loopW = Math.round(width * 100) / 100;
-    if (loopW > 0) {
-      offset = ((offset % loopW) + loopW) % loopW;
-      if (offset > 0) offset -= loopW;
+
+    track.style.transform = prevTransform;
+    return width;
+  }
+
+  function measure() {
+    var nextW = readLoopWidth();
+    if (nextW <= 0) return;
+
+    if (loopW > 0 && nextW !== loopW) {
+      var traveled = ((performance.now() - startTime) / 1000) * speed;
+      var ratio = (traveled % loopW) / loopW;
+      loopW = nextW;
+      startTime = performance.now() - (ratio * loopW / speed) * 1000;
+    } else {
+      loopW = nextW;
     }
   }
 
   function ensureFill() {
     measure();
     if (!loopW) return;
+
     var loops = track.querySelectorAll('.mv-name__loop');
-    while (track.getBoundingClientRect().width < window.innerWidth + loopW * 2) {
+    while (track.scrollWidth - parseFloat(getComputedStyle(track).paddingLeft || 0) < window.innerWidth + loopW * 2) {
       track.appendChild(loops[0].cloneNode(true));
     }
     measure();
   }
 
-  function normalizeOffset() {
-    if (loopW <= 0) return;
-    while (offset <= -loopW) offset += loopW;
-    while (offset > 0) offset -= loopW;
+  function render(now) {
+    if (loopW > 0) {
+      var traveled = ((now - startTime) / 1000) * speed;
+      var phasePx = -(traveled % loopW);
+      track.style.transform = 'translate3d(' + phasePx + 'px,0,0)';
+    }
+    window.requestAnimationFrame(render);
   }
 
   ensureFill();
@@ -346,19 +365,5 @@
     document.fonts.ready.then(ensureFill);
   }
 
-  function step(now) {
-    if (!lastTime) lastTime = now;
-    var dt = Math.min(32, now - lastTime);
-    lastTime = now;
-
-    if (loopW > 0) {
-      offset -= (speed * dt) / 1000;
-      normalizeOffset();
-      track.style.transform = 'translate3d(' + offset.toFixed(2) + 'px,0,0)';
-    }
-
-    window.requestAnimationFrame(step);
-  }
-
-  window.requestAnimationFrame(step);
+  window.requestAnimationFrame(render);
 })();
