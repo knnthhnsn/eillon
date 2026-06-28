@@ -51,7 +51,7 @@
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&display=swap" /></noscript>
   <link rel="preload" href="styles.min.css?v=163" as="style" />
-  <link rel="preload" href="home.min.css?v=83" as="style" />
+  <link rel="preload" href="home.min.css?v=84" as="style" />
   <link rel="preload" as="image" href="images/cowboy-cowgirl-720.webp" type="image/webp" fetchpriority="high" media="(max-width: 900px)" />
   <link rel="preload" as="image" href="images/cowboy-cowgirl-1100.webp" type="image/webp" fetchpriority="high" media="(min-width: 901px)" />
 
@@ -113,11 +113,57 @@
       }
       .mv-hero__img { object-position: 46% 28%; }
     }
+    /* Letters archive — layout shell until deferred bundle loads */
+    .letter-reader {
+      position: fixed;
+      inset: 0;
+      z-index: 10040;
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .mv-letters {
+      content-visibility: auto;
+      contain-intrinsic-size: auto 900px;
+      position: relative;
+      padding: clamp(88px, 12vw, 152px) clamp(16px, 4vw, 80px);
+      background:
+        radial-gradient(ellipse 62% 48% at 50% 34%, rgba(255, 251, 245, 0.45), transparent 74%),
+        linear-gradient(180deg, rgba(248, 242, 232, 0.22) 0%, rgba(255, 255, 255, 0.04) 38%, rgba(242, 232, 214, 0.28) 100%),
+        #e8e4dc;
+      border-top: 1px solid rgba(255, 255, 255, 0.35);
+    }
+    .mv-letters__inner { max-width: min(1120px, 100%); margin: 0 auto; }
+    .mv-letters__hub { text-align: center; max-width: 40ch; margin: 0 auto clamp(40px, 6vw, 64px); }
+    .mv-letters__title {
+      margin: 0;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 300;
+      font-size: clamp(38px, 5.5vw, 68px);
+      line-height: 0.98;
+    }
+    .mv-letters__title em { font-style: italic; }
+    .mv-letters__lede {
+      margin: 16px 0 0;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      font-size: clamp(16px, 2vw, 20px);
+      line-height: 1.55;
+      color: rgba(23, 21, 15, 0.72);
+    }
+    .mv-letters__archive {
+      position: relative;
+      width: min(100%, 1120px);
+      margin: 0 auto;
+      min-height: clamp(660px, 92vw, 900px);
+    }
+    @media (max-width: 900px) {
+      .mv-letters__archive { min-height: clamp(980px, 210vw, 1280px); max-width: 400px; }
+    }
   </style>
   <link rel="stylesheet" href="styles.min.css?v=163" />
-  <link rel="stylesheet" href="home.min.css?v=83" />
-  <link rel="stylesheet" href="letters.min.css?v=22" media="print" onload="this.media='all'" />
-  <noscript><link rel="stylesheet" href="letters.min.css?v=22" /></noscript>
+  <link rel="stylesheet" href="home.min.css?v=84" />
+  <noscript><link rel="stylesheet" href="letters.min.css?v=23" /></noscript>
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -629,7 +675,9 @@
 
   <script src="/scripts/site-nav.js?v=25" defer></script>
   <script src="script.min.js?v=89" defer></script>
-  <script src="/scripts/home.js?v=29" defer></script>
+  <script src="/scripts/vendor/gsap.min.js?v=1" defer></script>
+  <script src="/scripts/vendor/ScrollTrigger.min.js?v=1" defer></script>
+  <script src="/scripts/home.js?v=31" defer></script>
   <script>
     (function () {
       var href = 'https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Inter:wght@300;400&family=La+Belle+Aurore&display=optional';
@@ -643,21 +691,15 @@
       else window.addEventListener('load', function () { setTimeout(loadFonts, 1200); });
     })();
     (function () {
-      var queue = [
-        'data/products.js?v=14',
-        'data/letters.js?v=12',
-        '/scripts/letters.js?v=14'
-      ];
-      function loadNext(urls, index) {
-        if (index >= urls.length) return;
+      function loadScript(url, next) {
         var script = document.createElement('script');
-        script.src = urls[index];
-        script.onload = function () { loadNext(urls, index + 1); };
+        script.src = url;
+        script.onload = next || function () {};
         document.body.appendChild(script);
       }
-      function kick() { loadNext(queue, 0); }
-      if ('requestIdleCallback' in window) requestIdleCallback(kick, { timeout: 3200 });
-      else window.addEventListener('load', function () { setTimeout(kick, 400); });
+      function kickProducts() { loadScript('data/products.js?v=14'); }
+      if ('requestIdleCallback' in window) requestIdleCallback(kickProducts, { timeout: 3200 });
+      else window.addEventListener('load', function () { setTimeout(kickProducts, 400); });
     })();
   </script>
 </body>

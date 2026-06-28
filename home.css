@@ -516,6 +516,11 @@ body[data-nav-home="true"] .nav__waitlist {
   width: max-content;
   will-change: transform;
   padding-left: clamp(20px, 5vw, 96px);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  animation: none;
+}
+.mv-name__track.is-marquee-ready {
   animation: mvNameMarquee var(--marquee-duration, 24s) linear infinite;
 }
 @keyframes mvNameMarquee {
@@ -1449,8 +1454,6 @@ body[data-nav-home="true"] .footer__legal a:hover { color: #fff; }
   }
   .mv-hero__base { max-width: 100%; }
   .mv-hero__cta { max-width: 100%; }
-  .mv-name { contain: layout style; }
-  .mv-name__carousel { margin-inline: calc(-1 * var(--pad)); }
   .mv-shader { overflow: hidden; max-width: 100%; }
   .mv-hero__base { flex-direction: column; align-items: flex-start; gap: 24px; }
   .mv-hero__tag { font-size: clamp(16px, 4.4vw, 20px); }

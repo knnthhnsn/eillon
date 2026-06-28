@@ -2,17 +2,10 @@
 (function initHomeScrollPins() {
   'use strict';
 
-  var reduceMq = window.matchMedia('(prefers-reduced-motion: reduce)');
-  var started = false;
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
 
-  function boot() {
-    if (started) return true;
-    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return false;
-    if (reduceMq.matches) {
-      started = true;
-      return true;
-    }
-    started = true;
+  var reduceMq = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (reduceMq.matches) return;
 
   gsap.registerPlugin(ScrollTrigger);
   ScrollTrigger.config({ ignoreMobileResize: true });
@@ -296,63 +289,6 @@
       }
     });
   }
-
-    return true;
-  }
-
-  function loadScript(src) {
-    return new Promise(function (resolve) {
-      var script = document.createElement('script');
-      script.src = src;
-      script.onload = resolve;
-      document.body.appendChild(script);
-    });
-  }
-
-  function loadGsapBundle() {
-    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-      return Promise.resolve();
-    }
-    return loadScript('/scripts/vendor/gsap.min.js?v=1').then(function () {
-      return loadScript('/scripts/vendor/ScrollTrigger.min.js?v=1');
-    });
-  }
-
-  function scheduleBoot() {
-    if (boot()) return;
-    var tries = 0;
-    var timer = setInterval(function () {
-      if (boot() || ++tries > 60) clearInterval(timer);
-    }, 50);
-  }
-
-  function startPinLoader() {
-    loadGsapBundle().then(scheduleBoot);
-  }
-
-  function whenPinsNeeded(callback) {
-    var targets = document.querySelectorAll('.mv-house, .mv-land, .mv-intro');
-    if (!targets.length || !('IntersectionObserver' in window)) {
-      callback();
-      return;
-    }
-    var done = false;
-    var run = function () {
-      if (done) return;
-      done = true;
-      observer.disconnect();
-      callback();
-    };
-    var observer = new IntersectionObserver(function (entries) {
-      if (entries.some(function (entry) { return entry.isIntersecting; })) run();
-    }, { rootMargin: '160px 0px' });
-    targets.forEach(function (target) { observer.observe(target); });
-    window.addEventListener('load', function () {
-      if (window.scrollY > 48) run();
-    }, { once: true });
-  }
-
-  whenPinsNeeded(startPinLoader);
 })();
 
 (function initNameMarquee() {
@@ -366,6 +302,9 @@
   if (reduceMq.matches) return;
 
   var speed = 44;
+  var ready = false;
+  var lastLoopW = 0;
+  var resizeTimer;
 
   track.appendChild(loop.cloneNode(true));
 
@@ -373,39 +312,122 @@
     var loops = track.querySelectorAll('.mv-name__loop');
     if (!loops.length) return 0;
 
-    var prevAnimation = track.style.animation;
-    track.style.animation = 'none';
-
-    var width = loops[0].offsetWidth;
+    var width = loops[0].getBoundingClientRect().width;
     if (loops.length > 1) {
-      var step = loops[1].offsetLeft - loops[0].offsetLeft;
+      var step = loops[1].getBoundingClientRect().left - loops[0].getBoundingClientRect().left;
       if (step > 0) width = step;
     }
 
-    track.style.animation = prevAnimation;
-    return width;
+    return Math.round(width);
   }
 
-  function applyMarquee() {
+  function ensureLoops() {
     var loopW = readLoopWidth();
-    if (!loopW) return;
+    if (!loopW) return 0;
 
     var loops = track.querySelectorAll('.mv-name__loop');
     while (track.scrollWidth - parseFloat(getComputedStyle(track).paddingLeft || 0) < window.innerWidth + loopW * 2) {
       track.appendChild(loops[0].cloneNode(true));
     }
 
-    loopW = readLoopWidth();
-    if (!loopW) return;
+    return readLoopWidth();
+  }
 
+  function applyMarquee() {
+    var loopW = ensureLoops();
+    if (!loopW) return;
+    if (ready && Math.abs(loopW - lastLoopW) < 2) return;
+
+    lastLoopW = loopW;
     track.style.setProperty('--marquee-shift', loopW + 'px');
     track.style.setProperty('--marquee-duration', (loopW / speed) + 's');
+
+    if (!ready) {
+      ready = true;
+      track.classList.add('is-marquee-ready');
+    }
   }
 
-  applyMarquee();
-  window.addEventListener('resize', applyMarquee);
-  window.addEventListener('load', applyMarquee);
-  if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(applyMarquee);
+  function initMarquee() {
+    applyMarquee();
   }
+
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(initMarquee);
+  } else {
+    initMarquee();
+  }
+
+  window.addEventListener('resize', function () {
+    if (resizeTimer) window.clearTimeout(resizeTimer);
+    resizeTimer = window.setTimeout(applyMarquee, 120);
+  });
+})();
+
+(function initLettersLazyLoad() {
+  'use strict';
+
+  var section = document.getElementById('letters');
+  if (!section) return;
+
+  var loaded = false;
+  var cssHref = 'letters.min.css?v=23';
+  var scriptQueue = ['data/letters.js?v=12', '/scripts/letters.js?v=15'];
+
+  function loadScripts(index) {
+    if (index >= scriptQueue.length) return;
+    var script = document.createElement('script');
+    script.src = scriptQueue[index];
+    script.onload = function () { loadScripts(index + 1); };
+    document.body.appendChild(script);
+  }
+
+  function loadLettersBundle() {
+    if (loaded) return;
+    loaded = true;
+
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = cssHref;
+    document.head.appendChild(link);
+
+    loadScripts(0);
+  }
+
+  if (location.hash === '#letters') {
+    loadLettersBundle();
+    return;
+  }
+
+  if (!('IntersectionObserver' in window)) {
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(loadLettersBundle, { timeout: 5000 });
+    } else {
+      window.addEventListener('load', function () {
+        setTimeout(loadLettersBundle, 1200);
+      }, { once: true });
+    }
+    return;
+  }
+
+  var done = false;
+  var observer;
+
+  function run() {
+    if (done) return;
+    done = true;
+    if (observer) observer.disconnect();
+    loadLettersBundle();
+  }
+
+  observer = new IntersectionObserver(function (entries) {
+    if (entries.some(function (entry) { return entry.isIntersecting; })) run();
+  }, { rootMargin: '560px 0px' });
+
+  observer.observe(section);
+
+  window.addEventListener('load', function () {
+    var rect = section.getBoundingClientRect();
+    if (rect.top < window.innerHeight + 560) run();
+  }, { once: true });
 })();
