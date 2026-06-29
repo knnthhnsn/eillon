@@ -73,3 +73,26 @@
 
 - Autonomy default L1–L2; no auto-merge.
 - Favicon switched to `images/favicon.jpeg` (ensure committed for prod).
+
+## Main branch digest (2026-06-29)
+
+**Window:** 7 days · **HEAD:** `c714cf6` · **74 commits**
+
+### Wins
+
+- EXP-001–005 + EXP-031 shipped on main; backlog reflects `done`.
+- `/prickly-pear-parfum` and `/journal/what-does-fico-d-india-smell-like` live; sitemap **19 URLs**.
+- EXP-005 Beles trust microcopy merged via first L2b auto-merge (PR #44 @ `790ad6f`).
+- 10 growth automations verified in Cursor UI (EXP-031); `pr_growth_auto_merge` may still await save.
+- Agent-Reach: Reddit authenticated as eillonofficial; codebase indexed (~10k nodes).
+
+### Lessons
+
+- Digest always from `origin/main` — local `main` can lag behind fetched origin.
+- Mobile GSAP pins: eager script load, ordered init, iOS `normalizeScroll`, chain Maison pin to house pin end.
+- Vercel deploy quota exhaustion blocks prod; jsDelivr CDN for scroll-pin script is valid interim hotfix (`c714cf6`).
+- Monitor Beles `restock_form_started` → `restock_form_submitted` over 14d post EXP-005.
+
+### Next focus
+
+- **EXP-008** — Journal → Beles internal links (highest eligible backlog item).
