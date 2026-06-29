@@ -14,7 +14,7 @@ Execute the single highest-priority eligible experiment from backlog.
 ## Steps
 
 1. Run `npm run growth:precheck` — exit if lock held or ≥3 open growth PRs
-2. Run `npm run growth:next`
+2. Run `npm run growth:next` — skips backlog rows with invalid loop_type (run `npm run growth:validate-backlog` if empty)
 3. Confirm experiment not done/blocked
 4. Execute full master loop from program.md for that EXP ID
 5. Branch via `npm run growth:branch <loop> <EXP-ID> <slug>`

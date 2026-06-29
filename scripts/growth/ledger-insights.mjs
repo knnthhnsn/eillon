@@ -58,6 +58,11 @@ if (invalidStatusHint) {
   console.log('\nWARN: pending_* status found — use blocked + automation-registry.md instead.');
 }
 
+const invalidLoopHint = recent.some((r) => r.notes?.includes('invalid loop'));
+if (invalidLoopHint) {
+  console.log('\nWARN: invalid loop_type in notes — run npm run growth:validate-backlog');
+}
+
 const expIds = recent.map((r) => r.experiment_id);
 const dupes = expIds.filter((id, i) => expIds.indexOf(id) !== i);
 if (dupes.length) {
