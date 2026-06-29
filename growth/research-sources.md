@@ -24,6 +24,13 @@
 | Pinterest | cactus fruit perfume mood | campaign docs |
 | XiaohongShu / Bilibili | optional cross-market notes | research only — adapt carefully |
 
+### Web research log (Agent-Reach fallback)
+
+- **2026-06-29** · Fragrantica (Raw Materials) · Prickly pear / Opuntia note profile · Insight: Niche note; watery cucumber-melon freshness; few dedicated releases (Ilio cited) · https://www.fragrantica.com/news/A-Universal-Love-for-Prickly-Pear-or-Opuntia-17694.html
+- **2026-06-29** · ScentVerdict · Prickly pear note glossary · Insight: Transparent modern fruitiness, desert moisture — aligns with cactus-water positioning · https://scentverdict.com/note/prickly-pear
+- **2026-06-29** · Fragrantica · Ortigia Fico D'India · Insight: Competing query owner; fig-leaf/cactus powdery-green, not sugary — EILLON must avoid clone positioning · https://www.fragrantica.com/perfume/Ortigia-Sicilia/Fico-D-India-9930.html
+- **2026-06-29** · Fragrantica · Heretic Cactus Abduction (2024) · Insight: Recent prickly-pear niche launch; green/citrus/woody, genderless · https://www.fragrantica.com/perfume/Heretic-Parfum/Cactus-Abduction-97332.html
+
 ## Search Console / Analytics (manual export)
 
 When available, export to `growth/runs/` as dated markdown summary — **no PII**.

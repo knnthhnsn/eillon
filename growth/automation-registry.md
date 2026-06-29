@@ -31,8 +31,8 @@
 - **QA gates:** validate-ledger, no fake claims
 - **Max autonomy:** L1 (docs-only default)
 - **Human review:** if proposing code changes
-- **Last run:** 2026-06-28 (manual OS build)
-- **Last result:** insights/backlog seeded
+- **Last run:** 2026-06-29 (cron daily_growth_compass)
+- **Last result:** insights/backlog/memory updated; recommend EXP-004
 - **Failure mode:** missing analytics access → docs-only research update
 - **Recovery:** mark run `blocked` in ledger; do not retry same day
 
