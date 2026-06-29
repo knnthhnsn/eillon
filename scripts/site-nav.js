@@ -137,6 +137,10 @@
           <span>Prickly pear parfum</span>
           <small>Discovery guide — Beles · Fico d'India</small>
         </a>
+        <a href="/journal/what-does-fico-d-india-smell-like" data-search-item data-search-keywords="fico d'india smell like prickly pear scent notes journal">
+          <span>What does Fico d'India smell like?</span>
+          <small>Journal — fruit accord on skin</small>
+        </a>
         <a href="${sectionHref('#craft')}" data-search-item data-search-keywords="bottle flacon cap square matte glass emblem leopard lettering">
           <span>The Bottle</span>
           <small>Object details and materials</small>

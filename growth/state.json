@@ -1,25 +1,22 @@
 {
   "schema_version": 1,
-  "last_run_at": "2026-06-29T08:00:00Z",
+  "last_run_at": "2026-06-29T08:30:00Z",
   "active_experiment_id": null,
   "active_automation_id": null,
-  "open_growth_prs_count": 0,
+  "open_growth_prs_count": 3,
   "lock_status": "unlocked",
-  "last_successful_loop": "EXP-003",
+  "last_successful_loop": "EXP-004",
   "last_failed_loop": null,
   "autonomy_level": "L1_docs_and_drafts",
   "current_focus": "search_to_restock",
-  "current_highest_priority": "EXP-004",
-  "pending_human_reviews": [],
-  "review_policy": "ai_hard_review",
-  "active_automations": [
-    "daily_growth_compass",
-    "pr_growth_review",
-    "manual_next_best_experiment"
+  "current_highest_priority": "EXP-005",
+  "pending_human_reviews": [
+    "Register Cursor Automations (all pending_registration)",
+    "Approve manual_next_best_experiment in Automations UI when form opens"
   ],
   "known_blockers": [
-    "weekly_search_to_restock awaiting save in Automations UI",
-    "No Agent-Reach MCP configured (optional demand research)",
-    "No codebase-memory-mcp configured (optional)"
+    "No Agent-Reach MCP configured in session",
+    "No codebase-memory-mcp configured in session",
+    "Cursor Automations not registered (pending manual setup)"
   ]
 }
