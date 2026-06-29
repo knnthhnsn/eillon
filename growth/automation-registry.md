@@ -1,19 +1,19 @@
 # EILLON Automation Registry
 
-**Updated:** 2026-06-28  
-**Truth rule:** Status is `active` only after verified registration in Cursor Automations UI.
+**Updated:** 2026-06-29  
+**Truth rule:** Status is `active` only after verified in Cursor Automations UI.
 
 | automation_id | name | status | trigger | schedule (Copenhagen) |
 |---|---|---|---|---|
-| daily_growth_compass | Daily Growth Compass | **pending_registration** | cron | Weekdays 08:00 |
-| weekly_search_to_restock | Weekly Search-to-Restock | **pending_registration** | cron | Monday 09:00 |
+| daily_growth_compass | Daily Growth Compass | **active** | cron | Weekdays 08:00 |
+| weekly_search_to_restock | Weekly Search-to-Restock | **awaiting_save** | cron | Monday 09:00 |
 | weekly_social_to_letter | Weekly Social-to-Letter | **pending_registration** | cron | Wednesday 10:00 |
 | weekly_conversion_trust | Weekly Conversion & Trust | **pending_registration** | cron | Thursday 11:00 |
 | monthly_brand_system | Monthly Brand System | **pending_registration** | cron | 1st of month 09:00 |
-| pr_growth_review | PR Growth Review | **pending_registration** | git PR opened/updated | — |
+| pr_growth_review | PR Growth Review | **active** | git PR opened/updated | — |
 | ci_failure_repair | CI Failure Repair | **pending_registration** | git CI failed | — |
 | main_branch_digest | Main Branch Digest | **pending_registration** | git push main + weekly | Sunday 18:00 |
-| manual_next_best_experiment | Manual Next Best Experiment | **pending_registration** | manual | — |
+| manual_next_best_experiment | Manual Next Best Experiment | **active** | manual | — |
 | automation_os_improver | Automation OS Improver | **pending_registration** | cron monthly + manual | 1st of month 10:00 |
 
 ---
@@ -30,7 +30,7 @@
 - **Expected output:** updated insights, backlog priority, memory; results.tsv row; run log
 - **QA gates:** validate-ledger, no fake claims
 - **Max autonomy:** L1 (docs-only default)
-- **Human review:** if proposing code changes
+- **AI hard review:** required before PR — `/growth/ai-review.md`, Bugbot, validate-ai-review
 - **Last run:** 2026-06-28 (manual OS build)
 - **Last result:** insights/backlog seeded
 - **Failure mode:** missing analytics access → docs-only research update
@@ -44,7 +44,7 @@
 - **Branch policy:** `growth/search-*` PR only
 - **Max open PRs:** 1 for this loop_type
 - **QA gates:** build, verify:all, brand safety
-- **Human review:** new product claims, major new routes
+- **AI hard review:** new product claims, major new routes
 
 ---
 
@@ -52,7 +52,8 @@
 
 - **Prompt:** `growth/automation-prompts/03-weekly-social-to-letter.md`
 - **Output:** `content/campaigns/YYYY-MM-DD-<slug>.md` + UTM plan
-- **Human review:** before publishing off-repo
+- **AI hard review:** brand + UTM checklist before PR
+- **Human-only:** publishing off-repo
 
 ---
 
@@ -66,7 +67,7 @@
 ## AUT-05 monthly_brand_system
 
 - **Prompt:** `growth/automation-prompts/05-monthly-brand-system.md`
-- **Human review:** DESIGN.md policy-level changes
+- **AI hard review:** DESIGN.md policy-level changes
 
 ---
 
@@ -102,7 +103,7 @@
 ## AUT-10 automation_os_improver
 
 - **Prompt:** `growth/automation-prompts/10-automation-os-improver.md`
-- **Human review:** required for autonomy policy or safety rule changes
+- **AI hard review:** required for autonomy policy or safety rule changes (zero block findings)
 
 ---
 
@@ -110,4 +111,8 @@
 
 See `/docs/cursor-automations-setup.md` for paste-in steps per automation.
 
-**Verified active count:** 0 (as of 2026-06-28)
+**Verified active count:** 3 (daily_growth_compass, pr_growth_review, manual_next_best_experiment — 2026-06-29)
+
+**Note:** Duplicate "Daily Growth Compass" entries in UI — delete the older duplicate and keep one.
+
+**Next:** Save "Weekly Search-to-Restock" (form prefilled 2026-06-29).

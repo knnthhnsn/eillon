@@ -37,6 +37,6 @@ Brand safety scan against DESIGN.md forbidden list; UTM has no PII
 
 No clear campaign angle with brand_fit ≥ 2
 
-## Human review
+## AI hard review
 
-Before publishing any asset off-repo
+Campaign drafts: run checklist in `/growth/ai-review.md` (brand + UTM). Off-repo publish is human-only.

@@ -29,12 +29,13 @@ The "model" is the combined system:
 4. **Hypothesis:** "If we [change], then [segment] will [action], because [evidence]."
 5. **Set loop_type** — see list below
 6. **Smallest useful diff** — one branch, one PR max
-7. **Run QA** — `/growth/qa-gates.md`
-8. **Score** — append `/growth/results.tsv`
-9. **Run log** — `/growth/runs/YYYY-MM-DD-<automation>-<experiment>.md`
-10. **Update** memory/insights/backlog if durable learning
-11. **Decision:** keep · rework · discard · pending_review · blocked
-12. **Stop** — no unbounded loops
+7. **Run QA** — `/growth/qa-gates.md` → `npm run growth:qa`
+8. **AI hard review** — `/growth/ai-review.md` → Bugbot on branch changes → write `*-ai-review.md` → `npm run growth:validate-ai-review`
+9. **Score** — append `/growth/results.tsv`
+10. **Run log** — `/growth/runs/YYYY-MM-DD-<automation>-<experiment>.md`
+11. **Update** memory/insights/backlog if durable learning
+12. **Decision:** keep · rework · discard · blocked (no `pending_review` — use AI hard review instead)
+13. **Stop** — no unbounded loops
 
 ### loop_type values
 `demand_research` · `seo_content` · `landing_page` · `conversion_copy` · `social_distribution` · `video_asset` · `local_discovery` · `analytics_measurement` · `brand_system` · `technical_seo` · `internal_linking` · `retention_email` · `automation_os` · `brand_safety` · `measurement`
@@ -66,7 +67,7 @@ Local/studio intent → about/studio → mailto request
 
 | Meta loop | Purpose | Rule |
 |---|---|---|
-| OS Improvement | Improve `/growth`, rules, prompts | No autonomy increase without human review |
+| OS Improvement | Improve `/growth`, rules, prompts | AI hard review required; no autonomy increase without zero block findings |
 | Brand Safety | Protect maison identity | One surface per run; score brand risk |
 | Research | Mine demand language | Agent-Reach when available; cite sources |
 | Design | Visual consistency | Update DESIGN.md when rule emerges |
@@ -79,9 +80,11 @@ Local/studio intent → about/studio → mailto request
 - **Event-triggered** automations (PR, CI) follow same single-iteration rule
 - Improvement over time = repeated triggers + ledger, not `while(true)`
 
-## Human review triggers
+## AI hard review (replaces human review for experiments)
 
-See `/growth/autonomy-policy.md`
+See `/growth/ai-review.md`. Bugbot + checklist artifact required before `keep` or PR.
+
+Human-only (outside growth loop): production deploy promotion, sending live email campaigns, paid ads spend, payment/checkout changes.
 
 ## File map
 

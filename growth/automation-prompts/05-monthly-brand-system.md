@@ -21,8 +21,8 @@ Pick one: homepage hero copy · beles proof layer · journal voice · footer Let
 - PR updating DESIGN.md and/or one page fix
 - Forbidden phrase scan report (grep forbidden list from DESIGN.md)
 
-## Human review
+## AI hard review
 
-Required for DESIGN.md policy-level changes and autonomy/rule changes
+Required before PR — Bugbot on branch changes; zero **block** findings for DESIGN.md policy edits.
 
 ## No auto-merge

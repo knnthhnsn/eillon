@@ -18,12 +18,9 @@ Improve the growth OS itself: docs, prompts, scorecard, scripts, rules — **nev
 - Add backlog items from failed runs
 - Improve automation prompts
 
-## Forbidden without human review
+## Forbidden without AI hard review pass
 
-- Increasing autonomy level
-- Removing QA gates
-- Allowing auto-merge
-- Weakening brand_safety or privacy rules
+Increasing autonomy level, removing QA gates, allowing auto-merge, or weakening brand_safety / privacy rules — all require Bugbot **block** count zero on the OS diff.
 
 ## Steps
 

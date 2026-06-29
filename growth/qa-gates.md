@@ -42,6 +42,7 @@ Before marking **keep** on any code change:
 - [ ] `brand_risk_penalty <= 1`
 - [ ] Result appended to `growth/results.tsv`
 - [ ] Run log created in `growth/runs/`
+- [ ] **AI hard review** artifact `*-ai-review.md` validated (`npm run growth:validate-ai-review`)
 
 ## Minimum keep gate (docs-only experiments)
 

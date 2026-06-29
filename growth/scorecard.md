@@ -81,7 +81,7 @@ Each component is **0–3** unless noted.
 |---|---|
 | 0 | Safe |
 | 1 | Slightly risky |
-| 2 | Needs human review |
+| 2 | Needs AI hard review re-run |
 | 3 | Unacceptable: misleading, culturally flattening, legally risky, false claims, fake urgency |
 
 ## Decision rules

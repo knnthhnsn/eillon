@@ -30,6 +30,7 @@
     "growth:state": "node scripts/growth/check-state.mjs",
     "growth:next": "node scripts/growth/select-next-experiment.mjs",
     "growth:qa": "node scripts/growth/qa.mjs",
+    "growth:validate-ai-review": "node scripts/growth/validate-ai-review.mjs",
     "growth:branch": "node scripts/growth/create-experiment-branch-name.mjs"
   },
   "dependencies": {

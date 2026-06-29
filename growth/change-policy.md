@@ -35,7 +35,7 @@ Allowed without extra review:
 - Sensory descriptions aligned with beles.html / products.js
 - Process descriptions from craftsmanship/about
 
-Requires human review:
+Requires AI hard review:
 - Restock dates, batch numbers, stock counts
 - IFRA, allergens, certifications
 - Press, awards, testimonials
@@ -46,4 +46,4 @@ Requires human review:
 - `results.tsv` — append only
 - `memory.md` — append dated sections
 - `autonomy-policy.md` — version bump + human approval
-- `program.md` — minor updates via PR; major loop changes need human review
+- `program.md` — minor updates via PR; major loop changes need AI hard review

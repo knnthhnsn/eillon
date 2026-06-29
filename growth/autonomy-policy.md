@@ -1,8 +1,8 @@
 # EILLON Growth Autonomy Policy
 
-**Version:** 1.0  
+**Version:** 1.1  
 **Effective:** 2026-06-28  
-**Human review required to change this file.**
+**Policy changes require AI hard review** (see `/growth/ai-review.md`).
 
 ## Purpose
 
@@ -31,7 +31,18 @@ Define what autonomous agents, Cursor Automations, and Cloud Agents may do insid
 - Run `npm run build`, `verify:*`, `smoke:funnel`, `growth:*` scripts
 - Open a PR if Cursor Automation supports it (**never auto-merge**)
 
-## Requires human review
+## Requires AI hard review (before keep / PR)
+
+All growth experiments touching code or public copy must pass `/growth/ai-review.md` (Bugbot + `*-ai-review.md` artifact).
+
+Review focus:
+
+- New product claims, major new routes, analytics events
+- DESIGN.md policy-level changes
+- Changes to this autonomy policy
+- Campaign kits before off-repo publish (draft in repo still needs brand review artifact)
+
+## Human-only (not delegated to growth automations)
 
 - Production deploy or promotion
 - Auto-merge of any PR
@@ -44,7 +55,8 @@ Define what autonomous agents, Cursor Automations, and Cloud Agents may do insid
 - Destructive DB migrations or data deletion
 - Deleting major content
 - Increasing automation autonomy level
-- **Changes to this autonomy policy**
+
+Policy file edits (`autonomy-policy.md`) require **AI hard review** with zero block findings — not human sign-off in the growth loop.
 
 ## Forbidden
 
@@ -83,4 +95,4 @@ Define what autonomous agents, Cursor Automations, and Cloud Agents may do insid
 
 ## Escalation
 
-When unsure: mark experiment `pending_review` in `results.tsv` and stop.
+When unsure: run AI hard review; if block findings remain, mark `rework` in `results.tsv` and stop.

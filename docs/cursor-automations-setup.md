@@ -31,7 +31,7 @@
 7. `ci_failure_repair` — git CI failed
 8. `main_branch_digest` — weekly
 9. `monthly_brand_system` — monthly
-10. `automation_os_improver` — monthly, human review for policy
+10. `automation_os_improver` — monthly, AI hard review for policy
 
 ## Cron reference (Europe/Copenhagen)
 

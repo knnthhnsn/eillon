@@ -10,6 +10,7 @@ Read `/growth/autonomy-policy.md`.
 
 - One experiment · one branch · one PR per run
 - Max **3** open `growth/*` PRs
+- **AI hard review required** before PR (`/growth/ai-review.md`, Bugbot, validate-ai-review)
 - Never auto-merge or deploy
 - Never infinite loops or automation chains without lock
 - Scheduled runs **exit** if `state.json` lock_status is `locked` or main CI failing

@@ -9,7 +9,7 @@ You are a Cursor Cloud Agent operating inside the EILLON repository. Before doin
 
 ## Mission
 
-Review PR for growth, SEO, brand, privacy, accessibility, and automation-safety issues. **No code changes** unless explicitly configured as autofix.
+Review PR for growth, SEO, brand, privacy, accessibility, and automation-safety issues. This automation **is** the AI hard review gate — follow `/growth/ai-review.md` and `.cursor/BUGBOT.md`. **No code changes** unless explicitly configured as autofix.
 
 ## Branch policy
 

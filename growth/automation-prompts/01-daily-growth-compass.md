@@ -54,9 +54,9 @@ Read, write, grep, shell (`npm run growth:*` only)
 - CI failing on main: exit with status blocked
 - Another automation holds lock
 
-## Human review
+## AI hard review
 
-Required before any code/HTML experiment implementation (defer to manual_next_best_experiment).
+Defer code/HTML experiments to `manual_next_best_experiment` (includes Bugbot gate).
 
 ## Output format
 

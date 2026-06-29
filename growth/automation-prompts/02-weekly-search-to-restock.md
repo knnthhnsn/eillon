@@ -33,8 +33,9 @@ Run **one** SEO/content/landing experiment aimed at Beles restock signup (loop: 
 4. Smallest useful diff (one page or article + internal links + metadata)
 5. Run `npm run growth:qa`
 6. Score all dimensions; append results.tsv
-7. Create run log; open PR with scores in body
-8. Unlock state
+7. **AI hard review** — Bugbot on branch changes per `/growth/ai-review.md`; write `*-ai-review.md`; `npm run growth:validate-ai-review`
+8. Create run log; open PR with scores + ai-review path in body
+9. Unlock state
 
 ## QA gates
 
@@ -44,6 +45,6 @@ build, verify:all, brand safety (DESIGN.md forbidden phrases), ledger append
 
 brand_risk_penalty ≥ 2, build fails unfixably, lock held
 
-## Human review
+## AI hard review
 
-New product claims, major new routes
+Required before PR — zero Bugbot **block** findings. See `/growth/ai-review.md`.

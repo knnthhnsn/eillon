@@ -56,7 +56,7 @@ If we [change], then [segment] will [action], because [evidence].
 
 ## Decision
 
-**Status:** keep | discard | rework | blocked | pending_review
+**Status:** keep | discard | rework | blocked
 
 ## Notes
 

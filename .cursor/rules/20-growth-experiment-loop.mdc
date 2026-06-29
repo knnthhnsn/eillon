@@ -14,9 +14,11 @@ When running a growth experiment:
 4. Branch: `growth/<loop>-<exp-id>-<slug>` (`npm run growth:branch`)
 5. Smallest useful diff; max files per `/growth/loop-manifest.yml`
 6. Run `npm run growth:qa`
-7. Score with `npm run growth:score` — keep if QGS ≥ 13 and brand_risk ≤ 1
-8. Append `/growth/results.tsv` (never overwrite)
-9. Run log: `/growth/runs/YYYY-MM-DD-<automation>-<exp>.md`
-10. Stop — no chained experiments
+7. **AI hard review** per `/growth/ai-review.md` — Bugbot on branch changes; fix all block findings
+8. Write `growth/runs/...-ai-review.md`; run `npm run growth:validate-ai-review`
+9. Score with `npm run growth:score` — keep if QGS ≥ 13 and brand_risk ≤ 1
+10. Append `/growth/results.tsv` (never overwrite)
+11. Run log: `/growth/runs/YYYY-MM-DD-<automation>-<exp>.md`
+12. Open PR with ai-review link in body — stop
 
 See `/growth/scorecard.md` for rubric.

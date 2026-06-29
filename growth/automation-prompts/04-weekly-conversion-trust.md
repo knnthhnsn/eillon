@@ -26,7 +26,8 @@ Improve **one** conversion surface or trust gap (form microcopy, FAQ, CTA, appoi
 1. Select backlog item (e.g. EXP-005, EXP-027)
 2. Hypothesis + minimal diff
 3. `npm run growth:qa`
-4. PR + ledger + run log
+4. AI hard review per `/growth/ai-review.md` — Bugbot + `*-ai-review.md`
+5. PR + ledger + run log
 
 ## Stop if
 

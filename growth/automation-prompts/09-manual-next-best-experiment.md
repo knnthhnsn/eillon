@@ -17,12 +17,14 @@ Execute the single highest-priority eligible experiment from backlog.
 2. Confirm experiment not done/blocked; check lock + open PR limits
 3. Execute full master loop from program.md for that EXP ID
 4. Branch via `npm run growth:branch <loop> <EXP-ID> <slug>`
-5. QA → score → PR → ledger → run log
+5. QA → **AI hard review** (Bugbot + `*-ai-review.md`) → score → PR → ledger → run log
 
 ## One experiment only
 
 Then stop.
 
-## Human review
+## AI hard review
 
-Per experiment type (claims, routes, analytics)
+Mandatory before PR or `keep`. Follow `/growth/ai-review.md`:
+- Bugbot on `branch changes` with `.cursor/BUGBOT.md` custom instructions
+- Fix all **block** findings; validate artifact with `npm run growth:validate-ai-review`

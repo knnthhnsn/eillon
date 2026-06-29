@@ -25,7 +25,7 @@
 
 ### Technical signals
 - CI pipeline robust (build, verify, smoke, lighthouse).
-- No eslint — rely on verify-copy and human review for copy regressions.
+- No eslint — rely on verify-copy and AI hard review (Bugbot) for copy regressions.
 
 ## Open questions (research backlog)
 1. Which Reddit/YouTube threads rank for "prickly pear perfume" in 2026? (Agent-Reach when configured)
