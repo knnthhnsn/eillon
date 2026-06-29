@@ -41,7 +41,7 @@ Increasing autonomy level, removing QA gates, allowing auto-merge, or weakening 
 1. Run `npm run growth:ledger-insights -- --last=10` for status/rework/blocked patterns
    - If fewer than 10 ledger rows: also read `growth/memory.md` (Previous failures), `growth/runs/*.md`, and `growth/automation-registry.md` failure modes
 2. Propose 1–3 targeted OS improvements tied to evidence
-3. Implement on branch `growth/os-YYYY-MM-DD`
+3. Implement on branch `growth/os-YYYY-MM-DD` (validated by `growth:validate-branch-name`)
 4. Run `npm run growth:qa` (auto-runs `npm ci` if `node_modules` incomplete)
 5. **AI hard review** — light self-checklist for docs/scripts-only; full Bugbot if touching autonomy policy
 6. Write `growth/runs/YYYY-MM-DD-automation_os_improver-EXP-OS-NNN-ai-review.md`; run `npm run growth:validate-ai-review`

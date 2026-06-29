@@ -2,6 +2,7 @@
 import { readFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { getCurrentBranch, validateGrowthBranch } from './branch-utils.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const statePath = join(__dirname, '../../growth/state.json');
@@ -62,7 +63,16 @@ if (lockOnly) {
     );
     process.exit(1);
   }
-  console.log('OK: automation preflight passed (unlocked, PR cap clear)');
+  const branch = getCurrentBranch();
+  const branchCheck = validateGrowthBranch(branch);
+  if (!branchCheck.ok) {
+    console.error(`BLOCKED: ${branchCheck.message}`);
+    process.exit(1);
+  }
+  if (branch && branch !== 'main' && branch !== 'master') {
+    console.log(`OK: branch "${branch}" passes growth naming guard`);
+  }
+  console.log('OK: automation preflight passed (unlocked, PR cap clear, branch valid)');
 }
 
 console.log(JSON.stringify(state, null, 2));

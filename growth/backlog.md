@@ -51,6 +51,7 @@
 | EXP-044 | OS: ledger shipped guard (check-exp-shipped + growth:next filter) | automation_os | 4 | 5 | 4 | 5 | 0 | 400 | done |
 | EXP-045 | OS: ledger-insights shipped summary (remove false invalid-loop warn) | automation_os | 2 | 5 | 2 | 5 | 0 | 150 | done |
 | EXP-046 | OS: branch naming guard (validate-branch-name, reject cursor/*) | automation_os | 4 | 5 | 4 | 5 | 0 | 400 | done |
+| EXP-047 | OS: allow growth/os-YYYY-MM-DD + branch check in precheck | automation_os | 4 | 5 | 4 | 5 | 0 | 400 | done |
 
 ## Top 10 next (after EXP-001/002)
 

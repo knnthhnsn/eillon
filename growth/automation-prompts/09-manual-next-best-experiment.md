@@ -19,7 +19,7 @@ Execute the single highest-priority eligible experiment from backlog.
 4. Confirm experiment not done/blocked in backlog
 5. Execute full master loop from program.md for that EXP ID
 6. Branch via `npm run growth:branch <loop> <EXP-ID> <slug>` — **never** `cursor/*`
-7. Before PR: `npm run growth:validate-branch-name -- $(git branch --show-current)`
+7. Before PR: `npm run growth:validate-branch-name -- --current`
 8. QA → **AI hard review** (Bugbot + `*-ai-review.md`) → score → PR → ledger → run log
 
 ## One experiment only

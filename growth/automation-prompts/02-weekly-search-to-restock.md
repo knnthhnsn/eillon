@@ -15,7 +15,7 @@ Run **one** SEO/content/landing experiment aimed at Beles restock signup (loop: 
 
 - Branch: `growth/<loop>-exp-<EXP-ID>-<slug>` via `npm run growth:branch <loop> <EXP-ID> <slug>`
 - **Never** push to `cursor/*` — bypasses PR cap and causes duplicate parallel PRs (see remote EXP-006/008 clusters)
-- Before PR: `npm run growth:validate-branch-name -- $(git branch --show-current)`
+- Before PR: `npm run growth:validate-branch-name -- --current`
 - One PR max; skip if open PR exists for loop_type search_to_restock
 - Never auto-merge
 

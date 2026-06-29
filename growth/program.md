@@ -26,7 +26,7 @@ The "model" is the combined system:
 1. **Read context:** `AGENTS.md`, `DESIGN.md`, `/growth/autonomy-policy.md`, `/growth/state.json`, `/growth/baseline.md`, `/growth/memory.md`, `/growth/insights.md`, `/growth/backlog.md`, `/growth/results.tsv`, `/growth/scorecard.md`, `/growth/qa-gates.md`
 2. **Check lock** — `npm run growth:precheck` (exit if locked or ≥3 open growth PRs)
 3. **Choose one experiment** — `npm run growth:next` (skips invalid loops and EXPs already shipped in ledger); confirm with `npm run growth:check-exp-shipped -- EXP-NNN`
-4. **Branch** — `npm run growth:branch <loop> <EXP-ID> <slug>` only; never `cursor/*` (run `npm run growth:validate-branch-name` before PR)
+4. **Branch** — `npm run growth:branch <loop> <EXP-ID> <slug>` for experiments; OS improver uses `growth/os-YYYY-MM-DD`. Never `cursor/*` (run `npm run growth:validate-branch-name -- --current` before PR; `growth:precheck` enforces on automation start)
 5. **Hypothesis:** "If we [change], then [segment] will [action], because [evidence]."
 6. **Set loop_type** — see list below
 7. **Smallest useful diff** — one branch, one PR max

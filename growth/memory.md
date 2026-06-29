@@ -109,6 +109,11 @@
 - EXP-045: `ledger-insights` no longer false-alarms on notes containing "invalid loop"; prints shipped content EXP IDs in window instead.
 - EXP-046: `npm run growth:validate-branch-name` rejects `cursor/*` and enforces `growth/<loop>-exp-NNN-<slug>`; wired into program.md and experiment prompts 02–05, 09.
 
+## OS branch naming gap (2026-06-29)
+
+- EXP-046 guard blocked the OS improver's own branch pattern `growth/os-YYYY-MM-DD` — this run failed `validate-branch-name` on `growth/os-2026-06-29`.
+- EXP-047: `branch-utils.mjs` accepts both experiment and OS branch patterns; `growth:precheck` validates current branch on automation start (blocks `cursor/*` before wasted work).
+
 ## Human decisions (2026-06-28)
 
 - Autonomy default L1–L2; no auto-merge.

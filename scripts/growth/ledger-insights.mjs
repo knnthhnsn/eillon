@@ -101,4 +101,4 @@ if (dupes.length) {
   console.log('  - Duplicate experiment_id rows may be meta (auto-merge) — run growth:check-exp-shipped before re-running an EXP');
 }
 console.log('  - Run npm run growth:validate-backlog and growth:validate-ledger after edits');
-console.log('  - Experiment branches must be growth/* — run growth:validate-branch-name before PR');
+console.log('  - Experiment branches: growth/<loop>-exp-NNN-<slug>; OS improver: growth/os-YYYY-MM-DD — run growth:validate-branch-name -- --current');
