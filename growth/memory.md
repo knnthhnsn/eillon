@@ -73,3 +73,29 @@
 
 - Autonomy default L1–L2; no auto-merge.
 - Favicon switched to `images/favicon.jpeg` (ensure committed for prod).
+
+## Main branch digest (2026-06-29)
+
+**Window:** 61 commits on main (2026-06-22 → 2026-06-29).
+
+### Wins
+
+- Growth OS + EXP-001/002/003 confirmed shipped (`32a9790`): persistent experiment layer, `/prickly-pear-parfum` discovery landing (FAQ schema, sitemap priority 0.82), favicon committed.
+- Phase 2–4 infra on main: analytics funnel, API rate limits, CI pipeline, consent recording, auto sitemap generation, demand sprint verification.
+- Editorial refresh + P0 trust/legal fixes (lifecycle labels, Asmara geography, shipping schema).
+- Homepage motion stabilized after 20+ pin/marquee iteration commits; mobile scroll jitter resolved.
+- Beautiful Letters experience shipped with sky archive + wax seals.
+- WebGL shader bands extended site-wide (homepage, chapters, proof, shop).
+
+### Lessons
+
+- GSAP ScrollTrigger pins must initialize after layout settles with measured scroll positions; lazy GSAP load caused mobile jitter — eager script tags restored.
+- Python/numpy wax-seal build step breaks Vercel CI — keep optional asset generation out of default `npm run build`.
+- Homepage visual complexity (WebGL + GSAP pins + letters bundle) is an ongoing Lighthouse tradeoff — defer non-critical bundles.
+- EXP-003 closes top prickly-pear SEO gap; monitor GSC indexing/impressions in 14–28d before next cluster page.
+
+### Baseline sync
+
+- Sitemap: 18 URLs (added `/prickly-pear-parfum`).
+- Favicon committed; SEO gap for prickly pear closed.
+- No new analytics events since Phase 2.
