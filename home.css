@@ -13,6 +13,18 @@
   --hair-dark:  rgba(23, 21, 15, 0.18);
 }
 
+/* GSAP ScrollTrigger.normalizeScroll() — iOS pin sync (see scripts/home.js) */
+html.mv-normalize-scroll,
+html.mv-normalize-scroll body {
+  overscroll-behavior: none;
+}
+html.mv-normalize-scroll .pin-spacer,
+html.mv-normalize-scroll .mv-house.mv-house--pin-js,
+html.mv-normalize-scroll .mv-land.mv-land--pin-js .mv-land__sticky {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
 /* Materiality — a single restrained grain layer over the whole page */
 .grain {
   position: fixed;
