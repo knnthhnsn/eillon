@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
-  "last_run_at": "2026-06-23T12:00:00Z",
-  "active_experiment_id": null,
-  "active_automation_id": null,
+  "last_run_at": "2026-06-29T07:53:38Z",
+  "active_experiment_id": "EXP-004",
+  "active_automation_id": "3a9c9597-738f-11f1-a8a0-cafc5ef88358",
   "open_growth_prs_count": 0,
-  "lock_status": "unlocked",
+  "lock_status": "locked",
   "last_successful_loop": "EXP-003",
   "last_failed_loop": null,
   "autonomy_level": "L1_docs_and_drafts",
   "current_focus": "search_to_restock",
-  "current_highest_priority": "EXP-004",
+  "current_highest_priority": "EXP-005",
   "pending_human_reviews": [
     "Register Cursor Automations (all pending_registration)",
     "Approve manual_next_best_experiment in Automations UI when form opens"
