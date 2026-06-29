@@ -88,6 +88,10 @@
 - Remote shows multiple parallel `cursor/*` branches for the same experiments (e.g. conversion-trust, social-campaign, beles-restock) — agents skipped preflight on prompts 03–05.
 - EXP-038: `npm run growth:ledger-insights` summarizes rework/blocked rows; weekly social, conversion-trust, and brand-system prompts now call `growth:precheck` at run start.
 
+## OS scope guard (2026-06-29)
+
+- EXP-040: `growth/os-2026-06-29` initially included unrelated `sitemap.xml` lastmod drift from a rebase/build — reverted; OS improver prompt now lists allowed paths and requires `git diff origin/main --stat` before PR.
+
 ## Human decisions (2026-06-28)
 
 - Autonomy default L1–L2; no auto-merge.
