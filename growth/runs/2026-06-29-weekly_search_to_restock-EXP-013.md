@@ -59,3 +59,4 @@ If we publish a journal article explaining oil-rich parfum with FAQ schema and B
 ## Lock footer
 
 - `state.json` lock cleared at run end
+- **2026-06-29 14:30 cron:** QA re-verified pass; `growth:validate-ai-review` OK; PR opened on `growth/search-exp-013-oil-rich-parfum`
