@@ -51,6 +51,7 @@
 
 - Events listed in `growth/baseline.md`.
 - UTM sessionStorage key: `eillon_utm`.
+- `studio_appointment_click` labels: `homepage_footer`, `footer`, `about_studio` (EXP-027, 2026-06-29).
 
 ## Previous wins (2026-06-28)
 
