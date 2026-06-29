@@ -8,7 +8,7 @@
 | EXP-001 | Baseline + growth OS setup | measurement | 5 | 5 | 4 | 5 | 0 | 500 | done |
 | EXP-002 | Cursor rules + automation scaffolding | automation_os | 5 | 5 | 4 | 5 | 0 | 500 | done |
 | EXP-003 | Prickly pear / Beles discovery landing page | seo_content | 5 | 4 | 3 | 5 | 1 | 120 | done |
-| EXP-004 | Journal: "What does Fico d'India smell like?" | seo_content | 5 | 4 | 4 | 5 | 0 | 160 | next |
+| EXP-004 | Journal: "What does Fico d'India smell like?" | seo_content | 5 | 4 | 4 | 5 | 0 | 160 | in_review |
 | EXP-005 | Beles restock form trust microcopy | conversion_copy | 4 | 4 | 5 | 5 | 0 | 160 | backlog |
 | EXP-006 | Social kit: "Prickly pear, but not candy." | social_distribution | 4 | 3 | 4 | 5 | 1 | 48 | backlog |
 | EXP-007 | Analytics: newsletter distinct events | analytics_measurement | 4 | 4 | 3 | 4 | 1 | 48 | backlog |
@@ -17,7 +17,7 @@
 | EXP-010 | Copenhagen appointment discovery (about) | local_discovery | 3 | 4 | 4 | 5 | 0 | 96 | backlog |
 | EXP-011 | FAQ schema expansion on wear.html | technical_seo | 3 | 4 | 4 | 4 | 0 | 64 | backlog |
 | EXP-012 | Homepage hero CTA A/B copy variant (draft) | conversion_copy | 3 | 2 | 4 | 4 | 1 | 24 | backlog |
-| EXP-013 | "Oil-rich parfum explained" journal piece | seo_content | 4 | 4 | 4 | 5 | 0 | 160 | backlog |
+| EXP-013 | "Oil-rich parfum explained" journal piece | seo_content | 4 | 4 | 4 | 5 | 0 | 160 | done |
 | EXP-014 | Beles size selector UX clarity | conversion_copy | 3 | 3 | 4 | 5 | 0 | 60 | backlog |
 | EXP-015 | Store card mini-waitlist CTA copy test | conversion_copy | 3 | 3 | 4 | 4 | 0 | 48 | backlog |
 | EXP-016 | Sitemap lastmod automation on content change | technical_seo | 2 | 5 | 5 | 3 | 0 | 50 | backlog |
@@ -43,9 +43,8 @@
 
 ## Top 10 next (after EXP-001/002)
 
-1. **EXP-004** — Fico d'India smell article
-2. **EXP-005** — Restock form trust copy
-3. **EXP-008** — Journal → Beles internal links
+1. **EXP-005** — Restock form trust copy
+2. **EXP-008** — Journal → Beles internal links
 5. **EXP-007** — Newsletter analytics events
 6. **EXP-010** — Copenhagen appointment improvements
 7. **EXP-013** — Oil-rich parfum explained

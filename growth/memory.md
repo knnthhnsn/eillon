@@ -36,6 +36,12 @@
 - `/prickly-pear-parfum` discovery landing shipped (EXP-003, 2026-06-23).
 - Sitemap 18 URLs; beles priority 0.9; prickly-pear-parfum 0.82.
 
+## Search demand (2026-06-29)
+
+- `/journal/oil-rich-parfum-explained` shipped (EXP-013) — FAQ schema, format education, Beles restock CTA.
+- Sitemap 19 URLs; journal oil-rich-parfum-explained priority 0.74.
+- EXP-004 smell article on open PR #21 — not yet on main; close duplicate cursor PRs #16–#20.
+
 ## Social demand (2026-06-28)
 
 - Pinterest/visual search loop undeveloped in repo (backlog EXP-009).
