@@ -73,3 +73,27 @@
 
 - Autonomy default L1–L2; no auto-merge.
 - Favicon switched to `images/favicon.jpeg` (ensure committed for prod).
+
+## Main branch digest (2026-06-29)
+
+### Wins
+
+- **EXP-004 shipped:** `/journal/what-does-fico-d-india-smell-like` — FAQ schema, smell-intent cluster, QGS 18.
+- **EXP-005 shipped:** Beles `.shop__restock-trust` microcopy above waitlist form — one email, no charge, privacy; QGS 15.
+- **First L2b auto-merge:** PR #44 squash-merged at `790ad6f` via `pr_growth_auto_merge` (0 block findings, CI green).
+- **EXP-031 done:** 10 growth automations verified active in Cursor UI.
+- **Sitemap:** 19 indexed URLs (was 17); prickly-pear + smell-intent journal live.
+- **AI hard review protocol** live (`growth/ai-review.md`); replaces human review gate in growth loop.
+
+### Lessons
+
+- Vercel free-tier deploy quota can block prod from receiving pin fixes — temporary jsDelivr CDN pin on `index.html` (`@94b69cc`) until quota resets.
+- Mobile GSAP scroll pins need `normalizeScroll` + ordered pin chain (house → maison) on iOS Safari; many iterative fixes in window.
+- Lazy GSAP loading caused mobile jitter — eager/defer script tags restored (`0ab1ab9`).
+- Baseline must track CDN workarounds and conversion-surface copy (trust blocks), not just routes.
+
+### Next focus
+
+- EXP-008 (journal → Beles internal links) — highest backlog priority.
+- Monitor Beles restock form conversion 14d post EXP-005.
+- Monitor GSC prickly-pear + smell-intent clusters 14–28d post EXP-003/004.
