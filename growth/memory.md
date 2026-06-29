@@ -55,6 +55,7 @@
 ## Previous wins (2026-06-28)
 
 - EXP-001/002: Growth OS + rules + automation prompts scaffolded (score 15–16).
+- EXP-026 (2026-06-29): Beles FAQ longevity answer with studio-observed figures and explicit non-guarantee disclaimer.
 - Lighthouse perf work on homepage (lazy letters, CSS marquee, critical CSS) — commits through 0ab1ab9.
 - Mobile pin jitter fix: eager GSAP load restored.
 
