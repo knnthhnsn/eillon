@@ -3,7 +3,7 @@
 **Date:** 2026-06-29
 **Automation:** weekly_search_to_restock
 **Branch:** growth/search-exp-013-oil-rich-parfum
-**Bugbot runs:** 1 (Bugbot unavailable in Cloud Agent session; manual checklist per `/growth/ai-review.md` + `.cursor/BUGBOT.md`)
+**Bugbot runs:** 2 (run 1: Bugbot unavailable; run 2: manual checklist re-verified 2026-06-29T17:00Z on branch diff vs main — 0 block findings)
 **Verdict:** pass_with_notes
 
 ## Summary
