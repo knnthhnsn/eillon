@@ -31,7 +31,7 @@
 | EXP-024 | Sample-first buying guide section | seo_content | 4 | 4 | 3 | 5 | 1 | 60 | backlog |
 | EXP-025 | Footer Letter promise A/B (draft) | conversion_copy | 3 | 2 | 5 | 5 | 0 | 50 | backlog |
 | EXP-026 | Beles FAQ: longevity without guarantees | objection_to_trust | 4 | 4 | 4 | 5 | 1 | 64 | backlog |
-| EXP-027 | Appointment mailto tracking on about | analytics_measurement | 3 | 5 | 5 | 4 | 0 | 100 | backlog |
+| EXP-027 | Appointment mailto tracking on about | analytics_measurement | 3 | 5 | 5 | 4 | 0 | 100 | done |
 | EXP-028 | Mobile waitlist form field order test | conversion_copy | 3 | 2 | 4 | 4 | 0 | 32 | backlog |
 | EXP-029 | Performance: lazy-load non-critical chapter images | technical_seo | 2 | 4 | 3 | 3 | 0 | 24 | backlog |
 | EXP-030 | DESIGN.md component CTA audit | brand_system | 3 | 4 | 4 | 5 | 0 | 60 | backlog |
