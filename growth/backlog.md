@@ -41,17 +41,18 @@
 | EXP-034 | Campaign folder `/content/campaigns/` scaffold | social_distribution | 3 | 5 | 5 | 4 | 0 | 75 | backlog |
 | EXP-035 | journal_to_beles_click event | analytics_measurement | 3 | 4 | 4 | 4 | 0 | 48 | backlog |
 
-## Top 10 next (after EXP-001/002)
+## Top 10 next (after EXP-001/002/003)
 
-1. **EXP-004** — Fico d'India smell article
-2. **EXP-005** — Restock form trust copy
-3. **EXP-008** — Journal → Beles internal links
+1. **EXP-004** — Fico d'India smell article *(cluster gap after prickly-pear landing)*
+2. **EXP-008** — Journal → Beles → prickly-pear internal links *(EXP-003 adds link node; quick discoverability win)*
+3. **EXP-005** — Restock form trust copy *(demand sprint proof funnel)*
+4. **EXP-013** — Oil-rich parfum explained
 5. **EXP-007** — Newsletter analytics events
-6. **EXP-010** — Copenhagen appointment improvements
-7. **EXP-013** — Oil-rich parfum explained
-8. **EXP-027** — About page appointment tracking
-9. **EXP-006** — Social campaign kit
-10. **EXP-009** — Pinterest visual pack
+6. **EXP-027** — About page appointment tracking
+7. **EXP-010** — Copenhagen appointment improvements
+8. **EXP-006** — Social campaign kit
+9. **EXP-009** — Pinterest visual pack
+10. **EXP-023** — Skin scent landing FAQ block
 
 ## Backlog rules
 

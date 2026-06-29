@@ -73,3 +73,15 @@
 
 - Autonomy default L1–L2; no auto-merge.
 - Favicon switched to `images/favicon.jpeg` (ensure committed for prod).
+
+## Search demand (2026-06-29)
+
+- `/prickly-pear-parfum` discovery landing confirmed live; sitemap 18 URLs; cross-links to journal and beles in place.
+- "Fico d'India" SERP/competitor set includes Ortigia Sicilia (fig/cactus, powdery-green) — EILLON must differentiate on oil-rich, mineral, skin-scent positioning.
+- Prickly pear as perfumery note: watery/cucumber-melon, niche not mass-market (external glossaries, Fragrantica raw-materials).
+
+## Compass run (2026-06-29)
+
+- `daily_growth_compass` run: docs-only; Agent-Reach unavailable; web research substituted.
+- Recommended next implementation: **EXP-004** (defer to `manual_next_best_experiment`).
+- Main CI passing on GitHub; open growth PRs: 0.
