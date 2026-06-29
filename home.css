@@ -18,11 +18,26 @@ html.mv-normalize-scroll,
 html.mv-normalize-scroll body {
   overscroll-behavior: none;
 }
+html.mv-home-mobile-pins .pin-spacer,
 html.mv-normalize-scroll .pin-spacer,
 html.mv-normalize-scroll .mv-house.mv-house--pin-js,
 html.mv-normalize-scroll .mv-land.mv-land--pin-js .mv-land__sticky {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+}
+html.mv-home-mobile-pins .mv-house.mv-house--pin-js .mv-house__stage {
+  height: 100svh;
+  min-height: 100svh;
+  box-sizing: border-box;
+  transform: translateZ(0);
+}
+html.mv-home-mobile-pins .mv-house.mv-house--pin-js .mv-house__grid {
+  will-change: transform;
+}
+html.mv-home-mobile-pins .mv-land.mv-land--pin-js .mv-land__title,
+html.mv-home-mobile-pins .mv-land.mv-land--pin-js .mv-land__laws,
+html.mv-home-mobile-pins .mv-land.mv-land--pin-js .mv-land__sign {
+  will-change: opacity, transform;
 }
 
 /* Materiality — a single restrained grain layer over the whole page */

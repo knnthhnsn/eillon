@@ -11,30 +11,48 @@
   ScrollTrigger.config({ ignoreMobileResize: true });
 
   var pinState = { mobile: false, triggers: [], normalizer: null };
+  var ctx = null;
+  var layoutRebuildTimer = null;
 
-  function enableMobileScrollNormalize() {
-    if (pinState.normalizer) return pinState.normalizer;
+  function isIOS() {
+    return /iPhone|iPad|iPod/i.test(navigator.userAgent) ||
+      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  }
+
+  function viewportHeight() {
+    if (window.visualViewport && window.visualViewport.height > 0) {
+      return window.visualViewport.height;
+    }
+    return window.innerHeight;
+  }
+
+  function enableIOSScrollNormalize() {
+    if (!isIOS() || pinState.normalizer) return pinState.normalizer;
 
     pinState.normalizer = ScrollTrigger.normalizeScroll({
       allowNestedScroll: true,
-      lockAxis: false,
-      type: 'touch,wheel,pointer'
+      lockAxis: true,
+      type: 'touch'
     });
     document.documentElement.classList.add('mv-normalize-scroll');
     return pinState.normalizer;
   }
 
-  function disableMobileScrollNormalize() {
+  function disableIOSScrollNormalize() {
     ScrollTrigger.normalizeScroll(false);
     pinState.normalizer = null;
     document.documentElement.classList.remove('mv-normalize-scroll');
   }
 
-  function mobilePinType() {
-    return pinState.normalizer ? 'fixed' : 'transform';
+  function mobilePinOptions() {
+    return {
+      pinType: 'transform',
+      pinReparent: isIOS(),
+      anticipatePin: 1,
+      scrub: true,
+      fastScrollEnd: true
+    };
   }
-  var ctx = null;
-  var layoutRebuildTimer = null;
 
   function refreshPins() {
     ScrollTrigger.sort();
@@ -42,17 +60,20 @@
   }
 
   function houseScrollDistance(mobile) {
-    return Math.round(window.innerHeight * (mobile ? 1.25 : 1.9));
+    return Math.round(viewportHeight() * (mobile ? 1.35 : 1.9));
   }
 
-  function landScrollDistance(land) {
-    return Math.max(land.offsetHeight - window.innerHeight, 0);
+  function landScrollDistance(land, mobile) {
+    if (mobile) {
+      return Math.round(viewportHeight() * 2);
+    }
+    return Math.max(land.offsetHeight - viewportHeight(), 0);
   }
 
   function pinScrollEnd(getDistance) {
     return function () {
       var distance = typeof getDistance === 'function' ? getDistance() : getDistance;
-      return '+=' + distance;
+      return '+=' + Math.max(Math.round(distance), 1);
     };
   }
 
@@ -67,65 +88,80 @@
     var lines = house.querySelectorAll('.mv-house__display-line, .mv-house__display em');
     var lede = house.querySelector('.mv-house__lede');
     var laws = house.querySelectorAll('.mv-house__laws li');
+    var pinTarget = mobile ? stage : house;
 
     function houseShift() {
-      var overflow = stage.scrollHeight - window.innerHeight + 28;
+      var overflow = stage.scrollHeight - viewportHeight() + 28;
       if (overflow <= 0) return 0;
       return mobile ? overflow : Math.min(overflow, 96);
     }
 
     function revealAll() {
-      gsap.set(lines, { opacity: 1, y: 0 });
-      gsap.set(lede, { opacity: 1, y: 0 });
-      gsap.set(laws, { opacity: 1, x: 0 });
-      gsap.set(grid, { y: 0 });
+      gsap.set(lines, { opacity: 1, y: 0, force3D: true });
+      gsap.set(lede, { opacity: 1, y: 0, force3D: true });
+      gsap.set(laws, { opacity: 1, x: 0, force3D: true });
+      gsap.set(grid, { y: 0, force3D: true });
     }
 
     gsap.set(house, { '--house-p': 0 });
-    gsap.set(grid, { y: 0 });
-    gsap.set(lines, { opacity: 0, y: mobile ? 20 : 36 });
-    gsap.set(lede, { opacity: 0, y: mobile ? 16 : 28 });
-    gsap.set(laws, { opacity: 0, x: mobile ? 16 : 28 });
+    gsap.set(grid, { y: 0, force3D: true });
+    gsap.set(lines, { opacity: 0, y: mobile ? 16 : 36, force3D: true });
+    gsap.set(lede, { opacity: 0, y: mobile ? 12 : 28, force3D: true });
+    gsap.set(laws, { opacity: 0, x: mobile ? 12 : 28, force3D: true });
 
-    var houseScroll = houseScrollDistance(mobile);
     var tl = gsap.timeline({ paused: true });
 
     tl.to(house, { '--house-p': 1, duration: 1, ease: 'none' }, 0);
 
     lines.forEach(function (line, i) {
-      tl.to(line, { opacity: 1, y: 0, duration: 0.14, ease: 'none' }, 0.04 + i * (mobile ? 0.08 : 0.11));
+      tl.to(line, {
+        opacity: 1,
+        y: 0,
+        duration: 0.14,
+        ease: 'none',
+        force3D: true
+      }, 0.04 + i * (mobile ? 0.08 : 0.11));
     });
 
     if (mobile) {
-      tl.to(laws, { opacity: 1, x: 0, duration: 0.12, stagger: 0.06, ease: 'none' }, 0.28)
-        .to(lede, { opacity: 1, y: 0, duration: 0.18, ease: 'none' }, 0.46)
-        .to(grid, { y: function () { return -houseShift(); }, duration: 0.28, ease: 'none' }, 0.58);
+      tl.to(laws, { opacity: 1, x: 0, duration: 0.12, stagger: 0.06, ease: 'none', force3D: true }, 0.28)
+        .to(lede, { opacity: 1, y: 0, duration: 0.18, ease: 'none', force3D: true }, 0.46)
+        .to(grid, { y: function () { return -houseShift(); }, duration: 0.28, ease: 'none', force3D: true }, 0.58);
     } else {
-      tl.to(lede, { opacity: 1, y: 0, duration: 0.2, ease: 'none' }, 0.42)
-        .to(laws, { opacity: 1, x: 0, duration: 0.12, stagger: 0.08, ease: 'none' }, 0.62)
-        .to(grid, { y: function () { return -houseShift(); }, duration: 0.22, ease: 'none' }, 0.72);
+      tl.to(lede, { opacity: 1, y: 0, duration: 0.2, ease: 'none', force3D: true }, 0.42)
+        .to(laws, { opacity: 1, x: 0, duration: 0.12, stagger: 0.08, ease: 'none', force3D: true }, 0.62)
+        .to(grid, { y: function () { return -houseShift(); }, duration: 0.22, ease: 'none', force3D: true }, 0.72);
     }
 
-    return ScrollTrigger.create({
+    var pinConfig = {
       id: 'mv-house',
       trigger: house,
       start: 'top top',
       end: pinScrollEnd(function () { return houseScrollDistance(mobile); }),
-      pin: house,
-      pinType: mobile ? mobilePinType() : 'fixed',
+      pin: pinTarget,
       pinSpacing: true,
-      pinReparent: false,
       animation: tl,
-      scrub: mobile && pinState.normalizer ? 0.35 : true,
-      anticipatePin: mobile && pinState.normalizer ? 1 : 0,
-      fastScrollEnd: !mobile,
       refreshPriority: 0,
       invalidateOnRefresh: true,
       onLeave: revealAll,
       onLeaveBack: function () {
-        gsap.set(grid, { y: 0 });
+        gsap.set(grid, { y: 0, force3D: true });
       }
-    });
+    };
+
+    if (mobile) {
+      Object.assign(pinConfig, mobilePinOptions());
+    } else {
+      Object.assign(pinConfig, {
+        pinType: 'fixed',
+        pinReparent: false,
+        scrub: true,
+        anticipatePin: 0,
+        fastScrollEnd: true
+      });
+    }
+
+    return ScrollTrigger.create(pinConfig);
   }
 
   function initLand(mobile) {
@@ -149,25 +185,24 @@
       if (!sticky) return null;
 
       land.classList.add('mv-land--pin-js');
+      land.style.height = Math.round(viewportHeight() * 3) + 'px';
 
-      var pinned = ScrollTrigger.create({
+      var pinConfig = {
         id: 'mv-land',
         trigger: land,
         start: 'top top',
-        end: pinScrollEnd(function () { return landScrollDistance(land); }),
+        end: pinScrollEnd(function () { return landScrollDistance(land, true); }),
         pin: sticky,
-        pinType: mobilePinType(),
         pinSpacing: true,
-        anticipatePin: pinState.normalizer ? 1 : 0,
-        fastScrollEnd: true,
         refreshPriority: 1,
-        pinReparent: false,
-        scrub: pinState.normalizer ? 0.35 : true,
         invalidateOnRefresh: true,
         onUpdate: function (self) {
           applyProgress(self.progress);
         }
-      });
+      };
+
+      Object.assign(pinConfig, mobilePinOptions());
+      var pinned = ScrollTrigger.create(pinConfig);
 
       applyProgress(pinned.progress);
       return pinned;
@@ -179,7 +214,7 @@
       id: 'mv-land',
       trigger: land,
       start: 'top top',
-      end: pinScrollEnd(function () { return landScrollDistance(land); }),
+      end: pinScrollEnd(function () { return landScrollDistance(land, false); }),
       scrub: true,
       invalidateOnRefresh: true,
       refreshPriority: 1,
@@ -194,11 +229,8 @@
 
   function runPinSetup(mobile) {
     var houseSt = initHouse(mobile);
-    ScrollTrigger.refresh();
-
     var landSt = initLand(mobile);
     refreshPins();
-
     return [houseSt, landSt].filter(Boolean);
   }
 
@@ -212,6 +244,7 @@
     });
     document.querySelectorAll('.mv-land--pin-js').forEach(function (el) {
       el.classList.remove('mv-land--pin-js');
+      el.style.removeProperty('height');
     });
     document.querySelectorAll('.mv-land--scroll-js').forEach(function (el) {
       el.classList.remove('mv-land--scroll-js');
@@ -237,10 +270,8 @@
   function rebuildPins() {
     if (!pinState.triggers.length) return;
 
-    var scrollY = window.scrollY;
-
+    var scrollY = ScrollTrigger.scroll();
     teardown(pinState.triggers);
-    ScrollTrigger.refresh();
     pinState.triggers = runPinSetup(pinState.mobile);
     refreshPins();
     requestAnimationFrame(function () {
@@ -251,7 +282,7 @@
 
   function scheduleLayoutRebuild() {
     if (layoutRebuildTimer) window.clearTimeout(layoutRebuildTimer);
-    layoutRebuildTimer = window.setTimeout(rebuildPins, 80);
+    layoutRebuildTimer = window.setTimeout(rebuildPins, 150);
   }
 
   function startPins() {
@@ -262,18 +293,30 @@
 
       mm.add('(max-width: 900px)', function () {
         pinState.mobile = true;
-        enableMobileScrollNormalize();
+        enableIOSScrollNormalize();
         pinState.triggers = runPinSetup(true);
+        document.documentElement.classList.add('mv-home-mobile-pins');
+
+        if (window.visualViewport) {
+          window.visualViewport.addEventListener('resize', scheduleLayoutRebuild);
+          window.visualViewport.addEventListener('scroll', ScrollTrigger.update);
+        }
+
         return function () {
+          if (window.visualViewport) {
+            window.visualViewport.removeEventListener('resize', scheduleLayoutRebuild);
+            window.visualViewport.removeEventListener('scroll', ScrollTrigger.update);
+          }
+          document.documentElement.classList.remove('mv-home-mobile-pins');
           teardown(pinState.triggers);
           pinState.triggers = [];
-          disableMobileScrollNormalize();
+          disableIOSScrollNormalize();
         };
       });
 
       mm.add('(min-width: 901px)', function () {
         pinState.mobile = false;
-        disableMobileScrollNormalize();
+        disableIOSScrollNormalize();
         pinState.triggers = runPinSetup(false);
         return function () {
           teardown(pinState.triggers);
@@ -285,9 +328,11 @@
 
   function whenLayoutReady(fn) {
     if (document.readyState === 'complete') {
-      fn();
+      requestAnimationFrame(fn);
     } else {
-      window.addEventListener('load', fn, { once: true });
+      window.addEventListener('load', function () {
+        requestAnimationFrame(fn);
+      }, { once: true });
     }
   }
 
@@ -295,7 +340,9 @@
 
   if (document.fonts && document.fonts.ready) {
     document.fonts.ready.then(function () {
-      if (pinState.triggers.length) scheduleLayoutRebuild();
+      if (pinState.triggers.length) {
+        refreshPins();
+      }
     });
   }
 
@@ -305,6 +352,7 @@
         ctx.revert();
         ctx = null;
         pinState.triggers = [];
+        disableIOSScrollNormalize();
       }
     });
   }

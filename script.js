@@ -169,14 +169,22 @@
 
   /* ---------- 2e. SCROLL PROGRESS BAR ---------- */
   const progressEl = document.querySelector('.scroll-progress');
+  const readScrollY = () => {
+    if (document.documentElement.classList.contains('mv-normalize-scroll')
+      && typeof ScrollTrigger !== 'undefined') {
+      return ScrollTrigger.scroll();
+    }
+    return window.scrollY;
+  };
   if (progressEl) {
     let pTicking = false;
     const updateProgress = () => {
       if (pTicking) return;
       pTicking = true;
       requestAnimationFrame(() => {
+        const y = readScrollY();
         const max = document.documentElement.scrollHeight - window.innerHeight;
-        const p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+        const p = max > 0 ? Math.min(1, Math.max(0, y / max)) : 0;
         progressEl.style.setProperty('--progress', p.toFixed(4));
         pTicking = false;
       });
@@ -189,7 +197,7 @@
   /* ---------- 3. NAV BACKGROUND + HIDE ON SCROLL DOWN ---------- */
   const nav = document.getElementById('nav');
   let navTicking = false;
-  let lastNavScrollY = window.scrollY;
+  let lastNavScrollY = readScrollY();
   const navHideThreshold = 72;
   const navScrollDelta = 6;
 
@@ -202,7 +210,7 @@
     if (navTicking || !nav) return;
     navTicking = true;
     requestAnimationFrame(() => {
-      const y = window.scrollY;
+      const y = readScrollY();
       const delta = y - lastNavScrollY;
 
       if (y > 24) nav.classList.add('is-scrolled');
