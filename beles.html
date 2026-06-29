@@ -260,6 +260,8 @@
             </div>
           </div>
 
+          <p class="shop__waitlist-promise" id="shopWaitlistPromise">Register for the Beles restock note — one email when bottles return, with early access before the public boutique. No charge today; size buttons record interest only.</p>
+
           <form class="shop__waitlist shop__waitlist--stacked" id="waitlistForm" data-waitlist-form data-product-slug="beles" data-source="waitlist" data-reveal="up" data-delay="800" novalidate>
             <label class="shop__waitlist-field">
               <span class="shop__waitlist-label">Name</span>
@@ -270,13 +272,12 @@
               <input type="email" name="email" id="waitlistEmail" placeholder="Your email" autocomplete="email" required />
             </label>
             <input type="text" name="website" class="shop__honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
-            <button class="btn btn--primary btn--block" type="submit" id="waitlistSubmit" aria-describedby="waitlistStatus shopCtaCaption">
+            <button class="btn btn--primary btn--block" type="submit" id="waitlistSubmit" aria-describedby="waitlistStatus shopWaitlistPromise">
               <span class="btn__label">Join restock list</span>
               <span class="btn__hover" aria-hidden="true">We write when Beles returns</span>
             </button>
           </form>
-          <p class="shop__waitlist-consent">By joining, you agree to receive the Beles restock note described above. You may unsubscribe anytime at <a href="mailto:care@eillon.maison?subject=Unsubscribe">care@eillon.maison</a>.</p>
-          <p class="shop__cta-caption" id="shopCtaCaption"><span class="stock-status">Awaiting next release</span> — leave your email and preferred size interest for the next restock window. Size selection records interest only; no purchase is taken.</p>
+          <p class="shop__waitlist-consent">By joining, you agree to receive the Beles restock note — one email per restock window. Unsubscribe anytime at <a href="mailto:care@eillon.maison?subject=Unsubscribe">care@eillon.maison</a>.</p>
           <p class="shop__waitlist-status" id="waitlistStatus" aria-live="polite"></p>
 
           <ul class="shop__features" data-reveal="up" data-delay="880">
