@@ -73,3 +73,24 @@
 
 - Autonomy default L1–L2; no auto-merge.
 - Favicon switched to `images/favicon.jpeg` (ensure committed for prod).
+
+## Main branch digest (2026-06-29)
+
+### Wins
+- **61 commits** on main in 7-day window (Jun 23–29): homepage experience overhaul, infra phases 2–4, growth OS live.
+- **EXP-003 shipped:** `/prickly-pear-parfum` discovery landing with FAQ schema; sitemap now **18 URLs**.
+- **EXP-001/002 shipped:** Full growth OS, Cursor rules, automation prompts, QA scripts, DESIGN.md canonical voice doc.
+- **Perf:** Lighthouse gains via critical CSS, lazy letters bundle, CSS marquee, WebP picture elements; mobile GSAP pin jitter resolved.
+- **Trust:** P0 legal/lifecycle fixes, proof layer, consent recording, CVR publication.
+
+### Lessons
+- Baseline drifts fast — always reconcile sitemap `<loc>` count vs route table after SEO ships.
+- Bundling growth OS + content in one commit (`32a9790`) makes digest grouping harder; prefer separate merges when possible.
+- EXP-004 smell-intent journal exists on branch (`9a40e0a`) but **not on main** — backlog "next" on main is correct until merge.
+- `pr_growth_auto_merge` still awaiting Cursor UI save (EXP-031); 10 other automations verified active.
+- WebGL shader + GSAP pin work is high-churn — expect follow-up jitter fixes after layout changes.
+
+### Next focus
+- Merge EXP-004 → main (19 URLs, smell-intent cluster).
+- EXP-005 Beles restock form trust microcopy — highest priority conversion experiment.
+- Monitor GSC prickly-pear cluster 14–28d post EXP-003.
