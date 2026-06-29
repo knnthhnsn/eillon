@@ -34,7 +34,8 @@
 
 - Journal article `/journal/fico-d-india` exists — extend cluster.
 - `/journal/what-does-fico-d-india-smell-like` smell-intent article shipped (EXP-004, 2026-06-29).
-- Sitemap 19 URLs.
+- `/skin-scent-parfum` skin-scent discovery landing shipped (EXP-023, 2026-06-29).
+- Sitemap 20 URLs.
 
 ## Social demand (2026-06-28)
 

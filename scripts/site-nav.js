@@ -137,6 +137,10 @@
           <span>Prickly pear parfum</span>
           <small>Discovery guide — Beles · Fico d'India</small>
         </a>
+        <a href="/skin-scent-parfum" data-search-item data-search-keywords="skin scent close wearing intimate parfum oil-rich niche copenhagen beles">
+          <span>Skin scent parfum</span>
+          <small>Close-wearing oil-rich fragrance guide</small>
+        </a>
         <a href="${sectionHref('#craft')}" data-search-item data-search-keywords="bottle flacon cap square matte glass emblem leopard lettering">
           <span>The Bottle</span>
           <small>Object details and materials</small>
