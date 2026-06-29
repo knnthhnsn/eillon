@@ -11,7 +11,7 @@
 | weekly_conversion_trust | Weekly Conversion & Trust | **active** | cron | Thursday 11:00 |
 | monthly_brand_system | Monthly Brand System | **active** | cron | 1st of month 09:00 |
 | pr_growth_review | PR Growth Review | **active** | git PR opened/updated | — |
-| pr_growth_auto_merge | PR Growth Auto-Merge | **awaiting_save** | git CI passed on PR | — |
+| pr_growth_auto_merge | PR Growth Auto-Merge | **active** | git CI passed on PR | — |
 | ci_failure_repair | CI Failure Repair | **active** | git CI failed | — |
 | main_branch_digest | Main Branch Digest | **active** | cron | Sunday 18:00 |
 | manual_next_best_experiment | Manual Next Best Experiment | **active** | manual | — |
@@ -70,7 +70,7 @@
 - **Trigger:** GitHub — checks completed successfully on PR to `main`
 - **Tools:** Read, Terminal (`gh pr merge`), GitHub PR comment
 - **Policy:** L2b in `growth/autonomy-policy.md`
-- **Status:** awaiting_save — prefill in Automations editor
+- **Verified:** 2026-06-29 · UI list confirmed
 
 ---
 
@@ -106,6 +106,6 @@
 
 See `/docs/cursor-automations-setup.md` and `/docs/growth-mcp-setup.md`.
 
-**Verified active count:** 10 (+ 1 awaiting_save: pr_growth_auto_merge)
+**Verified active count:** 11/11
 
-**Note:** User UI shows 12 total automations — 2 may be unrelated or legacy duplicates outside this registry.
+**Note:** User UI shows 14 total automations — 3 may be unrelated or legacy duplicates outside this registry.

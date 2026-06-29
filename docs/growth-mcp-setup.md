@@ -37,7 +37,46 @@ cd C:\Users\kenne\Desktop\Eillon
 codebase-memory-mcp cli index_repository "{\"repo_path\": \"C:\\Users\\kenne\\Desktop\\Eillon\"}"
 ```
 
-### Used by
+### Reddit on Windows (manual — reliable)
+
+Chrome encrypts cookies; `rdt login` often fails with **No Reddit cookies found** even when logged in. The `js_challenge=1` URL after Reddit's bot check is normal.
+
+**Fix:**
+
+1. Install [Cookie-Editor](https://chromewebstore.google.com/detail/cookie-editor/hlkenndednhfkekhgcdicdfddnkalmdm) in Chrome
+2. Open reddit.com (logged in)
+3. Cookie-Editor → find **`reddit_session`** → copy **Value**
+4. Run:
+
+```powershell
+.\scripts\reddit-rdt-manual-login.ps1
+```
+
+5. Paste the value when prompted → `rdt status --json` should show `"authenticated": true`
+
+**Note:** The script writes UTF-8 **without BOM**. PowerShell `Set-Content -Encoding UTF8` adds a BOM that breaks `rdt-cli` JSON parsing (`"No credential loaded"` even when the file exists).
+
+Alternative: fully **quit Chrome** (all windows), then retry `rdt login`.
+
+1. Sign in at the browser tabs (Reddit + X login).
+2. Run in PowerShell from repo root:
+
+```powershell
+.\scripts\agent-reach-after-login.ps1
+```
+
+Or manually:
+
+```powershell
+agent-reach configure --from-browser chrome
+# use edge instead of chrome if needed
+rdt login
+agent-reach doctor
+```
+
+### Exa web search
+
+Installed via `mcporter` → `config/mcporter.json` in repo. Agent-Reach doctor should show **全网语义搜索** as available.
 
 - `daily_growth_compass` — architecture context
 - `weekly_search_to_restock` — internal link targets

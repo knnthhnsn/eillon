@@ -22,15 +22,20 @@
     "ci_failure_repair",
     "main_branch_digest",
     "manual_next_best_experiment",
-    "automation_os_improver"
-  ],
-  "awaiting_save_automations": [
+    "automation_os_improver",
     "pr_growth_auto_merge"
   ],
-  "known_blockers": [
-    "Save pr_growth_auto_merge in Automations UI (form open)",
-    "Enable GitHub merge permission for automation bot if branch protection blocks auto-merge"
-  ],
+  "awaiting_save_automations": [],
+  "known_blockers": [],
+  "agent_reach": {
+    "channels_active": "8/15",
+    "exa_search": true,
+    "youtube": true,
+    "github": true,
+    "web_jina": true,
+    "reddit": "authenticated as eillonofficial via rdt-cli manual login",
+    "twitter": "twitter-cli installed — may need configure --from-browser after Chrome closed"
+  },
   "codebase_memory": {
     "indexed": true,
     "project": "C-Users-kenne-Desktop-Eillon",
