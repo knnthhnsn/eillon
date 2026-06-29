@@ -73,3 +73,21 @@
 
 - Autonomy default L1–L2; no auto-merge.
 - Favicon switched to `images/favicon.jpeg` (ensure committed for prod).
+
+## Main branch digest (2026-06-29)
+
+### Wins
+
+- **74 commits** on `main` in 7-day window (HEAD `c714cf6`).
+- **EXP-003/004/005 shipped:** `/prickly-pear-parfum`, `/journal/what-does-fico-d-india-smell-like`, Beles restock trust microcopy.
+- **EXP-031 done:** 10 growth automations registered in Cursor UI.
+- **First L2b auto-merge:** EXP-005 via PR #44 (`pr_growth_auto_merge`, 0 block findings).
+- **Sitemap:** 19 public URLs (was 17 in baseline).
+
+### Lessons
+
+- GSAP homepage pins: eager load, ordered init (hero → house → maison chain), `normalizeScroll` for iOS Safari, exclude CSS fallback overrides on pinned stages.
+- Lighthouse: defer letters bundle; critical CSS + CSS marquee over JS where possible.
+- Vercel deploy quota can block prod — jsDelivr CDN for scroll-pin script is valid interim hotfix (`c714cf6`).
+- Always digest from `origin/main`, not stale local branch.
+- Monitor Beles `restock_form_started→submitted` 14d post EXP-005 before next conversion_copy experiment.
