@@ -29,6 +29,7 @@ function ensureDependencies() {
 let ok = true;
 ok = ensureDependencies() && ok;
 ok = run('node', ['scripts/growth/validate-ledger.mjs']) && ok;
+ok = run('node', ['scripts/growth/validate-backlog.mjs']) && ok;
 ok = run('node', ['scripts/growth/check-state.mjs']) && ok;
 ok = run('npm', ['run', 'build']) && ok;
 ok = run('npm', ['run', 'verify:all']) && ok;

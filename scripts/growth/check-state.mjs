@@ -6,6 +6,7 @@ import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const statePath = join(__dirname, '../../growth/state.json');
 const forAutomation = process.argv.includes('--for-automation');
+const lockOnly = process.argv.includes('--lock-only');
 const MAX_OPEN_GROWTH_PRS = 3;
 
 let state;
@@ -41,13 +42,20 @@ if (!Number.isInteger(state.open_growth_prs_count) || state.open_growth_prs_coun
   process.exit(1);
 }
 
-if (forAutomation) {
+function exitIfLocked() {
   if (state.lock_status === 'locked') {
     console.error(
       'BLOCKED: lock_status is locked — another experiment may be in progress. Exit without changes.'
     );
     process.exit(1);
   }
+}
+
+if (lockOnly) {
+  exitIfLocked();
+  console.log('OK: lock check passed (unlocked)');
+} else if (forAutomation) {
+  exitIfLocked();
   if (state.open_growth_prs_count >= MAX_OPEN_GROWTH_PRS) {
     console.error(
       `BLOCKED: open_growth_prs_count is ${state.open_growth_prs_count} (max ${MAX_OPEN_GROWTH_PRS}). Exit without opening a new growth PR.`
