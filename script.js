@@ -1107,7 +1107,7 @@
   const CONSENT_NOTICE_VERSION = '2026-06-24';
 
   const waitlistMessages = {
-    beles: 'You are on the Beles restock list.',
+    beles: 'You are on the Beles restock list. We will send one note when bottles return.',
     asmara: 'We will send studio notes as Asmara develops.',
     massawa: 'We will send studio notes as Massawa develops.',
     ritual: 'You are following the Ritual lab study.',
@@ -1173,7 +1173,7 @@
         const purpose = isNewsletter
           ? 'the EILLON letter described above'
           : productSlug === 'beles'
-            ? 'the Beles restock note described above'
+            ? 'one Beles restock note by email'
             : 'studio notes for the chapter you selected';
         note.innerHTML = `By submitting, you agree to receive ${purpose}. Unsubscribe anytime at <a href="mailto:care@eillon.maison?subject=Unsubscribe">care@eillon.maison</a>.`;
         form.insertAdjacentElement('afterend', note);

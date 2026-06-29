@@ -800,9 +800,13 @@
 .chapter-shader-band .shop__price-meta { color: rgba(248,246,240,0.55); }
 .chapter-shader-band .shop__desc,
 .chapter-shader-band .shop__features li,
+.chapter-shader-band .shop__restock-trust-list li,
+.chapter-shader-band .shop__restock-trust-kicker,
 .chapter-shader-band .shop__cta-caption,
 .chapter-shader-band .shop__waitlist-consent,
 .chapter-shader-band .shop__waitlist-status { color: rgba(248,246,240,0.72); }
+.chapter-shader-band .shop__restock-trust { border-top-color: rgba(248,246,240,0.14); }
+.chapter-shader-band .shop__restock-trust-list li::before { background: var(--gold-light); }
 .chapter-shader-band .shop__features li { border-top-color: rgba(248,246,240,0.14); }
 .chapter-shader-band .shop__details { border-top-color: rgba(248,246,240,0.14); }
 .chapter-shader-band .shop__details summary {
@@ -1923,9 +1927,13 @@
 .editorial-page .chapter-shader-band .shop__price-meta { color: rgba(248,246,240,0.55); }
 .editorial-page .chapter-shader-band .shop__desc,
 .editorial-page .chapter-shader-band .shop__features li,
+.editorial-page .chapter-shader-band .shop__restock-trust-list li,
+.editorial-page .chapter-shader-band .shop__restock-trust-kicker,
 .editorial-page .chapter-shader-band .shop__cta-caption,
 .editorial-page .chapter-shader-band .shop__waitlist-consent,
 .editorial-page .chapter-shader-band .shop__waitlist-status { color: rgba(248,246,240,0.72); }
+.editorial-page .chapter-shader-band .shop__restock-trust { border-top-color: rgba(248,246,240,0.14); }
+.editorial-page .chapter-shader-band .shop__restock-trust-list li::before { background: var(--gold-light); }
 .editorial-page .chapter-shader-band .shop__features li { border-top-color: rgba(248,246,240,0.14); }
 .editorial-page .chapter-shader-band .shop__features li::before { background: var(--gold-light); }
 .editorial-page .chapter-shader-band .shop__image {
