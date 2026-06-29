@@ -73,3 +73,20 @@
 
 - Autonomy default L1–L2; no auto-merge.
 - Favicon switched to `images/favicon.jpeg` (ensure committed for prod).
+
+## Shipped on main (2026-06-29 digest)
+
+- **EXP-003** `/prickly-pear-parfum` — prickly-pear discovery landing with FAQ schema; sitemap now 19 URLs.
+- **EXP-004** `/journal/what-does-fico-d-india-smell-like` — smell-intent article with FAQ + Beles links.
+- **EXP-005** Beles `.shop__restock-trust` microcopy above waitlist form; first L2b auto-merge (PR #44 @ `790ad6f`).
+- **Growth OS** live: rules, prompts, scoring/QA scripts, 10 automations registered in Cursor UI.
+- **Performance:** critical CSS, lazy letters bundle, deferred GSAP restored after jitter regression; mobile pin fixes via `normalizeScroll` + iOS Safari (through `de93013`).
+
+## Automation lessons (2026-06-29)
+
+- L2b auto-merge works when AI hard review passes with zero blocks and CI green — logged in results.tsv.
+- Local `main` ref can lag `origin/main`; digest and experiments should always use `origin/main`.
+- Mobile GSAP ScrollTrigger pins need ordered init, layout-settle delay, and iOS `normalizeScroll`; CSS fallback overrides can break pin behavior.
+- Baseline must track sitemap URL count and new routes after each SEO ship.
+- Vercel free-tier daily deploy limit can block production from receiving merged fixes; jsDelivr CDN pin is a valid hotfix until deploy quota resets (`c714cf6`).
+- Mobile Maison pin must chain start to house pin end with correct ScrollTrigger refresh order (`94b69cc`).
