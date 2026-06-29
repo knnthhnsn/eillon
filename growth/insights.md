@@ -7,7 +7,7 @@
 ### Demand signals (from repo + market-research)
 - Beles/prickly pear cluster is highest commercial intent; journal entry exists but landing page does not.
 - Objection content ("too sweet?", "oil-rich parfum meaning") underrepresented vs FAQ on beles.
-- Copenhagen studio appointment tracked on homepage footer only — about page mailto untracked.
+- Copenhagen studio appointment tracked on homepage footer, nav footer, and about `#studio` (`about_studio` label).
 
 ### Conversion signals
 - Primary form: `/beles#waitlist` with size selection + analytics events.
@@ -36,4 +36,5 @@
 **EXP-003** — Beles discovery / prickly pear parfum landing page (see backlog).
 
 ## Insight changelog
+- **2026-06-29:** EXP-027 closed about-page appointment measurement gap; studio block now tracks `studio_appointment_click` with label `about_studio`.
 - **2026-06-28:** Initial insights from baseline audit; growth OS online.
