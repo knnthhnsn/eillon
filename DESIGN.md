@@ -1,7 +1,7 @@
 # EILLON Design System
 
 **For humans and coding agents.**  
-**Updated:** 2026-06-28
+**Updated:** 2026-06-29
 
 ## Brand principles
 
@@ -61,14 +61,42 @@ Scale: fluid `clamp()` on hero and chapter display type. Avoid shrinking below r
 
 ## Components
 
-### Quiet button `.qbtn`
-Uppercase sans, pill radius, ink/paper inversion variant `.qbtn--on-dark`
+### Quiet button `.qbtn` (homepage)
+Uppercase sans, pill radius, ink/paper inversion variant `.qbtn--on-dark`. Used on `index.html` only.
 
-### Text link `.qlink`
-Underline via hover; arrow optional
+### Editorial quiet button `.sx-btn` (inner pages)
+Same visual system as `.qbtn` — defined in `site.css` for `.editorial-page` routes. Modifiers: `.sx-btn--on-dark`, `.sx-btn--ghost`, `.sx-btn--block`. Prefer `.sx-btn` on editorial pages; do not mix `.qbtn` on inner routes.
+
+### Text link `.qlink` / `.sx-link`
+Underline via hover; arrow optional. Homepage: `.qlink`. Editorial: `.sx-link`.
 
 ### Chapter button `.btn--primary`
-Label + hover layer; no aggressive pulse animations
+Label + hover layer (gold-dark fill on hover); no aggressive pulse animations. Used on chapter/product pages (`beles.html`, journal CTAs, waitlist submit).
+
+### CTA class map
+
+| Surface | Primary pill | Secondary link | Submit |
+|---|---|---|---|
+| Homepage | `.qbtn` | `.qlink` | footer form button |
+| Editorial (`about`, `store`, `wear`, …) | `.sx-btn` | `.sx-link` | `.sx-letter__form` button |
+| Chapter / journal article | `.btn--primary` | `.sx-link` or `.qlink` | `.btn--primary.btn--block` |
+
+Keep label voice quiet and uppercase — never “Shop now”, “Buy now”, or countdown unless real and approved.
+
+### The Letter (newsletter)
+
+Canonical copy — use **identical promise** in `footer__promise` and every `.sx-letter` block:
+
+| Element | Canonical copy |
+|---|---|
+| Eyebrow | `The Letter` |
+| Headline (footer) | `News from EILLON, sent slowly.` |
+| Promise | `Seasonal letters only: studio notes, restock windows, and private appointment openings.` |
+
+Rules:
+- Inline `.sx-letter` sections may use a contextual headline (e.g. on `/shipping`) but the promise paragraph must match the table above.
+- Do not imply exclusive purchase access, private checkout links, or fake urgency in Letter copy.
+- Form: `data-product-slug="all"`, calm subscribe button — no “Don’t miss out!”
 
 ### Forms `[data-waitlist-form]`
 Email required; honeypot `.shop__honeypot`; status region with `aria-live="polite"`; success copy from `script.js` — keep calm, not celebratory-gimmicky

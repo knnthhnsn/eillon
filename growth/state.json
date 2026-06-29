@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
-  "last_run_at": "2026-06-29T08:00:00Z",
+  "last_run_at": "2026-06-29T08:39:47Z",
   "active_experiment_id": null,
   "active_automation_id": null,
   "open_growth_prs_count": 0,
   "lock_status": "unlocked",
-  "last_successful_loop": "EXP-003",
+  "last_successful_loop": "EXP-032",
   "last_failed_loop": null,
   "autonomy_level": "L1_docs_and_drafts",
   "current_focus": "search_to_restock",

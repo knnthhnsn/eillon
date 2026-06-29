@@ -10,6 +10,12 @@
 - Oil-rich parfums; genderless; close-wearing; slowly unfolding.
 - Funnel priority: Beles restock → The Letter → Copenhagen appointments → future purchase readiness.
 
+## Brand system (2026-06-29)
+
+- Canonical Letter promise (footer + all `.sx-letter` blocks): *Seasonal letters only: studio notes, restock windows, and private appointment openings.*
+- CTA classes: homepage `.qbtn`/`.qlink`; editorial `.sx-btn`/`.sx-link`; chapter `.btn--primary` — see DESIGN.md CTA map.
+- Forbidden phrase scan (DESIGN.md list): clean on site HTML/JS as of EXP-032.
+
 ## Product truths (2026-06-28)
 
 - Beles waitlist active (`beles.html`, `data/products.js`).
