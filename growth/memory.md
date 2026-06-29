@@ -69,6 +69,18 @@
 - One experiment per run; max 3 open growth PRs.
 - Agent-Reach / codebase-memory-mcp not configured in initial session.
 
+## OS ledger hygiene (2026-06-29)
+
+- EXP-002b used invalid ledger status `pending_registration`; corrected to `blocked`. Registration state belongs in `automation-registry.md` only.
+- `validate-ledger.mjs` now enforces status enum, loop_type, date format, and QGS arithmetic.
+- `growth:qa` runs `npm ci` when GSAP vendor deps are missing (prevents false QA failures in fresh agent environments).
+- Historical ledger rows EXP-001/002/003 had QGS values that did not match component scores; corrected during EXP-036 validation rollout.
+
+## OS automation preflight (2026-06-29)
+
+- `program.md` and autonomy-policy require exit when lock held or ≥3 open growth PRs, but `check-state.mjs` only validated JSON until EXP-037.
+- `npm run growth:precheck` wraps `check-state.mjs --for-automation` for scheduled agents; experiment prompts updated to call it at run start.
+
 ## Human decisions (2026-06-28)
 
 - Autonomy default L1–L2; no auto-merge.
