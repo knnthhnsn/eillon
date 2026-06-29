@@ -376,12 +376,20 @@
       <div class="footer__news">
         <span class="sx-eyebrow">The Letter</span>
         <h3 class="footer__news-title">News from EILLON,<br />sent slowly.</h3>
+        <div class="footer__letter-trust" id="footerLetterTrust">
+          <p class="footer__letter-trust__lead">Seasonal letters from the maison — not a marketing list.</p>
+          <ul class="footer__letter-trust__points" aria-label="What subscribing to The Letter means">
+            <li>Studio notes, restock windows, and private appointment openings only</li>
+            <li>A few letters per year, sent when there is something worth sharing</li>
+            <li>We never share your address · unsubscribe anytime</li>
+          </ul>
+        </div>
         <form class="footer__form" data-waitlist-form data-product-slug="all" data-source="footer" novalidate>
-          <input type="email" name="email" placeholder="Your email" aria-label="Email address" autocomplete="email" required />
+          <input type="email" name="email" placeholder="Your email" aria-label="Email address" autocomplete="email" required aria-describedby="footerLetterTrust" />
           <input type="text" name="website" class="shop__honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
-          <button type="submit">Subscribe <span class="arrow">→</span></button>
+          <button type="submit" aria-describedby="footerLetterTrust">Subscribe <span class="arrow">→</span></button>
         </form>
-        <p class="footer__promise">Seasonal letters only: studio notes, restock windows, and private appointment openings.</p>
+        <p class="footer__promise">By subscribing, you agree to occasional maison letters. Unsubscribe anytime at <a href="mailto:care@eillon.maison?subject=Unsubscribe">care@eillon.maison</a>.</p>
         <p class="footer__status" aria-live="polite"></p>
         <div class="footer__visit" id="studio">
           <span class="footer__visit-label">Copenhagen studio</span>
