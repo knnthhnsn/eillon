@@ -50,3 +50,11 @@ Compare `beles_cta_click` with labels `journal_*` → `restock_form_submitted` o
 - `npm ci` + `npm run growth:qa` — pass
 - Manual Bugbot checklist — zero block findings (Bugbot MCP unavailable)
 - AI review artifact validated; opening PR from canonical `growth/*` branch
+
+## 13:00Z cron re-verification
+
+- `npm run growth:next` → EXP-008 (highest priority; not yet merged to main)
+- Merged canonical branch `growth/internal_linking-exp-008-journal-beles-restock-links` into `cursor/growth-experiment-execution-fa74`
+- `npm ci` + `npm run growth:qa` — pass
+- Manual Bugbot checklist (2nd run) — zero block findings
+- AI review validated; opening PR
