@@ -58,6 +58,11 @@
 - Lighthouse perf work on homepage (lazy letters, CSS marquee, critical CSS) — commits through 0ab1ab9.
 - Mobile pin jitter fix: eager GSAP load restored.
 
+## EXP-008 (2026-06-29)
+
+- Journal funnel gaps: `the-bottle` and `beles-batch-bl001` lacked `/beles#waitlist` article CTAs; journal index boutique card linked to chapter only.
+- Pattern: article-page restock CTA uses `beles_cta_click` + `journal_<slug>` label; keep dual chapter/restock links on index cards.
+
 ## Previous failures (2026-06-28)
 
 - Lazy GSAP loading caused mobile scroll jitter (fixed by restoring defer script tags).
