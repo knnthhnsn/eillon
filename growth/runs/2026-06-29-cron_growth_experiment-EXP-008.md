@@ -58,3 +58,12 @@ Compare `beles_cta_click` with labels `journal_*` → `restock_form_submitted` o
 - `npm ci` + `npm run growth:qa` — pass
 - Manual Bugbot checklist (2nd run) — zero block findings
 - AI review validated; opening PR
+
+## 14:30Z cron re-verification
+
+- `npm run growth:next` → EXP-008 (highest priority; not yet merged to main)
+- Checked lock (unlocked) and open PR limit (within max 3)
+- Canonical branch `growth/internal_linking-exp-008-journal-beles-restock-links` up to date with `origin/main`
+- `npm ci` + `npm run growth:qa` — pass
+- Manual Bugbot checklist (3rd run) — zero block findings
+- AI review validated; opening PR from `cursor/growth-experiment-execution-1a69`
