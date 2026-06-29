@@ -40,6 +40,7 @@
 | EXP-033 | Genderless niche fragrance Copenhagen page | seo_content | 3 | 3 | 3 | 5 | 1 | 33.75 | backlog |
 | EXP-034 | Campaign folder `/content/campaigns/` scaffold | social_distribution | 3 | 5 | 5 | 4 | 0 | 75 | backlog |
 | EXP-035 | journal_to_beles_click event | analytics_measurement | 3 | 4 | 4 | 4 | 0 | 48 | backlog |
+| EXP-036 | Ledger status validation + QA dep bootstrap | automation_os | 4 | 5 | 4 | 3 | 4 | 5 | 0 | 160 | done |
 
 ## Top 10 next (after EXP-001/002)
 
