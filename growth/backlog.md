@@ -12,7 +12,7 @@
 | EXP-005 | Beles restock form trust microcopy | conversion_copy | 4 | 4 | 5 | 5 | 0 | 160 | done |
 | EXP-006 | Social kit: "Prickly pear, but not candy." | social_distribution | 4 | 3 | 4 | 5 | 1 | 48 | backlog |
 | EXP-007 | Analytics: newsletter distinct events | analytics_measurement | 4 | 4 | 3 | 4 | 1 | 48 | backlog |
-| EXP-008 | Internal links: Journal → Beles → Restock | internal_linking | 4 | 4 | 5 | 5 | 0 | 160 | backlog |
+| EXP-008 | Internal links: Journal → Beles → Restock | internal_linking | 4 | 4 | 5 | 5 | 0 | 160 | done |
 | EXP-009 | Pinterest visual search pack for Beles | social_distribution | 4 | 3 | 3 | 5 | 1 | 45 | backlog |
 | EXP-010 | Copenhagen appointment discovery (about) | local_discovery | 3 | 4 | 4 | 5 | 0 | 96 | backlog |
 | EXP-011 | FAQ schema expansion on wear.html | technical_seo | 3 | 4 | 4 | 4 | 0 | 64 | backlog |
@@ -43,13 +43,12 @@
 
 ## Top 10 next (after EXP-001/002)
 
-1. **EXP-008** — Journal → Beles internal links
-2. **EXP-007** — Newsletter analytics events
-3. **EXP-010** — Copenhagen appointment improvements
-4. **EXP-013** — Oil-rich parfum explained
-5. **EXP-027** — About page appointment tracking
-6. **EXP-006** — Social campaign kit
-7. **EXP-009** — Pinterest visual pack
+1. **EXP-007** — Newsletter analytics events
+2. **EXP-010** — Copenhagen appointment improvements
+3. **EXP-013** — Oil-rich parfum explained
+4. **EXP-027** — About page appointment tracking
+5. **EXP-006** — Social campaign kit
+6. **EXP-009** — Pinterest visual pack
 
 ## Backlog rules
 
