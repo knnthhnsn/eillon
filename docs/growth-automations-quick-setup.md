@@ -1,47 +1,71 @@
-# Growth Automations — Quick Setup (3 core)
+# Growth Automations — Save Order (all 10)
 
-Save each automation in Cursor → **Automations** in this order. Prompts live in `growth/automation-prompts/`.
+Save each in Cursor → **Automations**. One at a time — the editor holds one draft.
 
-## 1. Daily Growth Compass
+## Already active (verify in UI)
 
+- [x] Daily Growth Compass — `0 8 * * 1-5`
+- [x] PR Growth Review — GitHub PR opened/updated
+- [x] Manual Next Best Experiment — manual
+- [ ] **Weekly Search-to-Restock** — `0 9 * * 1` ← save if not done yet
+
+**Dedupe:** delete duplicate Daily Growth Compass if two exist.
+
+---
+
+## Save next (in order)
+
+### 1. Weekly Social-to-Letter
 | Field | Value |
 |---|---|
-| **Name** | Daily Growth Compass |
-| **Trigger** | Cron `0 8 * * 1-5` (weekdays 08:00) |
-| **Repo / branch** | `knnthhnsn/eillon` · `main` |
-| **Tools** | Read, Write, Terminal |
-| **Auto-merge** | Off |
-| **Prompt** | `growth/automation-prompts/01-daily-growth-compass.md` |
+| Trigger | Cron `0 10 * * 3` (Wed 10:00) |
+| Tools | Read, Write, Terminal |
+| Repo | `knnthhnsn/eillon` · `main` |
+| Prompt | `growth/automation-prompts/03-weekly-social-to-letter.md` |
 
-## 2. Weekly Search-to-Restock
-
+### 2. Weekly Conversion & Trust
 | Field | Value |
 |---|---|
-| **Name** | Weekly Search-to-Restock |
-| **Trigger** | Cron `0 9 * * 1` (Monday 09:00) |
-| **Repo / branch** | `knnthhnsn/eillon` · `main` |
-| **Tools** | Read, Write, Terminal |
-| **Auto-merge** | Off |
-| **Prompt** | `growth/automation-prompts/02-weekly-search-to-restock.md` |
+| Trigger | Cron `0 11 * * 4` (Thu 11:00) |
+| Tools | Read, Write, Terminal |
+| Prompt | `growth/automation-prompts/04-weekly-conversion-trust.md` |
 
-## 3. PR Growth Review
-
+### 3. CI Failure Repair
 | Field | Value |
 |---|---|
-| **Name** | PR Growth Review |
-| **Trigger** | GitHub PR opened + updated → `main` |
-| **Repo** | `knnthhnsn/eillon` |
-| **Tools** | Read, **Comment on PRs** |
-| **Auto-merge** | Off |
-| **Ignore draft PRs** | On |
-| **Prompt** | `growth/automation-prompts/06-pr-growth-review.md` |
+| Trigger | GitHub — CI / checks failed on `knnthhnsn/eillon` |
+| Tools | Read, Write, Terminal |
+| Prompt | `growth/automation-prompts/07-ci-failure-repair.md` |
+
+### 4. Main Branch Digest
+| Field | Value |
+|---|---|
+| Trigger | Cron `0 18 * * 0` (Sun 18:00) |
+| Tools | Read, Write, Terminal |
+| Prompt | `growth/automation-prompts/08-main-branch-digest.md` |
+
+### 5. Monthly Brand System
+| Field | Value |
+|---|---|
+| Trigger | Cron `0 9 1 * *` (1st of month 09:00) |
+| Tools | Read, Write, Terminal |
+| Prompt | `growth/automation-prompts/05-monthly-brand-system.md` |
+
+### 6. Automation OS Improver
+| Field | Value |
+|---|---|
+| Trigger | Cron `0 10 1 * *` (1st of month 10:00) + manual |
+| Tools | Read, Write, Terminal |
+| Prompt | `growth/automation-prompts/10-automation-os-improver.md` |
+
+---
 
 ## After each save
 
-1. Run **Test** once manually (where available)
-2. Set `growth/automation-registry.md` row status → `active` only after verified
-3. Update `growth/state.json` — remove automations blocker when all 3 active
+1. Run **Test** once manually
+2. Update `growth/automation-registry.md` → `active`
+3. When all 10 active, clear `known_blockers` in `growth/state.json`
 
-## Re-open prefilled form
+## Re-open prefill
 
-Ask the agent: *"Open automation prefill for daily_growth_compass"* (or weekly / pr_growth_review).
+Ask: *"Open automation prefill for weekly_social_to_letter"* (or any automation_id).
