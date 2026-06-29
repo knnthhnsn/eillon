@@ -62,3 +62,12 @@ Root cause: `.shop__cta-caption` is `display:none` in base styles (only visible 
 
 - Monitor `restock_form_submitted` rate on Beles vs prior 7d baseline in Vercel WA.
 - Consider bumping `consent_notice_version` if legal review requires after visible consent change.
+
+## Re-verification (2026-06-29T10:30Z cron)
+
+- `npm run growth:next` → EXP-005 (not yet on main)
+- `npm run growth:qa` — pass
+- `npm run growth:validate-ai-review` — pass_with_notes
+- Bugbot unavailable; manual checklist re-run — zero block findings
+- PR: not opened — autonomy policy blocks duplicate `conversion_copy` PR ([PR #44](https://github.com/knnthhnsn/eillon/pull/44) already open on alternate branch)
+- **Lock:** unlocked (unchanged)

@@ -23,6 +23,7 @@
 - Newsletter uses same API with `product_slug=all`.
 - Analytics: Vercel WA via `EILLON_ANALYTICS` in production.
 - Homepage primary CTA: `/store`; restock CTAs point to `/beles#waitlist`.
+- Beles mobile waitlist: `.shop__cta-caption` is hidden on coarse pointers — trust copy must appear before the form (EXP-005, 2026-06-29).
 
 ## Customer language (2026-06-28)
 
