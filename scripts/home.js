@@ -57,8 +57,8 @@
   function landMobilePinOptions() {
     return {
       pinType: 'transform',
-      pinReparent: false,
-      anticipatePin: 1,
+      pinReparent: isIOS(),
+      anticipatePin: 0,
       scrub: true,
       fastScrollEnd: true
     };
@@ -82,6 +82,22 @@
       var distance = typeof getDistance === 'function' ? getDistance() : getDistance;
       return '+=' + Math.max(Math.round(distance), 1);
     };
+  }
+
+  function readPinScrollY() {
+    if (typeof ScrollTrigger !== 'undefined' && typeof ScrollTrigger.scroll === 'function') {
+      return ScrollTrigger.scroll();
+    }
+    return window.scrollY || 0;
+  }
+
+  function writePinScrollY(y) {
+    if (typeof ScrollTrigger !== 'undefined' && typeof ScrollTrigger.scroll === 'function') {
+      ScrollTrigger.scroll(y);
+    } else {
+      window.scrollTo(0, y);
+    }
+    ScrollTrigger.update();
   }
 
   function initHouse(mobile) {
@@ -183,7 +199,9 @@
     if (!sticky || !title || !laws || !sign) return null;
 
     function revealAllLand() {
-      gsap.set([title, laws, sign], { opacity: 1, y: 0, force3D: true });
+      gsap.set(title, { opacity: 1, y: 0, visibility: 'visible', force3D: true });
+      gsap.set(laws, { opacity: 1, y: 0, visibility: 'visible', force3D: true });
+      gsap.set(sign, { opacity: 1, y: 0, visibility: 'visible', force3D: true });
       if (mediaImg) gsap.set(mediaImg, { scale: 1.08, force3D: true });
     }
 
@@ -191,8 +209,9 @@
       land.classList.add('mv-land--pin-js');
       land.removeAttribute('data-phase');
 
-      gsap.set([title, laws, sign], { opacity: 0, y: 18, force3D: true });
-      gsap.set(title, { opacity: 1, y: 0, force3D: true });
+      gsap.set(title, { opacity: 1, y: 0, visibility: 'visible', force3D: true });
+      gsap.set(laws, { opacity: 0, y: 18, visibility: 'hidden', force3D: true });
+      gsap.set(sign, { opacity: 0, y: 18, visibility: 'hidden', force3D: true });
       if (mediaImg) gsap.set(mediaImg, { scale: 1.02, force3D: true });
 
       var tl = gsap.timeline({ paused: true });
@@ -201,17 +220,23 @@
         tl.to(mediaImg, { scale: 1.08, duration: 1, ease: 'none', force3D: true }, 0);
       }
 
-      tl.to(title, { opacity: 1, y: 0, duration: 0.12, ease: 'none', force3D: true }, 0)
-        .to(title, { opacity: 0, y: -14, duration: 0.1, ease: 'none', force3D: true }, 0.26)
-        .to(laws, { opacity: 1, y: 0, duration: 0.12, ease: 'none', force3D: true }, 0.32)
-        .to(laws, { opacity: 0, y: -14, duration: 0.1, ease: 'none', force3D: true }, 0.58)
-        .to(sign, { opacity: 1, y: 0, duration: 0.12, ease: 'none', force3D: true }, 0.64);
+      tl.to(title, { opacity: 1, y: 0, visibility: 'visible', duration: 0.12, ease: 'none', force3D: true }, 0)
+        .to(title, { opacity: 0, y: -14, visibility: 'hidden', duration: 0.1, ease: 'none', force3D: true }, 0.26)
+        .to(laws, { opacity: 1, y: 0, visibility: 'visible', duration: 0.12, ease: 'none', force3D: true }, 0.32)
+        .to(laws, { opacity: 0, y: -14, visibility: 'hidden', duration: 0.1, ease: 'none', force3D: true }, 0.58)
+        .to(sign, { opacity: 1, y: 0, visibility: 'visible', duration: 0.12, ease: 'none', force3D: true }, 0.64);
+
+      var houseSt = ScrollTrigger.getById('mv-house');
+      var landStartPx = houseSt
+        ? houseSt.end + viewportHeight()
+        : land.offsetTop;
+      var landEndPx = landStartPx + landScrollDistance(true);
 
       var pinConfig = {
         id: 'mv-land',
         trigger: land,
-        start: 'top top',
-        end: pinScrollEnd(function () { return landScrollDistance(true); }),
+        start: landStartPx,
+        end: landEndPx,
         pin: sticky,
         pinSpacing: true,
         animation: tl,
@@ -219,8 +244,9 @@
         invalidateOnRefresh: true,
         onLeave: revealAllLand,
         onLeaveBack: function () {
-          gsap.set([title, laws, sign], { opacity: 0, y: 18, force3D: true });
-          gsap.set(title, { opacity: 1, y: 0, force3D: true });
+          gsap.set(title, { opacity: 1, y: 0, visibility: 'visible', force3D: true });
+          gsap.set(laws, { opacity: 0, y: 18, visibility: 'hidden', force3D: true });
+          gsap.set(sign, { opacity: 0, y: 18, visibility: 'hidden', force3D: true });
           if (mediaImg) gsap.set(mediaImg, { scale: 1.02, force3D: true });
         }
       };
@@ -265,6 +291,7 @@
     ScrollTrigger.refresh(true);
 
     var landSt = initLand(mobile);
+    ScrollTrigger.refresh(true);
     refreshPins();
 
     return [houseSt, landSt].filter(Boolean);
@@ -305,13 +332,12 @@
   function rebuildPins() {
     if (!pinState.triggers.length) return;
 
-    var scrollY = ScrollTrigger.scroll();
+    var scrollY = readPinScrollY();
     teardown(pinState.triggers);
     pinState.triggers = runPinSetup(pinState.mobile);
     refreshPins();
     requestAnimationFrame(function () {
-      ScrollTrigger.scroll(scrollY);
-      ScrollTrigger.update();
+      writePinScrollY(scrollY);
     });
   }
 
@@ -376,7 +402,7 @@
   if (document.fonts && document.fonts.ready) {
     document.fonts.ready.then(function () {
       if (pinState.triggers.length) {
-        refreshPins();
+        scheduleLayoutRebuild();
       }
     });
   }
