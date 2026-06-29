@@ -32,6 +32,7 @@
 8. `main_branch_digest` — weekly
 9. `monthly_brand_system` — monthly
 10. `automation_os_improver` — monthly, AI hard review for policy
+11. `pr_growth_auto_merge` — CI green + AI review pass → squash merge `growth/*` PRs (see `growth/autonomy-policy.md` L2b)
 
 ## Cron reference (Europe/Copenhagen)
 

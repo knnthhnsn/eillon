@@ -1,18 +1,11 @@
 {
   "$schema": "internal-example-only",
-  "_comment": "Copy to .cursor/mcp.json locally. DO NOT commit secrets. MCP names must match Cursor dashboard catalog.",
+  "_comment": "Copy to ~/.cursor/mcp.json (global) or .cursor/mcp.json (project, gitignored). DO NOT commit secrets.",
   "mcpServers": {
-    "codebase-memory": {
-      "command": "npx",
-      "args": ["-y", "codebase-memory-mcp"],
-      "env": {}
-    },
-    "agent-reach": {
-      "command": "npx",
-      "args": ["-y", "@anthropic/agent-reach"],
-      "env": {
-        "AGENT_REACH_API_KEY": "${AGENT_REACH_API_KEY}"
-      }
+    "codebase-memory-mcp": {
+      "command": "codebase-memory-mcp",
+      "args": []
     }
-  }
+  },
+  "_agent_reach_note": "Agent-Reach is CLI/skill, not MCP — pip install agent-reach && agent-reach install --env=auto. See docs/growth-mcp-setup.md"
 }

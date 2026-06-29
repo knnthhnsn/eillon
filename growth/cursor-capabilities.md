@@ -37,8 +37,10 @@
 
 | Result | Detail |
 |---|---|
-| **Automations registered in Cursor** | **0** (none verified active) |
-| **Blocker** | Cursor Automations require user approval via Automations editor handoff; bulk silent registration would violate safety workflow |
+| **Automations registered in Cursor** | **10 active** (+1 auto-merge awaiting save) |
+| **Blocker** | Resolved 2026-06-29 — user registered automations in UI |
+| **MCP codebase-memory-mcp** | installed | `~/.cursor/mcp.json` via `codebase-memory-mcp install` |
+| **Agent-Reach CLI** | installed | pip from GitHub; run `agent-reach doctor` |
 | **Alternative built** | 10 prompt files under `/growth/automation-prompts/` + `/docs/cursor-automations-setup.md` |
 | **Registry status** | All automations marked `pending_registration` until user registers manually |
 

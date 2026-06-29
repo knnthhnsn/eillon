@@ -17,7 +17,21 @@ Define what autonomous agents, Cursor Automations, and Cloud Agents may do insid
 | L2 | Code PRs | L1 + open PRs with QA-passing code changes (no auto-merge) |
 | L3 | Production-adjacent | **Human only** — deploy, email send, ads, pricing, claims |
 
-**Current default for automations:** L1–L2 (PRs allowed, never auto-merge).
+**Current default for automations:** L1–L2 (PRs allowed). **L2b:** conditional auto-merge for eligible `growth/*` PRs only (see below).
+
+## Conditional auto-merge (L2b)
+
+`pr_growth_auto_merge` may squash-merge when **all** are true:
+
+- Head branch `growth/*`, base `main`
+- CI green on latest commit
+- AI hard review verdict `pass` or `pass_with_notes` with **zero block** findings
+- PR documents EXP ID, hypothesis, QGS, `*-ai-review.md` link
+- Diff excludes `api/**`, `lib/**`, workflows, autonomy-policy, checkout
+- Label `no-auto-merge` absent
+- ≤3 auto-merges in rolling 7 days
+
+Branch protection may still require human approval — automation comments and stops if merge denied.
 
 ## Allowed without further approval
 
@@ -29,7 +43,8 @@ Define what autonomous agents, Cursor Automations, and Cloud Agents may do insid
 - Improve copy, metadata, internal links (no false claims)
 - Add privacy-conscious analytics events **only** following `scripts/analytics.js` patterns
 - Run `npm run build`, `verify:*`, `smoke:funnel`, `growth:*` scripts
-- Open a PR if Cursor Automation supports it (**never auto-merge**)
+- Open a PR if Cursor Automation supports it
+- **Auto-merge** eligible `growth/*` PRs only via `pr_growth_auto_merge` when L2b criteria met
 
 ## Requires AI hard review (before keep / PR)
 
@@ -45,7 +60,7 @@ Review focus:
 ## Human-only (not delegated to growth automations)
 
 - Production deploy or promotion
-- Auto-merge of any PR
+- Auto-merge of PRs **outside** L2b criteria (non-growth, forbidden paths, block findings, no ai-review)
 - Sending email campaigns or transactional changes
 - Paid ads or ad copy publication off-repo
 - Price, SKU, or availability changes
@@ -68,7 +83,7 @@ Policy file edits (`autonomy-policy.md`) require **AI hard review** with zero bl
 - Scraping in violation of platform ToS
 - Fabricating facts, testimonials, reviews, or availability
 - Sending PII to analytics payloads
-- Auto-merging automation PRs
+- Auto-merging automation PRs that fail AI hard review or CI
 - Infinite self-triggering loops
 - Automations recursively triggering each other without lock/guard
 - Loosening safety constraints silently in `automation_os_improver`

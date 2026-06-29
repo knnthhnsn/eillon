@@ -29,7 +29,8 @@ Review PR for growth, SEO, brand, privacy, accessibility, and automation-safety 
 
 ## Output
 
-PR comment with findings (severity: block / suggest / praise)  
+PR comment with findings (severity: block / suggest / praise). If **pass** with zero blocks and PR is eligible per L2b, note: `pr_growth_auto_merge` may merge when CI is green.
+
 Optional: append review summary to run log if experiment-linked
 
 ## Stop if

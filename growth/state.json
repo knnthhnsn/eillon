@@ -1,25 +1,42 @@
 {
   "schema_version": 1,
-  "last_run_at": "2026-06-29T08:00:00Z",
+  "last_run_at": "2026-06-29T12:00:00Z",
   "active_experiment_id": null,
   "active_automation_id": null,
   "open_growth_prs_count": 0,
   "lock_status": "unlocked",
-  "last_successful_loop": "EXP-003",
+  "last_successful_loop": "EXP-031",
   "last_failed_loop": null,
-  "autonomy_level": "L1_docs_and_drafts",
+  "autonomy_level": "L2b_conditional_auto_merge",
   "current_focus": "search_to_restock",
   "current_highest_priority": "EXP-004",
   "pending_human_reviews": [],
   "review_policy": "ai_hard_review",
   "active_automations": [
     "daily_growth_compass",
+    "weekly_search_to_restock",
+    "weekly_social_to_letter",
+    "weekly_conversion_trust",
+    "monthly_brand_system",
     "pr_growth_review",
-    "manual_next_best_experiment"
+    "ci_failure_repair",
+    "main_branch_digest",
+    "manual_next_best_experiment",
+    "automation_os_improver"
+  ],
+  "awaiting_save_automations": [
+    "pr_growth_auto_merge"
   ],
   "known_blockers": [
-    "weekly_search_to_restock awaiting save in Automations UI",
-    "No Agent-Reach MCP configured (optional demand research)",
-    "No codebase-memory-mcp configured (optional)"
-  ]
+    "Save pr_growth_auto_merge in Automations UI",
+    "Run agent-reach doctor after adding Scripts to PATH (see docs/growth-mcp-setup.md)",
+    "Index EILLON once: codebase-memory-mcp cli index_repository (see docs/growth-mcp-setup.md)",
+    "Enable GitHub merge permission for automation bot if branch protection blocks auto-merge"
+  ],
+  "auto_merge_policy": {
+    "enabled": true,
+    "max_per_7_days": 3,
+    "eligible_branch_prefix": "growth/",
+    "forbidden_paths": ["api/", "lib/", ".github/workflows/", "growth/autonomy-policy.md"]
+  }
 }
