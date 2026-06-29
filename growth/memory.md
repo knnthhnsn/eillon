@@ -30,6 +30,11 @@
 - Objections to address: too sweet?, how close does it wear?, sample first?, genderless?, longevity claims (avoid guarantees).
 - Source: `market-research/beles-demand-sprint.md`, backlog research tasks.
 
+## Search demand (2026-06-29)
+
+- Journal `/journal/what-does-fico-d-india-smell-like` shipped (EXP-004) — answers Fico d'India smell intent with FAQ schema; extends prickly-pear cluster.
+- Sitemap 19 URLs; new article priority 0.76.
+
 ## Search demand (2026-06-28)
 
 - Journal article `/journal/fico-d-india` exists — extend cluster.
