@@ -69,6 +69,11 @@
 - One experiment per run; max 3 open growth PRs.
 - Agent-Reach / codebase-memory-mcp not configured in initial session.
 
+## Journal cluster (2026-06-29)
+
+- `/journal/fico-d-india` reframed for smell-intent query ("what does Fico d'India smell like?") with FAQ schema; pairs with `/prickly-pear-parfum` discovery landing (EXP-003).
+- Monitor GSC cluster: fico d'india smell, what does fico d'india smell like.
+
 ## Human decisions (2026-06-28)
 
 - Autonomy default L1–L2; no auto-merge.
