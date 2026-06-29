@@ -169,13 +169,7 @@
 
   /* ---------- 2e. SCROLL PROGRESS BAR ---------- */
   const progressEl = document.querySelector('.scroll-progress');
-  const readScrollY = () => {
-    if (document.documentElement.classList.contains('mv-normalize-scroll')
-      && typeof ScrollTrigger !== 'undefined') {
-      return ScrollTrigger.scroll();
-    }
-    return window.scrollY;
-  };
+  const readScrollY = () => window.scrollY || window.pageYOffset || 0;
   if (progressEl) {
     let pTicking = false;
     const updateProgress = () => {

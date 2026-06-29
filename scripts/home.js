@@ -10,14 +10,8 @@
   gsap.registerPlugin(ScrollTrigger);
   ScrollTrigger.config({ ignoreMobileResize: true });
 
-  var pinState = { mobile: false, triggers: [], normalizer: null };
-  var ctx = null;
-  var layoutRebuildTimer = null;
-
-  function isIOS() {
-    return /iPhone|iPad|iPod/i.test(navigator.userAgent) ||
-      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-  }
+  var pinState = { mobile: false, triggers: [], ctx: null };
+  var refreshTimer = null;
 
   function viewportHeight() {
     if (window.visualViewport && window.visualViewport.height > 0) {
@@ -26,38 +20,10 @@
     return window.innerHeight;
   }
 
-  function enableMobileScrollNormalize() {
-    if (pinState.normalizer) return pinState.normalizer;
-
-    pinState.normalizer = ScrollTrigger.normalizeScroll({
-      allowNestedScroll: true,
-      lockAxis: true,
-      type: 'touch'
-    });
-    document.documentElement.classList.add('mv-normalize-scroll');
-    return pinState.normalizer;
-  }
-
-  function disableMobileScrollNormalize() {
-    ScrollTrigger.normalizeScroll(false);
-    pinState.normalizer = null;
-    document.documentElement.classList.remove('mv-normalize-scroll');
-  }
-
-  function houseMobilePinOptions() {
+  function mobilePinOptions() {
     return {
-      pinType: 'transform',
-      pinReparent: isIOS(),
-      anticipatePin: 1,
-      scrub: true,
-      fastScrollEnd: true
-    };
-  }
-
-  function landMobilePinOptions() {
-    return {
-      pinType: 'transform',
-      pinReparent: isIOS(),
+      pinType: 'fixed',
+      pinReparent: false,
       anticipatePin: 0,
       scrub: true,
       fastScrollEnd: true
@@ -66,7 +32,7 @@
 
   function refreshPins() {
     ScrollTrigger.sort();
-    ScrollTrigger.refresh();
+    ScrollTrigger.refresh(true);
   }
 
   function houseScrollDistance(mobile) {
@@ -82,22 +48,6 @@
       var distance = typeof getDistance === 'function' ? getDistance() : getDistance;
       return '+=' + Math.max(Math.round(distance), 1);
     };
-  }
-
-  function readPinScrollY() {
-    if (typeof ScrollTrigger !== 'undefined' && typeof ScrollTrigger.scroll === 'function') {
-      return ScrollTrigger.scroll();
-    }
-    return window.scrollY || 0;
-  }
-
-  function writePinScrollY(y) {
-    if (typeof ScrollTrigger !== 'undefined' && typeof ScrollTrigger.scroll === 'function') {
-      ScrollTrigger.scroll(y);
-    } else {
-      window.scrollTo(0, y);
-    }
-    ScrollTrigger.update();
   }
 
   function initHouse(mobile) {
@@ -173,7 +123,7 @@
     };
 
     if (mobile) {
-      Object.assign(pinConfig, houseMobilePinOptions());
+      Object.assign(pinConfig, mobilePinOptions());
     } else {
       Object.assign(pinConfig, {
         pinType: 'fixed',
@@ -189,6 +139,7 @@
 
   function initLand(mobile) {
     var land = document.querySelector('.mv-land');
+    var house = document.querySelector('.mv-house');
     if (!land) return null;
 
     var sticky = land.querySelector('.mv-land__sticky');
@@ -206,6 +157,8 @@
     }
 
     if (mobile) {
+      if (!house || !sticky) return null;
+
       land.classList.add('mv-land--pin-js');
       land.removeAttribute('data-phase');
 
@@ -226,21 +179,15 @@
         .to(laws, { opacity: 0, y: -14, visibility: 'hidden', duration: 0.1, ease: 'none', force3D: true }, 0.58)
         .to(sign, { opacity: 1, y: 0, visibility: 'visible', duration: 0.12, ease: 'none', force3D: true }, 0.64);
 
-      var houseSt = ScrollTrigger.getById('mv-house');
-      var landStartPx = houseSt
-        ? houseSt.end + viewportHeight()
-        : land.offsetTop;
-      var landEndPx = landStartPx + landScrollDistance(true);
-
       var pinConfig = {
         id: 'mv-land',
-        trigger: land,
-        start: landStartPx,
-        end: landEndPx,
+        trigger: house,
+        start: 'bottom top',
+        end: pinScrollEnd(function () { return landScrollDistance(true); }),
         pin: sticky,
         pinSpacing: true,
         animation: tl,
-        refreshPriority: 1,
+        refreshPriority: -1,
         invalidateOnRefresh: true,
         onLeave: revealAllLand,
         onLeaveBack: function () {
@@ -251,7 +198,7 @@
         }
       };
 
-      Object.assign(pinConfig, landMobilePinOptions());
+      Object.assign(pinConfig, mobilePinOptions());
       return ScrollTrigger.create(pinConfig);
     }
 
@@ -289,11 +236,8 @@
   function runPinSetup(mobile) {
     var houseSt = initHouse(mobile);
     ScrollTrigger.refresh(true);
-
     var landSt = initLand(mobile);
     ScrollTrigger.refresh(true);
-    refreshPins();
-
     return [houseSt, landSt].filter(Boolean);
   }
 
@@ -327,58 +271,58 @@
     if (grid) {
       gsap.set(grid, { clearProps: 'transform' });
     }
-  }
 
-  function rebuildPins() {
-    if (!pinState.triggers.length) return;
-
-    var scrollY = readPinScrollY();
-    teardown(pinState.triggers);
-    pinState.triggers = runPinSetup(pinState.mobile);
-    refreshPins();
-    requestAnimationFrame(function () {
-      writePinScrollY(scrollY);
+    [].forEach.call(document.querySelectorAll('.mv-land__title, .mv-land__laws, .mv-land__sign'), function (el) {
+      gsap.set(el, { clearProps: 'opacity,transform,visibility' });
     });
   }
 
-  function scheduleLayoutRebuild() {
-    if (layoutRebuildTimer) window.clearTimeout(layoutRebuildTimer);
-    layoutRebuildTimer = window.setTimeout(rebuildPins, 150);
+  function scheduleRefresh() {
+    if (refreshTimer) window.clearTimeout(refreshTimer);
+    refreshTimer = window.setTimeout(refreshPins, 150);
+  }
+
+  function bootMobilePins() {
+    pinState.mobile = true;
+    document.documentElement.classList.add('mv-home-mobile-pins');
+    pinState.triggers = runPinSetup(true);
+    refreshPins();
   }
 
   function startPins() {
-    if (ctx) return;
+    if (pinState.ctx) return;
 
-    ctx = gsap.context(function () {
+    pinState.ctx = gsap.context(function () {
       var mm = gsap.matchMedia();
 
       mm.add('(max-width: 900px)', function () {
-        pinState.mobile = true;
-        enableMobileScrollNormalize();
-        pinState.triggers = runPinSetup(true);
-        document.documentElement.classList.add('mv-home-mobile-pins');
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            requestAnimationFrame(bootMobilePins);
+          });
+        });
 
+        window.addEventListener('resize', scheduleRefresh);
         if (window.visualViewport) {
-          window.visualViewport.addEventListener('resize', scheduleLayoutRebuild);
-          window.visualViewport.addEventListener('scroll', ScrollTrigger.update);
+          window.visualViewport.addEventListener('resize', scheduleRefresh);
         }
 
         return function () {
+          window.removeEventListener('resize', scheduleRefresh);
           if (window.visualViewport) {
-            window.visualViewport.removeEventListener('resize', scheduleLayoutRebuild);
-            window.visualViewport.removeEventListener('scroll', ScrollTrigger.update);
+            window.visualViewport.removeEventListener('resize', scheduleRefresh);
           }
           document.documentElement.classList.remove('mv-home-mobile-pins');
           teardown(pinState.triggers);
           pinState.triggers = [];
-          disableMobileScrollNormalize();
+          pinState.mobile = false;
         };
       });
 
       mm.add('(min-width: 901px)', function () {
         pinState.mobile = false;
-        disableMobileScrollNormalize();
         pinState.triggers = runPinSetup(false);
+        refreshPins();
         return function () {
           teardown(pinState.triggers);
           pinState.triggers = [];
@@ -402,18 +346,17 @@
   if (document.fonts && document.fonts.ready) {
     document.fonts.ready.then(function () {
       if (pinState.triggers.length) {
-        scheduleLayoutRebuild();
+        refreshPins();
       }
     });
   }
 
   if (reduceMq.addEventListener) {
     reduceMq.addEventListener('change', function () {
-      if (reduceMq.matches && ctx) {
-        ctx.revert();
-        ctx = null;
+      if (reduceMq.matches && pinState.ctx) {
+        pinState.ctx.revert();
+        pinState.ctx = null;
         pinState.triggers = [];
-        disableMobileScrollNormalize();
       }
     });
   }
