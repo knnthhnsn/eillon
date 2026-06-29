@@ -6,6 +6,24 @@ import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const backlog = readFileSync(join(__dirname, '../../growth/backlog.md'), 'utf8');
+const ALLOWED_LOOP_TYPES = new Set([
+  'demand_research',
+  'seo_content',
+  'landing_page',
+  'conversion_copy',
+  'social_distribution',
+  'video_asset',
+  'local_discovery',
+  'analytics_measurement',
+  'brand_system',
+  'technical_seo',
+  'internal_linking',
+  'retention_email',
+  'automation_os',
+  'brand_safety',
+  'measurement',
+]);
+
 const rows = backlog
   .split('\n')
   .filter((l) => l.startsWith('| EXP-'))
@@ -14,11 +32,20 @@ const rows = backlog
     return {
       id: parts[1],
       name: parts[2],
+      loop: parts[3],
       status: parts[parts.length - 2].replace(/\*/g, ''),
       priority: parseFloat(parts[parts.length - 3]) || 0,
     };
   })
-  .filter((r) => !['done', 'cancelled'].includes(r.status.toLowerCase()));
+  .filter((r) => {
+    if (!ALLOWED_LOOP_TYPES.has(r.loop)) {
+      console.error(
+        `Skipping ${r.id}: backlog loop "${r.loop}" is invalid — fix in growth/backlog.md (npm run growth:validate-backlog)`
+      );
+      return false;
+    }
+    return !['done', 'cancelled', 'blocked'].includes(r.status.toLowerCase());
+  });
 
 const explicitNext = rows.find((r) => r.status.toLowerCase() === 'next');
 const sorted = rows

@@ -17,6 +17,11 @@ Review PR for growth, SEO, brand, privacy, accessibility, and automation-safety 
 - Ignore PRs from `growth/*` unless assigned to review that experiment
 - Do not auto-merge
 
+## Steps
+
+1. Run `npm run growth:lock-check` — exit if lock held (PR cap does not apply; this automation reviews, not opens PRs)
+2. Read PR diff and metadata
+
 ## Checklist
 
 - [ ] qualified_growth_score documented if growth PR

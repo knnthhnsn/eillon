@@ -30,7 +30,7 @@
 | EXP-023 | "Skin scent" landing FAQ block | seo_content | 4 | 3 | 4 | 5 | 0 | 80 | backlog |
 | EXP-024 | Sample-first buying guide section | seo_content | 4 | 4 | 3 | 5 | 1 | 60 | backlog |
 | EXP-025 | Footer Letter promise A/B (draft) | conversion_copy | 3 | 2 | 5 | 5 | 0 | 50 | backlog |
-| EXP-026 | Beles FAQ: longevity without guarantees | objection_to_trust | 4 | 4 | 4 | 5 | 1 | 64 | backlog |
+| EXP-026 | Beles FAQ: longevity without guarantees | conversion_copy | 4 | 4 | 4 | 5 | 1 | 64 | backlog |
 | EXP-027 | Appointment mailto tracking on about | analytics_measurement | 3 | 5 | 5 | 4 | 0 | 100 | backlog |
 | EXP-028 | Mobile waitlist form field order test | conversion_copy | 3 | 2 | 4 | 4 | 0 | 32 | backlog |
 | EXP-029 | Performance: lazy-load non-critical chapter images | technical_seo | 2 | 4 | 3 | 3 | 0 | 24 | backlog |
@@ -40,6 +40,14 @@
 | EXP-033 | Genderless niche fragrance Copenhagen page | seo_content | 3 | 3 | 3 | 5 | 1 | 33.75 | backlog |
 | EXP-034 | Campaign folder `/content/campaigns/` scaffold | social_distribution | 3 | 5 | 5 | 4 | 0 | 75 | backlog |
 | EXP-035 | journal_to_beles_click event | analytics_measurement | 3 | 4 | 4 | 4 | 0 | 48 | backlog |
+| EXP-036 | OS: ledger validation + QA npm ci bootstrap | automation_os | 4 | 5 | 4 | 5 | 0 | 400 | done |
+| EXP-037 | OS: automation preflight (growth:precheck) | automation_os | 4 | 5 | 4 | 5 | 0 | 400 | done |
+| EXP-038 | OS: ledger-insights + precheck in remaining prompts | automation_os | 4 | 5 | 4 | 5 | 0 | 400 | done |
+| EXP-039 | OS: auto-merge cap script (growth:auto-merge-cap) | automation_os | 4 | 5 | 5 | 5 | 0 | 500 | done |
+| EXP-040 | OS: scope guard for OS improver (no sitemap/public drift) | automation_os | 3 | 5 | 3 | 5 | 0 | 225 | done |
+| EXP-041 | OS: validate-backlog loop_type guard | automation_os | 4 | 5 | 4 | 5 | 0 | 400 | done |
+| EXP-042 | OS: precheck rollout to prompts 06–08 + lock-check | automation_os | 4 | 5 | 4 | 5 | 0 | 400 | done |
+| EXP-043 | OS: growth:next skips invalid backlog loop types | automation_os | 3 | 5 | 3 | 5 | 0 | 225 | done |
 
 ## Top 10 next (after EXP-001/002)
 

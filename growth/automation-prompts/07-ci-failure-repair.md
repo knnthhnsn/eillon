@@ -13,7 +13,8 @@ Investigate failed build/test/lint; propose **minimal** fix. No broad refactors.
 
 ## Steps
 
-1. Read CI logs (`.github/workflows/ci.yml` → `npm run ci`)
+1. Run `npm run growth:precheck` — exit if lock held or ≥3 open growth PRs (CI fix may open a growth PR)
+2. Read CI logs (`.github/workflows/ci.yml` → `npm run ci`)
 2. Identify failing step: build, verify:*, smoke:funnel, lighthouse:ci
 3. Reproduce locally if possible
 4. Fix minimal root cause on branch `growth/ci-fix-YYYY-MM-DD`
