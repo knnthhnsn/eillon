@@ -1923,11 +1923,14 @@
 .editorial-page .chapter-shader-band .shop__price-meta { color: rgba(248,246,240,0.55); }
 .editorial-page .chapter-shader-band .shop__desc,
 .editorial-page .chapter-shader-band .shop__features li,
+.editorial-page .chapter-shader-band .shop__form-lede,
+.editorial-page .chapter-shader-band .shop__trust-points li,
 .editorial-page .chapter-shader-band .shop__cta-caption,
 .editorial-page .chapter-shader-band .shop__waitlist-consent,
 .editorial-page .chapter-shader-band .shop__waitlist-status { color: rgba(248,246,240,0.72); }
 .editorial-page .chapter-shader-band .shop__features li { border-top-color: rgba(248,246,240,0.14); }
-.editorial-page .chapter-shader-band .shop__features li::before { background: var(--gold-light); }
+.editorial-page .chapter-shader-band .shop__features li::before,
+.editorial-page .chapter-shader-band .shop__trust-points li::before { background: var(--gold-light); }
 .editorial-page .chapter-shader-band .shop__image {
   background: rgba(248,246,240,0.04) !important;
   border-color: rgba(248,246,240,0.12);
