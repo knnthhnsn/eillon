@@ -137,6 +137,10 @@
           <span>Prickly pear parfum</span>
           <small>Discovery guide — Beles · Fico d'India</small>
         </a>
+        <a href="/journal/oil-rich-parfum-explained" data-search-item data-search-keywords="oil-rich parfum oil rich concentration skin scent wear close parfum format">
+          <span>Oil-rich parfum explained</span>
+          <small>Format, concentration, and close wear</small>
+        </a>
         <a href="${sectionHref('#craft')}" data-search-item data-search-keywords="bottle flacon cap square matte glass emblem leopard lettering">
           <span>The Bottle</span>
           <small>Object details and materials</small>
