@@ -73,3 +73,25 @@
 
 - Autonomy default L1–L2; no auto-merge.
 - Favicon switched to `images/favicon.jpeg` (ensure committed for prod).
+
+## Wins (2026-06-29 — main_branch_digest)
+
+- **EXP-003–005 shipped on main:** `/prickly-pear-parfum`, smell-intent journal article, Beles restock trust microcopy.
+- **EXP-031:** 10 growth automations verified in Cursor UI; `pr_growth_auto_merge` may still need save in editor.
+- **First L2b auto-merge:** PR #44 (EXP-005) squash-merged at `790ad6f` with AI hard review pass_with_notes, 0 blocks, CI green.
+- Growth OS live under `/growth/` with AI hard review protocol, scorecard, QA scripts, automation prompts.
+- Sitemap now **19 URLs**; prickly-pear and smell-intent routes indexed.
+
+## Lessons (2026-06-29 — main_branch_digest)
+
+- **Baseline drifts quickly** when digest is infrequent — routes and sitemap count lagged shipped EXP-003/004 until this run.
+- **Mobile Maison pin** must chain start to House of Memory pin end; CSS sticky fallback conflicts with GSAP pin — exclude overrides.
+- **iOS Safari:** `ScrollTrigger.normalizeScroll(true)` plus ordered pin refresh reduces section jitter.
+- **Vercel deploy quota:** temporary jsDelivr load for homepage scroll-pin script (`c714cf6`) — revert when quota resets.
+- **Lazy GSAP** caused mobile jitter before; eager/defer script order matters for pin init.
+- Agent-Reach: Reddit authenticated (`eillonofficial`); Twitter CLI may need browser configure.
+
+## Automation (2026-06-29)
+
+- Autonomy level now **L2b_conditional_auto_merge** for eligible `growth/*` PRs (see `autonomy-policy.md`).
+- Codebase memory indexed (~10k nodes) for agent context.
