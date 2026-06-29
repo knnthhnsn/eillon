@@ -37,16 +37,17 @@ Increasing autonomy level, removing QA gates, allowing auto-merge, or weakening 
 
 ## Steps
 
-0. Run `npm run growth:precheck` — exit if blocked (lock or PR cap)
+0. Run `npm run growth:precheck` — exit if blocked (lock, PR cap, or wrong branch)
 1. Run `npm run growth:ledger-insights -- --last=10` for status/rework/blocked patterns
    - If fewer than 10 ledger rows: also read `growth/memory.md` (Previous failures), `growth/runs/*.md`, and `growth/automation-registry.md` failure modes
 2. Propose 1–3 targeted OS improvements tied to evidence
-3. Implement on branch `growth/os-YYYY-MM-DD`
-4. Run `npm run growth:qa` (auto-runs `npm ci` if `node_modules` incomplete)
-5. **AI hard review** — light self-checklist for docs/scripts-only; full Bugbot if touching autonomy policy
-6. Write `growth/runs/YYYY-MM-DD-automation_os_improver-EXP-OS-NNN-ai-review.md`; run `npm run growth:validate-ai-review`
-7. PR with rationale tied to failed/rework/blocked experiments
-8. Append ledger row with `loop_type` `automation_os`
+3. Implement on branch `growth/os-YYYY-MM-DD` (never `cursor/*`)
+4. Run `npm run growth:validate-branch` after checkout
+5. Run `npm run growth:qa` (auto-runs `npm ci` if `node_modules` incomplete)
+6. **AI hard review** — light self-checklist for docs/scripts-only; full Bugbot if touching autonomy policy
+7. Write `growth/runs/YYYY-MM-DD-automation_os_improver-EXP-OS-NNN-ai-review.md`; run `npm run growth:validate-ai-review`
+8. PR with rationale tied to failed/rework/blocked experiments
+9. Append ledger row with `loop_type` `automation_os`
 
 ## Ledger rules (do not regress)
 

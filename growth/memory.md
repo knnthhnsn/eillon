@@ -92,6 +92,12 @@
 
 - EXP-040: `growth/os-2026-06-29` initially included unrelated `sitemap.xml` lastmod drift from a rebase/build — reverted; OS improver prompt now lists allowed paths and requires `git diff origin/main --stat` before PR.
 
+## OS branch naming guard (2026-06-29)
+
+- Remote shows 10+ parallel `cursor/*` branches per experiment (conversion-trust, social-campaign, beles-restock) — agents skipped `growth/*` branch convention.
+- EXP-041: `branch-utils.mjs` + `growth:validate-branch` enforce `growth/<loop>-exp-NNN-<slug>` or `growth/os-YYYY-MM-DD`; `growth:precheck` blocks `cursor/*` and `main`.
+- EXP-041: `growth:check-exp-shipped` prevents re-running experiments that already have a `keep` ledger row.
+
 ## Human decisions (2026-06-28)
 
 - Autonomy default L1–L2; no auto-merge.

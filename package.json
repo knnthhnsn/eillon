@@ -28,6 +28,8 @@
     "growth:validate-ledger": "node scripts/growth/validate-ledger.mjs",
     "growth:ledger-insights": "node scripts/growth/ledger-insights.mjs",
     "growth:precheck": "node scripts/growth/check-state.mjs --for-automation",
+    "growth:validate-branch": "node scripts/growth/validate-branch-name.mjs",
+    "growth:check-exp-shipped": "node scripts/growth/check-exp-shipped.mjs",
     "growth:auto-merge-cap": "node scripts/growth/check-auto-merge-cap.mjs",
     "growth:score": "node scripts/growth/score-experiment.mjs",
     "growth:state": "node scripts/growth/check-state.mjs",

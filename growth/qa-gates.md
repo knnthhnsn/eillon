@@ -26,7 +26,9 @@
 | `npm run growth:validate-ledger` | Validate `results.tsv` header, status enum, loop_type, score math |
 | `npm run growth:ledger-insights` | Summarize last N ledger rows (rework/blocked patterns) |
 | `npm run growth:state` | Print/validate `state.json` |
-| `npm run growth:precheck` | Exit non-zero if lock held or ≥3 open growth PRs (automation start gate) |
+| `npm run growth:precheck` | Exit non-zero if lock held, ≥3 open growth PRs, or branch is not valid `growth/*` (automation start gate) |
+| `npm run growth:validate-branch` | Validate current branch matches `growth/<loop>-exp-NNN-<slug>` or `growth/os-YYYY-MM-DD` |
+| `npm run growth:check-exp-shipped` | Exit non-zero if experiment_id already has a `keep` row in ledger |
 | `npm run growth:auto-merge-cap` | Exit non-zero if L2b rolling 7-day auto-merge cap reached |
 | `npm run growth:score` | Compute qualified_growth_score |
 | `npm run growth:next` | Select highest-priority backlog experiment |

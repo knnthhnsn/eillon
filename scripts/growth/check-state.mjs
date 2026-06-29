@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 import { readFileSync } from 'fs';
+import { spawnSync } from 'child_process';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { validateBranchForAutomation } from './branch-utils.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const statePath = join(__dirname, '../../growth/state.json');
@@ -42,6 +44,18 @@ if (!Number.isInteger(state.open_growth_prs_count) || state.open_growth_prs_coun
 }
 
 if (forAutomation) {
+  const branchResult = spawnSync('git', ['rev-parse', '--abbrev-ref', 'HEAD'], {
+    encoding: 'utf8',
+  });
+  const branch = branchResult.stdout?.trim();
+  if (branchResult.status === 0 && branch) {
+    const branchCheck = validateBranchForAutomation(branch);
+    if (!branchCheck.ok) {
+      console.error(branchCheck.message);
+      process.exit(1);
+    }
+  }
+
   if (state.lock_status === 'locked') {
     console.error(
       'BLOCKED: lock_status is locked — another experiment may be in progress. Exit without changes.'
@@ -54,7 +68,7 @@ if (forAutomation) {
     );
     process.exit(1);
   }
-  console.log('OK: automation preflight passed (unlocked, PR cap clear)');
+  console.log(`OK: automation preflight passed (branch=${branch || 'unknown'}, unlocked, PR cap clear)`);
 }
 
 console.log(JSON.stringify(state, null, 2));
