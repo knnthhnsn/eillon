@@ -30,6 +30,15 @@
     };
   }
 
+  function desktopPinOptions() {
+    return {
+      pinType: 'fixed',
+      pinReparent: false,
+      anticipatePin: 1,
+      scrub: true
+    };
+  }
+
   function refreshPins() {
     ScrollTrigger.sort();
     ScrollTrigger.refresh(true);
@@ -125,13 +134,7 @@
     if (mobile) {
       Object.assign(pinConfig, mobilePinOptions());
     } else {
-      Object.assign(pinConfig, {
-        pinType: 'fixed',
-        pinReparent: false,
-        scrub: true,
-        anticipatePin: 0,
-        fastScrollEnd: true
-      });
+      Object.assign(pinConfig, desktopPinOptions());
     }
 
     return ScrollTrigger.create(pinConfig);
@@ -216,14 +219,16 @@
       setPhase(p >= 0.62 ? 2 : (p >= 0.32 ? 1 : 0));
     }
 
+    if (!house) return null;
+
     var st = ScrollTrigger.create({
       id: 'mv-land',
-      trigger: land,
-      start: 'top top',
+      trigger: house,
+      start: 'bottom top',
       end: pinScrollEnd(function () { return Math.max(land.offsetHeight - viewportHeight(), 0); }),
       scrub: true,
       invalidateOnRefresh: true,
-      refreshPriority: 1,
+      refreshPriority: -1,
       onUpdate: function (self) {
         applyProgress(self.progress);
       }
