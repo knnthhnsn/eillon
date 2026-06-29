@@ -10,7 +10,7 @@
 | EXP-003 | Prickly pear / Beles discovery landing page | seo_content | 5 | 4 | 3 | 5 | 1 | 120 | done |
 | EXP-004 | Journal: "What does Fico d'India smell like?" | seo_content | 5 | 4 | 4 | 5 | 0 | 160 | done |
 | EXP-005 | Beles restock form trust microcopy | conversion_copy | 4 | 4 | 5 | 5 | 0 | 160 | done |
-| EXP-006 | Social kit: "Prickly pear, but not candy." | social_distribution | 4 | 3 | 4 | 5 | 1 | 48 | backlog |
+| EXP-006 | Social kit: "Prickly pear, but not candy." | social_distribution | 4 | 3 | 4 | 5 | 1 | 48 | done |
 | EXP-007 | Analytics: newsletter distinct events | analytics_measurement | 4 | 4 | 3 | 4 | 1 | 48 | backlog |
 | EXP-008 | Internal links: Journal → Beles → Restock | internal_linking | 4 | 4 | 5 | 5 | 0 | 160 | backlog |
 | EXP-009 | Pinterest visual search pack for Beles | social_distribution | 4 | 3 | 3 | 5 | 1 | 45 | backlog |
@@ -38,7 +38,7 @@
 | EXP-031 | Cursor automation registration (human) | automation_os | 5 | 5 | 2 | 5 | 0 | 125 | done |
 | EXP-032 | Brand safety audit: forbidden phrase scan | brand_safety | 4 | 5 | 4 | 5 | 0 | 100 | backlog |
 | EXP-033 | Genderless niche fragrance Copenhagen page | seo_content | 3 | 3 | 3 | 5 | 1 | 33.75 | backlog |
-| EXP-034 | Campaign folder `/content/campaigns/` scaffold | social_distribution | 3 | 5 | 5 | 4 | 0 | 75 | backlog |
+| EXP-034 | Campaign folder `/content/campaigns/` scaffold | social_distribution | 3 | 5 | 5 | 4 | 0 | 75 | done |
 | EXP-035 | journal_to_beles_click event | analytics_measurement | 3 | 4 | 4 | 4 | 0 | 48 | backlog |
 
 ## Top 10 next (after EXP-001/002)

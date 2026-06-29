@@ -41,6 +41,11 @@
 - Pinterest/visual search loop undeveloped in repo (backlog EXP-009).
 - Campaign kits not yet in `/content/campaigns/`.
 
+## Campaign kits (2026-06-29)
+
+- `/content/campaigns/` live with README index.
+- EXP-006 shipped: `2026-06-29-prickly-pear-not-candy.md` — social_to_letter loop; primary CTA The Letter (`/about`), secondary Beles restock.
+
 ## Technical architecture (2026-06-28)
 
 - Static HTML/CSS/JS; Vercel deploy; Neon DB for waitlist.
