@@ -34,6 +34,7 @@
 
 - Journal article `/journal/fico-d-india` exists — extend cluster.
 - `/journal/what-does-fico-d-india-smell-like` smell-intent article shipped (EXP-004, 2026-06-29).
+- Journal → Beles → `#waitlist` internal links on all journal surfaces (EXP-008, 2026-06-29).
 - Sitemap 19 URLs.
 
 ## Social demand (2026-06-28)
