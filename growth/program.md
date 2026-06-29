@@ -24,7 +24,7 @@ The "model" is the combined system:
 ## Master loop (every experiment)
 
 1. **Read context:** `AGENTS.md`, `DESIGN.md`, `/growth/autonomy-policy.md`, `/growth/state.json`, `/growth/baseline.md`, `/growth/memory.md`, `/growth/insights.md`, `/growth/backlog.md`, `/growth/results.tsv`, `/growth/scorecard.md`, `/growth/qa-gates.md`
-2. **Check lock** — exit if locked or ≥3 open growth PRs
+2. **Check lock** — `npm run growth:precheck` (exit if locked or ≥3 open growth PRs)
 3. **Choose one experiment** — highest priority eligible item
 4. **Hypothesis:** "If we [change], then [segment] will [action], because [evidence]."
 5. **Set loop_type** — see list below

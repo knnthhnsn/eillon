@@ -26,6 +26,8 @@
     "optimize:images": "python scripts/optimize-images.py",
     "build": "npm run build:css && npm run build:home && npm run build:site && npm run build:letters && npm run build:js && npm run build:vendor && npm run build:sitemap",
     "growth:validate-ledger": "node scripts/growth/validate-ledger.mjs",
+    "growth:ledger-insights": "node scripts/growth/ledger-insights.mjs",
+    "growth:precheck": "node scripts/growth/check-state.mjs --for-automation",
     "growth:score": "node scripts/growth/score-experiment.mjs",
     "growth:state": "node scripts/growth/check-state.mjs",
     "growth:next": "node scripts/growth/select-next-experiment.mjs",
