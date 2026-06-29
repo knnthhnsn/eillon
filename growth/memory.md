@@ -73,3 +73,24 @@
 
 - Autonomy default L1–L2; no auto-merge.
 - Favicon switched to `images/favicon.jpeg` (ensure committed for prod).
+
+## Main branch digest (2026-06-29)
+
+### Shipped on main (7-day window, 61 commits)
+
+- **Growth OS** on main (`32a9790`): `/growth/*`, Cursor rules, automation prompts, QA scripts — EXP-001/002 closed.
+- **EXP-003** live: `/prickly-pear-parfum` with FAQ schema; sitemap now **18 URLs**.
+- **Homepage perf iteration**: critical CSS, deferred letters bundle, CSS marquee, ~15 GSAP pin fixes; mobile jitter resolved by eager GSAP load.
+- **Phase 2–4 infra** (Jun 25): CI pipeline, analytics funnel, API rate limits, auto-sitemap, trust/legal fixes, consent recording.
+- **Visual**: WebGL section shaders, Beautiful Letters experience, editorial refresh, wear close-skin imagery.
+
+### Not yet on main
+
+- **EXP-004** smell-intent journal — on open `growth/*` branches; merge pending.
+- **EXP-031** automation registration — main backlog still `pending`.
+
+### Lessons
+
+- Cross-check sitemap URL count vs `baseline.md` route table after every SEO ship — baseline had stale prickly-pear gap.
+- GSAP ScrollTrigger pins: initialize in DOM order after layout settles; lazy GSAP caused mobile scroll jitter.
+- CI: split Python wax-seal from Vercel build path to avoid numpy dependency failures.
