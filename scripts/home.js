@@ -20,6 +20,13 @@
     return window.innerHeight;
   }
 
+  function sectionScrollTop(el) {
+    var node = el.parentElement && el.parentElement.classList.contains('pin-spacer')
+      ? el.parentElement
+      : el;
+    return Math.round(node.getBoundingClientRect().top + (window.scrollY || window.pageYOffset || 0));
+  }
+
   function mobilePinOptions() {
     return {
       pinType: 'fixed',
@@ -35,16 +42,13 @@
       pinType: 'fixed',
       pinReparent: false,
       anticipatePin: 0,
-      scrub: true
+      scrub: true,
+      fastScrollEnd: true
     };
   }
 
-  function houseRefreshPriority(mobile) {
-    return mobile ? 0 : 2;
-  }
-
-  function landRefreshPriority(mobile) {
-    return mobile ? -1 : 1;
+  function landScrollDistanceDesktop(land) {
+    return Math.max(land.offsetHeight - viewportHeight(), 0);
   }
 
   function refreshPins() {
@@ -126,12 +130,9 @@
     var pinConfig = {
       id: 'mv-house',
       trigger: house,
-      start: 'top top',
-      end: pinScrollEnd(function () { return houseScrollDistance(mobile); }),
       pin: pinTarget,
       pinSpacing: true,
       animation: tl,
-      refreshPriority: houseRefreshPriority(mobile),
       invalidateOnRefresh: true,
       onLeave: revealAll,
       onLeaveBack: function () {
@@ -140,9 +141,19 @@
     };
 
     if (mobile) {
-      Object.assign(pinConfig, mobilePinOptions());
+      Object.assign(pinConfig, {
+        start: 'top top',
+        end: pinScrollEnd(function () { return houseScrollDistance(true); }),
+        refreshPriority: 0
+      }, mobilePinOptions());
     } else {
-      Object.assign(pinConfig, desktopPinOptions());
+      var houseStart = sectionScrollTop(house);
+      var houseScroll = houseScrollDistance(false);
+      Object.assign(pinConfig, {
+        start: houseStart,
+        end: houseStart + houseScroll,
+        refreshPriority: 0
+      }, desktopPinOptions());
     }
 
     return ScrollTrigger.create(pinConfig);
@@ -198,7 +209,7 @@
         pin: sticky,
         pinSpacing: true,
         animation: tl,
-        refreshPriority: landRefreshPriority(true),
+        refreshPriority: -1,
         invalidateOnRefresh: true,
         onLeave: revealAllLand,
         onLeaveBack: function () {
@@ -212,6 +223,8 @@
       Object.assign(pinConfig, mobilePinOptions());
       return ScrollTrigger.create(pinConfig);
     }
+
+    if (!house) return null;
 
     land.classList.add('mv-land--scroll-js');
 
@@ -227,27 +240,17 @@
       setPhase(p >= 0.62 ? 2 : (p >= 0.32 ? 1 : 0));
     }
 
-    if (!house) return null;
-
-    function landDesktopStart() {
-      var houseSt = ScrollTrigger.getById('mv-house');
-      return houseSt ? houseSt.end : 'top top';
-    }
-
-    function landDesktopEnd() {
-      var houseSt = ScrollTrigger.getById('mv-house');
-      var start = houseSt ? houseSt.end : land.offsetTop;
-      return start + Math.max(land.offsetHeight - viewportHeight(), 0);
-    }
+    var landStart = sectionScrollTop(land);
+    var landScroll = landScrollDistanceDesktop(land);
 
     var st = ScrollTrigger.create({
       id: 'mv-land',
       trigger: land,
-      start: landDesktopStart,
-      end: landDesktopEnd,
+      start: landStart,
+      end: landStart + landScroll,
       scrub: true,
       invalidateOnRefresh: true,
-      refreshPriority: landRefreshPriority(false),
+      refreshPriority: 1,
       onUpdate: function (self) {
         applyProgress(self.progress);
       }
@@ -259,8 +262,16 @@
 
   function runPinSetup(mobile) {
     var houseSt = initHouse(mobile);
-    var landSt = initLand(mobile);
-    return [houseSt, landSt].filter(Boolean);
+
+    if (mobile) {
+      var landSt = initLand(mobile);
+      return [houseSt, landSt].filter(Boolean);
+    }
+
+    ScrollTrigger.refresh();
+    var landStDesktop = initLand(false);
+    refreshPins();
+    return [houseSt, landStDesktop].filter(Boolean);
   }
 
   function teardown(triggers) {
@@ -305,7 +316,7 @@
 
   function scheduleRefresh() {
     if (refreshTimer) window.clearTimeout(refreshTimer);
-    refreshTimer = window.setTimeout(rebuildPins, 150);
+    refreshTimer = window.setTimeout(rebuildPins, 80);
   }
 
   function rebuildPins() {
@@ -314,9 +325,8 @@
     var scrollY = window.scrollY || 0;
     var mobile = pinState.mobile;
     teardown(pinState.triggers);
+    ScrollTrigger.refresh();
     pinState.triggers = runPinSetup(mobile);
-    ScrollTrigger.sort();
-    ScrollTrigger.refresh(true);
     window.scrollTo(0, scrollY);
     ScrollTrigger.update();
   }
@@ -331,7 +341,6 @@
   function bootDesktopPins() {
     pinState.mobile = false;
     pinState.triggers = runPinSetup(false);
-    refreshPins();
   }
 
   function startPins() {
@@ -365,9 +374,7 @@
       });
 
       mm.add('(min-width: 901px)', function () {
-        requestAnimationFrame(function () {
-          requestAnimationFrame(bootDesktopPins);
-        });
+        bootDesktopPins();
 
         window.addEventListener('resize', scheduleRefresh);
 
@@ -395,7 +402,7 @@
   if (document.fonts && document.fonts.ready) {
     document.fonts.ready.then(function () {
       if (pinState.triggers.length) {
-        rebuildPins();
+        scheduleRefresh();
       }
     });
   }
