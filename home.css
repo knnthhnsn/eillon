@@ -1601,8 +1601,20 @@ body[data-nav-home="true"] .footer__legal a:hover { color: #fff; }
   .mv-house__display em { white-space: normal; }
 
   /* M04 landscape — GSAP pin-js mobile tuning (class only applied on mobile) */
+  html.mv-home-mobile-pins .mv-land.mv-land--pin-js {
+    z-index: 24;
+    isolation: isolate;
+  }
+  html.mv-home-mobile-pins .mv-land.mv-land--pin-js .mv-land__sticky {
+    background: #0a1210;
+    overflow: hidden;
+    z-index: 1;
+  }
+  html.mv-home-mobile-pins .mv-land.mv-land--pin-js .mv-land__copy {
+    z-index: 4;
+  }
   .mv-land.mv-land--pin-js .mv-land__grad {
-    background: linear-gradient(180deg, rgba(8,14,10,0.5) 0%, rgba(8,14,10,0) 26%, rgba(8,14,10,0.2) 54%, rgba(8,14,10,0.86) 100%);
+    background: linear-gradient(180deg, rgba(8,14,10,0.62) 0%, rgba(8,14,10,0.08) 28%, rgba(8,14,10,0.18) 58%, rgba(8,14,10,0.88) 100%);
   }
   .mv-land.mv-land--pin-js .mv-land__eyebrow {
     position: absolute;
@@ -1613,10 +1625,56 @@ body[data-nav-home="true"] .footer__legal a:hover { color: #fff; }
   .mv-land.mv-land--pin-js .mv-land__media img {
     object-position: 42% 46%;
   }
-  .mv-land.mv-land--pin-js .mv-land__title { font-size: clamp(36px, 9vw, 52px); max-width: none; }
-  .mv-land.mv-land--pin-js .mv-land__laws { gap: 14px; max-width: none; }
+  .mv-land.mv-land--pin-js .mv-land__copy {
+    position: absolute;
+    inset: 0;
+    left: var(--pad);
+    right: var(--pad);
+    top: 0;
+    bottom: 0;
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas: "top" "mid" "bot";
+    padding:
+      calc(108px + env(safe-area-inset-top, 0px)) 0
+      calc(40px + env(safe-area-inset-bottom, 0px));
+    gap: 0;
+    margin: 0;
+    max-width: none;
+    min-height: 0;
+    pointer-events: none;
+  }
+  .mv-land.mv-land--pin-js .mv-land__title.is-1 {
+    position: relative;
+    grid-area: top;
+    align-self: end;
+    bottom: auto;
+    top: auto;
+    width: 100%;
+    max-width: 100%;
+    font-size: clamp(36px, 9vw, 52px);
+  }
+  .mv-land.mv-land--pin-js .mv-land__laws.is-2 {
+    position: relative;
+    grid-area: mid;
+    align-self: center;
+    bottom: auto;
+    top: auto;
+    width: 100%;
+    max-width: none;
+    gap: 14px;
+  }
   .mv-land.mv-land--pin-js .mv-land__laws li { font-size: clamp(17px, 4.2vw, 21px); }
-  .mv-land.mv-land--pin-js .mv-land__sign { font-size: clamp(20px, 5vw, 28px); }
+  .mv-land.mv-land--pin-js .mv-land__sign.is-3 {
+    position: relative;
+    grid-area: bot;
+    align-self: end;
+    bottom: auto;
+    top: auto;
+    width: 100%;
+    max-width: 100%;
+    font-size: clamp(20px, 5vw, 28px);
+  }
 
   /* M04 fallback when GSAP unavailable — static scroll stack */
   .mv-land:not(.mv-land--pin-js) {

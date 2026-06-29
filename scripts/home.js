@@ -163,8 +163,8 @@
       land.removeAttribute('data-phase');
 
       gsap.set(title, { opacity: 1, y: 0, visibility: 'visible', force3D: true });
-      gsap.set(laws, { opacity: 0, y: 18, visibility: 'hidden', force3D: true });
-      gsap.set(sign, { opacity: 0, y: 18, visibility: 'hidden', force3D: true });
+      gsap.set(laws, { opacity: 0, y: 0, visibility: 'hidden', force3D: true });
+      gsap.set(sign, { opacity: 0, y: 0, visibility: 'hidden', force3D: true });
       if (mediaImg) gsap.set(mediaImg, { scale: 1.02, force3D: true });
 
       var tl = gsap.timeline({ paused: true });
@@ -174,9 +174,9 @@
       }
 
       tl.to(title, { opacity: 1, y: 0, visibility: 'visible', duration: 0.12, ease: 'none', force3D: true }, 0)
-        .to(title, { opacity: 0, y: -14, visibility: 'hidden', duration: 0.1, ease: 'none', force3D: true }, 0.26)
+        .to(title, { opacity: 0, visibility: 'hidden', duration: 0.1, ease: 'none', force3D: true }, 0.26)
         .to(laws, { opacity: 1, y: 0, visibility: 'visible', duration: 0.12, ease: 'none', force3D: true }, 0.32)
-        .to(laws, { opacity: 0, y: -14, visibility: 'hidden', duration: 0.1, ease: 'none', force3D: true }, 0.58)
+        .to(laws, { opacity: 0, visibility: 'hidden', duration: 0.1, ease: 'none', force3D: true }, 0.58)
         .to(sign, { opacity: 1, y: 0, visibility: 'visible', duration: 0.12, ease: 'none', force3D: true }, 0.64);
 
       var pinConfig = {
@@ -192,8 +192,8 @@
         onLeave: revealAllLand,
         onLeaveBack: function () {
           gsap.set(title, { opacity: 1, y: 0, visibility: 'visible', force3D: true });
-          gsap.set(laws, { opacity: 0, y: 18, visibility: 'hidden', force3D: true });
-          gsap.set(sign, { opacity: 0, y: 18, visibility: 'hidden', force3D: true });
+          gsap.set(laws, { opacity: 0, y: 0, visibility: 'hidden', force3D: true });
+          gsap.set(sign, { opacity: 0, y: 0, visibility: 'hidden', force3D: true });
           if (mediaImg) gsap.set(mediaImg, { scale: 1.02, force3D: true });
         }
       };
