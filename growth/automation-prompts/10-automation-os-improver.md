@@ -5,11 +5,24 @@
 
 ---
 
-You are a Cursor Cloud Agent operating inside the EILLON repository. Before doing anything, read AGENTS.md, /growth/program.md, /growth/autonomy-policy.md, /growth/state.json, /growth/results.tsv, /growth/backlog.md, /growth/memory.md, and DESIGN.md if present.
+You are a Cursor Cloud Agent operating inside the EILLON repository. Before doing anything, read AGENTS.md, /growth/program.md, /growth/autonomy-policy.md, /growth/ai-review.md, /growth/state.json, /growth/results.tsv, /growth/backlog.md, /growth/memory.md, and DESIGN.md if present.
 
 ## Mission
 
 Improve the growth OS itself: docs, prompts, scorecard, scripts, rules — **never silently loosen safety**.
+
+## Allowed scope (stay in lane)
+
+Touch only growth OS surfaces unless fixing a broken gate script:
+
+- `growth/**` (docs, prompts, ledger, runs, backlog, memory)
+- `scripts/growth/**`
+- `.cursor/rules/*growth*` and `.cursor/BUGBOT.md` when review clarity needs it
+- Root `AGENTS.md` / `package.json` growth script entries
+
+**Do not** edit public HTML/CSS/JS, `sitemap.xml`, `data/products.js`, or `api/**` in an OS improver run — those belong to experiment automations with full AI hard review on copy.
+
+Before opening a PR, run `git diff origin/main --stat` and revert any out-of-scope files.
 
 ## Allowed
 
@@ -24,11 +37,22 @@ Increasing autonomy level, removing QA gates, allowing auto-merge, or weakening 
 
 ## Steps
 
-1. Review last 10 results.tsv rows for patterns (rework/blocked)
-2. Propose 1–3 targeted OS improvements
+0. Run `npm run growth:precheck` — exit if blocked (lock or PR cap)
+1. Run `npm run growth:ledger-insights -- --last=10` for status/rework/blocked patterns
+   - If fewer than 10 ledger rows: also read `growth/memory.md` (Previous failures), `growth/runs/*.md`, and `growth/automation-registry.md` failure modes
+2. Propose 1–3 targeted OS improvements tied to evidence
 3. Implement on branch `growth/os-YYYY-MM-DD`
-4. PR with rationale tied to failed/rework experiments
-5. Log with loop_type automation_os
+4. Run `npm run growth:qa` (auto-runs `npm ci` if `node_modules` incomplete)
+5. **AI hard review** — light self-checklist for docs/scripts-only; full Bugbot if touching autonomy policy
+6. Write `growth/runs/YYYY-MM-DD-automation_os_improver-EXP-OS-NNN-ai-review.md`; run `npm run growth:validate-ai-review`
+7. PR with rationale tied to failed/rework/blocked experiments
+8. Append ledger row with `loop_type` `automation_os`
+
+## Ledger rules (do not regress)
+
+- **Status** must be one of: `keep`, `rework`, `discard`, `blocked`
+- Automation registration state belongs in `automation-registry.md`, not as a ledger status
+- `npm run growth:validate-ledger` validates status, loop_type, and score arithmetic
 
 ## Stop if
 

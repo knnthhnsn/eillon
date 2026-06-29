@@ -27,12 +27,13 @@ Read AGENTS.md, growth/autonomy-policy.md, growth/ai-review.md, .cursor/BUGBOT.m
 ## Steps
 
 1. Identify PR from trigger context
-2. Run eligibility checks above — if any fail, comment why and **do not merge**
-3. Re-run checklist from growth/ai-review.md (read PR diff; do not skip)
-4. If zero **block** findings: `gh pr merge <number> --squash --delete-branch`
-5. Comment on PR: merged by auto-merge policy + link to ai-review
-6. Append results.tsv row (loop_type: automation_os, status: keep) if experiment-linked
-7. Update growth/state.json open_growth_prs_count if tracked
+2. Run `npm run growth:auto-merge-cap` — exit if rolling 7-day cap reached (L2b safety)
+3. Run eligibility checks above — if any fail, comment why and **do not merge**
+4. Re-run checklist from growth/ai-review.md (read PR diff; do not skip)
+5. If zero **block** findings: `gh pr merge <number> --squash --delete-branch`
+6. Comment on PR: merged by auto-merge policy + link to ai-review
+7. Append results.tsv row (loop_type: automation_os, status: keep) if experiment-linked
+8. Update growth/state.json open_growth_prs_count if tracked
 
 ## Forbidden
 

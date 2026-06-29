@@ -13,7 +13,8 @@ Read `/growth/autonomy-policy.md`.
 - **AI hard review required** before PR (`/growth/ai-review.md`, Bugbot, validate-ai-review)
 - Never auto-merge or deploy
 - Never infinite loops or automation chains without lock
-- Scheduled runs **exit** if `state.json` lock_status is `locked` or main CI failing
+- Scheduled runs start with `npm run growth:precheck` — exit if lock held or ≥3 open growth PRs
+- Scheduled runs **exit** if main CI failing (document as `blocked` in run log)
 - Registry status `active` **only** after verified Cursor Automations registration
 - Prompt files: `/growth/automation-prompts/`
 - Setup: `/docs/cursor-automations-setup.md`
