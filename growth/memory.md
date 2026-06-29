@@ -69,6 +69,13 @@
 - One experiment per run; max 3 open growth PRs.
 - Agent-Reach / codebase-memory-mcp not configured in initial session.
 
+## Blocked run (2026-06-29 16:00 UTC)
+
+- `weekly_search_to_restock` blocked again: EXP-008/013/023/024/033/010 all have open cursor/beles-restock-signup-* PRs
+- Formal `growth/*` branch PR count remains 0; duplicates live on cursor/* branches
+- Run log: `growth/runs/2026-06-29-weekly_search_to_restock-blocked.md`
+- Human action: merge one QA-passing draft or close stale duplicates to unblock loop
+
 ## Human decisions (2026-06-28)
 
 - Autonomy default L1–L2; no auto-merge.
