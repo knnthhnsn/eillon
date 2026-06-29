@@ -27,7 +27,7 @@
 | EXP-020 | Craftsmanship proof → Beles CTA | internal_linking | 3 | 4 | 4 | 5 | 0 | 60 | backlog |
 | EXP-021 | Short-form video script: mineral air | video_asset | 3 | 3 | 3 | 5 | 1 | 22.5 | backlog |
 | EXP-022 | Reddit demand mining (Agent-Reach) | demand_research | 4 | 2 | 3 | 4 | 1 | 24 | backlog |
-| EXP-023 | "Skin scent" landing FAQ block | seo_content | 4 | 3 | 4 | 5 | 0 | 80 | backlog |
+| EXP-023 | "Skin scent" landing FAQ block | seo_content | 4 | 3 | 4 | 5 | 0 | 80 | done |
 | EXP-024 | Sample-first buying guide section | seo_content | 4 | 4 | 3 | 5 | 1 | 60 | backlog |
 | EXP-025 | Footer Letter promise A/B (draft) | conversion_copy | 3 | 2 | 5 | 5 | 0 | 50 | backlog |
 | EXP-026 | Beles FAQ: longevity without guarantees | objection_to_trust | 4 | 4 | 4 | 5 | 1 | 64 | backlog |
