@@ -11,6 +11,19 @@ You are a Cursor Cloud Agent operating inside the EILLON repository. Before doin
 
 Improve the growth OS itself: docs, prompts, scorecard, scripts, rules — **never silently loosen safety**.
 
+## Allowed scope (stay in lane)
+
+Touch only growth OS surfaces unless fixing a broken gate script:
+
+- `growth/**` (docs, prompts, ledger, runs, backlog, memory)
+- `scripts/growth/**`
+- `.cursor/rules/*growth*` and `.cursor/BUGBOT.md` when review clarity needs it
+- Root `AGENTS.md` / `package.json` growth script entries
+
+**Do not** edit public HTML/CSS/JS, `sitemap.xml`, `data/products.js`, or `api/**` in an OS improver run — those belong to experiment automations with full AI hard review on copy.
+
+Before opening a PR, run `git diff origin/main --stat` and revert any out-of-scope files.
+
 ## Allowed
 
 - Clarify instructions
