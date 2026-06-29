@@ -1396,7 +1396,40 @@ body[data-nav-home="true"] .footer__form button {
   font-family: var(--sans); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; padding: 0 4px; cursor: pointer;
   display: inline-flex; align-items: center; gap: 8px;
 }
-body[data-nav-home="true"] .footer__promise { margin: 16px 0 0; font-size: 12px; line-height: 1.6; color: rgba(248,246,240,0.5); max-width: 42ch; }
+body[data-nav-home="true"] .footer__letter-trust {
+  margin: 0 0 18px;
+  padding: 14px 16px;
+  border: 1px solid rgba(248,246,240,0.14);
+  background: rgba(248,246,240,0.04);
+  max-width: 440px;
+}
+body[data-nav-home="true"] .footer__letter-trust__lead {
+  margin: 0 0 8px;
+  font-family: var(--serif);
+  font-size: clamp(15px, 1.1vw, 17px);
+  line-height: 1.45;
+  color: rgba(248,246,240,0.88);
+}
+body[data-nav-home="true"] .footer__letter-trust__points li {
+  position: relative;
+  padding: 5px 0 5px 14px;
+  font-size: 12px;
+  line-height: 1.55;
+  color: rgba(248,246,240,0.58);
+}
+body[data-nav-home="true"] .footer__letter-trust__points li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.95em;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--gold-light);
+}
+body[data-nav-home="true"] .footer__promise { margin: 12px 0 0; font-size: 12px; line-height: 1.6; color: rgba(248,246,240,0.5); max-width: 42ch; }
+body[data-nav-home="true"] .footer__promise a { color: rgba(248,246,240,0.62); }
+body[data-nav-home="true"] .footer__promise a:hover { color: rgba(248,246,240,0.82); }
 body[data-nav-home="true"] .footer__status { color: rgba(248,246,240,0.7); }
 body[data-nav-home="true"] .footer__visit {
   margin-top: clamp(36px, 4vw, 56px);

@@ -3249,13 +3249,57 @@ body[data-nav-home="true"] .hero__cta .btn--primary:hover {
   color: var(--gold-dark);
   cursor: default;
 }
+.footer__letter-trust {
+  margin: 0 0 18px;
+  padding: 14px 16px;
+  border: 1px solid var(--line-soft);
+  background: rgba(248, 246, 240, 0.55);
+  max-width: 440px;
+}
+.footer__letter-trust__lead {
+  margin: 0 0 8px;
+  font-family: var(--serif);
+  font-size: clamp(15px, 1.1vw, 17px);
+  line-height: 1.45;
+  color: var(--ink-soft);
+}
+.footer__letter-trust__points {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.footer__letter-trust__points li {
+  position: relative;
+  padding: 5px 0 5px 14px;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--ink-faint);
+}
+.footer__letter-trust__points li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.95em;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--cactus, #984336);
+}
 .footer__promise {
   max-width: 44ch;
-  margin: -8px 0 0;
+  margin: 12px 0 0;
   color: var(--ink-faint);
   font-size: 12.5px;
   letter-spacing: 0.04em;
   line-height: 1.7;
+}
+.footer__promise a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.footer__promise a:hover {
+  color: var(--ink-soft);
 }
 .footer__status {
   min-height: 1.4em;
