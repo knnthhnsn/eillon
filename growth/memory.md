@@ -41,6 +41,12 @@
 - Pinterest/visual search loop undeveloped in repo (backlog EXP-009).
 - Campaign kits not yet in `/content/campaigns/`.
 
+## Social demand (2026-06-29)
+
+- First campaign kit shipped: `content/campaigns/2026-06-29-prickly-pear-not-candy.md` (EXP-006, social_to_letter).
+- Angle: prickly pear reframed as mineral/skin-close (not candy); primary CTA The Letter (`/about`), secondary Beles restock.
+- Campaign folder scaffold complete (EXP-034).
+
 ## Technical architecture (2026-06-28)
 
 - Static HTML/CSS/JS; Vercel deploy; Neon DB for waitlist.
