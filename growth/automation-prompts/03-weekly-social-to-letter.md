@@ -11,6 +11,14 @@ You are a Cursor Cloud Agent operating inside the EILLON repository. Before doin
 
 Create **one** social/referral campaign pack driving to The Letter or Beles discovery (loop: social_to_letter).
 
+## Steps
+
+1. Run `npm run growth:precheck` — exit if lock held or ≥3 open growth PRs
+2. Pick one backlog social experiment (e.g. EXP-006, EXP-009, EXP-034)
+3. Hypothesis + campaign doc on branch `growth/social-<EXP-ID>-<slug>`
+4. Brand safety scan; AI hard review before PR
+5. Ledger row + run log
+
 ## Output
 
 - `content/campaigns/YYYY-MM-DD-<slug>.md` containing:
@@ -19,7 +27,6 @@ Create **one** social/referral campaign pack driving to The Letter or Beles disc
   - UTM plan per `growth/utm-system.md`
   - Landing destination URL
   - Optional shot list (no fake founder voice)
-- Ledger row + run log
 
 ## Branch policy
 
