@@ -23,7 +23,7 @@
 | EXP-016 | Sitemap lastmod automation on content change | technical_seo | 2 | 5 | 5 | 3 | 0 | 50 | backlog |
 | EXP-017 | OG image set for journal articles | technical_seo | 3 | 4 | 4 | 4 | 0 | 64 | backlog |
 | EXP-018 | llms.txt update for Beles keywords | technical_seo | 2 | 4 | 5 | 4 | 0 | 40 | backlog |
-| EXP-019 | Shipping page → Beles restock link | internal_linking | 3 | 4 | 5 | 4 | 0 | 80 | backlog |
+| EXP-019 | Shipping page → Beles restock link | internal_linking | 3 | 4 | 5 | 4 | 0 | 80 | done |
 | EXP-020 | Craftsmanship proof → Beles CTA | internal_linking | 3 | 4 | 4 | 5 | 0 | 60 | backlog |
 | EXP-021 | Short-form video script: mineral air | video_asset | 3 | 3 | 3 | 5 | 1 | 22.5 | backlog |
 | EXP-022 | Reddit demand mining (Agent-Reach) | demand_research | 4 | 2 | 3 | 4 | 1 | 24 | backlog |
