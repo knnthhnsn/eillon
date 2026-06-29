@@ -73,3 +73,29 @@
 
 - Autonomy default L1–L2; no auto-merge.
 - Favicon switched to `images/favicon.jpeg` (ensure committed for prod).
+
+## Shipped on main (2026-06-29 digest)
+
+### Wins
+- **EXP-003:** `/prickly-pear-parfum` discovery landing live with FAQ schema and Beles internal links.
+- **EXP-004:** `/journal/what-does-fico-d-india-smell-like` smell-intent article shipped; sitemap 19 URLs.
+- **EXP-005:** Beles `#shopRestockTrust` microcopy (one email, no charge, privacy) merged via PR #44 — first L2b auto-merge at `790ad6f`.
+- **EXP-031:** 10 growth automations verified in Cursor UI; Agent-Reach Reddit authenticated.
+- Growth OS fully scaffolded: rules, prompts, QA scripts, AI hard review protocol, conditional auto-merge (L2b).
+
+### Lessons
+- GSAP mobile pin jitter requires `normalizeScroll` + excluding CSS fallback overrides on sticky stages (commits `0e92d94`–`a5d83e3`).
+- L2b auto-merge criteria validated: growth/* branch, CI green, ai-review pass_with_notes, 0 block findings.
+- Python wax-seal build step must stay split from CI (`ea60689`) — numpy unavailable on Vercel.
+- Homepage WebGL shaders + ScrollTrigger pins remain perf/motion risk — monitor Lighthouse and iOS Safari.
+
+### Architecture updates
+- New routes: `/prickly-pear-parfum`, `/journal/what-does-fico-d-india-smell-like`.
+- Beles conversion path includes trust microcopy block before submit.
+- API hardened: rate limits, consent recording (Phase 2–3 infra).
+- Analytics events unchanged — EXP-007 (newsletter distinct events) still backlog priority #2.
+
+### Next focus
+- EXP-008: Journal → Beles → Restock internal linking (backlog priority #1).
+- Monitor GSC for prickly-pear and smell-intent clusters 14–28d post-ship.
+- Track `restock_form_started` → `restock_form_submitted` on `/beles` for EXP-005 lift.
