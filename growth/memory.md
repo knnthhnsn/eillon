@@ -30,6 +30,10 @@
 - Objections to address: too sweet?, how close does it wear?, sample first?, genderless?, longevity claims (avoid guarantees).
 - Source: `market-research/beles-demand-sprint.md`, backlog research tasks.
 
+## Search demand (2026-06-29)
+
+- `/journal/sample-first-niche-perfume` sample-first buying guide shipped (EXP-024, weekly_search_to_restock).
+
 ## Search demand (2026-06-28)
 
 - Journal article `/journal/fico-d-india` exists — extend cluster.
