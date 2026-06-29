@@ -52,6 +52,11 @@
 - Events listed in `growth/baseline.md`.
 - UTM sessionStorage key: `eillon_utm`.
 
+## EXP-019 (2026-06-29)
+
+- Shipping page lacked Beles restock path; buyers researching delivery/sample credit had no funnel to `/beles#waitlist`.
+- Pattern: care/legal pages get one quiet paragraph + dual restock/chapter links; analytics label `shipping_restock`.
+
 ## Previous wins (2026-06-28)
 
 - EXP-001/002: Growth OS + rules + automation prompts scaffolded (score 15–16).
