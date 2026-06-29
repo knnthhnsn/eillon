@@ -14,7 +14,7 @@
 | EXP-007 | Analytics: newsletter distinct events | analytics_measurement | 4 | 4 | 3 | 4 | 1 | 48 | backlog |
 | EXP-008 | Internal links: Journal → Beles → Restock | internal_linking | 4 | 4 | 5 | 5 | 0 | 160 | backlog |
 | EXP-009 | Pinterest visual search pack for Beles | social_distribution | 4 | 3 | 3 | 5 | 1 | 45 | backlog |
-| EXP-010 | Copenhagen appointment discovery (about) | local_discovery | 3 | 4 | 4 | 5 | 0 | 96 | backlog |
+| EXP-010 | Copenhagen appointment discovery (about) | local_discovery | 3 | 4 | 4 | 5 | 0 | 96 | done |
 | EXP-011 | FAQ schema expansion on wear.html | technical_seo | 3 | 4 | 4 | 4 | 0 | 64 | backlog |
 | EXP-012 | Homepage hero CTA A/B copy variant (draft) | conversion_copy | 3 | 2 | 4 | 4 | 1 | 24 | backlog |
 | EXP-013 | "Oil-rich parfum explained" journal piece | seo_content | 4 | 4 | 4 | 5 | 0 | 160 | backlog |

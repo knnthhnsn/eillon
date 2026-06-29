@@ -30,7 +30,9 @@
 - Objections to address: too sweet?, how close does it wear?, sample first?, genderless?, longevity claims (avoid guarantees).
 - Source: `market-research/beles-demand-sprint.md`, backlog research tasks.
 
-## Search demand (2026-06-28)
+## Search demand (2026-06-29)
+
+- `/about` FAQ schema + Copenhagen niche discovery block shipped (EXP-010) — studio intent → Beles restock or appointment.
 
 - Journal article `/journal/fico-d-india` exists — extend cluster.
 - `/journal/what-does-fico-d-india-smell-like` smell-intent article shipped (EXP-004, 2026-06-29).
