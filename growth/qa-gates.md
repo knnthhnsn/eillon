@@ -25,6 +25,7 @@
 |---|---|
 | `npm run growth:validate-ledger` | Validate `results.tsv` header, status enum, loop_type, score math |
 | `npm run growth:state` | Print/validate `state.json` |
+| `npm run growth:precheck` | Exit non-zero if lock held or ≥3 open growth PRs (automation start gate) |
 | `npm run growth:score` | Compute qualified_growth_score |
 | `npm run growth:next` | Select highest-priority backlog experiment |
 | `npm run growth:qa` | Run minimum keep gate for growth changes |
