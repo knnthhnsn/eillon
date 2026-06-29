@@ -37,7 +37,7 @@
 | EXP-030 | DESIGN.md component CTA audit | brand_system | 3 | 4 | 4 | 5 | 0 | 60 | backlog |
 | EXP-031 | Cursor automation registration (human) | automation_os | 5 | 5 | 2 | 5 | 0 | 125 | done |
 | EXP-032 | Brand safety audit: forbidden phrase scan | brand_safety | 4 | 5 | 4 | 5 | 0 | 100 | backlog |
-| EXP-033 | Genderless niche fragrance Copenhagen page | seo_content | 3 | 3 | 3 | 5 | 1 | 33.75 | backlog |
+| EXP-033 | Genderless niche fragrance Copenhagen page | seo_content | 3 | 3 | 3 | 5 | 1 | 33.75 | done |
 | EXP-034 | Campaign folder `/content/campaigns/` scaffold | social_distribution | 3 | 5 | 5 | 4 | 0 | 75 | backlog |
 | EXP-035 | journal_to_beles_click event | analytics_measurement | 3 | 4 | 4 | 4 | 0 | 48 | backlog |
 
