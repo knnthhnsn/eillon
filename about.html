@@ -4,7 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>About EILLON — Afro-Mediterranean Memory Perfumery · Copenhagen</title>
-  <meta name="description" content="EILLON is an independent perfume maison in Copenhagen composing intimate, oil-rich parfums from Afro-Mediterranean memory — Red Sea air, desert fruit, rain on stone, and warm skin." />
+  <meta name="description" content="EILLON is an independent niche perfume maison in Copenhagen — oil-rich, genderless parfums from Afro-Mediterranean memory. Studio appointments Thursday–Saturday; Beles · Fico d'India restock list open." />
+  <meta name="keywords" content="niche perfume Copenhagen, independent perfume maison Denmark, oil-rich parfum Copenhagen, Beles Fico d'India, studio appointment fragrance" />
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
   <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
   <link rel="canonical" href="https://eillon.maison/about" />
@@ -78,6 +79,35 @@
             "@type": "ImageObject",
             "url": "https://eillon.maison/images/about-origin.jpg"
           }
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Where can I find niche perfume in Copenhagen?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "EILLON is an independent niche perfume maison in Copenhagen, composing oil-rich parfums from Afro-Mediterranean memory. The studio holds private fragrance appointments Thursday to Saturday, 12–18, by email request. Current chapter Beles · Fico d'India is available on the restock list between release windows."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How do I book a fragrance appointment at EILLON?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Write to care@eillon.maison with your preferred week and any chapter you wish to explore. Appointments are held at the Copenhagen studio — no booking form, no charge to enquire."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can I try Beles before the boutique opens?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Beles · Fico d'India is awaiting its next release. Join the restock list at eillon.maison/beles for a private note before the public boutique opens, or request a studio appointment to wear the parfum in person."
+              }
+            }
+          ]
         }
       ]
     }
@@ -179,7 +209,7 @@
         </div>
       </article>
 
-      <article class="info-page__chapter info-page__chapter--reverse" id="studio" data-reveal="up">
+      <article class="info-page__chapter info-page__chapter--reverse" id="studio" data-reveal="up" data-analytics-section="proof" data-analytics-section-id="about_studio">
         <figure class="info-page__chapter-figure" data-reveal="image">
           <picture>
           <source type="image/webp" srcset="images/about-studio-1400.webp" />
@@ -193,8 +223,16 @@
             in-house and objects designed as architecture — square matte glass, brushed silver, quiet lettering pressed into the face.
           </p>
           <p>
-            Private fragrance appointments are held Thursday to Saturday, 12–18. To request a visit,
-            write to <a href="mailto:care@eillon.maison?subject=Studio%20appointment">care@eillon.maison</a>.
+            Private fragrance appointments are held Thursday to Saturday, 12–18. Request by email with your preferred week
+            and any chapter you wish to explore — no booking form, no charge to enquire.
+          </p>
+          <p class="about-studio__cta">
+            <a
+              href="mailto:care@eillon.maison?subject=Beles%20studio%20appointment"
+              class="sx-link"
+              data-analytics-event="studio_appointment_click"
+              data-analytics-label="about_studio"
+            >Request an appointment <span class="arrow" aria-hidden="true">→</span></a>
           </p>
           <p>
             <strong>EILLON studio</strong><br />
@@ -223,12 +261,35 @@
     </div>
 
     <div class="info-page__body">
+      <section class="info-page__faq" id="faq" aria-labelledby="about-faq-heading">
+        <h2 id="about-faq-heading">Studio &amp; Copenhagen</h2>
+        <dl>
+          <dt>Where is EILLON in Copenhagen?</dt>
+          <dd>The studio is in 1050 Copenhagen. Appointments are private — write with your preferred week and we confirm by email.</dd>
+          <dt>What makes EILLON a niche perfume maison?</dt>
+          <dd>Small-batch, oil-rich parfums composed in-house from Afro-Mediterranean memory — not trend-led releases. Current chapter <a href="/beles">Beles · Fico d'India</a> centres on prickly pear and mineral air.</dd>
+          <dt>Can I visit without an appointment?</dt>
+          <dd>Studio visits are by appointment Thursday to Saturday, 12–18. Between release windows, the <a href="/beles#waitlist" data-analytics-event="beles_cta_click" data-analytics-label="about_faq_restock">Beles restock list</a> is the first way to receive the private note.</dd>
+        </dl>
+      </section>
+
+      <div class="shop__restock-trust" data-analytics-section="proof" data-analytics-section-id="about_beles_restock">
+        <p class="shop__restock-trust__lead">Beles · Fico d'India is composed in this Copenhagen studio — join the restock list for a private note before the public boutique opens.</p>
+        <ul class="shop__restock-trust__points" aria-label="What joining the Beles restock list means">
+          <li>One email when the next batch is ready — not a marketing drip</li>
+          <li>No charge today; size interest records intent only</li>
+          <li>We never share your address · unsubscribe anytime</li>
+        </ul>
+      </div>
+
       <div class="info-page__actions">
-        <a class="sx-btn" href="/store">Explore the boutique</a>
-        <a class="sx-btn sx-btn--ghost" href="/craftsmanship">How we make EILLON <span aria-hidden="true">→</span></a>
+        <a class="sx-btn" href="/beles#waitlist" data-analytics-event="beles_cta_click" data-analytics-label="about_restock">Join Beles restock list</a>
+        <a class="sx-btn sx-btn--ghost" href="/store">Explore the boutique <span aria-hidden="true">→</span></a>
       </div>
       <p class="info-page__actions-more">
         <a href="/wear" class="sx-link">Fragrance care guide <span aria-hidden="true">→</span></a>
+        ·
+        <a href="/craftsmanship" class="sx-link">How we compose EILLON <span aria-hidden="true">→</span></a>
       </p>
     </div>
 
