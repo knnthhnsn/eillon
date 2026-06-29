@@ -2535,6 +2535,22 @@ body[data-nav-home="true"] .hero__cta .btn--primary:hover {
   margin: 6px 0 4px;
   width: 100%;
 }
+.shop__size-caption {
+  margin: 0 0 14px;
+  max-width: 52ch;
+  font-family: var(--sans);
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--ink-faint);
+}
+.shop__size-caption a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.shop__size-caption a:hover {
+  color: var(--ink-soft);
+}
 .size {
   flex: 1 1 118px;
   min-width: 104px;

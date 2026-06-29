@@ -800,6 +800,7 @@
 .chapter-shader-band .shop__price-meta { color: rgba(248,246,240,0.55); }
 .chapter-shader-band .shop__desc,
 .chapter-shader-band .shop__features li,
+.chapter-shader-band .shop__size-caption,
 .chapter-shader-band .shop__cta-caption,
 .chapter-shader-band .shop__waitlist-consent,
 .chapter-shader-band .shop__waitlist-status { color: rgba(248,246,240,0.72); }
@@ -809,7 +810,8 @@
 }
 .chapter-shader-band .shop__restock-trust__lead { color: rgba(248,246,240,0.9); }
 .chapter-shader-band .shop__restock-trust__points li { color: rgba(248,246,240,0.72); }
-.chapter-shader-band .shop__restock-trust__points li::before { background: var(--gold-light); }
+.chapter-shader-band .shop__size-caption a { color: var(--gold-light); }
+.chapter-shader-band .shop__size-caption a:hover { color: var(--paper); }
 .chapter-shader-band .shop__features li { border-top-color: rgba(248,246,240,0.14); }
 .chapter-shader-band .shop__details { border-top-color: rgba(248,246,240,0.14); }
 .chapter-shader-band .shop__details summary {
@@ -1966,6 +1968,7 @@
 .editorial-page .chapter-shader-band .shop__price-meta { color: rgba(248,246,240,0.55); }
 .editorial-page .chapter-shader-band .shop__desc,
 .editorial-page .chapter-shader-band .shop__features li,
+.editorial-page .chapter-shader-band .shop__size-caption,
 .editorial-page .chapter-shader-band .shop__cta-caption,
 .editorial-page .chapter-shader-band .shop__waitlist-consent,
 .editorial-page .chapter-shader-band .shop__waitlist-status { color: rgba(248,246,240,0.72); }

@@ -111,6 +111,14 @@
                 "@type": "Answer",
                 "text": "Beles awaits its next release. Join with your email and preferred size interest — we send one private restock email when bottles return to the boutique, before the public release opens. No charge today; unsubscribe anytime."
               }
+            },
+            {
+              "@type": "Question",
+              "name": "What does selecting a size on the Beles waitlist mean?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Your format choice — 2 ml sample, 50 ml, or 100 ml — records interest for the next restock. It is not checkout and no payment is taken today. The discovery sample fee may be credited toward a full bottle when commerce opens, as stated on the shipping page."
+              }
             }
           ]
         }
@@ -233,20 +241,24 @@
             High perfume-oil concentration for slow, skin-adherent wear close to skin.
           </p>
 
-          <div class="shop__sizes" data-reveal="stagger-right" data-delay="640" role="radiogroup" aria-label="Preferred size interest — not checkout">
+          <div class="shop__sizes" data-reveal="stagger-right" data-delay="640" role="radiogroup" aria-labelledby="shopSizeCaption">
             <button class="size" type="button" role="radio" aria-checked="false" aria-label="2 ml sample, € 28" tabindex="-1" data-size="sample" data-amount="28">
-              <span>Sample</span>
+              <span>2 ml sample</span>
               <span class="size__price">€ 28</span>
             </button>
-            <button class="size" type="button" role="radio" aria-checked="false" aria-label="50 ml, € 170" tabindex="-1" data-size="50" data-amount="170">
+            <button class="size" type="button" role="radio" aria-checked="false" aria-label="50 ml first bottle, € 170" tabindex="-1" data-size="50" data-amount="170">
               <span>50 ml</span>
               <span class="size__price">€ 170</span>
             </button>
-            <button class="size is-active" type="button" role="radio" aria-checked="true" aria-label="100 ml, € 240" tabindex="0" data-size="100" data-amount="240">
+            <button class="size is-active" type="button" role="radio" aria-checked="true" aria-label="100 ml signature bottle, € 240" tabindex="0" data-size="100" data-amount="240">
               <span>100 ml</span>
               <span class="size__price">€ 240</span>
             </button>
           </div>
+          <p class="shop__size-caption" id="shopSizeCaption" data-reveal="up" data-delay="680">
+            Choose a format to record interest — not checkout. No payment today; your selection helps us plan the next restock batch.
+            <a href="/shipping#sample-credit">Sample credit toward a bottle →</a>
+          </p>
 
           <div class="size-guide" id="sizeGuide" data-reveal="up" data-delay="720">
             <div class="size-guide__text">
@@ -362,6 +374,8 @@
                   <dd>In Copenhagen, Denmark — hand-finished at EILLON studio.</dd>
                   <dt>How do restock notifications work?</dt>
                   <dd>Beles awaits its next release. Join with your email and preferred size — we send one private restock email when bottles return, before the public boutique opens. No payment today; your size records interest only.</dd>
+                  <dt>What does selecting a size mean?</dt>
+                  <dd>Your format choice — 2 ml sample, 50 ml, or 100 ml — records interest for the next restock. It is not checkout. The discovery sample fee may be credited toward a full bottle when commerce opens — see <a href="/shipping#sample-credit">sample credit</a> on the shipping page.</dd>
                   <dt>How does the sample credit work?</dt>
                   <dd>The € 28 discovery sample is credited toward any 50 ml or 100 ml bottle ordered within 30 days.</dd>
                   <dt>How should I test an oil-rich parfum?</dt>
