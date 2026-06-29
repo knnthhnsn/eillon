@@ -28,6 +28,7 @@
     "growth:validate-ledger": "node scripts/growth/validate-ledger.mjs",
     "growth:score": "node scripts/growth/score-experiment.mjs",
     "growth:state": "node scripts/growth/check-state.mjs",
+    "growth:precheck": "node scripts/growth/check-state.mjs --for-automation",
     "growth:next": "node scripts/growth/select-next-experiment.mjs",
     "growth:qa": "node scripts/growth/qa.mjs",
     "growth:validate-ai-review": "node scripts/growth/validate-ai-review.mjs",

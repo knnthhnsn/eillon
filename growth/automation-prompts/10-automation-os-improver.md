@@ -24,6 +24,7 @@ Increasing autonomy level, removing QA gates, allowing auto-merge, or weakening 
 
 ## Steps
 
+0. Run `npm run growth:precheck` — exit if blocked (lock or PR cap)
 1. Review last 10 `results.tsv` rows for patterns (`rework`, `blocked`, invalid statuses)
    - If fewer than 10 rows: also read `growth/memory.md` (Previous failures), `growth/runs/*.md`, and `growth/automation-registry.md` failure modes
 2. Propose 1–3 targeted OS improvements tied to evidence
