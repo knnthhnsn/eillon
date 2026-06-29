@@ -92,6 +92,16 @@
 
 - EXP-040: `growth/os-2026-06-29` initially included unrelated `sitemap.xml` lastmod drift from a rebase/build — reverted; OS improver prompt now lists allowed paths and requires `git diff origin/main --stat` before PR.
 
+## OS backlog loop validation (2026-06-29)
+
+- EXP-026 backlog row used invalid loop column `objection_to_trust` (loop id, not loop_type) — would fail ledger append; corrected to `conversion_copy` per loop-manifest.
+- `npm run growth:validate-backlog` enforces backlog loop column against program.md allowlist; wired into `growth:qa` (EXP-041).
+- `growth:next` skips backlog rows with invalid loop types instead of selecting them silently (EXP-043).
+
+## OS precheck completion (2026-06-29)
+
+- EXP-042: prompts 06 (PR review) and 08 (main digest) use `growth:lock-check` only; prompt 07 (CI repair) uses full `growth:precheck` because it may open a growth PR.
+
 ## Human decisions (2026-06-28)
 
 - Autonomy default L1–L2; no auto-merge.

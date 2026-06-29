@@ -13,7 +13,8 @@ Summarize shipped changes on main; update baseline if architecture changed; extr
 
 ## Steps
 
-1. `git log --since="7 days ago" --oneline main`
+1. Run `npm run growth:lock-check` — exit if lock held (digest is docs-only; PR cap does not apply)
+2. `git log --since="7 days ago" --oneline main`
 2. Group by: growth, perf, content, infra
 3. Write `growth/runs/YYYY-MM-DD-main_branch_digest-digest.md`
 4. If routes/API/analytics changed → update `growth/baseline.md`
