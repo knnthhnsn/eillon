@@ -11,6 +11,13 @@ You are a Cursor Cloud Agent operating inside the EILLON repository. Before doin
 
 Audit brand consistency across one weak surface; update DESIGN.md or propose improvements (loop: brand_safety / design_system).
 
+## Steps
+
+1. Run `npm run growth:precheck` — exit if lock held or ≥3 open growth PRs
+2. Pick one weak surface (see Scope)
+3. Forbidden phrase scan + minimal fix PR
+4. AI hard review before PR; ledger + run log
+
 ## Scope (one per run)
 
 Pick one: homepage hero copy · beles proof layer · journal voice · footer Letter promise · CSS CTA components

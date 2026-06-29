@@ -13,11 +13,12 @@ Execute the single highest-priority eligible experiment from backlog.
 
 ## Steps
 
-1. Run `npm run growth:next`
-2. Confirm experiment not done/blocked; check lock + open PR limits
-3. Execute full master loop from program.md for that EXP ID
-4. Branch via `npm run growth:branch <loop> <EXP-ID> <slug>`
-5. QA → **AI hard review** (Bugbot + `*-ai-review.md`) → score → PR → ledger → run log
+1. Run `npm run growth:precheck` — exit if lock held, ≥3 open growth PRs, or branch is not `growth/*`
+2. Run `npm run growth:next`
+3. Confirm experiment not done/blocked — run `npm run growth:check-exp-shipped -- <EXP-ID>`
+4. Execute full master loop from program.md for that EXP ID
+5. Branch via `npm run growth:branch <loop> <EXP-ID> <slug>` then `npm run growth:validate-branch`
+6. QA → **AI hard review** (Bugbot + `*-ai-review.md`) → score → PR → ledger → run log
 
 ## One experiment only
 
