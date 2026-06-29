@@ -33,8 +33,9 @@
 ## Search demand (2026-06-28)
 
 - Journal article `/journal/fico-d-india` exists — extend cluster.
-- `/journal/what-does-fico-d-india-smell-like` smell-intent article shipped (EXP-004, 2026-06-29).
-- Sitemap 19 URLs.
+- `/prickly-pear-parfum` discovery landing shipped on main (EXP-003, `32a9790`).
+- `/journal/what-does-fico-d-india-smell-like` — EXP-004 pending merge (not on main as of 2026-06-29 digest).
+- Sitemap **18 URLs** on main.
 
 ## Social demand (2026-06-28)
 
@@ -51,6 +52,29 @@
 
 - Events listed in `growth/baseline.md`.
 - UTM sessionStorage key: `eillon_utm`.
+
+## Main branch digest (2026-06-29)
+
+**Audited:** `main` @ `32a9790` · 60 commits in 7-day window
+
+### Shipped on main
+
+- **EXP-001/002:** Growth OS live (`/growth/*`, Cursor rules, automation prompts, `npm run growth:*`, autonomy policy).
+- **EXP-003:** `/prickly-pear-parfum` discovery landing with FAQ schema, sitemap entry (18 URLs), site-nav search.
+- **Favicon:** `images/favicon.jpeg` linked across public pages.
+- **Infra (Phase 2–4):** CI pipeline, API rate limits, security headers, analytics funnel, auto-sitemap, consent recording, demand sprint CI.
+- **Perf:** WebP picture elements, homepage critical CSS / lazy bundles, GSAP pin jitter fixes, CI wax-seal skip.
+
+### Not on main (branch-only / pending merge)
+
+- **EXP-004:** `/journal/what-does-fico-d-india-smell-like` — exists on working branch, not merged.
+- **EXP-031:** Automation registration state — working branch ahead of main.
+
+### Lessons
+
+- GSAP ScrollTrigger pins break when scripts lazy-load — keep eager vendor load on homepage.
+- Python wax-seal build step must stay optional for Vercel CI.
+- Backlog must track **main** ship state, not unmerged branch work.
 
 ## Previous wins (2026-06-28)
 

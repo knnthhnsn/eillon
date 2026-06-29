@@ -8,8 +8,8 @@
 | EXP-001 | Baseline + growth OS setup | measurement | 5 | 5 | 4 | 5 | 0 | 500 | done |
 | EXP-002 | Cursor rules + automation scaffolding | automation_os | 5 | 5 | 4 | 5 | 0 | 500 | done |
 | EXP-003 | Prickly pear / Beles discovery landing page | seo_content | 5 | 4 | 3 | 5 | 1 | 120 | done |
-| EXP-004 | Journal: "What does Fico d'India smell like?" | seo_content | 5 | 4 | 4 | 5 | 0 | 160 | done |
-| EXP-005 | Beles restock form trust microcopy | conversion_copy | 4 | 4 | 5 | 5 | 0 | 160 | next |
+| EXP-004 | Journal: "What does Fico d'India smell like?" | seo_content | 5 | 4 | 4 | 5 | 0 | 160 | next |
+| EXP-005 | Beles restock form trust microcopy | conversion_copy | 4 | 4 | 5 | 5 | 0 | 160 | backlog |
 | EXP-006 | Social kit: "Prickly pear, but not candy." | social_distribution | 4 | 3 | 4 | 5 | 1 | 48 | backlog |
 | EXP-007 | Analytics: newsletter distinct events | analytics_measurement | 4 | 4 | 3 | 4 | 1 | 48 | backlog |
 | EXP-008 | Internal links: Journal → Beles → Restock | internal_linking | 4 | 4 | 5 | 5 | 0 | 160 | backlog |
@@ -35,16 +35,17 @@
 | EXP-028 | Mobile waitlist form field order test | conversion_copy | 3 | 2 | 4 | 4 | 0 | 32 | backlog |
 | EXP-029 | Performance: lazy-load non-critical chapter images | technical_seo | 2 | 4 | 3 | 3 | 0 | 24 | backlog |
 | EXP-030 | DESIGN.md component CTA audit | brand_system | 3 | 4 | 4 | 5 | 0 | 60 | backlog |
-| EXP-031 | Cursor automation registration (human) | automation_os | 5 | 5 | 2 | 5 | 0 | 125 | done |
+| EXP-031 | Cursor automation registration (human) | automation_os | 5 | 5 | 2 | 5 | 0 | 125 | **pending** |
 | EXP-032 | Brand safety audit: forbidden phrase scan | brand_safety | 4 | 5 | 4 | 5 | 0 | 100 | backlog |
 | EXP-033 | Genderless niche fragrance Copenhagen page | seo_content | 3 | 3 | 3 | 5 | 1 | 33.75 | backlog |
 | EXP-034 | Campaign folder `/content/campaigns/` scaffold | social_distribution | 3 | 5 | 5 | 4 | 0 | 75 | backlog |
 | EXP-035 | journal_to_beles_click event | analytics_measurement | 3 | 4 | 4 | 4 | 0 | 48 | backlog |
 
-## Top 10 next (after EXP-001/002)
+## Top 10 next (after EXP-001/002/003)
 
-1. **EXP-005** — Restock form trust copy
-2. **EXP-008** — Journal → Beles internal links
+1. **EXP-004** — Fico d'India smell article
+2. **EXP-005** — Restock form trust copy
+3. **EXP-008** — Journal → Beles internal links
 5. **EXP-007** — Newsletter analytics events
 6. **EXP-010** — Copenhagen appointment improvements
 7. **EXP-013** — Oil-rich parfum explained
