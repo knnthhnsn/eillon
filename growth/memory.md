@@ -34,6 +34,7 @@
 
 - Journal article `/journal/fico-d-india` exists — extend cluster.
 - `/journal/what-does-fico-d-india-smell-like` smell-intent article shipped (EXP-004, 2026-06-29).
+- Journal OG images aligned to hero assets (EXP-017, 2026-06-29).
 - Sitemap 19 URLs.
 
 ## Social demand (2026-06-28)
