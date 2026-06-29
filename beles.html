@@ -260,7 +260,16 @@
             </div>
           </div>
 
-          <form class="shop__waitlist shop__waitlist--stacked" id="waitlistForm" data-waitlist-form data-product-slug="beles" data-source="waitlist" data-reveal="up" data-delay="800" novalidate>
+          <div class="shop__restock-trust" id="restockTrust" data-reveal="up" data-delay="760" aria-labelledby="restockTrustHeading">
+            <p class="shop__restock-trust-kicker" id="restockTrustHeading">What to expect</p>
+            <ul class="shop__restock-trust-list">
+              <li>One private restock note when Beles returns — before the public boutique opens.</li>
+              <li>Size above records interest only; no payment or reservation today.</li>
+              <li>Trying first? Select Sample — no obligation when the note arrives.</li>
+            </ul>
+          </div>
+
+          <form class="shop__waitlist shop__waitlist--stacked" id="waitlistForm" data-waitlist-form data-product-slug="beles" data-source="waitlist" data-reveal="up" data-delay="800" novalidate aria-describedby="restockTrust shopCtaCaption">
             <label class="shop__waitlist-field">
               <span class="shop__waitlist-label">Name</span>
               <input type="text" name="name" placeholder="Your name" autocomplete="name" maxlength="120" />
@@ -270,13 +279,13 @@
               <input type="email" name="email" id="waitlistEmail" placeholder="Your email" autocomplete="email" required />
             </label>
             <input type="text" name="website" class="shop__honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
-            <button class="btn btn--primary btn--block" type="submit" id="waitlistSubmit" aria-describedby="waitlistStatus shopCtaCaption">
+            <button class="btn btn--primary btn--block" type="submit" id="waitlistSubmit" aria-describedby="restockTrust waitlistStatus shopCtaCaption">
               <span class="btn__label">Join restock list</span>
               <span class="btn__hover" aria-hidden="true">We write when Beles returns</span>
             </button>
           </form>
-          <p class="shop__waitlist-consent">By joining, you agree to receive the Beles restock note described above. You may unsubscribe anytime at <a href="mailto:care@eillon.maison?subject=Unsubscribe">care@eillon.maison</a>.</p>
-          <p class="shop__cta-caption" id="shopCtaCaption"><span class="stock-status">Awaiting next release</span> — leave your email and preferred size interest for the next restock window. Size selection records interest only; no purchase is taken.</p>
+          <p class="shop__waitlist-consent">By joining, you agree to receive one Beles restock note by email. Unsubscribe anytime at <a href="mailto:care@eillon.maison?subject=Unsubscribe">care@eillon.maison</a>.</p>
+          <p class="shop__cta-caption" id="shopCtaCaption">Restock list only — we write once when bottles return. No purchase required to join.</p>
           <p class="shop__waitlist-status" id="waitlistStatus" aria-live="polite"></p>
 
           <ul class="shop__features" data-reveal="up" data-delay="880">
