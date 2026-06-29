@@ -73,3 +73,31 @@
 
 - Autonomy default L1–L2; no auto-merge.
 - Favicon switched to `images/favicon.jpeg` (ensure committed for prod).
+
+## Main branch digest (2026-06-29)
+
+**Window:** 61 commits on `main` (2026-06-22 → 2026-06-29).
+
+### Wins
+
+- **Growth OS live** (`32a9790`): `/growth/` brain, 7 Cursor rules, 11 automation prompts, DESIGN.md canonical, autonomy L2b policy.
+- **EXP-003 shipped:** `/prickly-pear-parfum` discovery landing with FAQ schema, sitemap priority 0.82, journal cross-links.
+- **EXP-031:** 10/11 automations verified active in Cursor UI; only `pr_growth_auto_merge` awaiting save.
+- **Phase 2–4 infra:** analytics funnel (`scripts/analytics.js`), API rate limits, CI pipeline, consent recording, auto-generated sitemap.
+- **Homepage perf:** critical CSS, lazy letters bundle, CSS marquee, deferred non-critical JS — Lighthouse gains without breaking GSAP pins.
+- **Editorial motion:** WebGL section shaders site-wide; Beautiful Letters experience with wax seals; wear page close-skin imagery.
+
+### Lessons
+
+- GSAP scroll pins require eager script load — lazy GSAP caused mobile carousel jitter (fixed in `0ab1ab9`).
+- Vercel CI must not invoke Python numpy steps — split wax-seal generation from `build:letters` (`ea60689`).
+- Homepage motion is high-churn (40+ commits in 7d) — run `npm run ci` after pin/shader batches.
+- Baseline had stale SEO gap for prickly-pear landing — digest corrected sitemap count (18 URLs) and route table.
+
+### Shipped EXP IDs (confirmed on main)
+
+EXP-001 · EXP-002 · EXP-003 · EXP-031 — all marked `done` in backlog.
+
+### Next
+
+EXP-004 (Fico d'India smell journal) is highest-priority eligible experiment.
