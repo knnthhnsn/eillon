@@ -69,6 +69,10 @@
 - One experiment per run; max 3 open growth PRs.
 - Agent-Reach / codebase-memory-mcp not configured in initial session.
 
+## Conversion UX (2026-06-29)
+
+- Beles waitlist consent must reference copy visible on all viewports — `.shop__cta-caption` was `display: none` on desktop (touch-only under `@media (hover: none)`).
+
 ## Human decisions (2026-06-28)
 
 - Autonomy default L1–L2; no auto-merge.

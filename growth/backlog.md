@@ -9,7 +9,7 @@
 | EXP-002 | Cursor rules + automation scaffolding | automation_os | 5 | 5 | 4 | 5 | 0 | 500 | done |
 | EXP-003 | Prickly pear / Beles discovery landing page | seo_content | 5 | 4 | 3 | 5 | 1 | 120 | done |
 | EXP-004 | Journal: "What does Fico d'India smell like?" | seo_content | 5 | 4 | 4 | 5 | 0 | 160 | next |
-| EXP-005 | Beles restock form trust microcopy | conversion_copy | 4 | 4 | 5 | 5 | 0 | 160 | backlog |
+| EXP-005 | Beles restock form trust microcopy | conversion_copy | 4 | 4 | 5 | 5 | 0 | 160 | done |
 | EXP-006 | Social kit: "Prickly pear, but not candy." | social_distribution | 4 | 3 | 4 | 5 | 1 | 48 | backlog |
 | EXP-007 | Analytics: newsletter distinct events | analytics_measurement | 4 | 4 | 3 | 4 | 1 | 48 | backlog |
 | EXP-008 | Internal links: Journal → Beles → Restock | internal_linking | 4 | 4 | 5 | 5 | 0 | 160 | backlog |
