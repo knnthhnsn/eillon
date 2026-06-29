@@ -81,6 +81,11 @@
 - `program.md` and autonomy-policy require exit when lock held or ≥3 open growth PRs, but `check-state.mjs` only validated JSON until EXP-037.
 - `npm run growth:precheck` wraps `check-state.mjs --for-automation` for scheduled agents; experiment prompts updated to call it at run start.
 
+## OS duplicate branch pattern (2026-06-29)
+
+- Remote shows multiple parallel `cursor/*` branches for the same experiments (e.g. conversion-trust, social-campaign, beles-restock) — agents skipped preflight on prompts 03–05.
+- EXP-038: `npm run growth:ledger-insights` summarizes rework/blocked rows; weekly social, conversion-trust, and brand-system prompts now call `growth:precheck` at run start.
+
 ## Human decisions (2026-06-28)
 
 - Autonomy default L1–L2; no auto-merge.
