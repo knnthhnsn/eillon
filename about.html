@@ -179,7 +179,7 @@
         </div>
       </article>
 
-      <article class="info-page__chapter info-page__chapter--reverse" id="studio" data-reveal="up">
+      <article class="info-page__chapter info-page__chapter--reverse" id="studio" data-reveal="up" data-analytics-section="proof" data-analytics-section-id="about_studio">
         <figure class="info-page__chapter-figure" data-reveal="image">
           <picture>
           <source type="image/webp" srcset="images/about-studio-1400.webp" />
@@ -193,10 +193,21 @@
             in-house and objects designed as architecture — square matte glass, brushed silver, quiet lettering pressed into the face.
           </p>
           <p>
-            Private fragrance appointments are held Thursday to Saturday, 12–18. To request a visit,
-            write to <a href="mailto:care@eillon.maison?subject=Studio%20appointment">care@eillon.maison</a>.
+            Private fragrance appointments are held Thursday to Saturday, 12–18 — a quiet hour to smell chapters on skin,
+            ask about wear, and see the object up close.
           </p>
-          <p>
+          <div class="about-studio__visit">
+            <p class="about-studio__trust">
+              Write with your preferred weekday. We reply by email with available times — no payment today, no purchase required.
+            </p>
+            <a
+              class="sx-btn"
+              href="mailto:care@eillon.maison?subject=Studio%20appointment"
+              data-analytics-event="studio_appointment_click"
+              data-analytics-label="about_studio"
+            >Request an appointment <span aria-hidden="true">→</span></a>
+          </div>
+          <p class="about-studio__address">
             <strong>EILLON studio</strong><br />
             1050 Copenhagen, Denmark
           </p>

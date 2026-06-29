@@ -2230,6 +2230,32 @@
   color: #f0d4a0;
   border-bottom-color: currentColor;
 }
+.editorial-page .about-shader-band--leopard .about-studio__visit {
+  margin: clamp(28px, 4vw, 40px) 0 clamp(20px, 3vw, 28px);
+  padding-top: clamp(24px, 3vw, 32px);
+  border-top: 1px solid rgba(248, 246, 240, 0.12);
+  display: grid;
+  gap: clamp(16px, 2vw, 22px);
+  max-width: 42ch;
+}
+.editorial-page .about-shader-band--leopard .about-studio__trust {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 12px;
+  line-height: 1.75;
+  letter-spacing: 0.02em;
+  color: rgba(248, 246, 240, 0.62);
+}
+.editorial-page .about-shader-band--leopard .about-studio__visit .sx-btn {
+  width: fit-content;
+}
+.editorial-page .about-shader-band--leopard .about-studio__address {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 13px;
+  line-height: 1.65;
+  color: rgba(248, 246, 240, 0.72);
+}
 .editorial-page .about-shader-band--leopard .info-page__body {
   max-width: var(--max);
   margin: 0 auto;
