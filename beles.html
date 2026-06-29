@@ -37,7 +37,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=optional" rel="stylesheet" media="print" onload="this.media='all'" />
   <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=optional" rel="stylesheet" /></noscript>
   <link rel="stylesheet" href="styles.min.css?v=162" />
-  <link rel="stylesheet" href="/site.min.css?v=60" />
+  <link rel="stylesheet" href="/site.min.css?v=61" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -109,7 +109,7 @@
               "name": "How do restock notifications work?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Beles awaits its next release. Leave your email and preferred size interest — we write when bottles return to the boutique."
+                "text": "Beles awaits its next release. Join with your email and preferred size interest — we send one private restock email when bottles return to the boutique, before the public release opens. No charge today; unsubscribe anytime."
               }
             }
           ]
@@ -260,6 +260,15 @@
             </div>
           </div>
 
+          <div class="shop__restock-trust" id="shopRestockTrust" data-reveal="up" data-delay="760">
+            <p class="shop__restock-trust__lead">Receive the Beles restock note before the public boutique opens.</p>
+            <ul class="shop__restock-trust__points" aria-label="What joining the restock list means">
+              <li>One email when the next batch is ready — not a marketing drip</li>
+              <li>No charge today; your size choice records interest only</li>
+              <li>We never share your address · unsubscribe anytime</li>
+            </ul>
+          </div>
+
           <form class="shop__waitlist shop__waitlist--stacked" id="waitlistForm" data-waitlist-form data-product-slug="beles" data-source="waitlist" data-reveal="up" data-delay="800" novalidate>
             <label class="shop__waitlist-field">
               <span class="shop__waitlist-label">Name</span>
@@ -270,18 +279,18 @@
               <input type="email" name="email" id="waitlistEmail" placeholder="Your email" autocomplete="email" required />
             </label>
             <input type="text" name="website" class="shop__honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
-            <button class="btn btn--primary btn--block" type="submit" id="waitlistSubmit" aria-describedby="waitlistStatus shopCtaCaption">
+            <button class="btn btn--primary btn--block" type="submit" id="waitlistSubmit" aria-describedby="waitlistStatus shopCtaCaption shopRestockTrust">
               <span class="btn__label">Join restock list</span>
               <span class="btn__hover" aria-hidden="true">We write when Beles returns</span>
             </button>
           </form>
-          <p class="shop__waitlist-consent">By joining, you agree to receive the Beles restock note described above. You may unsubscribe anytime at <a href="mailto:care@eillon.maison?subject=Unsubscribe">care@eillon.maison</a>.</p>
-          <p class="shop__cta-caption" id="shopCtaCaption"><span class="stock-status">Awaiting next release</span> — leave your email and preferred size interest for the next restock window. Size selection records interest only; no purchase is taken.</p>
+          <p class="shop__waitlist-consent">By joining, you agree to one Beles restock email when bottles return. Unsubscribe anytime at <a href="mailto:care@eillon.maison?subject=Unsubscribe">care@eillon.maison</a>.</p>
+          <p class="shop__cta-caption" id="shopCtaCaption">This registers interest for the next restock window — not checkout. No payment is taken until bottles return.</p>
           <p class="shop__waitlist-status" id="waitlistStatus" aria-live="polite"></p>
 
           <ul class="shop__features" data-reveal="up" data-delay="880">
             <li>Oil-rich parfum — high perfume-oil load</li>
-            <li>Restock note before the public boutique</li>
+            <li>Private restock link before the public boutique</li>
             <li>Discovery sample credited toward a full bottle</li>
             <li>Hand-wrapped in archival cream</li>
           </ul>
@@ -352,7 +361,7 @@
                   <dt>Where is EILLON composed?</dt>
                   <dd>In Copenhagen, Denmark — hand-finished at EILLON studio.</dd>
                   <dt>How do restock notifications work?</dt>
-                  <dd>Beles awaits its next release. Leave your email and preferred size interest — we write when bottles return to the boutique.</dd>
+                  <dd>Beles awaits its next release. Join with your email and preferred size — we send one private restock email when bottles return, before the public boutique opens. No payment today; your size records interest only.</dd>
                   <dt>How does the sample credit work?</dt>
                   <dd>The € 28 discovery sample is credited toward any 50 ml or 100 ml bottle ordered within 30 days.</dd>
                   <dt>How should I test an oil-rich parfum?</dt>
@@ -577,6 +586,6 @@
   </footer>
 
   <script src="/data/products.js?v=14" defer></script>
-  <script src="script.js?v=87" defer></script>
+  <script src="script.js?v=88" defer></script>
 </body>
 </html>

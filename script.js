@@ -1104,10 +1104,10 @@
   }
 
   /* ---------- 9. WAITLIST ---------- */
-  const CONSENT_NOTICE_VERSION = '2026-06-24';
+  const CONSENT_NOTICE_VERSION = '2026-06-29';
 
   const waitlistMessages = {
-    beles: 'You are on the Beles restock list.',
+    beles: 'You are on the Beles restock list — we write when the next batch is ready.',
     asmara: 'We will send studio notes as Asmara develops.',
     massawa: 'We will send studio notes as Massawa develops.',
     ritual: 'You are following the Ritual lab study.',
