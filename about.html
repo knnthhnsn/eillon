@@ -173,13 +173,13 @@
             </li>
           </ul>
           <p class="about-people__note">
-            Appointments and press enquiries: <a href="mailto:care@eillon.maison?subject=Studio%20enquiry">care@eillon.maison</a>.
+            Appointments and press enquiries: <a href="mailto:care@eillon.maison?subject=Studio%20enquiry" data-analytics-event="studio_appointment_click" data-analytics-label="about_press_enquiry">care@eillon.maison</a>.
             Formulation and safety documentation is published on <a href="/craftsmanship">craftsmanship</a>.
           </p>
         </div>
       </article>
 
-      <article class="info-page__chapter info-page__chapter--reverse" id="studio" data-reveal="up">
+      <article class="info-page__chapter info-page__chapter--reverse" id="studio" data-reveal="up" data-analytics-section="proof" data-analytics-section-id="about_studio">
         <figure class="info-page__chapter-figure" data-reveal="image">
           <picture>
           <source type="image/webp" srcset="images/about-studio-1400.webp" />
@@ -192,14 +192,13 @@
             EILLON is composed and hand-finished in Copenhagen. The studio works in small batches, with formulas developed
             in-house and objects designed as architecture — square matte glass, brushed silver, quiet lettering pressed into the face.
           </p>
-          <p>
-            Private fragrance appointments are held Thursday to Saturday, 12–18. To request a visit,
-            write to <a href="mailto:care@eillon.maison?subject=Studio%20appointment">care@eillon.maison</a>.
-          </p>
-          <p>
-            <strong>EILLON studio</strong><br />
-            1050 Copenhagen, Denmark
-          </p>
+          <div class="about-studio__visit">
+            <span class="about-studio__label">Copenhagen studio</span>
+            <p><strong>EILLON studio</strong><br />1050 Copenhagen, Denmark</p>
+            <p class="about-studio__hours">Private fragrance appointments — Thursday to Saturday, 12–18.</p>
+            <p class="about-studio__expect">Write with a preferred day and time; we reply by email to confirm. No payment or booking form — a quiet conversation at the studio.</p>
+            <a href="mailto:care@eillon.maison?subject=Beles%20studio%20appointment" class="about-studio__cta" data-analytics-event="studio_appointment_click" data-analytics-label="about_studio">Request an appointment <span aria-hidden="true">→</span></a>
+          </div>
         </div>
       </article>
 
@@ -248,6 +247,7 @@
           <input type="text" name="website" class="shop__honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
           <button type="submit">Subscribe <span class="arrow">→</span></button>
         </form>
+        <p class="footer__promise">Seasonal letters only: studio notes, restock windows, and private appointment openings. Unsubscribe anytime.</p>
         <p class="footer__status" aria-live="polite"></p>
       </div>
     </section>
