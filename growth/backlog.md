@@ -43,6 +43,7 @@
 | EXP-036 | OS: ledger validation + QA npm ci bootstrap | automation_os | 4 | 5 | 4 | 5 | 0 | 400 | done |
 | EXP-037 | OS: automation preflight (growth:precheck) | automation_os | 4 | 5 | 4 | 5 | 0 | 400 | done |
 | EXP-038 | OS: ledger-insights + precheck in remaining prompts | automation_os | 4 | 5 | 4 | 5 | 0 | 400 | done |
+| EXP-039 | OS: auto-merge cap script (growth:auto-merge-cap) | automation_os | 4 | 5 | 5 | 5 | 0 | 500 | done |
 
 ## Top 10 next (after EXP-001/002)
 

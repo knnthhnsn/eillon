@@ -63,11 +63,13 @@
 - Lazy GSAP loading caused mobile scroll jitter (fixed by restoring defer script tags).
 - Vercel build failed when Python numpy required in `build:letters` (fixed: split wax-seal script).
 
-## Automation lessons (2026-06-28)
+## Automation lessons (2026-06-29)
 
-- Cannot mark Cursor Automations "active" without user registration in Automations editor.
-- One experiment per run; max 3 open growth PRs.
-- Agent-Reach / codebase-memory-mcp not configured in initial session.
+- L2b auto-merge shipped (EXP-005, PR #44); cap enforced via `npm run growth:auto-merge-cap` (EXP-039).
+- Ledger QGS on main rows 1–6 were arithmetic mismatches — corrected when validate-ledger shipped (EXP-036).
+- `growth:precheck` + `growth:ledger-insights` reduce duplicate parallel cursor branches (EXP-037/038).
+- Fresh Cloud Agent envs need `npm ci` before build — `growth:qa` bootstraps deps (EXP-036).
+- pr_growth_auto_merge: run auto-merge-cap check before merge; 1/3 used in rolling window as of 2026-06-29.
 
 ## OS ledger hygiene (2026-06-29)
 
