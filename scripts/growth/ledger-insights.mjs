@@ -58,9 +58,12 @@ if (invalidStatusHint) {
   console.log('\nWARN: pending_* status found — use blocked + automation-registry.md instead.');
 }
 
-const invalidLoopHint = recent.some((r) => r.notes?.includes('invalid loop'));
-if (invalidLoopHint) {
-  console.log('\nWARN: invalid loop_type in notes — run npm run growth:validate-backlog');
+const shippedInWindow = recent.filter(
+  (r) => r.status === 'keep' && r.loop_type !== 'automation_os'
+);
+const shippedIds = [...new Set(shippedInWindow.map((r) => r.experiment_id))];
+if (shippedIds.length) {
+  console.log(`\nShipped content experiments in window: ${shippedIds.join(', ')}`);
 }
 
 const expIds = recent.map((r) => r.experiment_id);
@@ -94,4 +97,8 @@ if (attention.some((r) => r.status === 'blocked')) {
 if (attention.some((r) => r.status === 'rework')) {
   console.log('  - Read linked run logs; add backlog items for fixable rework paths');
 }
-console.log('  - Run npm run growth:validate-ledger after any ledger edit');
+if (dupes.length) {
+  console.log('  - Duplicate experiment_id rows may be meta (auto-merge) — run growth:check-exp-shipped before re-running an EXP');
+}
+console.log('  - Run npm run growth:validate-backlog and growth:validate-ledger after edits');
+console.log('  - Experiment branches must be growth/* — run growth:validate-branch-name before PR');

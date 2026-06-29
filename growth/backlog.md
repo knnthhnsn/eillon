@@ -48,6 +48,9 @@
 | EXP-041 | OS: validate-backlog loop_type guard | automation_os | 4 | 5 | 4 | 5 | 0 | 400 | done |
 | EXP-042 | OS: precheck rollout to prompts 06–08 + lock-check | automation_os | 4 | 5 | 4 | 5 | 0 | 400 | done |
 | EXP-043 | OS: growth:next skips invalid backlog loop types | automation_os | 3 | 5 | 3 | 5 | 0 | 225 | done |
+| EXP-044 | OS: ledger shipped guard (check-exp-shipped + growth:next filter) | automation_os | 4 | 5 | 4 | 5 | 0 | 400 | done |
+| EXP-045 | OS: ledger-insights shipped summary (remove false invalid-loop warn) | automation_os | 2 | 5 | 2 | 5 | 0 | 150 | done |
+| EXP-046 | OS: branch naming guard (validate-branch-name, reject cursor/*) | automation_os | 4 | 5 | 4 | 5 | 0 | 400 | done |
 
 ## Top 10 next (after EXP-001/002)
 

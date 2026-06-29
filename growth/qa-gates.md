@@ -32,6 +32,8 @@
 | `npm run growth:auto-merge-cap` | Exit non-zero if L2b rolling 7-day auto-merge cap reached |
 | `npm run growth:score` | Compute qualified_growth_score |
 | `npm run growth:next` | Select highest-priority backlog experiment |
+| `npm run growth:check-exp-shipped` | Exit non-zero if EXP already has content keep row in ledger |
+| `npm run growth:validate-branch-name` | Enforce `growth/<loop>-exp-NNN-<slug>`; reject `cursor/*` |
 | `npm run growth:qa` | Run minimum keep gate for growth changes |
 
 ## Ledger status rules

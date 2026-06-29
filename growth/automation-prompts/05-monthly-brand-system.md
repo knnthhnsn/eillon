@@ -15,8 +15,10 @@ Audit brand consistency across one weak surface; update DESIGN.md or propose imp
 
 1. Run `npm run growth:precheck` — exit if lock held or ≥3 open growth PRs
 2. Pick one weak surface (see Scope)
-3. Forbidden phrase scan + minimal fix PR
-4. AI hard review before PR; ledger + run log
+3. Run `npm run growth:check-exp-shipped -- <EXP-ID>` if picking a numbered backlog item
+4. Branch via `npm run growth:branch brand_system <EXP-ID> <slug>` — never `cursor/*`
+5. Forbidden phrase scan + minimal fix PR
+6. AI hard review before PR; ledger + run log
 
 ## Scope (one per run)
 

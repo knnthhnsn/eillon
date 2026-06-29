@@ -25,17 +25,18 @@ The "model" is the combined system:
 
 1. **Read context:** `AGENTS.md`, `DESIGN.md`, `/growth/autonomy-policy.md`, `/growth/state.json`, `/growth/baseline.md`, `/growth/memory.md`, `/growth/insights.md`, `/growth/backlog.md`, `/growth/results.tsv`, `/growth/scorecard.md`, `/growth/qa-gates.md`
 2. **Check lock** — `npm run growth:precheck` (exit if locked or ≥3 open growth PRs)
-3. **Choose one experiment** — highest priority eligible item
-4. **Hypothesis:** "If we [change], then [segment] will [action], because [evidence]."
-5. **Set loop_type** — see list below
-6. **Smallest useful diff** — one branch, one PR max
-7. **Run QA** — `/growth/qa-gates.md` → `npm run growth:qa`
-8. **AI hard review** — `/growth/ai-review.md` → Bugbot on branch changes → write `*-ai-review.md` → `npm run growth:validate-ai-review`
-9. **Score** — append `/growth/results.tsv`
-10. **Run log** — `/growth/runs/YYYY-MM-DD-<automation>-<experiment>.md`
-11. **Update** memory/insights/backlog if durable learning
-12. **Decision:** keep · rework · discard · blocked (no `pending_review` — use AI hard review instead)
-13. **Stop** — no unbounded loops
+3. **Choose one experiment** — `npm run growth:next` (skips invalid loops and EXPs already shipped in ledger); confirm with `npm run growth:check-exp-shipped -- EXP-NNN`
+4. **Branch** — `npm run growth:branch <loop> <EXP-ID> <slug>` only; never `cursor/*` (run `npm run growth:validate-branch-name` before PR)
+5. **Hypothesis:** "If we [change], then [segment] will [action], because [evidence]."
+6. **Set loop_type** — see list below
+7. **Smallest useful diff** — one branch, one PR max
+8. **Run QA** — `/growth/qa-gates.md` → `npm run growth:qa`
+9. **AI hard review** — `/growth/ai-review.md` → Bugbot on branch changes → write `*-ai-review.md` → `npm run growth:validate-ai-review`
+10. **Score** — append `/growth/results.tsv`
+11. **Run log** — `/growth/runs/YYYY-MM-DD-<automation>-<experiment>.md`
+12. **Update** memory/insights/backlog if durable learning
+13. **Decision:** keep · rework · discard · blocked (no `pending_review` — use AI hard review instead)
+14. **Stop** — no unbounded loops
 
 ### loop_type values
 `demand_research` · `seo_content` · `landing_page` · `conversion_copy` · `social_distribution` · `video_asset` · `local_discovery` · `analytics_measurement` · `brand_system` · `technical_seo` · `internal_linking` · `retention_email` · `automation_os` · `brand_safety` · `measurement`

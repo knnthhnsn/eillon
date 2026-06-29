@@ -3,26 +3,11 @@
 import { readFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { ALLOWED_LOOP_TYPES, isExperimentShipped, readLedgerRows } from './ledger-utils.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const backlog = readFileSync(join(__dirname, '../../growth/backlog.md'), 'utf8');
-const ALLOWED_LOOP_TYPES = new Set([
-  'demand_research',
-  'seo_content',
-  'landing_page',
-  'conversion_copy',
-  'social_distribution',
-  'video_asset',
-  'local_discovery',
-  'analytics_measurement',
-  'brand_system',
-  'technical_seo',
-  'internal_linking',
-  'retention_email',
-  'automation_os',
-  'brand_safety',
-  'measurement',
-]);
+const ledgerRows = readLedgerRows();
 
 const rows = backlog
   .split('\n')
@@ -38,13 +23,22 @@ const rows = backlog
     };
   })
   .filter((r) => {
+    if (['done', 'cancelled', 'blocked'].includes(r.status.toLowerCase())) {
+      return false;
+    }
     if (!ALLOWED_LOOP_TYPES.has(r.loop)) {
       console.error(
         `Skipping ${r.id}: backlog loop "${r.loop}" is invalid — fix in growth/backlog.md (npm run growth:validate-backlog)`
       );
       return false;
     }
-    return !['done', 'cancelled', 'blocked'].includes(r.status.toLowerCase());
+    if (isExperimentShipped(r.id, ledgerRows)) {
+      console.error(
+        `Skipping ${r.id}: already shipped in results.tsv (keep row) — mark backlog done if merged`
+      );
+      return false;
+    }
+    return true;
   });
 
 const explicitNext = rows.find((r) => r.status.toLowerCase() === 'next');

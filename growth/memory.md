@@ -102,6 +102,13 @@
 
 - EXP-042: prompts 06 (PR review) and 08 (main digest) use `growth:lock-check` only; prompt 07 (CI repair) uses full `growth:precheck` because it may open a growth PR.
 
+## OS duplicate experiment guard (2026-06-29)
+
+- Remote had 20+ open `cursor/*` PRs duplicating EXP-006/008/027 work — agents bypassed `growth/*` branch policy and re-ran backlog items not marked done.
+- EXP-044: `npm run growth:check-exp-shipped` + `growth:next` skips EXPs with content `keep` rows in ledger (excludes automation_os meta rows).
+- EXP-045: `ledger-insights` no longer false-alarms on notes containing "invalid loop"; prints shipped content EXP IDs in window instead.
+- EXP-046: `npm run growth:validate-branch-name` rejects `cursor/*` and enforces `growth/<loop>-exp-NNN-<slug>`; wired into program.md and experiment prompts 02–05, 09.
+
 ## Human decisions (2026-06-28)
 
 - Autonomy default L1–L2; no auto-merge.
