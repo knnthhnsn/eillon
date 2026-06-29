@@ -63,6 +63,11 @@
 - Lazy GSAP loading caused mobile scroll jitter (fixed by restoring defer script tags).
 - Vercel build failed when Python numpy required in `build:letters` (fixed: split wax-seal script).
 
+## Search demand (2026-06-29)
+
+- `/wear#faq` — FAQ schema + skin-scent / close-wear answers with Beles restock CTA (EXP-011).
+- Multiple search_to_restock experiments still open on cursor/* PRs (EXP-013/023/024/033); prefer unblocked EXP when queue saturated.
+
 ## Automation lessons (2026-06-28)
 
 - Cannot mark Cursor Automations "active" without user registration in Automations editor.
