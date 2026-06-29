@@ -13,12 +13,13 @@ Summarize shipped changes on main; update baseline if architecture changed; extr
 
 ## Steps
 
-1. `git log --since="7 days ago" --oneline main`
-2. Group by: growth, perf, content, infra
-3. Write `growth/runs/YYYY-MM-DD-main_branch_digest-digest.md`
-4. If routes/API/analytics changed → update `growth/baseline.md`
-5. Append memory.md with dated wins/lessons
-6. Adjust backlog statuses for shipped EXP IDs
+1. Run `npm run growth:precheck-docs` — exit if lock held or ≥3 open growth PRs
+2. `git log --since="7 days ago" --oneline main`
+3. Group by: growth, perf, content, infra
+4. Write `growth/runs/YYYY-MM-DD-main_branch_digest-digest.md`
+5. If routes/API/analytics changed → update `growth/baseline.md`
+6. Append memory.md with dated wins/lessons
+7. Adjust backlog statuses for shipped EXP IDs
 
 ## No code changes
 

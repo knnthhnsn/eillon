@@ -46,6 +46,9 @@
 | EXP-039 | OS: auto-merge cap script (growth:auto-merge-cap) | automation_os | 4 | 5 | 5 | 5 | 0 | 500 | done |
 | EXP-040 | OS: scope guard for OS improver (no sitemap/public drift) | automation_os | 3 | 5 | 3 | 5 | 0 | 225 | done |
 | EXP-041 | OS: branch naming guard + check-exp-shipped | automation_os | 4 | 5 | 4 | 5 | 0 | 400 | done |
+| EXP-042 | OS: bootstrap growth branch from cursor/* | automation_os | 5 | 5 | 3 | 5 | 0 | 375 | done |
+| EXP-043 | OS: check-exp-shipped in weekly experiment prompts | automation_os | 4 | 5 | 4 | 5 | 0 | 400 | done |
+| EXP-044 | OS: precheck-docs + pr_growth_review ai-review gate | automation_os | 4 | 5 | 4 | 5 | 0 | 400 | done |
 
 ## Top 10 next (after EXP-001/002)
 

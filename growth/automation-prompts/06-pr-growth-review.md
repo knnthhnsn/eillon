@@ -20,6 +20,7 @@ Review PR for growth, SEO, brand, privacy, accessibility, and automation-safety 
 ## Checklist
 
 - [ ] qualified_growth_score documented if growth PR
+- [ ] PR body links to `*-ai-review.md` — run `npm run growth:validate-ai-review -- <path>` when path present
 - [ ] No forbidden copy (DESIGN.md)
 - [ ] No false product/stock claims
 - [ ] No PII in analytics/UTM

@@ -37,7 +37,8 @@ Increasing autonomy level, removing QA gates, allowing auto-merge, or weakening 
 
 ## Steps
 
-0. Run `npm run growth:precheck` — exit if blocked (lock, PR cap, or wrong branch)
+0. Run `npm run growth:bootstrap-branch -- os` (Cloud Agents land on `cursor/*` — must checkout `growth/os-YYYY-MM-DD` first)
+1. Run `npm run growth:precheck` — exit if blocked (lock, PR cap, or wrong branch)
 1. Run `npm run growth:ledger-insights -- --last=10` for status/rework/blocked patterns
    - If fewer than 10 ledger rows: also read `growth/memory.md` (Previous failures), `growth/runs/*.md`, and `growth/automation-registry.md` failure modes
 2. Propose 1–3 targeted OS improvements tied to evidence

@@ -1,6 +1,6 @@
 # EILLON Growth QA Gates
 
-**Updated:** 2026-06-28
+**Updated:** 2026-06-29
 
 ## Discovered commands
 
@@ -27,6 +27,8 @@
 | `npm run growth:ledger-insights` | Summarize last N ledger rows (rework/blocked patterns) |
 | `npm run growth:state` | Print/validate `state.json` |
 | `npm run growth:precheck` | Exit non-zero if lock held, ≥3 open growth PRs, or branch is not valid `growth/*` (automation start gate) |
+| `npm run growth:precheck-docs` | Lock + PR cap only; allows `main` for docs-only automations (blocks `cursor/*`) |
+| `npm run growth:bootstrap-branch` | Checkout/create `growth/os-YYYY-MM-DD` or experiment branch from `cursor/*` / `main` |
 | `npm run growth:validate-branch` | Validate current branch matches `growth/<loop>-exp-NNN-<slug>` or `growth/os-YYYY-MM-DD` |
 | `npm run growth:check-exp-shipped` | Exit non-zero if experiment_id already has a `keep` row in ledger |
 | `npm run growth:auto-merge-cap` | Exit non-zero if L2b rolling 7-day auto-merge cap reached |

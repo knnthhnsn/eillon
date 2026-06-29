@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /** Summarize recent results.tsv rows for automation_os_improver and compass runs */
 import { readFileSync } from 'fs';
+import { spawnSync } from 'child_process';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -90,3 +91,14 @@ if (attention.some((r) => r.status === 'rework')) {
   console.log('  - Read linked run logs; add backlog items for fixable rework paths');
 }
 console.log('  - Run npm run growth:validate-ledger after any ledger edit');
+
+const remoteCursor = spawnSync('git', ['branch', '-r'], { encoding: 'utf8' });
+if (remoteCursor.status === 0) {
+  const cursorCount = remoteCursor.stdout.split('\n').filter((b) => /cursor\//.test(b)).length;
+  const growthCount = remoteCursor.stdout.split('\n').filter((b) => /growth\//.test(b)).length;
+  if (cursorCount > growthCount * 2 && cursorCount >= 10) {
+    console.log(
+      `\nWARN: ${cursorCount} remote cursor/* branches vs ${growthCount} growth/* — run growth:bootstrap-branch before precheck`
+    );
+  }
+}

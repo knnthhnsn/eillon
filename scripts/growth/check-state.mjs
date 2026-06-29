@@ -8,6 +8,7 @@ import { validateBranchForAutomation } from './branch-utils.mjs';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const statePath = join(__dirname, '../../growth/state.json');
 const forAutomation = process.argv.includes('--for-automation');
+const docsOnly = process.argv.includes('--docs-only');
 const MAX_OPEN_GROWTH_PRS = 3;
 
 let state;
@@ -43,17 +44,31 @@ if (!Number.isInteger(state.open_growth_prs_count) || state.open_growth_prs_coun
   process.exit(1);
 }
 
-if (forAutomation) {
+if (forAutomation || docsOnly) {
   const branchResult = spawnSync('git', ['rev-parse', '--abbrev-ref', 'HEAD'], {
     encoding: 'utf8',
   });
   const branch = branchResult.stdout?.trim();
-  if (branchResult.status === 0 && branch) {
+
+  if (forAutomation && branchResult.status === 0 && branch) {
+    if (branch.startsWith('cursor/')) {
+      console.error(
+        `BLOCKED: branch "${branch}" uses cursor/* — run npm run growth:bootstrap-branch -- os (or experiment <loop> EXP-NNN <slug>) first`
+      );
+      process.exit(1);
+    }
     const branchCheck = validateBranchForAutomation(branch);
     if (!branchCheck.ok) {
       console.error(branchCheck.message);
       process.exit(1);
     }
+  }
+
+  if (docsOnly && branchResult.status === 0 && branch?.startsWith('cursor/')) {
+    console.error(
+      `BLOCKED: branch "${branch}" uses cursor/* — checkout main or growth/compass-YYYY-MM-DD for docs-only runs`
+    );
+    process.exit(1);
   }
 
   if (state.lock_status === 'locked') {
@@ -68,7 +83,8 @@ if (forAutomation) {
     );
     process.exit(1);
   }
-  console.log(`OK: automation preflight passed (branch=${branch || 'unknown'}, unlocked, PR cap clear)`);
+  const mode = docsOnly ? 'docs-only preflight' : 'automation preflight';
+  console.log(`OK: ${mode} passed (branch=${branch || 'unknown'}, unlocked, PR cap clear)`);
 }
 
 console.log(JSON.stringify(state, null, 2));

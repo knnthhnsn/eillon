@@ -23,12 +23,14 @@ Improve **one** conversion surface or trust gap (form microcopy, FAQ, CTA, appoi
 
 ## Steps
 
+0. Run `npm run growth:bootstrap-branch -- experiment conversion_copy EXP-NNN <slug>`
 1. Run `npm run growth:precheck`; then set `state.json` lock_status to `locked` for this run
-2. Select backlog item (e.g. EXP-005, EXP-027)
-2. Hypothesis + minimal diff
-3. `npm run growth:qa`
-4. AI hard review per `/growth/ai-review.md` — Bugbot + `*-ai-review.md`
-5. PR + ledger + run log
+2. Select backlog item (e.g. EXP-008, EXP-027)
+3. Run `npm run growth:check-exp-shipped -- <EXP-ID>` — exit if already shipped
+4. Hypothesis + minimal diff
+5. `npm run growth:qa`
+6. AI hard review per `/growth/ai-review.md` — Bugbot + `*-ai-review.md`
+7. PR + ledger + run log
 
 ## Stop if
 

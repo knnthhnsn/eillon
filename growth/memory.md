@@ -98,6 +98,13 @@
 - EXP-041: `branch-utils.mjs` + `growth:validate-branch` enforce `growth/<loop>-exp-NNN-<slug>` or `growth/os-YYYY-MM-DD`; `growth:precheck` blocks `cursor/*` and `main`.
 - EXP-041: `growth:check-exp-shipped` prevents re-running experiments that already have a `keep` ledger row.
 
+## OS branch bootstrap (2026-06-29)
+
+- Remote had 119 `cursor/*` vs 22 `growth/*` branches — Cloud Agents assign default `cursor/*` before agents can run precheck.
+- EXP-042: `npm run growth:bootstrap-branch -- os` or `-- experiment <loop> EXP-NNN <slug>` checks out valid `growth/*` from `cursor/*` or `main`.
+- EXP-043: weekly prompts 02–05 now call `growth:check-exp-shipped` (was only on prompt 09).
+- EXP-044: `growth:precheck-docs` for compass/digest on `main`; pr_growth_review validates ai-review artifact path.
+
 ## Human decisions (2026-06-28)
 
 - Autonomy default L1–L2; no auto-merge.

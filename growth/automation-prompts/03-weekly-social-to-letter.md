@@ -13,11 +13,13 @@ Create **one** social/referral campaign pack driving to The Letter or Beles disc
 
 ## Steps
 
+0. Run `npm run growth:bootstrap-branch -- experiment social_distribution EXP-NNN <slug>`
 1. Run `npm run growth:precheck` — exit if lock held or ≥3 open growth PRs
 2. Pick one backlog social experiment (e.g. EXP-006, EXP-009, EXP-034)
-3. Hypothesis + campaign doc on branch `growth/social-<EXP-ID>-<slug>`
-4. Brand safety scan; AI hard review before PR
-5. Ledger row + run log
+3. Run `npm run growth:check-exp-shipped -- <EXP-ID>` — exit if already shipped
+4. Hypothesis + campaign doc on branch `growth/social_distribution-exp-NNN-<slug>`
+5. Brand safety scan; AI hard review before PR
+6. Ledger row + run log
 
 ## Output
 
@@ -30,7 +32,7 @@ Create **one** social/referral campaign pack driving to The Letter or Beles disc
 
 ## Branch policy
 
-`growth/social-<EXP-ID>-<slug>` if HTML landing tweaks needed; else commit campaign doc on branch
+`growth/social_distribution-exp-NNN-<slug>` if HTML landing tweaks needed; else commit campaign doc on branch
 
 ## Forbidden
 

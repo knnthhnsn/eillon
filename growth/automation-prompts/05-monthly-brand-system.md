@@ -13,10 +13,12 @@ Audit brand consistency across one weak surface; update DESIGN.md or propose imp
 
 ## Steps
 
+0. Run `npm run growth:bootstrap-branch -- experiment brand_safety EXP-032 brand-audit`
 1. Run `npm run growth:precheck` — exit if lock held or ≥3 open growth PRs
 2. Pick one weak surface (see Scope)
-3. Forbidden phrase scan + minimal fix PR
-4. AI hard review before PR; ledger + run log
+3. Run `npm run growth:check-exp-shipped -- <EXP-ID>` when executing a numbered backlog EXP
+4. Forbidden phrase scan + minimal fix PR
+5. AI hard review before PR; ledger + run log
 
 ## Scope (one per run)
 
