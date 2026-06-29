@@ -69,6 +69,10 @@
 - One experiment per run; max 3 open growth PRs.
 - Agent-Reach / codebase-memory-mcp not configured in initial session.
 
+## Conversion surfaces (2026-06-29)
+
+- EXP-019: `/shipping` now links to `/beles#waitlist` with trust microcopy + `beles_cta_click` label `shipping_faq`.
+
 ## Human decisions (2026-06-28)
 
 - Autonomy default L1–L2; no auto-merge.

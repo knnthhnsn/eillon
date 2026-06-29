@@ -1488,6 +1488,38 @@
 .legal-page.editorial-page .legal-page__footer a,
 .editorial-page.legal-page .legal-page__footer a { color: rgba(248,246,240,0.7); }
 
+.editorial-page .shipping-restock {
+  max-width: var(--max); margin: 0 auto;
+  padding: clamp(48px, 8vw, 96px) var(--pad) clamp(32px, 5vw, 64px);
+}
+.editorial-page .shipping-restock__inner {
+  padding: clamp(28px, 4vw, 40px) clamp(24px, 3vw, 36px);
+  border: 1px solid rgba(23, 21, 15, 0.1);
+  background: rgba(255, 255, 255, 0.35);
+}
+.editorial-page .shipping-restock__title {
+  margin: 0 0 16px;
+  font-family: var(--serif); font-weight: 300; font-variation-settings: 'opsz' 144;
+  font-size: clamp(24px, 2.8vw, 36px); line-height: 1.08; letter-spacing: -0.02em;
+}
+.editorial-page .shipping-restock__lead {
+  margin: 0 0 18px; max-width: 52ch;
+  font-size: clamp(15px, 1.05vw, 17px); line-height: 1.75; color: var(--ink-soft);
+}
+.editorial-page .shipping-restock__points {
+  margin: 0 0 24px; padding: 0; list-style: none;
+  display: grid; gap: 10px;
+}
+.editorial-page .shipping-restock__points li {
+  position: relative; padding-left: 18px;
+  font-size: 14px; line-height: 1.6; color: var(--ink-soft);
+}
+.editorial-page .shipping-restock__points li::before {
+  content: ""; position: absolute; left: 0; top: 0.65em;
+  width: 6px; height: 1px; background: var(--ink-faint);
+}
+.editorial-page .shipping-restock .info-page__actions { margin: 0; }
+
 .editorial-page .info-page__body.craft-chapters,
 .editorial-page .info-page__body.wear-chapters {
   max-width: var(--max); margin: 0 auto;
