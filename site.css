@@ -801,6 +801,7 @@
 .chapter-shader-band .shop__desc,
 .chapter-shader-band .shop__features li,
 .chapter-shader-band .shop__cta-caption,
+.chapter-shader-band .shop__waitlist-promise,
 .chapter-shader-band .shop__waitlist-consent,
 .chapter-shader-band .shop__waitlist-status { color: rgba(248,246,240,0.72); }
 .chapter-shader-band .shop__features li { border-top-color: rgba(248,246,240,0.14); }
@@ -1853,6 +1854,13 @@
   line-height: 1.55;
   color: rgba(26, 22, 18, 0.55);
 }
+.editorial-page .shop__waitlist-promise {
+  margin: 0 0 16px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgba(26, 22, 18, 0.68);
+  max-width: 42ch;
+}
 
 /* =====================================================
    CHAPTER SHADER BAND — cascade-safe dark theme (late wins)
@@ -1924,6 +1932,7 @@
 .editorial-page .chapter-shader-band .shop__desc,
 .editorial-page .chapter-shader-band .shop__features li,
 .editorial-page .chapter-shader-band .shop__cta-caption,
+.editorial-page .chapter-shader-band .shop__waitlist-promise,
 .editorial-page .chapter-shader-band .shop__waitlist-consent,
 .editorial-page .chapter-shader-band .shop__waitlist-status { color: rgba(248,246,240,0.72); }
 .editorial-page .chapter-shader-band .shop__features li { border-top-color: rgba(248,246,240,0.14); }

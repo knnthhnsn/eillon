@@ -69,6 +69,11 @@
 - One experiment per run; max 3 open growth PRs.
 - Agent-Reach / codebase-memory-mcp not configured in initial session.
 
+## Waitlist UX (2026-06-29)
+
+- Beles `.shop__cta-caption` is `display:none` on mobile (visible only in fine-pointer media query); use `shop__waitlist-promise` for always-visible trust copy before the form.
+- Consent must not reference "described above" unless promise copy precedes the form.
+
 ## Human decisions (2026-06-28)
 
 - Autonomy default L1–L2; no auto-merge.
