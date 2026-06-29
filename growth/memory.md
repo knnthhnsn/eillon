@@ -69,6 +69,10 @@
 - One experiment per run; max 3 open growth PRs.
 - Agent-Reach / codebase-memory-mcp not configured in initial session.
 
+## Wear guide conversion (2026-06-29)
+
+- EXP-011: `/wear` now carries FAQ + FAQPage schema for application/closeness/storage/sample objections and a Beles restock trust block (`wear_guide_restock` CTA label).
+
 ## Human decisions (2026-06-28)
 
 - Autonomy default L1–L2; no auto-merge.
