@@ -1,0 +1,26 @@
+---
+description: Design system, visual identity, component consistency, spacing, typography, imagery, and motion for EILLON
+globs: "**/*.{css,html},DESIGN.md,home.css,styles.css,site.css"
+alwaysApply: false
+---
+
+# Design System
+
+Canonical reference: **`DESIGN.md`**
+
+## Typography (from codebase)
+- Serif display: Cormorant Garamond, Fraunces
+- Sans UI: Inter
+- Hand accent: La Belle Aurore (letters only)
+
+## CTAs
+- Homepage: `.qbtn`, `.qlink` — quiet, uppercase sans, no shouty buttons
+- Chapter: `.btn--primary` with label/hover layers
+
+## Motion
+Respect `prefers-reduced-motion`. GSAP pins on homepage — do not break pin init order.
+
+## Imagery
+Editorial, atmospheric, Afro-Mediterranean — not stock luxury clichés.
+
+Update DESIGN.md when a durable visual rule emerges.

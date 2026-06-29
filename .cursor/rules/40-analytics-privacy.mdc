@@ -1,0 +1,24 @@
+---
+description: Privacy-conscious analytics rules for forms, UTMs, event tracking, and GDPR-aware measurement
+globs: "scripts/analytics.js,script.js,api/**,privacy.html,growth/utm-system.md"
+alwaysApply: false
+---
+
+# Analytics & Privacy
+
+Follow existing patterns in `scripts/analytics.js`.
+
+## Events
+Use `EILLON_ANALYTICS.track(name, props)` — production Vercel WA only.
+
+## Never in events or UTMs
+Email · name · phone · user ids · free-text form values
+
+## UTM
+Standard five params; see `/growth/utm-system.md`. Persist via waitlist API only as implemented.
+
+## Forms
+Preserve consent/honeypot patterns on `[data-waitlist-form]`. No new third-party trackers without human review.
+
+## Docs
+`/docs/growth-measurement.md` for KPI definitions.

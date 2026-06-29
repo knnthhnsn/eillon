@@ -1,0 +1,18 @@
+{
+  "$schema": "internal-example-only",
+  "_comment": "Copy to .cursor/mcp.json locally. DO NOT commit secrets. MCP names must match Cursor dashboard catalog.",
+  "mcpServers": {
+    "codebase-memory": {
+      "command": "npx",
+      "args": ["-y", "codebase-memory-mcp"],
+      "env": {}
+    },
+    "agent-reach": {
+      "command": "npx",
+      "args": ["-y", "@anthropic/agent-reach"],
+      "env": {
+        "AGENT_REACH_API_KEY": "${AGENT_REACH_API_KEY}"
+      }
+    }
+  }
+}

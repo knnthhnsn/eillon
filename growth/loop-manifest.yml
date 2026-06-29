@@ -1,0 +1,233 @@
+# EILLON Growth Loop Manifest
+# Internal repo manifest — not a Cursor-native config file.
+
+schema_version: 1
+updated: 2026-06-28
+
+defaults:
+  max_open_prs: 3
+  branch_prefix: growth
+  result_log: growth/results.tsv
+  keep_rule: "qualified_growth_score >= 13 AND brand_risk_penalty <= 1 AND qa_pass"
+  stop_conditions:
+    - lock_status == locked
+    - open_growth_prs_count >= max_open_prs
+    - ci_main_failing
+    - missing_required_context
+    - brand_risk_penalty >= 3
+
+loops:
+  - id: search_to_restock
+    name: Search-to-Restock
+    loop_type: seo_content
+    objective: Search intent → answer page → Beles → restock signup
+    trigger_type: scheduled
+    recommended_schedule: "0 9 * * 1 Europe/Copenhagen"
+    allowed_paths:
+      - "*.html"
+      - "journal/**"
+      - "content/**"
+      - "sitemap.xml"
+      - "scripts/generate-sitemap.mjs"
+    forbidden_paths:
+      - "api/**"
+      - "lib/**"
+      - ".github/**"
+      - "waitlist-admin.html"
+    required_context_files:
+      - growth/program.md
+      - growth/backlog.md
+      - growth/baseline.md
+      - DESIGN.md
+    required_tools: [read, write, shell, grep]
+    qa_gates: [build, verify_all, brand_safety, ledger_append]
+    max_files_changed: 12
+    max_open_prs: 1
+    branch_prefix: growth/search
+    automation_id: weekly_search_to_restock
+    human_review_required_for: [product_claims, new_routes_major]
+
+  - id: social_to_letter
+    name: Social-to-Letter
+    loop_type: social_distribution
+    objective: Quiet social asset → campaign page → The Letter signup
+    trigger_type: scheduled
+    recommended_schedule: "0 10 * * 3 Europe/Copenhagen"
+    allowed_paths:
+      - "content/campaigns/**"
+      - "growth/**"
+      - "*.html"
+    forbidden_paths:
+      - "api/**"
+      - "lib/**"
+    required_context_files:
+      - growth/utm-system.md
+      - DESIGN.md
+    required_tools: [read, write]
+    qa_gates: [brand_safety, utm_valid, ledger_append]
+    max_files_changed: 8
+    max_open_prs: 1
+    branch_prefix: growth/social
+    automation_id: weekly_social_to_letter
+
+  - id: visual_search_to_chapter
+    name: Visual Search-to-Chapter
+    loop_type: social_distribution
+    objective: Pinterest/visual traffic → chapter page → Beles restock
+    trigger_type: manual
+    allowed_paths:
+      - "content/campaigns/**"
+      - "beles.html"
+      - "journal/**"
+    forbidden_paths:
+      - "api/**"
+    required_context_files:
+      - growth/utm-system.md
+      - DESIGN.md
+    qa_gates: [brand_safety, ledger_append]
+    max_files_changed: 10
+    branch_prefix: growth/visual
+    automation_id: manual_next_best_experiment
+
+  - id: objection_to_trust
+    name: Objection-to-Trust
+    loop_type: conversion_copy
+    objective: Buyer hesitation → useful answer → signup/appointment
+    trigger_type: scheduled
+    recommended_schedule: "0 11 * * 4 Europe/Copenhagen"
+    allowed_paths:
+      - "*.html"
+      - "journal/**"
+      - "wear.html"
+      - "shipping.html"
+    forbidden_paths:
+      - "api/**"
+      - "data/products.js"
+    required_context_files:
+      - growth/baseline.md
+      - DESIGN.md
+    qa_gates: [build, verify_copy, brand_safety, ledger_append]
+    max_files_changed: 6
+    branch_prefix: growth/trust
+    automation_id: weekly_conversion_trust
+
+  - id: copenhagen_appointment
+    name: Copenhagen Appointment
+    loop_type: local_discovery
+    objective: Local/studio intent → appointment request
+    trigger_type: manual
+    allowed_paths:
+      - "about.html"
+      - "index.html"
+      - "scripts/site-nav.js"
+      - "scripts/analytics.js"
+    forbidden_paths:
+      - "api/**"
+    required_context_files:
+      - growth/baseline.md
+    qa_gates: [build, analytics_privacy, ledger_append]
+    max_files_changed: 4
+    branch_prefix: growth/appointment
+    automation_id: manual_next_best_experiment
+
+  - id: brand_safety
+    name: Brand Safety
+    loop_type: brand_safety
+    objective: Protect maison identity and claims
+    trigger_type: scheduled
+    recommended_schedule: "0 8 1 * * Europe/Copenhagen"
+    allowed_paths:
+      - "growth/**"
+      - "DESIGN.md"
+      - "*.html"
+    forbidden_paths:
+      - "api/**"
+    required_context_files:
+      - DESIGN.md
+      - growth/autonomy-policy.md
+    qa_gates: [brand_safety, ledger_append]
+    max_files_changed: 15
+    branch_prefix: growth/brand
+    automation_id: monthly_brand_system
+
+  - id: measurement
+    name: Measurement
+    loop_type: analytics_measurement
+    objective: Events, UTMs, KPI docs
+    trigger_type: manual
+    allowed_paths:
+      - "scripts/analytics.js"
+      - "script.js"
+      - "docs/growth-measurement.md"
+      - "growth/**"
+    forbidden_paths:
+      - "api/waitlist.js"
+    required_context_files:
+      - docs/growth-measurement.md
+      - growth/utm-system.md
+    qa_gates: [analytics_privacy, build, ledger_append]
+    max_files_changed: 5
+    branch_prefix: growth/measure
+    automation_id: manual_next_best_experiment
+
+  - id: technical_seo
+    name: Technical SEO
+    loop_type: technical_seo
+    objective: Metadata, schema, sitemap, crawlability
+    trigger_type: event
+    allowed_paths:
+      - "*.html"
+      - "sitemap.xml"
+      - "robots.txt"
+      - "scripts/generate-sitemap.mjs"
+    forbidden_paths:
+      - "api/**"
+    required_context_files:
+      - growth/baseline.md
+    qa_gates: [build, verify_links, ledger_append]
+    max_files_changed: 10
+    branch_prefix: growth/seo
+    automation_id: weekly_search_to_restock
+
+  - id: design_system
+    name: Design System
+    loop_type: brand_system
+    objective: DESIGN.md, components, visual consistency
+    trigger_type: scheduled
+    recommended_schedule: "0 9 1 * * Europe/Copenhagen"
+    allowed_paths:
+      - "DESIGN.md"
+      - "*.css"
+      - "growth/**"
+    forbidden_paths:
+      - "api/**"
+    required_context_files:
+      - DESIGN.md
+    qa_gates: [build, brand_safety, ledger_append]
+    max_files_changed: 8
+    branch_prefix: growth/design
+    automation_id: monthly_brand_system
+
+  - id: os_improvement
+    name: OS Improvement
+    loop_type: automation_os
+    objective: Improve growth OS, rules, prompts — never loosen safety silently
+    trigger_type: scheduled
+    recommended_schedule: "0 10 1 * * Europe/Copenhagen"
+    allowed_paths:
+      - "growth/**"
+      - ".cursor/rules/**"
+      - "scripts/growth/**"
+      - "docs/**"
+      - "AGENTS.md"
+    forbidden_paths:
+      - "api/**"
+      - "*.html"
+    required_context_files:
+      - growth/autonomy-policy.md
+      - growth/program.md
+    qa_gates: [validate_ledger, state_valid, human_review_if_autonomy_change]
+    max_files_changed: 20
+    branch_prefix: growth/os
+    automation_id: automation_os_improver
+    human_review_required_for: [autonomy_policy_change, rule_loosening]

@@ -1,0 +1,27 @@
+---
+description: Build, lint, typecheck, accessibility, performance, metadata, and mobile QA gates
+globs: "**/*.{html,css,js,mjs}"
+alwaysApply: false
+---
+
+# Quality Gates
+
+Before marking experiment **keep**:
+
+```bash
+npm run growth:qa    # validate ledger, state, build, verify:all
+```
+
+Full CI: `npm run ci` (includes lighthouse — heavy).
+
+## Unavailable in repo
+- eslint / typecheck — not configured
+
+## UI changes
+- Form labels, focus states, mobile 390px check
+- No unsupported claims (DESIGN.md)
+
+## Performance (homepage)
+- Defer non-critical JS/CSS; match existing lazy patterns
+
+Details: `/growth/qa-gates.md`

@@ -1,0 +1,99 @@
+# EILLON Growth QA Gates
+
+**Updated:** 2026-06-28
+
+## Discovered commands
+
+| Gate | Command | Status |
+|---|---|---|
+| Install | `npm ci \|\| npm install` | available |
+| Build | `npm run build` | available |
+| Link verify | `npm run verify:links` | available |
+| Copy verify | `npm run verify:copy` | available |
+| Stock verify | `npm run verify` | available |
+| Full verify | `npm run verify:all` | available |
+| Funnel smoke | `npm run smoke:funnel` | available |
+| Lighthouse CI | `npm run lighthouse:ci` | available (heavy) |
+| Full CI | `npm run ci` | available |
+| Lint | — | **unavailable** (no eslint config) |
+| Typecheck | — | **unavailable** (plain JS) |
+| Unit tests | — | **unavailable** |
+
+## Growth-specific commands
+
+| Command | Purpose |
+|---|---|
+| `npm run growth:validate-ledger` | Validate `results.tsv` header and TSV rows |
+| `npm run growth:state` | Print/validate `state.json` |
+| `npm run growth:score` | Compute qualified_growth_score |
+| `npm run growth:next` | Select highest-priority backlog experiment |
+| `npm run growth:qa` | Run minimum keep gate for growth changes |
+
+## Minimum keep gate (code experiments)
+
+Before marking **keep** on any code change:
+
+- [ ] `npm run build` passes
+- [ ] `npm run verify:all` passes (or failures pre-existing and documented)
+- [ ] No unsupported product/stock/restock/certification claims added
+- [ ] No PII in analytics payloads or UTMs
+- [ ] No secrets committed
+- [ ] Critical links not broken (`verify:links`)
+- [ ] `brand_risk_penalty <= 1`
+- [ ] Result appended to `growth/results.tsv`
+- [ ] Run log created in `growth/runs/`
+
+## Minimum keep gate (docs-only experiments)
+
+- [ ] Markdown/YAML/JSON valid
+- [ ] No fake automation "active" claims
+- [ ] Autonomy policy not loosened without review
+- [ ] Result logged
+
+## Brand safety checks
+
+- [ ] No forbidden patterns (see `DESIGN.md`)
+- [ ] No "exotic/oriental/ancient secret/seductive" framing
+- [ ] No fake scarcity or guaranteed longevity claims
+- [ ] Cultural references precise, not flattening
+- [ ] Beles notes align with `data/products.js` and `beles.html`
+
+## Accessibility checks (when touching UI)
+
+- [ ] Semantic headings in order
+- [ ] Form labels / `aria-*` on new inputs
+- [ ] Color contrast reasonable (EILLON palette)
+- [ ] Mobile layout spot-check at 390px width
+
+## Metadata / SEO checks (when touching pages)
+
+- [ ] Unique `<title>` and meta description
+- [ ] Canonical URL correct
+- [ ] Run `npm run build:sitemap` if routes added
+- [ ] Structured data valid JSON-LD if added
+
+## Privacy checks (when touching forms/analytics)
+
+- [ ] Follow `scripts/analytics.js` event naming
+- [ ] No email/name/phone in event props
+- [ ] UTM params only standard five; no PII in `utm_content`
+- [ ] Consent pattern preserved on waitlist forms
+
+## Performance checks (when touching homepage)
+
+- [ ] Prefer defer/lazy patterns already used on `index.html`
+- [ ] No new render-blocking scripts without justification
+- [ ] Run Lighthouse if hero/LCP touched
+
+## Mobile layout
+
+- [ ] Chapter pages: waitlist form usable on mobile
+- [ ] Nav/footer from `site-nav.js` not broken
+
+## Failure handling
+
+If gate fails:
+1. Fix if trivial and in-scope
+2. Else mark `rework` or `discard` in ledger
+3. Document in run log
+4. Release lock in `state.json`

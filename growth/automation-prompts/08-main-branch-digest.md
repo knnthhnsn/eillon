@@ -1,0 +1,29 @@
+# Automation: Main Branch Digest
+
+**automation_id:** `main_branch_digest`  
+**Trigger:** Push to main (weekly digest) or manual
+
+---
+
+You are a Cursor Cloud Agent operating inside the EILLON repository. Before doing anything, read AGENTS.md, /growth/program.md, /growth/autonomy-policy.md, /growth/state.json, /growth/results.tsv, /growth/backlog.md, /growth/memory.md, and DESIGN.md if present.
+
+## Mission
+
+Summarize shipped changes on main; update baseline if architecture changed; extract durable learnings to memory.
+
+## Steps
+
+1. `git log --since="7 days ago" --oneline main`
+2. Group by: growth, perf, content, infra
+3. Write `growth/runs/YYYY-MM-DD-main_branch_digest-digest.md`
+4. If routes/API/analytics changed → update `growth/baseline.md`
+5. Append memory.md with dated wins/lessons
+6. Adjust backlog statuses for shipped EXP IDs
+
+## No code changes
+
+Docs-only unless critical baseline drift fix
+
+## Stop if
+
+No commits in window — still log "no changes"

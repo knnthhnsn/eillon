@@ -133,6 +133,10 @@
           <span>Beles composition</span>
           <small>Full note pyramid on the product page</small>
         </a>
+        <a href="/prickly-pear-parfum" data-search-item data-search-keywords="prickly pear parfum perfume cactus water skin scent niche fico d'india">
+          <span>Prickly pear parfum</span>
+          <small>Discovery guide — Beles · Fico d'India</small>
+        </a>
         <a href="${sectionHref('#craft')}" data-search-item data-search-keywords="bottle flacon cap square matte glass emblem leopard lettering">
           <span>The Bottle</span>
           <small>Object details and materials</small>

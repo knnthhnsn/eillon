@@ -1,0 +1,22 @@
+---
+description: Autoresearch-style growth experiment loop for SEO, conversion, content, analytics, and campaigns
+globs: "growth/**,content/**,journal/**,*.html"
+alwaysApply: false
+---
+
+# Growth Experiment Loop
+
+When running a growth experiment:
+
+1. Read `/growth/program.md` master loop
+2. Pick **one** EXP from `/growth/backlog.md`
+3. Hypothesis: "If we [change], then [segment] will [action], because [evidence]."
+4. Branch: `growth/<loop>-<exp-id>-<slug>` (`npm run growth:branch`)
+5. Smallest useful diff; max files per `/growth/loop-manifest.yml`
+6. Run `npm run growth:qa`
+7. Score with `npm run growth:score` — keep if QGS ≥ 13 and brand_risk ≤ 1
+8. Append `/growth/results.tsv` (never overwrite)
+9. Run log: `/growth/runs/YYYY-MM-DD-<automation>-<exp>.md`
+10. Stop — no chained experiments
+
+See `/growth/scorecard.md` for rubric.

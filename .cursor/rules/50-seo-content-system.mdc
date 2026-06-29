@@ -1,0 +1,25 @@
+---
+description: SEO and content rules for EILLON journal, landing pages, structured data, metadata, and internal links
+globs: "**/*.html,sitemap.xml,robots.txt,scripts/generate-sitemap.mjs,journal/**"
+alwaysApply: false
+---
+
+# SEO & Content System
+
+## Every new page
+- Unique `<title>` + meta description
+- Canonical `https://eillon.maison/...`
+- hreflang where applicable (see index.html pattern)
+- Run `npm run build:sitemap` if new route
+
+## Structured data
+Valid JSON-LD; match patterns on beles.html / journal articles.
+
+## Internal linking
+Funnel: journal/education → `/beles` → `#waitlist`. Use descriptive anchor text, not "click here".
+
+## Voice
+SEO clarity without generic "best perfume" listicle tone. See `DESIGN.md`.
+
+## Verify
+`npm run verify:links` after link changes.

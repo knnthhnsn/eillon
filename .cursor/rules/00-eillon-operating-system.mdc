@@ -1,0 +1,22 @@
+---
+description: EILLON persistent growth OS — always read growth context before growth or automation work
+alwaysApply: true
+---
+
+# EILLON Operating System
+
+This repo includes a **persistent growth OS** under `/growth/`.
+
+Before growth, SEO, conversion, campaign, or automation work:
+
+1. Read `/growth/program.md` and `/growth/autonomy-policy.md`
+2. Check `/growth/state.json` (lock, open PR count)
+3. Use `/growth/backlog.md` and append to `/growth/results.tsv`
+
+Before brand-facing edits: read `DESIGN.md`.
+
+**Never:** auto-merge, production deploy, fabricate product facts, commit secrets, or mark automations active without Cursor UI verification.
+
+**Always:** one experiment per run, QA per `/growth/qa-gates.md`, EILLON voice (quiet, sensory, precise).
+
+Canonical scoring: `/growth/scorecard.md`.

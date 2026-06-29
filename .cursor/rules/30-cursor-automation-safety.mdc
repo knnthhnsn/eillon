@@ -1,0 +1,20 @@
+---
+description: Safety and autonomy rules for Cursor Automations, Cloud Agents, CI-triggered work, and scheduled loops
+globs: "growth/automation-prompts/**,growth/automation-registry.md,.github/**,scripts/growth/**"
+alwaysApply: false
+---
+
+# Cursor Automation Safety
+
+Read `/growth/autonomy-policy.md`.
+
+- One experiment · one branch · one PR per run
+- Max **3** open `growth/*` PRs
+- Never auto-merge or deploy
+- Never infinite loops or automation chains without lock
+- Scheduled runs **exit** if `state.json` lock_status is `locked` or main CI failing
+- Registry status `active` **only** after verified Cursor Automations registration
+- Prompt files: `/growth/automation-prompts/`
+- Setup: `/docs/cursor-automations-setup.md`
+
+Event triggers: ignore `growth/*` PRs unless reviewing that branch.

@@ -1,0 +1,26 @@
+---
+description: EILLON brand voice, fragrance copy, maison language, cultural and legal constraints
+globs: "**/*.{html,md,css,js}"
+alwaysApply: false
+---
+
+# EILLON Brand Voice
+
+Read `DESIGN.md` for full rules.
+
+## Voice
+Quiet · sensory · precise · architectural · intimate · slow · confident · commercially clear, never loud.
+
+## Good
+- "Prickly pear, held against mineral air."
+- "Receive the Beles restock note before the public boutique opens."
+- "The Letter is sent slowly: studio notes, restock windows, and private appointment openings."
+
+## Forbidden patterns
+Everyone is obsessed · smell irresistible · main character energy · luxury vibes · dupe · compliment getter · guaranteed long-lasting · seductive · exotic · oriental · ancient secret · fake scarcity
+
+## Claims
+Never invent stock, restock dates, awards, press quotes, or testimonials. Align product notes with `data/products.js` and `beles.html`.
+
+## Culture
+Afro-Mediterranean memory — precise, never flattening or exoticizing.

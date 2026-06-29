@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "last_run_at": "2026-06-23T12:00:00Z",
+  "active_experiment_id": null,
+  "active_automation_id": null,
+  "open_growth_prs_count": 0,
+  "lock_status": "unlocked",
+  "last_successful_loop": "EXP-003",
+  "last_failed_loop": null,
+  "autonomy_level": "L1_docs_and_drafts",
+  "current_focus": "search_to_restock",
+  "current_highest_priority": "EXP-004",
+  "pending_human_reviews": [
+    "Register Cursor Automations (all pending_registration)",
+    "Approve manual_next_best_experiment in Automations UI when form opens"
+  ],
+  "known_blockers": [
+    "No Agent-Reach MCP configured in session",
+    "No codebase-memory-mcp configured in session",
+    "Cursor Automations not registered (pending manual setup)"
+  ]
+}
