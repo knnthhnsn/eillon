@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
-  "last_run_at": "2026-06-29T12:00:00Z",
+  "last_run_at": "2026-06-29T14:00:00Z",
   "active_experiment_id": null,
   "active_automation_id": null,
   "open_growth_prs_count": 0,
   "lock_status": "unlocked",
-  "last_successful_loop": "EXP-031",
+  "last_successful_loop": "EXP-004",
   "last_failed_loop": null,
   "autonomy_level": "L2b_conditional_auto_merge",
   "current_focus": "search_to_restock",
-  "current_highest_priority": "EXP-004",
+  "current_highest_priority": "EXP-005",
   "pending_human_reviews": [],
   "review_policy": "ai_hard_review",
   "active_automations": [
@@ -28,15 +28,24 @@
     "pr_growth_auto_merge"
   ],
   "known_blockers": [
-    "Save pr_growth_auto_merge in Automations UI",
-    "Run agent-reach doctor after adding Scripts to PATH (see docs/growth-mcp-setup.md)",
-    "Index EILLON once: codebase-memory-mcp cli index_repository (see docs/growth-mcp-setup.md)",
+    "Save pr_growth_auto_merge in Automations UI (form open)",
     "Enable GitHub merge permission for automation bot if branch protection blocks auto-merge"
   ],
+  "codebase_memory": {
+    "indexed": true,
+    "project": "C-Users-kenne-Desktop-Eillon",
+    "indexed_at": "2026-06-29",
+    "nodes": 10440
+  },
   "auto_merge_policy": {
     "enabled": true,
     "max_per_7_days": 3,
     "eligible_branch_prefix": "growth/",
-    "forbidden_paths": ["api/", "lib/", ".github/workflows/", "growth/autonomy-policy.md"]
+    "forbidden_paths": [
+      "api/",
+      "lib/",
+      ".github/workflows/",
+      "growth/autonomy-policy.md"
+    ]
   }
 }

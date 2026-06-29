@@ -19,6 +19,7 @@ const ROUTES = [
   { path: '/ritual', file: 'ritual.html', priority: '0.8', changefreq: 'monthly', image: 'images/ritual.jpg', imageTitle: 'Ritual · Frankincense & Myrrh — Lab study' },
   { path: '/journal', file: 'journal.html', priority: '0.7', changefreq: 'monthly', image: 'images/about-studio-1400.webp', imageTitle: 'EILLON Journal — studio notes from Copenhagen' },
   { path: '/journal/fico-d-india', file: 'journal/fico-d-india.html', priority: '0.75', changefreq: 'monthly', image: 'images/beles-no-background.png', imageTitle: "What Fico d'India means in Beles" },
+  { path: '/journal/what-does-fico-d-india-smell-like', file: 'journal/what-does-fico-d-india-smell-like.html', priority: '0.76', changefreq: 'monthly', image: 'images/palette-desert-fruit.webp', imageTitle: "What does Fico d'India smell like" },
   { path: '/journal/the-bottle', file: 'journal/the-bottle.html', priority: '0.75', changefreq: 'monthly', image: 'images/beles-concept-1100.webp', imageTitle: 'The EILLON Beles bottle' },
   { path: '/journal/beles-batch-bl001', file: 'journal/beles-batch-bl001.html', priority: '0.75', changefreq: 'monthly', image: 'images/beles-no-background.png', imageTitle: 'Beles pilot batch BL-001 traceability' },
   { path: '/wear', file: 'wear.html', priority: '0.65', changefreq: 'monthly' },

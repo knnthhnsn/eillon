@@ -33,8 +33,8 @@
 ## Search demand (2026-06-28)
 
 - Journal article `/journal/fico-d-india` exists — extend cluster.
-- `/prickly-pear-parfum` discovery landing shipped (EXP-003, 2026-06-23).
-- Sitemap 18 URLs; beles priority 0.9; prickly-pear-parfum 0.82.
+- `/journal/what-does-fico-d-india-smell-like` smell-intent article shipped (EXP-004, 2026-06-29).
+- Sitemap 19 URLs.
 
 ## Social demand (2026-06-28)
 
