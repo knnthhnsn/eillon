@@ -800,6 +800,7 @@
 .chapter-shader-band .shop__price-meta { color: rgba(248,246,240,0.55); }
 .chapter-shader-band .shop__desc,
 .chapter-shader-band .shop__features li,
+.chapter-shader-band .shop__form-trust,
 .chapter-shader-band .shop__cta-caption,
 .chapter-shader-band .shop__waitlist-consent,
 .chapter-shader-band .shop__waitlist-status { color: rgba(248,246,240,0.72); }
@@ -1854,6 +1855,53 @@
   color: rgba(26, 22, 18, 0.55);
 }
 
+.shop__form-trust {
+  margin: 0 0 20px;
+  padding: 16px 0 0;
+  border-top: 1px solid rgba(23, 21, 15, 0.1);
+}
+.shop__form-trust-kicker {
+  margin: 0 0 8px;
+  font-family: var(--sans);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.shop__form-trust-lead {
+  margin: 0 0 12px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+.shop__form-trust-points {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.shop__form-trust-points li {
+  position: relative;
+  padding-left: 18px;
+  font-size: 12px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  color: var(--ink-faint);
+}
+.shop__form-trust-points li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 6px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.55;
+}
+
 /* =====================================================
    CHAPTER SHADER BAND — cascade-safe dark theme (late wins)
    ===================================================== */
@@ -1924,8 +1972,15 @@
 .editorial-page .chapter-shader-band .shop__desc,
 .editorial-page .chapter-shader-band .shop__features li,
 .editorial-page .chapter-shader-band .shop__cta-caption,
+.editorial-page .chapter-shader-band .shop__form-trust,
 .editorial-page .chapter-shader-band .shop__waitlist-consent,
 .editorial-page .chapter-shader-band .shop__waitlist-status { color: rgba(248,246,240,0.72); }
+.editorial-page .chapter-shader-band .shop__form-trust {
+  border-top-color: rgba(248,246,240,0.14);
+}
+.editorial-page .chapter-shader-band .shop__form-trust-kicker { color: rgba(248,246,240,0.55); }
+.editorial-page .chapter-shader-band .shop__form-trust-lead { color: rgba(248,246,240,0.82); }
+.editorial-page .chapter-shader-band .shop__form-trust-points li { color: rgba(248,246,240,0.68); }
 .editorial-page .chapter-shader-band .shop__features li { border-top-color: rgba(248,246,240,0.14); }
 .editorial-page .chapter-shader-band .shop__features li::before { background: var(--gold-light); }
 .editorial-page .chapter-shader-band .shop__image {
