@@ -3,12 +3,12 @@
 **Date:** 2026-06-29
 **Automation:** 40bf91e3-7391-11f1-a8a0-cafc5ef88358
 **Branch:** growth/internal_linking-exp-008-journal-beles-restock-links
-**Bugbot runs:** 0 (Bugbot MCP unavailable in Cloud Agent; manual checklist per ai-review.md escalation)
+**Bugbot runs:** 1 (manual checklist — Bugbot MCP unavailable in Cloud Agent; per ai-review.md escalation)
 **Verdict:** pass_with_notes
 
 ## Summary
 
-Strengthened journal → Beles → restock funnel: journal index boutique card now points to `/beles#waitlist` with analytics; `the-bottle` and `beles-batch-bl001` gained article-page restock CTAs; `fico-d-india` CTA received analytics label. No new claims, forbidden copy, or broken links. QA gates pass.
+Strengthened journal → Beles → restock funnel: journal index boutique card now points to `/beles#waitlist` with analytics; `the-bottle` and `beles-batch-bl001` gained article-page restock CTAs; `fico-d-india` CTA received analytics label. No new claims, forbidden copy, or broken links. Rebased onto latest main (post EXP-005 merge); QA gates pass on 2026-06-29T12:00Z cron re-run.
 
 ## Findings
 
