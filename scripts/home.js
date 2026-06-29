@@ -34,9 +34,17 @@
     return {
       pinType: 'fixed',
       pinReparent: false,
-      anticipatePin: 1,
+      anticipatePin: 0,
       scrub: true
     };
+  }
+
+  function houseRefreshPriority(mobile) {
+    return mobile ? 0 : 2;
+  }
+
+  function landRefreshPriority(mobile) {
+    return mobile ? -1 : 1;
   }
 
   function refreshPins() {
@@ -123,7 +131,7 @@
       pin: pinTarget,
       pinSpacing: true,
       animation: tl,
-      refreshPriority: 0,
+      refreshPriority: houseRefreshPriority(mobile),
       invalidateOnRefresh: true,
       onLeave: revealAll,
       onLeaveBack: function () {
@@ -190,7 +198,7 @@
         pin: sticky,
         pinSpacing: true,
         animation: tl,
-        refreshPriority: -1,
+        refreshPriority: landRefreshPriority(true),
         invalidateOnRefresh: true,
         onLeave: revealAllLand,
         onLeaveBack: function () {
@@ -221,14 +229,25 @@
 
     if (!house) return null;
 
+    function landDesktopStart() {
+      var houseSt = ScrollTrigger.getById('mv-house');
+      return houseSt ? houseSt.end : 'top top';
+    }
+
+    function landDesktopEnd() {
+      var houseSt = ScrollTrigger.getById('mv-house');
+      var start = houseSt ? houseSt.end : land.offsetTop;
+      return start + Math.max(land.offsetHeight - viewportHeight(), 0);
+    }
+
     var st = ScrollTrigger.create({
       id: 'mv-land',
-      trigger: house,
-      start: 'bottom top',
-      end: pinScrollEnd(function () { return Math.max(land.offsetHeight - viewportHeight(), 0); }),
+      trigger: land,
+      start: landDesktopStart,
+      end: landDesktopEnd,
       scrub: true,
       invalidateOnRefresh: true,
-      refreshPriority: -1,
+      refreshPriority: landRefreshPriority(false),
       onUpdate: function (self) {
         applyProgress(self.progress);
       }
@@ -240,9 +259,7 @@
 
   function runPinSetup(mobile) {
     var houseSt = initHouse(mobile);
-    ScrollTrigger.refresh(true);
     var landSt = initLand(mobile);
-    ScrollTrigger.refresh(true);
     return [houseSt, landSt].filter(Boolean);
   }
 
@@ -277,6 +294,10 @@
       gsap.set(grid, { clearProps: 'transform' });
     }
 
+    [].forEach.call(document.querySelectorAll('.mv-house__display-line, .mv-house__display em, .mv-house__lede, .mv-house__laws li'), function (el) {
+      gsap.set(el, { clearProps: 'opacity,transform' });
+    });
+
     [].forEach.call(document.querySelectorAll('.mv-land__title, .mv-land__laws, .mv-land__sign'), function (el) {
       gsap.set(el, { clearProps: 'opacity,transform,visibility' });
     });
@@ -284,13 +305,32 @@
 
   function scheduleRefresh() {
     if (refreshTimer) window.clearTimeout(refreshTimer);
-    refreshTimer = window.setTimeout(refreshPins, 150);
+    refreshTimer = window.setTimeout(rebuildPins, 150);
+  }
+
+  function rebuildPins() {
+    if (!pinState.triggers.length) return;
+
+    var scrollY = window.scrollY || 0;
+    var mobile = pinState.mobile;
+    teardown(pinState.triggers);
+    pinState.triggers = runPinSetup(mobile);
+    ScrollTrigger.sort();
+    ScrollTrigger.refresh(true);
+    window.scrollTo(0, scrollY);
+    ScrollTrigger.update();
   }
 
   function bootMobilePins() {
     pinState.mobile = true;
     document.documentElement.classList.add('mv-home-mobile-pins');
     pinState.triggers = runPinSetup(true);
+    refreshPins();
+  }
+
+  function bootDesktopPins() {
+    pinState.mobile = false;
+    pinState.triggers = runPinSetup(false);
     refreshPins();
   }
 
@@ -325,10 +365,14 @@
       });
 
       mm.add('(min-width: 901px)', function () {
-        pinState.mobile = false;
-        pinState.triggers = runPinSetup(false);
-        refreshPins();
+        requestAnimationFrame(function () {
+          requestAnimationFrame(bootDesktopPins);
+        });
+
+        window.addEventListener('resize', scheduleRefresh);
+
         return function () {
+          window.removeEventListener('resize', scheduleRefresh);
           teardown(pinState.triggers);
           pinState.triggers = [];
         };
@@ -351,7 +395,7 @@
   if (document.fonts && document.fonts.ready) {
     document.fonts.ready.then(function () {
       if (pinState.triggers.length) {
-        refreshPins();
+        rebuildPins();
       }
     });
   }
