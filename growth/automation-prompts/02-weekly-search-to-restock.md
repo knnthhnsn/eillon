@@ -27,7 +27,7 @@ Run **one** SEO/content/landing experiment aimed at Beles restock signup (loop: 
 
 ## Steps
 
-1. Lock state.json; check open growth PR count ≤ 3
+1. Run `npm run growth:precheck`; then set `state.json` lock_status to `locked` for this run
 2. Pick highest-priority search experiment from backlog (default EXP-003)
 3. Write hypothesis per program.md
 4. Smallest useful diff (one page or article + internal links + metadata)
