@@ -21,9 +21,12 @@ html.mv-normalize-scroll body {
 html.mv-home-mobile-pins .pin-spacer,
 html.mv-normalize-scroll .pin-spacer,
 html.mv-normalize-scroll .mv-house.mv-house--pin-js,
-html.mv-normalize-scroll .mv-land.mv-land--pin-js .mv-land__sticky {
+html.mv-normalize-scroll .mv-land.mv-land--pin-js {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+}
+html.mv-home-mobile-pins .mv-land.mv-land--pin-js .mv-land__sticky {
+  transform: translateZ(0);
 }
 html.mv-home-mobile-pins .mv-house.mv-house--pin-js .mv-house__stage {
   height: 100svh;
@@ -972,7 +975,10 @@ body[data-nav-home="true"] .nav__waitlist {
 }
 
 .mv-land.mv-land--pin-js {
-  height: 300vh;
+  height: auto;
+  min-height: 100svh;
+  overflow: hidden;
+  view-timeline-name: unset;
 }
 .mv-land.mv-land--pin-js .mv-land__title,
 .mv-land.mv-land--pin-js .mv-land__laws,
@@ -983,7 +989,12 @@ body[data-nav-home="true"] .nav__waitlist {
   position: relative;
   top: auto;
   height: 100svh;
+  min-height: 100svh;
   overflow: hidden;
+}
+.mv-land.mv-land--pin-js .mv-land__media img {
+  transform: none;
+  transform-origin: center center;
 }
 @media (min-width: 901px) {
   .mv-land.mv-land--pin-js .mv-land__copy {
@@ -1573,14 +1584,12 @@ body[data-nav-home="true"] .footer__legal a:hover { color: #fff; }
   .mv-house__display em { white-space: normal; }
 
   /* M04 landscape — GSAP ScrollTrigger pin when .mv-land--pin-js (see home.js) */
-  .mv-land.mv-land--pin-js {
-    overflow-x: clip;
-    view-timeline-name: unset;
-  }
   .mv-land.mv-land--pin-js .mv-land__sticky {
     position: relative;
     top: auto;
     height: 100svh;
+    min-height: 100svh;
+    width: 100%;
     overflow: hidden;
     isolation: isolate;
   }
@@ -1591,7 +1600,7 @@ body[data-nav-home="true"] .footer__legal a:hover { color: #fff; }
   }
   .mv-land.mv-land--pin-js .mv-land__media img {
     object-position: 42% 46%;
-    transform: none;
+    transform-origin: center center;
   }
   .mv-land.mv-land--pin-js .mv-land__grad {
     background: linear-gradient(180deg, rgba(8,14,10,0.5) 0%, rgba(8,14,10,0) 26%, rgba(8,14,10,0.2) 54%, rgba(8,14,10,0.86) 100%);
@@ -1620,6 +1629,8 @@ body[data-nav-home="true"] .footer__legal a:hover { color: #fff; }
     width: 100%;
     max-width: 100%;
     animation: none;
+    transition: none;
+    pointer-events: none;
   }
   .mv-land.mv-land--pin-js .mv-land__copy {
     top: calc(108px + env(safe-area-inset-top, 0px));
@@ -1755,26 +1766,26 @@ body[data-nav-home="true"] .footer__legal a:hover { color: #fff; }
 
 @supports not (animation-timeline: view()) {
   @media (max-width: 900px) {
-    .mv-land {
+    .mv-land:not(.mv-land--pin-js) {
       height: auto;
       min-height: 100vh;
       view-timeline-name: unset;
     }
-    .mv-land__sticky {
+    .mv-land:not(.mv-land--pin-js) .mv-land__sticky {
       position: relative;
       height: auto;
       min-height: 100vh;
     }
-    .mv-land__copy {
+    .mv-land:not(.mv-land--pin-js) .mv-land__copy {
       position: relative;
       bottom: auto;
       padding: clamp(72px, 14vh, 120px) var(--pad) clamp(48px, 10vh, 80px);
       display: grid;
       gap: clamp(20px, 4vh, 32px);
     }
-    .mv-land__title.is-1,
-    .mv-land__laws.is-2,
-    .mv-land__sign.is-3 {
+    .mv-land:not(.mv-land--pin-js) .mv-land__title.is-1,
+    .mv-land:not(.mv-land--pin-js) .mv-land__laws.is-2,
+    .mv-land:not(.mv-land--pin-js) .mv-land__sign.is-3 {
       position: static;
       opacity: 1;
       animation: none;

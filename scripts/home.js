@@ -26,8 +26,8 @@
     return window.innerHeight;
   }
 
-  function enableIOSScrollNormalize() {
-    if (!isIOS() || pinState.normalizer) return pinState.normalizer;
+  function enableMobileScrollNormalize() {
+    if (pinState.normalizer) return pinState.normalizer;
 
     pinState.normalizer = ScrollTrigger.normalizeScroll({
       allowNestedScroll: true,
@@ -38,16 +38,26 @@
     return pinState.normalizer;
   }
 
-  function disableIOSScrollNormalize() {
+  function disableMobileScrollNormalize() {
     ScrollTrigger.normalizeScroll(false);
     pinState.normalizer = null;
     document.documentElement.classList.remove('mv-normalize-scroll');
   }
 
-  function mobilePinOptions() {
+  function houseMobilePinOptions() {
     return {
       pinType: 'transform',
       pinReparent: isIOS(),
+      anticipatePin: 1,
+      scrub: true,
+      fastScrollEnd: true
+    };
+  }
+
+  function landMobilePinOptions() {
+    return {
+      pinType: 'transform',
+      pinReparent: false,
       anticipatePin: 1,
       scrub: true,
       fastScrollEnd: true
@@ -63,11 +73,8 @@
     return Math.round(viewportHeight() * (mobile ? 1.35 : 1.9));
   }
 
-  function landScrollDistance(land, mobile) {
-    if (mobile) {
-      return Math.round(viewportHeight() * 2);
-    }
-    return Math.max(land.offsetHeight - viewportHeight(), 0);
+  function landScrollDistance(mobile) {
+    return Math.round(viewportHeight() * (mobile ? 2.5 : 1));
   }
 
   function pinScrollEnd(getDistance) {
@@ -150,7 +157,7 @@
     };
 
     if (mobile) {
-      Object.assign(pinConfig, mobilePinOptions());
+      Object.assign(pinConfig, houseMobilePinOptions());
     } else {
       Object.assign(pinConfig, {
         pinType: 'fixed',
@@ -168,6 +175,62 @@
     var land = document.querySelector('.mv-land');
     if (!land) return null;
 
+    var sticky = land.querySelector('.mv-land__sticky');
+    var title = land.querySelector('.mv-land__title.is-1');
+    var laws = land.querySelector('.mv-land__laws.is-2');
+    var sign = land.querySelector('.mv-land__sign.is-3');
+    var mediaImg = land.querySelector('.mv-land__media img');
+    if (!sticky || !title || !laws || !sign) return null;
+
+    function revealAllLand() {
+      gsap.set([title, laws, sign], { opacity: 1, y: 0, force3D: true });
+      if (mediaImg) gsap.set(mediaImg, { scale: 1.08, force3D: true });
+    }
+
+    if (mobile) {
+      land.classList.add('mv-land--pin-js');
+      land.removeAttribute('data-phase');
+
+      gsap.set([title, laws, sign], { opacity: 0, y: 18, force3D: true });
+      gsap.set(title, { opacity: 1, y: 0, force3D: true });
+      if (mediaImg) gsap.set(mediaImg, { scale: 1.02, force3D: true });
+
+      var tl = gsap.timeline({ paused: true });
+
+      if (mediaImg) {
+        tl.to(mediaImg, { scale: 1.08, duration: 1, ease: 'none', force3D: true }, 0);
+      }
+
+      tl.to(title, { opacity: 1, y: 0, duration: 0.12, ease: 'none', force3D: true }, 0)
+        .to(title, { opacity: 0, y: -14, duration: 0.1, ease: 'none', force3D: true }, 0.26)
+        .to(laws, { opacity: 1, y: 0, duration: 0.12, ease: 'none', force3D: true }, 0.32)
+        .to(laws, { opacity: 0, y: -14, duration: 0.1, ease: 'none', force3D: true }, 0.58)
+        .to(sign, { opacity: 1, y: 0, duration: 0.12, ease: 'none', force3D: true }, 0.64);
+
+      var pinConfig = {
+        id: 'mv-land',
+        trigger: land,
+        start: 'top top',
+        end: pinScrollEnd(function () { return landScrollDistance(true); }),
+        pin: sticky,
+        pinSpacing: true,
+        animation: tl,
+        refreshPriority: 1,
+        invalidateOnRefresh: true,
+        onLeave: revealAllLand,
+        onLeaveBack: function () {
+          gsap.set([title, laws, sign], { opacity: 0, y: 18, force3D: true });
+          gsap.set(title, { opacity: 1, y: 0, force3D: true });
+          if (mediaImg) gsap.set(mediaImg, { scale: 1.02, force3D: true });
+        }
+      };
+
+      Object.assign(pinConfig, landMobilePinOptions());
+      return ScrollTrigger.create(pinConfig);
+    }
+
+    land.classList.add('mv-land--scroll-js');
+
     var lastPhase = -1;
     function setPhase(phase) {
       if (phase === lastPhase) return;
@@ -180,41 +243,11 @@
       setPhase(p >= 0.62 ? 2 : (p >= 0.32 ? 1 : 0));
     }
 
-    if (mobile) {
-      var sticky = land.querySelector('.mv-land__sticky');
-      if (!sticky) return null;
-
-      land.classList.add('mv-land--pin-js');
-      land.style.height = Math.round(viewportHeight() * 3) + 'px';
-
-      var pinConfig = {
-        id: 'mv-land',
-        trigger: land,
-        start: 'top top',
-        end: pinScrollEnd(function () { return landScrollDistance(land, true); }),
-        pin: sticky,
-        pinSpacing: true,
-        refreshPriority: 1,
-        invalidateOnRefresh: true,
-        onUpdate: function (self) {
-          applyProgress(self.progress);
-        }
-      };
-
-      Object.assign(pinConfig, mobilePinOptions());
-      var pinned = ScrollTrigger.create(pinConfig);
-
-      applyProgress(pinned.progress);
-      return pinned;
-    }
-
-    land.classList.add('mv-land--scroll-js');
-
     var st = ScrollTrigger.create({
       id: 'mv-land',
       trigger: land,
       start: 'top top',
-      end: pinScrollEnd(function () { return landScrollDistance(land, false); }),
+      end: pinScrollEnd(function () { return Math.max(land.offsetHeight - viewportHeight(), 0); }),
       scrub: true,
       invalidateOnRefresh: true,
       refreshPriority: 1,
@@ -229,8 +262,11 @@
 
   function runPinSetup(mobile) {
     var houseSt = initHouse(mobile);
+    ScrollTrigger.refresh(true);
+
     var landSt = initLand(mobile);
     refreshPins();
+
     return [houseSt, landSt].filter(Boolean);
   }
 
@@ -244,7 +280,6 @@
     });
     document.querySelectorAll('.mv-land--pin-js').forEach(function (el) {
       el.classList.remove('mv-land--pin-js');
-      el.style.removeProperty('height');
     });
     document.querySelectorAll('.mv-land--scroll-js').forEach(function (el) {
       el.classList.remove('mv-land--scroll-js');
@@ -293,7 +328,7 @@
 
       mm.add('(max-width: 900px)', function () {
         pinState.mobile = true;
-        enableIOSScrollNormalize();
+        enableMobileScrollNormalize();
         pinState.triggers = runPinSetup(true);
         document.documentElement.classList.add('mv-home-mobile-pins');
 
@@ -310,13 +345,13 @@
           document.documentElement.classList.remove('mv-home-mobile-pins');
           teardown(pinState.triggers);
           pinState.triggers = [];
-          disableIOSScrollNormalize();
+          disableMobileScrollNormalize();
         };
       });
 
       mm.add('(min-width: 901px)', function () {
         pinState.mobile = false;
-        disableIOSScrollNormalize();
+        disableMobileScrollNormalize();
         pinState.triggers = runPinSetup(false);
         return function () {
           teardown(pinState.triggers);
@@ -352,7 +387,7 @@
         ctx.revert();
         ctx = null;
         pinState.triggers = [];
-        disableIOSScrollNormalize();
+        disableMobileScrollNormalize();
       }
     });
   }
