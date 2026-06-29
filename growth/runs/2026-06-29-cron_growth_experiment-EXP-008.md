@@ -44,9 +44,9 @@ Compare `beles_cta_click` with labels `journal_*` → `restock_form_submitted` o
 
 `lock_status` cleared to `unlocked`; `active_experiment_id` null; `last_successful_loop` EXP-008.
 
-## 12:00Z cron re-verification
+## 12:30Z cron re-verification
 
-- Rebased `growth/internal_linking-exp-008-journal-beles-restock-links` onto `origin/main` (de93013)
-- `npm run growth:qa` — pass
-- Manual Bugbot checklist — zero block findings
-- Opening PR from canonical `growth/*` branch
+- Rebased `growth/internal_linking-exp-008-journal-beles-restock-links` onto latest `origin/main` (c714cf6)
+- `npm ci` + `npm run growth:qa` — pass
+- Manual Bugbot checklist — zero block findings (Bugbot MCP unavailable)
+- AI review artifact validated; opening PR from canonical `growth/*` branch

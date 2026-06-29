@@ -8,7 +8,7 @@
 
 ## Summary
 
-Strengthened journal → Beles → restock funnel: journal index boutique card now points to `/beles#waitlist` with analytics; `the-bottle` and `beles-batch-bl001` gained article-page restock CTAs; `fico-d-india` CTA received analytics label. No new claims, forbidden copy, or broken links. Rebased onto latest main (post EXP-005 merge); QA gates pass on 2026-06-29T12:00Z cron re-run.
+Strengthened journal → Beles → restock funnel: journal index boutique card now points to `/beles#waitlist` with analytics; `the-bottle` and `beles-batch-bl001` gained article-page restock CTAs; `fico-d-india` CTA received analytics label. No new claims, forbidden copy, or broken links. Rebased onto latest main (c714cf6); QA gates pass on 2026-06-29T12:30Z cron re-run.
 
 ## Findings
 
