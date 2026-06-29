@@ -1,47 +1,47 @@
 #!/usr/bin/env node
-/** Validate AI hard review artifact before keep/PR */
+/** Validate growth AI hard review artifact */
 import { readFileSync, existsSync } from 'fs';
 import { resolve } from 'path';
 
-const path = process.argv[2];
-if (!path) {
-  console.error('Usage: node scripts/growth/validate-ai-review.mjs <path-to-*-ai-review.md>');
+const fileArg = process.argv[2];
+if (!fileArg) {
+  console.error('Usage: npm run growth:validate-ai-review -- growth/runs/YYYY-MM-DD-<automation>-<EXP>-ai-review.md');
   process.exit(1);
 }
 
-const file = resolve(path);
+const file = resolve(process.cwd(), fileArg);
 if (!existsSync(file)) {
-  console.error(`Missing AI review artifact: ${file}`);
+  console.error(`Missing ai-review file: ${file}`);
   process.exit(1);
 }
 
-const text = readFileSync(file, 'utf8');
+const raw = readFileSync(file, 'utf8');
 const required = [
-  /^#\s+AI Hard Review/m,
-  /\*\*Verdict:\*\*\s*(pass_with_notes|pass|fail)/i,
-  /##\s+Findings/i,
-  /##\s+Checklist sign-off/i,
+  '# AI Hard Review',
+  '## QA baseline',
+  '## Bugbot findings',
+  '## Manual checks',
+  '## Decision',
 ];
 
-const missing = required.filter((re) => !re.test(text));
+const missing = required.filter((h) => !raw.includes(h));
 if (missing.length) {
-  console.error('AI review artifact missing required sections:', missing.length);
+  console.error('Invalid ai-review file — missing sections:', missing.join(', '));
   process.exit(1);
 }
 
-const verdictMatch = text.match(/\*\*Verdict:\*\*\s*(pass_with_notes|pass|fail)/i);
-const verdict = verdictMatch?.[1]?.toLowerCase();
-
-if (verdict === 'fail') {
-  console.error('AI review verdict is fail — fix blockers before ship');
+if (!/\*\*Decision\*\*\s*\n\s*pass/i.test(raw) && !/## Decision\s*\n\s*pass/i.test(raw)) {
+  console.error('ai-review Decision must be `pass` before keep');
   process.exit(1);
 }
 
-const openBlocks = [...text.matchAll(/\|\s*block\s*\|/gi)].length;
-const unresolvedBlock = /\|\s*block\s*\|[^|\n]*\|\s*open\s*\|/i.test(text);
-if (openBlocks > 0 && unresolvedBlock) {
-  console.error('AI review has unresolved block findings');
-  process.exit(1);
+if (/severity\s*\|\s*block/i.test(raw) && /\|\s*block\s*\|[^|]*\|\s*(?!fixed|resolved|n\/a)/i.test(raw)) {
+  const blockRows = raw.match(/\|\s*B\d+\s*\|\s*block\s*\|[^\n]+/gi) || [];
+  const unresolved = blockRows.filter((row) => !/fixed|resolved|n\/a/i.test(row));
+  if (unresolved.length) {
+    console.error('Unresolved block findings:', unresolved.join('; '));
+    process.exit(1);
+  }
 }
 
-console.log(`OK: AI hard review validated (${verdict}) — ${file}`);
+console.log(`OK: ai-review validated — ${fileArg}`);
