@@ -17,6 +17,11 @@
 - No checkout on site; restock list + email are conversion endpoints.
 - Appointments via `care@eillon.maison` mailto — no automated booking.
 
+## Conversion truths (2026-06-29)
+
+- Beles waitlist `.shop__cta-caption` was `display:none` on desktop — trust copy now in visible `.shop__form-trust` pre-form block (EXP-005).
+- Consent on Beles waitlist is self-contained (no "described above" dependency).
+
 ## Conversion truths (2026-06-28)
 
 - Waitlist API: `POST /api/waitlist` with UTM fields.
