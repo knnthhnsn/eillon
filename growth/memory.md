@@ -41,6 +41,12 @@
 - Pinterest/visual search loop undeveloped in repo (backlog EXP-009).
 - Campaign kits not yet in `/content/campaigns/`.
 
+## Social demand (2026-06-29)
+
+- First campaign kit shipped: `content/campaigns/2026-06-29-prickly-pear-not-candy.md` (EXP-006).
+- Angle: prickly pear as mineral/airy—not candy-sweet; dual funnel to Beles restock + The Letter.
+- UTM tracks: `prickly_pear_parfum` (Beles) and `the_letter` (about#letter).
+
 ## Technical architecture (2026-06-28)
 
 - Static HTML/CSS/JS; Vercel deploy; Neon DB for waitlist.
