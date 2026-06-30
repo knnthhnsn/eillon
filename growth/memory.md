@@ -73,3 +73,7 @@
 
 - Autonomy default L1–L2; no auto-merge.
 - Favicon switched to `images/favicon.jpeg` (ensure committed for prod).
+
+## Internal linking (2026-06-29)
+
+- EXP-008: All journal articles + index now route primary CTAs to `/beles#waitlist` with `beles_cta_click` analytics labels (`journal_*`). Cross-links connect Fico d'India cluster pages.

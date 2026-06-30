@@ -2831,6 +2831,32 @@
 .editorial-page .journal-shader-band--index .sx-manifesto--band .sx-manifesto__sign {
   color: #b8d4f0;
 }
+.editorial-page .journal-shader-band--index .journal-index__restock {
+  max-width: min(640px, 100%);
+  margin: 0 auto;
+  padding: 0 var(--pad) clamp(72px, 10vw, 120px);
+  background: transparent;
+  text-align: center;
+}
+.editorial-page .journal-shader-band--index .journal-index__restock .eyebrow {
+  color: rgba(248, 246, 240, 0.52);
+}
+.editorial-page .journal-shader-band--index .journal-index__restock p {
+  color: rgba(248, 246, 240, 0.68);
+}
+.editorial-page .journal-shader-band--index .journal-index__restock .btn--primary {
+  background: rgba(248, 246, 240, 0.92);
+  border-color: rgba(248, 246, 240, 0.92);
+  color: #060d14;
+}
+.editorial-page .journal-shader-band--index .journal-index__restock .btn--primary:hover {
+  background: #d8f0ff;
+  border-color: #d8f0ff;
+  color: #062840;
+}
+.editorial-page .journal-shader-band--index .journal-entry--boutique .journal-entry__body .sx-link + .sx-link {
+  margin-left: 0.35em;
+}
 @media (max-width: 1024px) {
   .editorial-page .journal-shader-band--index .journal-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
