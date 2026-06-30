@@ -73,3 +73,20 @@
 
 - Autonomy default L1–L2; no auto-merge.
 - Favicon switched to `images/favicon.jpeg` (ensure committed for prod).
+
+## Wins (2026-06-29)
+
+- **EXP-003–005 shipped on main:** `/prickly-pear-parfum`, smell-intent journal article, Beles restock trust microcopy.
+- **First L2b auto-merge:** PR #44 (EXP-005) squash-merged at `790ad6f` via `pr_growth_auto_merge` — AI hard review pass_with_notes, 0 blocks, CI green.
+- **Growth OS operational:** 10 Cursor automations verified in UI; AI hard review protocol + conditional auto-merge policy on main.
+- **Sitemap:** 19 public URLs (was 17 pre-EXP-003/004).
+- **Homepage perf:** Critical CSS, lazy letters bundle, CSS marquee, normalizeScroll + pin-chain fixes for mobile Maison/House sections.
+
+## Lessons (2026-06-29)
+
+- GSAP ScrollTrigger pins on homepage are fragile — mobile jitter required normalizeScroll, ordered init, and house→maison pin chaining; expect follow-up pin commits.
+- Lazy/deferred GSAP loading caused scroll jitter (restored eager load pattern).
+- Vercel deploy quota can block asset delivery — `home-scroll-pin` temporarily served from jsDelivr (`c714cf6`); revert when quota resets.
+- Python numpy in `build:letters` wax-seal step broke Vercel CI — split script fixed in `ea60689`.
+- Agent-Reach: Reddit authenticated as `eillonofficial`; Twitter CLI may need `configure --from-browser`.
+- `pr_growth_auto_merge` was last automation awaiting save in UI (per EXP-031 notes).
