@@ -6,7 +6,7 @@
 
 | Gate | Command | Status |
 |---|---|---|
-| Install | `npm ci \|\| npm install` | available |
+| Install | `npm ci \|\| npm install` | available (`growth:qa` runs `npm ci` if GSAP vendor deps missing) |
 | Build | `npm run build` | available |
 | Link verify | `npm run verify:links` | available |
 | Copy verify | `npm run verify:copy` | available |
@@ -23,11 +23,24 @@
 
 | Command | Purpose |
 |---|---|
-| `npm run growth:validate-ledger` | Validate `results.tsv` header and TSV rows |
+| `npm run growth:validate-ledger` | Validate `results.tsv` header, status enum, loop_type, score math |
+| `npm run growth:ledger-insights` | Summarize last N ledger rows (rework/blocked patterns) |
 | `npm run growth:state` | Print/validate `state.json` |
+| `npm run growth:precheck` | Exit non-zero if lock held, ≥3 open growth PRs, or branch is not valid `growth/*` (automation start gate) |
+| `npm run growth:validate-branch` | Validate current branch matches `growth/<loop>-exp-NNN-<slug>` or `growth/os-YYYY-MM-DD` |
+| `npm run growth:check-exp-shipped` | Exit non-zero if experiment_id already has a `keep` row in ledger |
+| `npm run growth:auto-merge-cap` | Exit non-zero if L2b rolling 7-day auto-merge cap reached |
 | `npm run growth:score` | Compute qualified_growth_score |
 | `npm run growth:next` | Select highest-priority backlog experiment |
 | `npm run growth:qa` | Run minimum keep gate for growth changes |
+
+## Ledger status rules
+
+Valid `results.tsv` status values: **`keep`**, **`rework`**, **`discard`**, **`blocked`** only.
+
+- Do **not** use `pending_registration`, `pending_review`, or registry states as ledger status
+- Track automation registration in `growth/automation-registry.md` (see EXP-031)
+- `keep` requires `qualified_growth_score >= 13` and `brand_risk_penalty <= 1` (enforced by validate-ledger)
 
 ## Minimum keep gate (code experiments)
 
