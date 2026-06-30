@@ -10,7 +10,7 @@
       el.defer = true;
       document.head.appendChild(el);
     };
-    appendScript('/scripts/analytics.js?v=1');
+    appendScript('/scripts/analytics.js?v=2');
     var loadShaders = function () {
       appendScript('/scripts/site-shaders.js?v=53');
     };
@@ -173,9 +173,9 @@
           <span>Fragrance care guide</span>
           <small>Apply, store, layer, and choose a scent</small>
         </a>
-        <a href="${sectionHref('#stockists')}" data-search-item data-search-keywords="stockist studio appointment copenhagen private visit store">
-          <span>Appointments</span>
-          <small>Copenhagen studio and stockists</small>
+        <a href="${sectionHref('#studio')}" data-search-item data-search-keywords="studio appointment copenhagen private visit">
+          <span>Copenhagen studio</span>
+          <small>Private visits by request</small>
         </a>
         <a href="/about" data-search-item data-search-keywords="about eillon maison story ethos copenhagen founder history origin">
           <span>About EILLON</span>

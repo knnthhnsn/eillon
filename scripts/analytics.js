@@ -60,8 +60,12 @@
     if (isLocal) {
       console.debug('[eillon analytics]', payload);
     }
-    if (typeof window.va === 'function') {
-      window.va('event', payload);
+    try {
+      if (typeof window.va === 'function') {
+        window.va('event', payload);
+      }
+    } catch {
+      // Vercel Analytics unavailable — fail silently.
     }
   };
 
@@ -103,12 +107,94 @@
         });
       }).observe({ type: 'layout-shift', buffered: true });
 
+      /* Custom proxy — not official INP (see docs/performance-stage-budget.md). */
       new PerformanceObserver((list) => {
-        list.getEntries().forEach((entry) => send('INP', entry.duration));
+        list.getEntries().forEach((entry) => {
+          send('interaction_event_duration', entry.duration);
+        });
       }).observe({ type: 'event', buffered: true, durationThreshold: 16 });
     } catch {
       // PerformanceObserver unavailable.
     }
+  };
+
+  const observeRestockAnchor = () => {
+    const target = document.getElementById('waitlist');
+    if (!target || getChapterFromPath() !== 'beles') return;
+    let seen = false;
+    const mark = (source) => {
+      if (seen) return;
+      seen = true;
+      track('restock_anchor_reached', { chapter: 'beles', source: source || 'scroll' });
+    };
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.2) {
+            mark(window.EILLON_RESTOCK_SOURCE || (window.location.hash === '#waitlist' ? 'direct_url' : 'scroll'));
+          }
+        });
+      },
+      { threshold: [0.2] },
+    );
+    io.observe(target);
+    if (window.location.hash === '#waitlist') {
+      requestAnimationFrame(() => mark('direct_url'));
+    }
+  };
+
+  const bindProofLinks = () => {
+    document.querySelectorAll('.proof-ledger__link, .proof-layer__links a[href]').forEach((link) => {
+      if (link.dataset.proofBound) return;
+      link.dataset.proofBound = '1';
+      link.addEventListener('click', () => {
+        track('proof_link_clicked', {
+          label: link.dataset.analyticsLabel || link.textContent.trim().slice(0, 80),
+          href: link.getAttribute('href'),
+          chapter: getChapterFromPath() || 'home',
+        });
+      });
+    });
+  };
+
+  const bindScentAtlas = () => {
+    document.querySelectorAll('.mv-atlas__panel a[href]').forEach((link) => {
+      if (link.dataset.atlasBound) return;
+      link.dataset.atlasBound = '1';
+      link.addEventListener('click', () => {
+        const name = link.querySelector('.mv-atlas__name')?.textContent?.trim();
+        track('scent_atlas_clicked', { label: name, href: link.getAttribute('href') });
+      });
+    });
+  };
+
+  const bindObjectDetails = () => {
+    document.querySelectorAll('.mv-object__detail').forEach((detail) => {
+      if (detail.dataset.objectBound) return;
+      detail.dataset.objectBound = '1';
+      const label = detail.querySelector('h3')?.textContent?.trim();
+      const focus = () => track('object_detail_focused', { label });
+      detail.addEventListener('focus', focus);
+      detail.addEventListener('click', focus);
+    });
+  };
+
+  const bindLetterArchive = () => {
+    const section = document.getElementById('letters');
+    if (!section || section.dataset.letterAnalytics) return;
+    section.dataset.letterAnalytics = '1';
+    const seenArchive = { value: false };
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting || entry.intersectionRatio < 0.25 || seenArchive.value) return;
+          seenArchive.value = true;
+          track('letter_archive_viewed', { scene: 'letters' });
+        });
+      },
+      { threshold: [0.25] },
+    );
+    io.observe(section);
   };
 
   document.addEventListener(
@@ -116,9 +202,14 @@
     (event) => {
       const target = event.target.closest('[data-analytics-event]');
       if (!target) return;
-      track(target.dataset.analyticsEvent, {
+      const props = {
         label: target.dataset.analyticsLabel || undefined,
-      });
+        scene: target.dataset.analyticsScene || undefined,
+      };
+      if (target.dataset.analyticsEvent === 'scene_nav_clicked') {
+        props.scene = target.dataset.analyticsScene || target.dataset.analyticsLabel;
+      }
+      track(target.dataset.analyticsEvent, props);
     },
     { capture: true },
   );
@@ -130,9 +221,21 @@
     if (chapter) track('chapter_view', { chapter });
     observeProofSections();
     observeWebVitals();
+    observeRestockAnchor();
+    bindProofLinks();
+    bindScentAtlas();
+    bindObjectDetails();
+    bindLetterArchive();
   };
 
-  window.EILLON_ANALYTICS = { track, getUtm, getContext };
+  window.EILLON_ANALYTICS = {
+    track,
+    getUtm,
+    getContext,
+    markRestockSource(source) {
+      window.EILLON_RESTOCK_SOURCE = source;
+    },
+  };
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);

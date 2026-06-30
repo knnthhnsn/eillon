@@ -332,6 +332,10 @@
       table.classList.add('has-open');
       wrap.classList.add('is-chosen');
 
+      if (window.EILLON_ANALYTICS?.track) {
+        window.EILLON_ANALYTICS.track('letter_opened', { letter_id: id, scene: 'letters' });
+      }
+
       readerFocus.innerHTML = buildOpenSheetHTML(letter, silhouette);
       var sheet = readerFocus.querySelector('.letter-sheet');
 
@@ -343,6 +347,7 @@
 
       if (prefersReduced()) {
         sheet.classList.add('is-arrived', 'is-flat', 'is-ink');
+        bindLetterReadDepth(sheet, id);
         return;
       }
 
@@ -350,14 +355,48 @@
         { at: 180, cls: 'is-arrived' },
         { at: 520, cls: 'is-flat' },
         { at: 680, cls: 'is-ink' },
-      ], function () {});
+      ], function () {
+        bindLetterReadDepth(sheet, id);
+      });
+    }
+
+    function bindLetterReadDepth(sheet, letterId) {
+      if (!sheet || sheet.dataset.readBound) return;
+      sheet.dataset.readBound = '1';
+      var depths = { half: false, full: false };
+      var onScroll = function () {
+        var max = sheet.scrollHeight - sheet.clientHeight;
+        if (max <= 0) {
+          if (!depths.full) {
+            depths.full = true;
+            window.EILLON_ANALYTICS?.track?.('letter_completed', { letter_id: letterId, scene: 'letters' });
+          }
+          return;
+        }
+        var ratio = sheet.scrollTop / max;
+        if (!depths.half && ratio >= 0.5) {
+          depths.half = true;
+          window.EILLON_ANALYTICS?.track?.('letter_read_depth', { letter_id: letterId, depth: 'half', scene: 'letters' });
+        }
+        if (!depths.full && ratio >= 0.92) {
+          depths.full = true;
+          window.EILLON_ANALYTICS?.track?.('letter_completed', { letter_id: letterId, scene: 'letters' });
+          sheet.removeEventListener('scroll', onScroll);
+        }
+      };
+      sheet.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
     }
 
     function closeLetter() {
       if (!reader || !openId) return;
+      var closingId = openId;
       var sheet = readerFocus.querySelector('.letter-sheet');
 
       function done() {
+        if (window.EILLON_ANALYTICS?.track) {
+          window.EILLON_ANALYTICS.track('letter_closed', { letter_id: closingId, scene: 'letters' });
+        }
         openId = null;
         if (clearOpen) clearOpen();
         reader.classList.remove('is-active');

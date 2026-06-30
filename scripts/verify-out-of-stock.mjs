@@ -41,6 +41,9 @@ if (ritual.includes('Notify when back') && !ritual.includes('Follow the study'))
 if (beles.includes('JOIN THE WAITLIST')) {
   failures.push('beles.html still has old waitlist marketing copy');
 }
+if (beles.includes('https://schema.org/PreOrder')) {
+  failures.push('beles.html Product JSON-LD must not use PreOrder — use OutOfStock or remove offers');
+}
 
 if (failures.length) {
   console.error(`\n✗ Product lifecycle labels NOT ready (git ${rev})\n`);

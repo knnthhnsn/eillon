@@ -965,6 +965,10 @@
     guideButtons.forEach((guide) => {
       guide.classList.toggle('is-active', guide.dataset.guideSize === size);
     });
+    const stickySizeEl = document.getElementById('belesStickySize');
+    if (stickySizeEl && sizeLabelMap[size]) {
+      stickySizeEl.textContent = `${sizeLabelMap[size]} · size interest`;
+    }
   };
 
   sizes.forEach((btn, index) => {
@@ -991,6 +995,35 @@
       match.focus();
     });
   });
+
+  const belesRestockSticky = document.getElementById('belesRestockSticky');
+  const belesProofLayer = document.getElementById('proof');
+  if (belesRestockSticky && belesProofLayer) {
+    const stickyMobileMq = window.matchMedia('(max-width: 900px)');
+    const syncSticky = (visible) => {
+      belesRestockSticky.hidden = !visible;
+      belesRestockSticky.classList.toggle('is-visible', visible);
+    };
+    const stickyObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (!stickyMobileMq.matches) {
+          syncSticky(false);
+          return;
+        }
+        syncSticky(!entry.isIntersecting);
+      },
+      { threshold: 0 },
+    );
+    stickyObserver.observe(belesProofLayer);
+    stickyMobileMq.addEventListener('change', () => {
+      if (!stickyMobileMq.matches) syncSticky(false);
+    });
+    belesRestockSticky.querySelector('[data-restock-source]')?.addEventListener('click', () => {
+      window.EILLON_ANALYTICS?.markRestockSource?.('sticky_card');
+    });
+    const stickySizeEl = document.getElementById('belesStickySize');
+    if (stickySizeEl) stickySizeEl.textContent = `${sizeLabelMap[selectedSize]} · size interest`;
+  }
 
   if (canHover.matches && shopImage) {
     shopImage.addEventListener('mouseenter', () => {
@@ -1136,7 +1169,7 @@
     if (statusEl) statusEl.textContent = message;
   };
 
-  const submitWaitlistSignup = async ({ email, source, size, product_slug, name }) => {
+  const submitWaitlistSignup = async ({ email, source, size, product_slug, name, consent_marketing }) => {
     const utm = window.EILLON_ANALYTICS?.getUtm?.() || {};
     const res = await fetch('/api/waitlist', {
       method: 'POST',
@@ -1150,13 +1183,20 @@
         utm_source: utm.utm_source || null,
         utm_medium: utm.utm_medium || null,
         utm_campaign: utm.utm_campaign || null,
-        consent_marketing: true,
+        consent_marketing: consent_marketing === true,
         consent_notice_version: CONSENT_NOTICE_VERSION,
       }),
     });
     const data = await res.json().catch(() => ({}));
     if (!res.ok) throw new Error(data.error || 'Signup failed');
     return data;
+  };
+
+  const formHasConsent = (form) => {
+    const scope = form.closest('.shop__info, .footer__news, .sx-letter, main, .editorial-page__main') || document;
+    if (scope.querySelector('.shop__waitlist-consent, .waitlist-consent')) return true;
+    if (form.closest('.footer__news')?.querySelector('.footer__promise')) return true;
+    return form.dataset.consentMarketing === 'true';
   };
 
   const setupWaitlistForm = (form) => {
@@ -1246,6 +1286,7 @@
           size,
           product_slug: productSlug,
           name,
+          consent_marketing: formHasConsent(form),
         });
         try {
           window.localStorage.setItem(storageKey, 'true');
@@ -1710,6 +1751,13 @@
     a.addEventListener('click', (e) => {
       const href = a.getAttribute('href');
       if (!href || !href.includes('#')) return;
+      if (href.includes('#waitlist')) {
+        const source = a.dataset.restockSource
+          || (a.closest('.scene-rail') ? 'scene_rail' : null)
+          || (a.closest('.mv-chapter') ? 'homepage_beles' : null)
+          || 'cta';
+        window.EILLON_ANALYTICS?.markRestockSource?.(source);
+      }
       if (href.startsWith('/') && !href.startsWith(window.location.pathname)) return;
       const hash = href.slice(href.indexOf('#'));
       if (hash.length < 2) return;

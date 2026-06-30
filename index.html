@@ -51,7 +51,7 @@
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&display=swap" /></noscript>
   <link rel="preload" href="styles.min.css?v=163" as="style" />
-  <link rel="preload" href="home.min.css?v=90" as="style" />
+  <link rel="preload" href="home.min.css?v=91" as="style" />
   <link rel="preload" as="image" href="images/cowboy-cowgirl-720.webp" type="image/webp" fetchpriority="high" media="(max-width: 900px)" />
   <link rel="preload" as="image" href="images/cowboy-cowgirl-1100.webp" type="image/webp" fetchpriority="high" media="(min-width: 901px)" />
 
@@ -162,7 +162,7 @@
     }
   </style>
   <link rel="stylesheet" href="styles.min.css?v=163" />
-  <link rel="stylesheet" href="home.min.css?v=90" />
+  <link rel="stylesheet" href="home.min.css?v=91" />
   <noscript><link rel="stylesheet" href="letters.min.css?v=23" /></noscript>
   <script type="application/ld+json">
     {
@@ -345,7 +345,7 @@
 
   <main id="top" class="home">
     <!-- ============ MOVEMENT 01 — THE THRESHOLD ============ -->
-    <section class="mv-hero" id="hero" aria-label="EILLON — Afro-Mediterranean memory perfumery">
+    <section class="mv-hero" id="hero" data-scene="threshold" aria-label="EILLON — Afro-Mediterranean memory perfumery">
       <div class="mv-hero__stage">
       <div class="mv-hero__media">
         <picture>
@@ -374,7 +374,7 @@
     </section>
 
     <!-- ============ MOVEMENT 02 — THE NAME ============ -->
-    <section class="mv-name" aria-label="The house">
+    <section class="mv-name" id="name" data-scene="name" aria-label="The house">
       <p class="mv-name__meta">The house between heat &amp; shadow</p>
       <h2 class="sr-only">EILLON</h2>
       <div class="mv-name__carousel" aria-hidden="true">
@@ -393,7 +393,7 @@
     </section>
 
     <!-- ============ MOVEMENT 03 — THE HOUSE OF MEMORY ============ -->
-    <section class="mv-house" id="maison" aria-label="The house of memory">
+    <section class="mv-house" id="maison" data-scene="memory" aria-label="The house of memory">
       <div class="mv-house__stage">
       <span class="mv-house__backdrop" aria-hidden="true"></span>
       <span class="mv-house__scrim" aria-hidden="true"></span>
@@ -414,7 +414,7 @@
     </section>
 
     <!-- ============ MOVEMENT 04 — MONUMENTAL INTIMACY ============ -->
-    <section class="mv-land" id="world" aria-label="The Maison — perfume from place, memory and skin" data-phase="0">
+    <section class="mv-land" id="world" data-scene="world" aria-label="The Maison — perfume from place, memory and skin" data-phase="0">
       <div class="mv-land__sticky">
         <div class="mv-land__media">
           <picture>
@@ -438,7 +438,7 @@
     </section>
 
     <!-- ============ MOVEMENT 05 — THE CURRENT CHAPTER ============ -->
-    <section class="mv-chapter" id="collection" aria-label="Beles · Fico d'India — the current chapter">
+    <section class="mv-chapter" id="collection" data-scene="beles" aria-label="Beles · Fico d'India — the current chapter">
       <p class="mv-chapter__num" aria-hidden="true">I</p>
       <div class="mv-chapter__grid">
         <figure class="mv-chapter__media" data-reveal="image">
@@ -469,7 +469,7 @@
     </section>
 
     <!-- ============ MOVEMENT 06 — THE SCENT ATLAS ============ -->
-    <section class="mv-atlas" id="palette" aria-label="The scent atlas">
+    <section class="mv-atlas" id="palette" data-scene="atlas" aria-label="The scent atlas">
       <header class="mv-atlas__head">
         <div>
           <p class="mv-eyebrow">The Scent Atlas</p>
@@ -523,7 +523,7 @@
     </section>
 
     <!-- ============ MOVEMENT 07 — THE OBJECT ============ -->
-    <section class="mv-object" id="craft" aria-label="The object">
+    <section class="mv-object" id="craft" data-scene="object" aria-label="The object">
       <header class="mv-object__head">
         <p class="mv-eyebrow">The Object</p>
         <h2 class="mv-object__title" data-reveal="words">A bottle cut from a <em>single block.</em></h2>
@@ -545,7 +545,7 @@
     </section>
 
     <!-- ============ MOVEMENT 08 — THE RITUAL & RETURN ============ -->
-    <section class="mv-ritual" id="wear" aria-label="The ritual of wear">
+    <section class="mv-ritual" id="wear" data-scene="wear" aria-label="The ritual of wear">
       <div class="mv-ritual__grid">
         <figure class="mv-ritual__media mv-ritual__media--duo" data-reveal="image">
           <picture class="mv-ritual__shot">
@@ -579,7 +579,7 @@
     </section>
 
     <!-- ============ MOVEMENT 10 — BEAUTIFUL LETTERS ============ -->
-    <section class="mv-letters" id="letters" aria-labelledby="letters-heading">
+    <section class="mv-letters" id="letters" data-scene="letters" aria-labelledby="letters-heading">
       <div class="mv-letters__inner">
         <header class="mv-letters__hub">
           <p class="mv-eyebrow">House Correspondence</p>
@@ -610,7 +610,7 @@
         </form>
         <p class="footer__promise">Seasonal letters only: studio notes, restock windows, and private appointment openings.</p>
         <p class="footer__status" id="newsletterStatus" aria-live="polite"></p>
-        <div class="footer__visit" id="studio" itemscope itemtype="https://schema.org/Place">
+        <div class="footer__visit" id="studio" data-scene="studio" itemscope itemtype="https://schema.org/Place">
           <span class="footer__visit-label">Copenhagen studio</span>
           <p itemprop="name">EILLON — 1050 Copenhagen, Denmark</p>
           <meta itemprop="latitude" content="55.6761" />
@@ -677,7 +677,8 @@
   <script src="script.min.js?v=91" defer></script>
   <script src="/scripts/vendor/gsap.min.js?v=1" defer></script>
   <script src="/scripts/vendor/ScrollTrigger.min.js?v=1" defer></script>
-  <script src="/scripts/home.js?v=49" defer></script>
+  <script src="/scripts/home.js?v=50" defer></script>
+  <script src="/scripts/scene-rail.js?v=1" defer></script>
   <script>
     (function () {
       var href = 'https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Inter:wght@300;400&family=La+Belle+Aurore&display=optional';

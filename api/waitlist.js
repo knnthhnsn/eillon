@@ -93,6 +93,13 @@ module.exports = async (req, res) => {
     return;
   }
 
+  const consentMarketing = payload.consent_marketing === true;
+  const consentRequired = new Set(['waitlist', 'newsletter', 'footer', 'store', 'product-card']);
+  if (consentRequired.has(source) && !consentMarketing) {
+    json(res, 400, { error: 'Explicit marketing consent required' });
+    return;
+  }
+
   try {
     await ensureTable();
     const signup = await upsertSignup({
@@ -102,8 +109,8 @@ module.exports = async (req, res) => {
       productSlug,
       name,
       utm,
-      consentMarketing: true,
-      consentNoticeVersion: CONSENT_NOTICE_VERSION,
+      consentMarketing,
+      consentNoticeVersion: payload.consent_notice_version || CONSENT_NOTICE_VERSION,
     });
     json(res, 200, { ok: true });
 

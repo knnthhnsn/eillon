@@ -37,7 +37,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=optional" rel="stylesheet" media="print" onload="this.media='all'" />
   <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=optional" rel="stylesheet" /></noscript>
   <link rel="stylesheet" href="styles.min.css?v=162" />
-  <link rel="stylesheet" href="/site.min.css?v=61" />
+  <link rel="stylesheet" href="/site.min.css?v=62" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -71,7 +71,7 @@
             "lowPrice": "28",
             "highPrice": "240",
             "offerCount": 3,
-            "availability": "https://schema.org/PreOrder",
+            "availability": "https://schema.org/OutOfStock",
             "url": "https://eillon.maison/beles#waitlist",
             "seller": { "@id": "https://eillon.maison/#organization" }
           },
@@ -162,13 +162,37 @@
           Bottles shown are studio-filled pilot flacons — not concept renders.
           Longevity figures below come from observed studio wear sessions (six wearers, eight-hour intervals); they describe our experience, not a universal guarantee.
         </p>
-        <ul class="proof-layer__links">
-          <li><a class="sx-link" href="/craftsmanship#safety">IFRA &amp; batch traceability <span aria-hidden="true">→</span></a></li>
-          <li><a class="sx-link" href="/journal/beles-batch-bl001">Batch BL-001 notes <span aria-hidden="true">→</span></a></li>
-          <li><a class="sx-link" href="/about#people">Studio authorship <span aria-hidden="true">→</span></a></li>
-        </ul>
+        <nav class="proof-ledger" aria-label="Studio provenance trail">
+          <p class="proof-ledger__heading"><span class="proof-ledger__seal" aria-hidden="true">E</span> House file · provenance index</p>
+          <ol class="proof-ledger__trail">
+            <li class="proof-ledger__stop">
+              <span class="proof-ledger__index" aria-hidden="true">I</span>
+              <span class="proof-ledger__coord">55.676° N · Safety &amp; IFRA</span>
+              <a class="proof-ledger__link" href="/craftsmanship#safety" data-analytics-label="ifra_safety">IFRA &amp; batch traceability <span aria-hidden="true">→</span></a>
+            </li>
+            <li class="proof-ledger__stop">
+              <span class="proof-ledger__index" aria-hidden="true">II</span>
+              <span class="proof-ledger__coord">BL-001 · March 2025</span>
+              <a class="proof-ledger__link" href="/journal/beles-batch-bl001" data-analytics-label="batch_bl001">Batch BL-001 notes <span aria-hidden="true">→</span></a>
+            </li>
+            <li class="proof-ledger__stop">
+              <span class="proof-ledger__index" aria-hidden="true">III</span>
+              <span class="proof-ledger__coord">Studio · Copenhagen</span>
+              <a class="proof-ledger__link" href="/about#people" data-analytics-label="studio_authorship">Studio authorship <span aria-hidden="true">→</span></a>
+            </li>
+          </ol>
+        </nav>
       </div>
     </section>
+    <aside class="beles-restock-sticky" id="belesRestockSticky" aria-label="Beles restock interest" hidden>
+      <div class="beles-restock-sticky__inner">
+        <div class="beles-restock-sticky__copy">
+          <span class="beles-restock-sticky__status">Awaiting next release</span>
+          <span class="beles-restock-sticky__size" id="belesStickySize" aria-live="polite">100 ml · size interest</span>
+        </div>
+        <a class="beles-restock-sticky__cta" href="#waitlist" data-restock-source="sticky_card">Join restock list</a>
+      </div>
+    </aside>
     <section class="shop shop--beles" id="waitlist">
       <div class="shop__grid">
         <div class="shop__visual-column">
