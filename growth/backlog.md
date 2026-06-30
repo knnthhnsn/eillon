@@ -18,7 +18,7 @@
 | EXP-011 | FAQ schema expansion on wear.html | technical_seo | 3 | 4 | 4 | 4 | 0 | 64 | backlog |
 | EXP-012 | Homepage hero CTA A/B copy variant (draft) | conversion_copy | 3 | 2 | 4 | 4 | 1 | 24 | backlog |
 | EXP-013 | "Oil-rich parfum explained" journal piece | seo_content | 4 | 4 | 4 | 5 | 0 | 160 | backlog |
-| EXP-014 | Beles size selector UX clarity | conversion_copy | 3 | 3 | 4 | 5 | 0 | 60 | backlog |
+| EXP-014 | Beles size selector UX clarity | conversion_copy | 3 | 3 | 4 | 5 | 0 | 60 | done |
 | EXP-015 | Store card mini-waitlist CTA copy test | conversion_copy | 3 | 3 | 4 | 4 | 0 | 48 | backlog |
 | EXP-016 | Sitemap lastmod automation on content change | technical_seo | 2 | 5 | 5 | 3 | 0 | 50 | backlog |
 | EXP-017 | OG image set for journal articles | technical_seo | 3 | 4 | 4 | 4 | 0 | 64 | backlog |
