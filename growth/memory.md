@@ -73,3 +73,25 @@
 
 - Autonomy default L1–L2; no auto-merge.
 - Favicon switched to `images/favicon.jpeg` (ensure committed for prod).
+
+## Shipped on main (2026-06-29 digest)
+
+- **EXP-003** `/prickly-pear-parfum` — prickly pear discovery landing with FAQ schema.
+- **EXP-004** `/journal/what-does-fico-d-india-smell-like` — smell-intent journal article.
+- **EXP-005** Beles `#waitlist` trust microcopy (one email, no charge, privacy) — first L2b auto-merge (PR #44).
+- **EXP-031** Ten growth automations verified in Cursor UI; `pr_growth_auto_merge` may still need save.
+- Sitemap: **19 URLs** (added prickly-pear landing + smell article).
+
+## Wins (2026-06-29)
+
+- L2b conditional auto-merge proven on EXP-005 — CI + AI hard review + zero blocks required.
+- Growth OS fully scaffolded: rules, prompts, registry, AI hard review protocol, Agent-Reach sync.
+- SEO cluster started: prickly pear landing + Fico d'India smell article live on main.
+
+## Lessons (2026-06-29)
+
+- **Always digest from `origin/main`**, not stale local `main` (local was 10 commits behind at run time).
+- **GSAP scroll pins:** eager script load + ordered init + `normalizeScroll` for iOS; defer letters bundle for Lighthouse.
+- **Vercel deploy quota** can block prod; jsDelivr CDN pin for scroll script is valid hotfix until deploy succeeds.
+- **Baseline drifts quickly** after SEO ships — sitemap count and route table need digest sync.
+- Monitor Beles `restock_form_started` → `restock_form_submitted` over 14d post EXP-005.
