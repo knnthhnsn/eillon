@@ -63,6 +63,11 @@
 - Lazy GSAP loading caused mobile scroll jitter (fixed by restoring defer script tags).
 - Vercel build failed when Python numpy required in `build:letters` (fixed: split wax-seal script).
 
+## Internal linking (2026-06-29)
+
+- EXP-008 shipped Journal → Beles → restock links on index + all four articles; `beles_cta_click` labels differentiate source (`journal_index_*`, `journal_*_article`).
+- Next highest backlog priority: EXP-007 (newsletter distinct analytics events).
+
 ## Automation lessons (2026-06-28)
 
 - Cannot mark Cursor Automations "active" without user registration in Automations editor.
