@@ -6,7 +6,7 @@
 
 | Gate | Command | Status |
 |---|---|---|
-| Install | `npm ci \|\| npm install` | available |
+| Install | `npm ci \|\| npm install` | available (`growth:qa` runs `npm ci` if GSAP vendor deps missing) |
 | Build | `npm run build` | available |
 | Link verify | `npm run verify:links` | available |
 | Copy verify | `npm run verify:copy` | available |
@@ -23,11 +23,27 @@
 
 | Command | Purpose |
 |---|---|
-| `npm run growth:validate-ledger` | Validate `results.tsv` header and TSV rows |
+| `npm run growth:validate-ledger` | Validate `results.tsv` header, status enum, loop_type, score math |
+| `npm run growth:validate-backlog` | Validate `backlog.md` loop_type column matches program.md allowlist |
+| `npm run growth:ledger-insights` | Summarize last N ledger rows (rework/blocked patterns) |
 | `npm run growth:state` | Print/validate `state.json` |
+| `npm run growth:precheck` | Exit non-zero if lock held, ≥3 open growth PRs, or branch is `cursor/*` / invalid (automation start gate) |
+| `npm run growth:lock-check` | Exit non-zero if lock held only (review/digest automations) |
+| `npm run growth:auto-merge-cap` | Exit non-zero if L2b rolling 7-day auto-merge cap reached |
 | `npm run growth:score` | Compute qualified_growth_score |
 | `npm run growth:next` | Select highest-priority backlog experiment |
+| `npm run growth:check-exp-shipped` | Exit non-zero if EXP already has content keep row in ledger |
+| `npm run growth:validate-branch-name` | Enforce `growth/<loop>-exp-NNN-<slug>` or `growth/os-YYYY-MM-DD`; reject `cursor/*` |
 | `npm run growth:qa` | Run minimum keep gate for growth changes |
+
+## Ledger status rules
+
+Valid `results.tsv` status values: **`keep`**, **`rework`**, **`discard`**, **`blocked`** only.
+
+- Do **not** use `pending_registration`, `pending_review`, or registry states as ledger status
+- Track automation registration in `growth/automation-registry.md` (see EXP-031)
+- Backlog `loop` column must match `program.md` loop_type values — enforced by `npm run growth:validate-backlog` (EXP-026 had invalid `objection_to_trust`)
+- `keep` requires `qualified_growth_score >= 13` and `brand_risk_penalty <= 1` (enforced by validate-ledger)
 
 ## Minimum keep gate (code experiments)
 

@@ -31,7 +31,7 @@ Read, write, grep, shell (`npm run growth:*` only)
 
 ## Steps
 
-1. Check `growth/state.json` lock — exit if locked
+1. Run `npm run growth:precheck` — exit if lock held or ≥3 open growth PRs
 2. Read `growth/baseline.md`, `growth/insights.md`, `market-research/beles-demand-sprint.md`
 3. If Agent-Reach MCP available: one demand cluster research → cite in `research-sources.md` format
 4. Update `growth/insights.md` with dated snapshot

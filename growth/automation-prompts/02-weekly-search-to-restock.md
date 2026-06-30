@@ -13,7 +13,9 @@ Run **one** SEO/content/landing experiment aimed at Beles restock signup (loop: 
 
 ## Branch policy
 
-- Branch: `growth/search-<EXP-ID>-<slug>` via `npm run growth:branch search EXP-003 slug`
+- Branch: `growth/<loop>-exp-<EXP-ID>-<slug>` via `npm run growth:branch <loop> <EXP-ID> <slug>`
+- **Never** push to `cursor/*` — bypasses PR cap and causes duplicate parallel PRs (see remote EXP-006/008 clusters)
+- Before PR: `npm run growth:validate-branch-name -- --current`
 - One PR max; skip if open PR exists for loop_type search_to_restock
 - Never auto-merge
 
@@ -27,7 +29,7 @@ Run **one** SEO/content/landing experiment aimed at Beles restock signup (loop: 
 
 ## Steps
 
-1. Lock state.json; check open growth PR count ≤ 3
+1. Run `npm run growth:precheck`; then set `state.json` lock_status to `locked` for this run
 2. Pick highest-priority search experiment from backlog (default EXP-003)
 3. Write hypothesis per program.md
 4. Smallest useful diff (one page or article + internal links + metadata)

@@ -11,6 +11,15 @@ You are a Cursor Cloud Agent operating inside the EILLON repository. Before doin
 
 Create **one** social/referral campaign pack driving to The Letter or Beles discovery (loop: social_to_letter).
 
+## Steps
+
+1. Run `npm run growth:precheck` — exit if lock held or ≥3 open growth PRs
+2. Pick one backlog social experiment (e.g. EXP-006, EXP-009, EXP-034)
+3. Run `npm run growth:check-exp-shipped -- <EXP-ID>` — exit if already shipped
+4. Hypothesis + campaign doc on branch from `npm run growth:branch social_distribution <EXP-ID> <slug>`
+5. Brand safety scan; AI hard review before PR
+6. Ledger row + run log
+
 ## Output
 
 - `content/campaigns/YYYY-MM-DD-<slug>.md` containing:
@@ -19,11 +28,10 @@ Create **one** social/referral campaign pack driving to The Letter or Beles disc
   - UTM plan per `growth/utm-system.md`
   - Landing destination URL
   - Optional shot list (no fake founder voice)
-- Ledger row + run log
 
 ## Branch policy
 
-`growth/social-<EXP-ID>-<slug>` if HTML landing tweaks needed; else commit campaign doc on branch
+`growth/<loop>-exp-<EXP-ID>-<slug>` via `npm run growth:branch` — **never** `cursor/*`
 
 ## Forbidden
 
