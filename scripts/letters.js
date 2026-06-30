@@ -13,6 +13,7 @@
     { silhouette: 'postal', tx: -214, ty: 80, rot: -5.2, z: 4, s: 1.02 },
     { silhouette: 'bifold', tx: 174, ty: 148, rot: 6.8, z: 2, s: 0.97 },
     { silhouette: 'curl', tx: -12, ty: 204, rot: -2.6, z: 6, s: 1.04 },
+    { silhouette: 'envelope', tx: 320, ty: 188, rot: 4.2, z: 1, s: 0.95 },
   ];
 
   var MOBILE_PLACES = [
@@ -22,9 +23,23 @@
     { silhouette: 'postal', tx: 14, ty: 504, rot: 2.8, z: 4, s: 0.97 },
     { silhouette: 'bifold', tx: -20, ty: 672, rot: -2, z: 5, s: 1 },
     { silhouette: 'curl', tx: 16, ty: 840, rot: 1.6, z: 6, s: 0.99 },
+    { silhouette: 'postal', tx: -8, ty: 1008, rot: -1.4, z: 7, s: 0.98 },
   ];
 
   function prefersReduced() { return reduceMq.matches; }
+
+  function runStages(root, stages, onDone) {
+    var timers = [];
+    var t = 0;
+    stages.forEach(function (stage) {
+      t += stage.at;
+      timers.push(setTimeout(function () {
+        if (stage.cls) root.classList.add(stage.cls);
+      }, t));
+    });
+    timers.push(setTimeout(onDone, t + (stages[stages.length - 1].hold || 500)));
+    return function clear() { timers.forEach(clearTimeout); };
+  }
 
   function shuffleArray(list) {
     var arr = list.slice();
@@ -222,6 +237,53 @@
     }
   }
 
+  function buildActionsHTML(letter) {
+    var actions = letter.actions;
+    if (!actions || !actions.length) return '';
+    var items = actions.map(function (action) {
+      var kind = action.kind || 'chapter';
+      return (
+        '<a class="letter-sheet__action letter-sheet__action--' + kind + '" href="' + action.href + '" data-letter-action="' + kind + '">' +
+          '<span class="letter-sheet__action-mark" aria-hidden="true"></span>' +
+          '<span class="letter-sheet__action-label">' + scriptLine(action.label) + '</span>' +
+        '</a>'
+      );
+    }).join('');
+    return '<nav class="letter-sheet__actions" aria-label="Letter actions">' + items + '</nav>';
+  }
+
+  function bindLetterActions(sheet, letter) {
+    if (!sheet || !letter.actions || !letter.actions.length) return;
+    sheet.querySelectorAll('.letter-sheet__action[href]').forEach(function (link) {
+      if (link.dataset.actionBound) return;
+      link.dataset.actionBound = '1';
+      link.addEventListener('click', function () {
+        var href = link.getAttribute('href') || '';
+        var kind = link.dataset.letterAction || 'chapter';
+        var labelEl = link.querySelector('.letter-sheet__action-label');
+        var label = (labelEl && labelEl.textContent ? labelEl.textContent.trim() : '') || link.textContent.trim();
+        if (window.EILLON_ANALYTICS?.track) {
+          window.EILLON_ANALYTICS.track('letter_action_clicked', {
+            letter_id: letter.id,
+            action_label: label,
+            action_kind: kind,
+            href: href,
+            source: 'letter_archive',
+          });
+          if (href.indexOf('/beles') !== -1) {
+            window.EILLON_ANALYTICS.track('archive_to_beles_click', {
+              letter_id: letter.id,
+              action_label: label,
+              action_kind: kind,
+              href: href,
+              source: 'letter_archive',
+            });
+          }
+        }
+      });
+    });
+  }
+
   function buildOpenSheetHTML(letter, silhouette) {
     var format = letter.format || 'archive';
     return (
@@ -240,6 +302,7 @@
             '<p class="letter-sheet__salute">' + scriptLine(letter.salute || coverFragment(letter)) + '</p>' +
             '<p class="letter-sheet__message" id="letterReaderTitle">' + formatMessage(letter.body || letter.excerpt) + '</p>' +
             '<p class="letter-sheet__sign">' + scriptLine(letter.sign || letter.title || 'Eillon') + '</p>' +
+            buildActionsHTML(letter) +
           '</div>' +
           '<span class="letter-sheet__monogram" aria-hidden="true">E</span>' +
         '</div>' +
@@ -348,16 +411,24 @@
       if (prefersReduced()) {
         sheet.classList.add('is-arrived', 'is-flat', 'is-ink');
         bindLetterReadDepth(sheet, id);
+        bindLetterActions(sheet, letter);
         return;
       }
 
-      clearOpen = runStages(sheet, [
-        { at: 180, cls: 'is-arrived' },
-        { at: 520, cls: 'is-flat' },
-        { at: 680, cls: 'is-ink' },
-      ], function () {
+      try {
+        clearOpen = runStages(sheet, [
+          { at: 180, cls: 'is-arrived' },
+          { at: 520, cls: 'is-flat' },
+          { at: 680, cls: 'is-ink' },
+        ], function () {
+          bindLetterReadDepth(sheet, id);
+          bindLetterActions(sheet, letter);
+        });
+      } catch (err) {
+        sheet.classList.add('is-arrived', 'is-flat', 'is-ink');
         bindLetterReadDepth(sheet, id);
-      });
+        bindLetterActions(sheet, letter);
+      }
     }
 
     function bindLetterReadDepth(sheet, letterId) {

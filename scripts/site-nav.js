@@ -12,7 +12,7 @@
     };
     appendScript('/scripts/analytics.js?v=2');
     var loadShaders = function () {
-      appendScript('/scripts/site-shaders.js?v=53');
+      appendScript('/scripts/site-shaders.js?v=55');
     };
     var shaderTargets = document.querySelectorAll('.mv-shader, .mv-house, .mv-land, .mv-shader-band');
     if (document.body.dataset.navHome === 'true' && shaderTargets.length && 'IntersectionObserver' in window) {

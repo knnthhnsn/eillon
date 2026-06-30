@@ -205,9 +205,11 @@
       const props = {
         label: target.dataset.analyticsLabel || undefined,
         scene: target.dataset.analyticsScene || undefined,
+        source: target.dataset.analyticsSource || undefined,
       };
       if (target.dataset.analyticsEvent === 'scene_nav_clicked') {
         props.scene = target.dataset.analyticsScene || target.dataset.analyticsLabel;
+        props.source = target.dataset.analyticsSource || 'scene_rail';
       }
       track(target.dataset.analyticsEvent, props);
     },

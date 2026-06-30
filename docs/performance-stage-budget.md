@@ -55,6 +55,30 @@ npm run test:visual
 
 Writes PNGs to `artifacts/screenshots/current/` (gitignored). Review diffs manually after cinematic or layout changes.
 
+**Browser requirement:** Playwright uses `playwright-core` with your local Chrome/Chromium binary.
+
+- Set `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` to a full path to `chrome` or `chromium` (recommended in CI).
+- Or set `CHROME_PATH` as a fallback if the primary env var is unset.
+- If neither is set, the script tries Playwright’s `channel: 'chrome'` (Google Chrome installed on the machine).
+
+If no browser is found, the script exits with: *Install Chrome or set PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH.*
+
+Do not require `test:visual` in CI unless the runner has Chrome available.
+
+## Scene Rail + Letters budget
+
+| Concern | Budget |
+|---|---|
+| **Scene Rail LCP** | Rail init via `requestIdleCallback` — must not block LCP or hero paint |
+| **Letter open CLS** | Action row reserved with `min-height`; actions fade in with ink stage — no layout shift on open |
+| **Letter open long tasks** | Opening animation stages should stay under 200ms per task; defer action binding until ink stage |
+| **Reduced motion** | Letters skip staged motion; actions render immediately when `prefers-reduced-motion` |
+| **Letters bundle** | `data/letters.js` + `letters.js` remain lazy-loaded near `#letters` via `home.js` |
+
+Scene rail nav clicks fire once via delegated `data-analytics-event` (with `source: scene_rail`). Letter archive actions track `letter_action_clicked` and `archive_to_beles_click` without PII.
+
+Visual capture includes `homepage-letters-beles-dispatch-open.png` when the Beles Dispatch letter is present.
+
 ## File ownership
 
 | Concern | Primary files |

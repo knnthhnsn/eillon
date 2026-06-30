@@ -30,7 +30,7 @@
   }
 
   function navOffset() {
-    var nav = document.querySelector('.site-nav');
+    var nav = document.querySelector('#nav, .nav, .site-nav, [data-site-nav]');
     return (nav ? nav.offsetHeight : 56) + 12;
   }
 
@@ -62,6 +62,7 @@
       btn.dataset.analyticsEvent = 'scene_nav_clicked';
       btn.dataset.analyticsScene = scene.id;
       btn.dataset.analyticsLabel = scene.label;
+      btn.dataset.analyticsSource = 'scene_rail';
       btn.setAttribute('aria-label', 'Go to ' + scene.label);
       btn.innerHTML =
         '<span class="scene-rail__roman" aria-hidden="true">' + scene.short + '</span>' +

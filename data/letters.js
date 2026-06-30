@@ -180,6 +180,43 @@ window.EILLON_LETTERS = [
 
     excerpt: 'A letter about the ritual of opening, reading, and keeping.'
 
+  },
+
+  {
+
+    id: 'beles-dispatch',
+
+    role: 'proof',
+
+    format: 'proof',
+
+    coverTitle: 'Beles dispatch',
+
+    coverFragment: 'Filed after BL-001',
+
+    mark: 'House Archive · VII',
+
+    dateline: 'Filed after BL-001',
+
+    heading: 'Beles Dispatch',
+
+    salute: 'The first chapter has moved from memory into matter.',
+
+    body:
+
+      'Beles · Fico d\'India — the house\'s first chapter — now exists as a filed record, not a promise in prose.\n\nBatch BL-001 holds the locked pilot formula: twenty-four pilot flacons at 100 ml, compounded and documented in the archive as a house file. It is proof of work, not a banner.\n\nThis dispatch follows that file. Beles awaits its next release window; when the maison opens a door, a letter arrives before the public hour.\n\nRead BL-001 as correspondence. Follow Beles if you wish to hear when the chapter speaks again.',
+
+    sign: 'Eillon Hansen',
+    seal: 'logo',
+
+    actions: [
+      { label: 'Read BL-001', href: '/journal/beles-batch-bl001', kind: 'proof' },
+      { label: 'Open Beles', href: '/beles', kind: 'chapter' },
+      { label: 'Join restock list', href: '/beles#waitlist', kind: 'restock' },
+    ],
+
+    excerpt: 'A dispatch from the first Beles house file.'
+
   }
 
 ];

@@ -4,7 +4,13 @@
  * Saves to artifacts/screenshots/current/ (gitignored).
  *
  * Usage: npm run test:visual
- * Requires Google Chrome or Chromium (PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH).
+ *
+ * Browser resolution (first match wins):
+ *   1. PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH — full path to Chrome/Chromium
+ *   2. CHROME_PATH — fallback executable path
+ *   3. Playwright channel "chrome" (requires Google Chrome installed)
+ *
+ * If no browser is found: "Install Chrome or set PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH."
  */
 import { spawn } from 'node:child_process';
 import { mkdir, writeFile } from 'node:fs/promises';
@@ -16,6 +22,29 @@ const root = fileURLToPath(new URL('..', import.meta.url));
 const PORT = Number(process.env.PORT || 8766);
 const BASE = `http://127.0.0.1:${PORT}`;
 const OUT = join(root, 'artifacts', 'screenshots', 'current');
+
+function resolveBrowserExecutable() {
+  return process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH || process.env.CHROME_PATH || null;
+}
+
+async function launchBrowser() {
+  const executablePath = resolveBrowserExecutable();
+  const launchOpts = { headless: true };
+  if (executablePath) {
+    launchOpts.executablePath = executablePath;
+  } else {
+    launchOpts.channel = 'chrome';
+  }
+  try {
+    return await chromium.launch(launchOpts);
+  } catch (err) {
+    console.error('Install Chrome or set PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH.');
+    if (!executablePath) {
+      console.error('Optional: set CHROME_PATH to a Chromium/Chrome executable.');
+    }
+    throw err;
+  }
+}
 
 function wait(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -51,14 +80,7 @@ const captured = [];
 try {
   await waitForServer(`${BASE}/`);
 
-  const launchOpts = { headless: true };
-  if (process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH) {
-    launchOpts.executablePath = process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH;
-  } else {
-    launchOpts.channel = 'chrome';
-  }
-
-  const browser = await chromium.launch(launchOpts);
+  const browser = await launchBrowser();
   const context = await browser.newContext({ reducedMotion: 'reduce' });
   const desktop = await context.newPage();
   const mobile = await context.newPage();
@@ -116,6 +138,27 @@ try {
       } catch (err) {
         console.warn('  (skipped homepage-letters-open:', err.message + ')');
       }
+    }
+
+    const dispatchOpened = await desktop.evaluate(async () => {
+      if (!window.EILLON_LETTERS) {
+        await new Promise((resolve, reject) => {
+          const s = document.createElement('script');
+          s.src = '/data/letters.js?v=13';
+          s.onload = resolve;
+          s.onerror = reject;
+          document.head.appendChild(s);
+        });
+      }
+      const btn = document.querySelector('.correspondence[data-letter-id="beles-dispatch"]');
+      if (!btn) return false;
+      btn.click();
+      return true;
+    });
+    if (dispatchOpened) {
+      await wait(1400);
+      captured.push(await snap(desktop, 'homepage-letters-beles-dispatch-open', { fullPage: false }));
+      await desktop.locator('.letter-reader__close').click({ force: true, timeout: 5000 }).catch(() => {});
     }
   }
 

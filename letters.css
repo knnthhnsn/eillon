@@ -814,10 +814,80 @@
   transition: opacity 0.95s var(--ease-grace) 0.35s;
 }
 .letter-sheet__sign::before { content: "— "; opacity: 0.5; }
+
+.letter-sheet__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 12px;
+  margin: clamp(18px, 2.8vw, 28px) 0 0;
+  padding-top: clamp(14px, 2vw, 20px);
+  border-top: 1px solid rgba(42, 38, 32, 0.1);
+  min-height: 44px;
+  opacity: 0;
+  transition: opacity 0.95s var(--ease-grace) 0.45s;
+}
+
+.letter-sheet__action {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px 8px 10px;
+  border: 1px solid rgba(154, 123, 79, 0.28);
+  border-radius: 2px;
+  background:
+    linear-gradient(165deg, rgba(255, 252, 246, 0.92) 0%, rgba(244, 236, 224, 0.88) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    0 1px 0 rgba(42, 38, 32, 0.06);
+  font-family: var(--letter-caption);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: rgba(42, 38, 32, 0.78);
+  transition: transform 0.35s var(--ease-grace), border-color 0.35s var(--ease-grace), box-shadow 0.35s var(--ease-grace);
+}
+
+.letter-sheet__action-mark {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid rgba(154, 123, 79, 0.35);
+  background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.7), rgba(196, 164, 138, 0.35));
+  flex-shrink: 0;
+}
+
+.letter-sheet__action--proof .letter-sheet__action-mark {
+  border-radius: 1px;
+  transform: rotate(45deg);
+  background: rgba(120, 92, 58, 0.18);
+}
+
+.letter-sheet__action--chapter .letter-sheet__action-mark {
+  background: radial-gradient(circle at 40% 35%, rgba(255, 248, 238, 0.9), rgba(154, 123, 79, 0.42));
+}
+
+.letter-sheet__action--restock .letter-sheet__action-mark {
+  border-radius: 2px;
+  background:
+    repeating-linear-gradient(-32deg, rgba(154, 123, 79, 0.22) 0 2px, rgba(255, 252, 246, 0.5) 2px 4px);
+}
+
+.letter-sheet__action:hover,
+.letter-sheet__action:focus-visible {
+  transform: translateY(-1px);
+  border-color: rgba(154, 123, 79, 0.48);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.65),
+    0 3px 10px rgba(42, 38, 32, 0.08);
+  outline: none;
+}
+
 .letter-sheet.is-ink .letter-sheet__heading,
 .letter-sheet.is-ink .letter-sheet__salute,
 .letter-sheet.is-ink .letter-sheet__message,
-.letter-sheet.is-ink .letter-sheet__sign { opacity: 1; }
+.letter-sheet.is-ink .letter-sheet__sign,
+.letter-sheet.is-ink .letter-sheet__actions { opacity: 1; }
 
 .letter-sheet__monogram {
   position: absolute;
