@@ -73,3 +73,26 @@
 
 - Autonomy default L1–L2; no auto-merge.
 - Favicon switched to `images/favicon.jpeg` (ensure committed for prod).
+
+## Main branch digest (2026-06-29)
+
+**Ref:** `origin/main` @ `c714cf6` · 74 commits in 7-day window
+
+### Wins
+
+- **Growth OS live:** `/growth/` scaffold, 10 Cursor automations registered (EXP-031), AI hard review protocol, L2b conditional auto-merge policy.
+- **SEO cluster shipped:** `/prickly-pear-parfum` (EXP-003), `/journal/what-does-fico-d-india-smell-like` (EXP-004); sitemap now 19 URLs.
+- **Conversion copy shipped:** Beles restock trust microcopy block (EXP-005) — first L2b auto-merge via PR #44 @ `790ad6f`.
+- **Homepage perf:** critical CSS, deferred letters bundle, CSS marquee, page-loader removal; ongoing GSAP pin stabilization for iOS Safari.
+
+### Lessons
+
+- Digest **`origin/main`**, not local `main` — local can lag by 10+ commits.
+- **GSAP ScrollTrigger pins:** eager script load, ordered init with measured scroll positions, chain Maison pin to house pin end, `normalizeScroll` for iOS; lazy GSAP caused mobile jitter (restored defer/eager balance).
+- **Vercel deploy quota** can block production deploys; jsDelivr CDN for `home-scroll-pins.js` is a valid interim hotfix (`c714cf6`).
+- **CI build:** skip Python wax-seal step when numpy unavailable; split wax-seal from main build path.
+- **Monitor:** EXP-003/004 GSC indexing 14–28d; EXP-005 `restock_form_started` → `submitted` on `/beles` 14d.
+
+### Next focus
+
+EXP-008 (journal → Beles internal links), EXP-007 (newsletter analytics events), EXP-010 (Copenhagen appointment).
