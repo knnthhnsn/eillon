@@ -237,15 +237,6 @@
     }
   }
 
-  function ensureSheetInk(sheet, letter, letterId) {
-    window.setTimeout(function () {
-      if (!sheet || !sheet.isConnected || sheet.classList.contains('is-ink')) return;
-      sheet.classList.add('is-arrived', 'is-flat', 'is-ink');
-      bindLetterReadDepth(sheet, letterId);
-      bindLetterActions(sheet, letter);
-    }, 1500);
-  }
-
   function buildActionsHTML(letter) {
     var actions = letter.actions;
     if (!actions || !actions.length) return '';
@@ -394,6 +385,43 @@
       return null;
     }
 
+    function bindLetterReadDepth(sheet, letterId) {
+      if (!sheet || sheet.dataset.readBound) return;
+      sheet.dataset.readBound = '1';
+      var depths = { half: false, full: false };
+      var onScroll = function () {
+        var max = sheet.scrollHeight - sheet.clientHeight;
+        if (max <= 0) {
+          if (!depths.full) {
+            depths.full = true;
+            window.EILLON_ANALYTICS?.track?.('letter_completed', { letter_id: letterId, scene: 'letters' });
+          }
+          return;
+        }
+        var ratio = sheet.scrollTop / max;
+        if (!depths.half && ratio >= 0.5) {
+          depths.half = true;
+          window.EILLON_ANALYTICS?.track?.('letter_read_depth', { letter_id: letterId, depth: 'half', scene: 'letters' });
+        }
+        if (!depths.full && ratio >= 0.92) {
+          depths.full = true;
+          window.EILLON_ANALYTICS?.track?.('letter_completed', { letter_id: letterId, scene: 'letters' });
+          sheet.removeEventListener('scroll', onScroll);
+        }
+      };
+      sheet.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    }
+
+    function ensureSheetInk(sheet, letter, letterId) {
+      window.setTimeout(function () {
+        if (!sheet || !sheet.isConnected || sheet.classList.contains('is-ink')) return;
+        sheet.classList.add('is-arrived', 'is-flat', 'is-ink');
+        bindLetterReadDepth(sheet, letterId);
+        bindLetterActions(sheet, letter);
+      }, 1500);
+    }
+
     function openLetter(id, btn, wrap) {
       var letter = findLetter(id);
       if (!letter || !reader || !readerFocus || openId) return;
@@ -439,34 +467,6 @@
         bindLetterActions(sheet, letter);
       }
       ensureSheetInk(sheet, letter, id);
-    }
-
-    function bindLetterReadDepth(sheet, letterId) {
-      if (!sheet || sheet.dataset.readBound) return;
-      sheet.dataset.readBound = '1';
-      var depths = { half: false, full: false };
-      var onScroll = function () {
-        var max = sheet.scrollHeight - sheet.clientHeight;
-        if (max <= 0) {
-          if (!depths.full) {
-            depths.full = true;
-            window.EILLON_ANALYTICS?.track?.('letter_completed', { letter_id: letterId, scene: 'letters' });
-          }
-          return;
-        }
-        var ratio = sheet.scrollTop / max;
-        if (!depths.half && ratio >= 0.5) {
-          depths.half = true;
-          window.EILLON_ANALYTICS?.track?.('letter_read_depth', { letter_id: letterId, depth: 'half', scene: 'letters' });
-        }
-        if (!depths.full && ratio >= 0.92) {
-          depths.full = true;
-          window.EILLON_ANALYTICS?.track?.('letter_completed', { letter_id: letterId, scene: 'letters' });
-          sheet.removeEventListener('scroll', onScroll);
-        }
-      };
-      sheet.addEventListener('scroll', onScroll, { passive: true });
-      onScroll();
     }
 
     function closeLetter() {
