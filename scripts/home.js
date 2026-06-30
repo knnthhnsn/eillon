@@ -498,14 +498,20 @@
   if (!section) return;
 
   var loaded = false;
-  var cssHref = 'letters.min.css?v=24';
-  var scriptQueue = ['data/letters.js?v=13', '/scripts/letters.js?v=17'];
+  var cssHref = 'letters.min.css?v=25';
+  var scriptQueue = ['data/letters.js?v=14', '/scripts/letters.js?v=18'];
 
   function loadScripts(index) {
     if (index >= scriptQueue.length) return;
     var script = document.createElement('script');
     script.src = scriptQueue[index];
     script.onload = function () { loadScripts(index + 1); };
+    script.onerror = function () {
+      if (typeof console !== 'undefined') {
+        console.warn('[eillon letters] failed to load', scriptQueue[index]);
+      }
+      loadScripts(index + 1);
+    };
     document.body.appendChild(script);
   }
 

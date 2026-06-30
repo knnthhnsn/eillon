@@ -21,6 +21,9 @@ if (hasDataAnalytics && hasManualSceneTrack) {
 }
 
 const letters = read('scripts/letters.js');
+if (!/function runStages/.test(letters)) {
+  failures.push('scripts/letters.js: missing runStages (opened letters stay invisible without is-ink)');
+}
 if (!/letter_action_clicked/.test(letters)) {
   failures.push('scripts/letters.js: missing letter_action_clicked tracking');
 }

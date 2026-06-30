@@ -237,6 +237,15 @@
     }
   }
 
+  function ensureSheetInk(sheet, letter, letterId) {
+    window.setTimeout(function () {
+      if (!sheet || !sheet.isConnected || sheet.classList.contains('is-ink')) return;
+      sheet.classList.add('is-arrived', 'is-flat', 'is-ink');
+      bindLetterReadDepth(sheet, letterId);
+      bindLetterActions(sheet, letter);
+    }, 1500);
+  }
+
   function buildActionsHTML(letter) {
     var actions = letter.actions;
     if (!actions || !actions.length) return '';
@@ -429,6 +438,7 @@
         bindLetterReadDepth(sheet, id);
         bindLetterActions(sheet, letter);
       }
+      ensureSheetInk(sheet, letter, id);
     }
 
     function bindLetterReadDepth(sheet, letterId) {

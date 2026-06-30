@@ -889,6 +889,19 @@
 .letter-sheet.is-ink .letter-sheet__sign,
 .letter-sheet.is-ink .letter-sheet__actions { opacity: 1; }
 
+@media (prefers-reduced-motion: no-preference) {
+  .letter-reader.is-active .letter-sheet:not(.is-closing) .letter-sheet__heading,
+  .letter-reader.is-active .letter-sheet:not(.is-closing) .letter-sheet__salute,
+  .letter-reader.is-active .letter-sheet:not(.is-closing) .letter-sheet__message,
+  .letter-reader.is-active .letter-sheet:not(.is-closing) .letter-sheet__sign,
+  .letter-reader.is-active .letter-sheet:not(.is-closing) .letter-sheet__actions {
+    animation: letter-sheet-ink-fallback 0.01s linear 1.45s forwards;
+  }
+}
+@keyframes letter-sheet-ink-fallback {
+  to { opacity: 1; }
+}
+
 .letter-sheet__monogram {
   position: absolute;
   right: clamp(20px, 3vw, 28px);
