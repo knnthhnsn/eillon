@@ -21,7 +21,7 @@
 | EXP-014 | Beles size selector UX clarity | conversion_copy | 3 | 3 | 4 | 5 | 0 | 60 | backlog |
 | EXP-015 | Store card mini-waitlist CTA copy test | conversion_copy | 3 | 3 | 4 | 4 | 0 | 48 | backlog |
 | EXP-016 | Sitemap lastmod automation on content change | technical_seo | 2 | 5 | 5 | 3 | 0 | 50 | backlog |
-| EXP-017 | OG image set for journal articles | technical_seo | 3 | 4 | 4 | 4 | 0 | 64 | backlog |
+| EXP-017 | OG image set for journal articles | technical_seo | 3 | 4 | 4 | 4 | 0 | 64 | done |
 | EXP-018 | llms.txt update for Beles keywords | technical_seo | 2 | 4 | 5 | 4 | 0 | 40 | backlog |
 | EXP-019 | Shipping page → Beles restock link | internal_linking | 3 | 4 | 5 | 4 | 0 | 80 | backlog |
 | EXP-020 | Craftsmanship proof → Beles CTA | internal_linking | 3 | 4 | 4 | 5 | 0 | 60 | backlog |
