@@ -30,11 +30,18 @@
 - Objections to address: too sweet?, how close does it wear?, sample first?, genderless?, longevity claims (avoid guarantees).
 - Source: `market-research/beles-demand-sprint.md`, backlog research tasks.
 
+## Search demand (2026-06-29)
+
+- `/journal/what-is-oil-rich-parfum` oil-rich parfum explainer shipped (EXP-013, weekly_search_to_restock).
+- Sitemap 20 URLs.
+
 ## Search demand (2026-06-28)
 
 - Journal article `/journal/fico-d-india` exists — extend cluster.
 - `/journal/what-does-fico-d-india-smell-like` smell-intent article shipped (EXP-004, 2026-06-29).
-- Sitemap 19 URLs.
+- `/journal/what-is-oil-rich-parfum` oil-rich parfum article shipped (EXP-013, 2026-06-29).
+- EXP-008 (2026-06-29): journal → Beles restock links + analytics on all journal CTAs.
+- Sitemap 20 URLs.
 
 ## Social demand (2026-06-28)
 
