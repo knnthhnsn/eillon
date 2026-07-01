@@ -1,0 +1,104 @@
+name: Release production
+
+# Authoritative manual release gate — run after merge to main or to verify alias parity.
+on:
+  workflow_dispatch:
+    inputs:
+      deploy_with_vercel_cli:
+        description: Deploy with Vercel CLI before verification
+        type: boolean
+        default: false
+      expected_sha:
+        description: Expected commit SHA (defaults to workflow SHA)
+        type: string
+        required: false
+      verify_only:
+        description: Verify only — skip Vercel deploy even if deploy_with_vercel_cli is true
+        type: boolean
+        default: true
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      EXPECT_COMMIT_SHA: ${{ inputs.expected_sha || github.sha }}
+      VERIFY_PRODUCTION: 'true'
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - run: npm ci || npm install
+      - run: npm run build
+
+      - name: Deploy with Vercel CLI
+        if: inputs.deploy_with_vercel_cli == true && inputs.verify_only != true
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: |
+          if [ -z "$VERCEL_TOKEN" ] || [ -z "$VERCEL_ORG_ID" ] || [ -z "$VERCEL_PROJECT_ID" ]; then
+            echo "VERCEL_TOKEN, VERCEL_ORG_ID, and VERCEL_PROJECT_ID are required for CLI deploy."
+            exit 1
+          fi
+          npx vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
+          DEPLOY_URL=$(npx vercel deploy --prod --token="$VERCEL_TOKEN" | tail -n 1)
+          echo "DEPLOY_URL=$DEPLOY_URL" >> "$GITHUB_ENV"
+          echo "Deployed to $DEPLOY_URL"
+
+      - name: Wait for deploy manifest
+        if: env.DEPLOY_URL != ''
+        env:
+          EILLON_ORIGIN: ${{ env.DEPLOY_URL }}
+        run: node scripts/wait-for-production-manifest.mjs
+
+      - name: Verify deploy URL parity
+        if: env.DEPLOY_URL != ''
+        env:
+          EILLON_ORIGIN: ${{ env.DEPLOY_URL }}
+          PARITY_OUT: deploy-url
+        run: npm run verify:production
+
+      - name: Verify production alias parity
+        if: env.DEPLOY_URL != ''
+        env:
+          EILLON_ORIGIN: https://eillon.maison
+          COMPARE_DEPLOY_ORIGIN: ${{ env.DEPLOY_URL }}
+          PARITY_OUT: production-alias
+        run: npm run verify:production
+
+      - name: Verify production alias (no deploy URL compare)
+        if: env.DEPLOY_URL == ''
+        env:
+          EILLON_ORIGIN: https://eillon.maison
+          PARITY_OUT: production-alias
+        run: npm run verify:production
+
+      - name: Verify cache headers on production alias
+        env:
+          EILLON_ORIGIN: https://eillon.maison
+        run: npm run verify:cache
+
+      - name: Publish latest parity report
+        if: always()
+        run: |
+          if [ -f artifacts/parity/production-alias.json ]; then
+            cp artifacts/parity/production-alias.json artifacts/parity/latest.json
+            cp artifacts/parity/production-alias.md artifacts/parity/latest.md
+          elif [ -f artifacts/parity/deploy-url.json ]; then
+            cp artifacts/parity/deploy-url.json artifacts/parity/latest.json
+            cp artifacts/parity/deploy-url.md artifacts/parity/latest.md
+          fi
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: release-parity-${{ github.run_id }}
+          path: |
+            artifacts/parity/*.json
+            artifacts/parity/*.md
+          retention-days: 30

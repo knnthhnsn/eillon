@@ -162,11 +162,19 @@ try {
   ]);
 
   await page.waitForSelector('#waitlist', { timeout: 10000, state: 'visible' });
+  await page.waitForFunction(() => typeof window.EILLON_ANALYTICS?.track === 'function', { timeout: 20000 });
   await page.evaluate(() => {
     const el = document.getElementById('waitlist');
     if (el) el.scrollIntoView({ behavior: 'instant', block: 'center' });
   });
-  await wait(1200);
+
+  const anchorDeadline = Date.now() + 5000;
+  while (Date.now() < anchorDeadline) {
+    const timeline = await readTimeline(page);
+    if (timeline.some((e) => e.kind === 'event' && e.name === 'restock_anchor_reached')) break;
+    await wait(200);
+  }
+  await wait(300);
 
   result.finalUrl = page.url();
 

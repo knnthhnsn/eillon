@@ -70,6 +70,12 @@
         '<span class="scene-rail__tick" aria-hidden="true"></span>';
       btn.addEventListener('click', function () {
         scrollToScene(scene.id);
+        if (mobileMq.matches && rail) {
+          rail.classList.remove('scene-rail--open');
+          rail.classList.add('scene-rail--collapsed');
+          var toggleBtn = rail.querySelector('.scene-rail__toggle');
+          if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
+        }
       });
       li.appendChild(btn);
       list.appendChild(li);
@@ -77,6 +83,30 @@
     });
 
     inner.appendChild(list);
+
+    var toggle = document.createElement('button');
+    toggle.type = 'button';
+    toggle.className = 'scene-rail__toggle';
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-controls', 'sceneRailList');
+    toggle.innerHTML =
+      '<span class="scene-rail__toggle-mark" aria-hidden="true"></span>' +
+      '<span class="scene-rail__toggle-copy">' +
+        '<span class="scene-rail__toggle-scene">Program</span>' +
+        '<span class="scene-rail__toggle-hint">House scenes</span>' +
+      '</span>' +
+      '<span class="scene-rail__toggle-chevron" aria-hidden="true"></span>';
+    toggle.addEventListener('click', function (event) {
+      event.stopPropagation();
+      if (!mobileMq.matches) return;
+      var open = !rail.classList.contains('scene-rail--open');
+      rail.classList.toggle('scene-rail--open', open);
+      rail.classList.toggle('scene-rail--collapsed', !open);
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    list.id = 'sceneRailList';
+    inner.insertBefore(toggle, list);
+
     nav.appendChild(inner);
     document.body.appendChild(nav);
     rail = nav;
@@ -89,13 +119,23 @@
   function setActive(id) {
     if (activeId === id) return;
     activeId = id;
+    var activeEntry = null;
     buttons.forEach(function (entry) {
       var on = entry.scene.id === id;
       entry.btn.classList.toggle('is-active', on);
       entry.btn.setAttribute('aria-current', on ? 'true' : 'false');
+      if (on) activeEntry = entry;
     });
     if (rail) {
       rail.dataset.activeScene = id || '';
+      var toggleScene = rail.querySelector('.scene-rail__toggle-scene');
+      var toggleMark = rail.querySelector('.scene-rail__toggle-mark');
+      if (activeEntry && toggleScene) {
+        toggleScene.textContent = activeEntry.scene.short + ' · ' + activeEntry.scene.label;
+      }
+      if (activeEntry && toggleMark) {
+        toggleMark.textContent = activeEntry.scene.short;
+      }
     }
   }
 
@@ -167,9 +207,28 @@
     }
 
     mobileMq.addEventListener('change', function () {
-      rail?.classList.toggle('scene-rail--mobile', mobileMq.matches);
+      var isMobile = mobileMq.matches;
+      rail?.classList.toggle('scene-rail--mobile', isMobile);
+      if (isMobile) {
+        rail?.classList.add('scene-rail--collapsed');
+        rail?.classList.remove('scene-rail--open');
+        rail?.querySelector('.scene-rail__toggle')?.setAttribute('aria-expanded', 'false');
+      } else {
+        rail?.classList.remove('scene-rail--collapsed', 'scene-rail--open');
+      }
     });
     rail?.classList.toggle('scene-rail--mobile', mobileMq.matches);
+    if (mobileMq.matches) {
+      rail?.classList.add('scene-rail--collapsed');
+    }
+
+    document.addEventListener('click', function (event) {
+      if (!mobileMq.matches || !rail?.classList.contains('scene-rail--open')) return;
+      if (rail.contains(event.target)) return;
+      rail.classList.remove('scene-rail--open');
+      rail.classList.add('scene-rail--collapsed');
+      rail.querySelector('.scene-rail__toggle')?.setAttribute('aria-expanded', 'false');
+    });
   }
 
   if ('requestIdleCallback' in window) {

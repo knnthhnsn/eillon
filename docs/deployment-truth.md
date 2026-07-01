@@ -19,6 +19,26 @@ With expected commit (GitHub Actions / manual):
 EXPECT_COMMIT_SHA=<full-or-short-sha> VERIFY_PRODUCTION=true npm run verify:production
 ```
 
+### Deployment URL mode
+
+Verify a specific Vercel deployment **before** the production alias catches up:
+
+```bash
+EILLON_ORIGIN=https://<deployment-url>.vercel.app EXPECT_COMMIT_SHA=<sha> VERIFY_PRODUCTION=true npm run verify:production
+```
+
+Compare deploy URL (current) against production alias (may be stale):
+
+```bash
+EILLON_ORIGIN=https://eillon.maison COMPARE_DEPLOY_ORIGIN=https://<deployment-url>.vercel.app EXPECT_COMMIT_SHA=<sha> VERIFY_PRODUCTION=true PARITY_OUT=production-alias npm run verify:production
+```
+
+Wait for manifest propagation:
+
+```bash
+EILLON_ORIGIN=https://eillon.maison EXPECT_COMMIT_SHA=<sha> npm run wait:manifest
+```
+
 If Vercel propagation is slow:
 
 ```bash
@@ -57,11 +77,13 @@ Generated at **build/deploy time only** — not committed to git.
 - Live: `https://eillon.maison/build-manifest.json`
 - Parity compares live manifest to repo **source files** (`index.html`, `scripts/home.js`, `data/letters.js`), not a committed manifest artifact.
 
-## GitHub Action
+## GitHub Actions
 
 `.github/workflows/production-parity.yml` — manual (`workflow_dispatch`) or daily schedule.
 
-Run this workflow **after** Vercel reports a successful production deploy. It uploads parity artifacts but does not block PR CI.
+`.github/workflows/release-production.yml` — **authoritative manual release gate**. Run after Vercel reports a successful production deploy. Fails if production alias remains stale. Uploads `artifacts/parity/*.json` and `*.md`.
+
+Run scheduled parity **after** deploy; it uploads artifacts but does not block PR CI.
 
 ## Optional visual check
 

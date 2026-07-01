@@ -29,8 +29,33 @@ Intended measurement path from homepage archive to Beles restock interest. Use t
 
 ## Collector notes
 
-- **PostHog:** Enable optional bridge in `scripts/analytics.js` — set `window.EILLON_ANALYTICS_CONFIG = { posthogBridge: true }` when PostHog is loaded. Bridge is **off by default**. PII fields are stripped before `posthog.capture`.
-- **Vercel Analytics:** Events flow through `window.va('event', payload)` via `scripts/analytics.js`. Mirror the same taxonomy before relying on PostHog funnels, or export VA data into your dashboard tool.
+### PostHog bridge (optional, off by default)
+
+Enable only when PostHog is already loaded on the page:
+
+```html
+<script>
+  window.EILLON_ANALYTICS_CONFIG = { posthogBridge: true };
+</script>
+```
+
+**Requirements:**
+- `window.posthog` must be loaded **before** bridge events matter (bridge forwards on each `track()` call).
+- Bridge is **disabled by default** in `scripts/analytics.js` (`posthogBridge: false`).
+
+**Privacy:**
+- PII fields (`email`, `name`, `phone`, etc.) are stripped in `sanitizeBridgeProps` before `posthog.capture`.
+- Only events in `POSTHOG_BRIDGE_EVENTS` whitelist are forwarded.
+
+**Verification:**
+
+```bash
+npm run verify:posthog-bridge
+```
+
+### Vercel Analytics
+
+Events flow through `window.va('event', payload)` via `scripts/analytics.js`. Mirror the same taxonomy before relying on PostHog funnels, or export VA data into your dashboard tool.
 
 See also [`docs/deployment-truth.md`](deployment-truth.md) for post-deploy verification.
 

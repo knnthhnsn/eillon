@@ -1,7 +1,7 @@
 (() => {
   'use strict';
 
-  const UTM_KEY = 'eillon_utm';
+  const RESTOCK_SOURCE_KEY = 'eillon_restock_source';
   const UTM_PARAMS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
   const CHAPTER_PATHS = new Set(['beles', 'asmara', 'massawa', 'ritual']);
 
@@ -166,6 +166,15 @@
     }
   };
 
+  const getRestockSource = () => {
+    if (window.EILLON_RESTOCK_SOURCE) return window.EILLON_RESTOCK_SOURCE;
+    try {
+      return sessionStorage.getItem(RESTOCK_SOURCE_KEY) || null;
+    } catch {
+      return null;
+    }
+  };
+
   const observeRestockAnchor = () => {
     const target = document.getElementById('waitlist');
     if (!target || getChapterFromPath() !== 'beles') return;
@@ -173,13 +182,16 @@
     const mark = (source) => {
       if (seen) return;
       seen = true;
-      track('restock_anchor_reached', { chapter: 'beles', source: source || 'scroll' });
+      track('restock_anchor_reached', {
+        chapter: 'beles',
+        source: source || getRestockSource() || 'scroll',
+      });
     };
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting && entry.intersectionRatio >= 0.2) {
-            mark(window.EILLON_RESTOCK_SOURCE || (window.location.hash === '#waitlist' ? 'direct_url' : 'scroll'));
+            mark(getRestockSource() || 'scroll');
           }
         });
       },
@@ -187,7 +199,7 @@
     );
     io.observe(target);
     if (window.location.hash === '#waitlist') {
-      requestAnimationFrame(() => mark('direct_url'));
+      requestAnimationFrame(() => mark(getRestockSource() || 'direct_url'));
     }
   };
 
@@ -284,6 +296,11 @@
     getContext,
     markRestockSource(source) {
       window.EILLON_RESTOCK_SOURCE = source;
+      try {
+        sessionStorage.setItem(RESTOCK_SOURCE_KEY, source);
+      } catch {
+        // sessionStorage unavailable.
+      }
     },
   };
 

@@ -1,24 +1,23 @@
 #!/usr/bin/env node
 /**
- * Compare live https://eillon.maison against repo lifecycle + asset expectations.
+ * Production parity — compare live origin against repo lifecycle + asset expectations.
  *
  * Usage:
- *   npm run verify:production
  *   VERIFY_PRODUCTION=true npm run verify:production
- *   EXPECT_COMMIT_SHA=<sha> VERIFY_PRODUCTION=true npm run verify:production
- *   VERIFY_PRODUCTION_RETRY=true npm run verify:production
- *
- * build-manifest.json is generated at deploy — not read from the repo as source truth.
+ *   EILLON_ORIGIN=https://deployment.vercel.app EXPECT_COMMIT_SHA=<sha> VERIFY_PRODUCTION=true npm run verify:production
+ *   PARITY_OUT=deploy-url EILLON_ORIGIN=... VERIFY_PRODUCTION=true node scripts/verify-production-parity.mjs
  */
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
-const ORIGIN = process.env.EILLON_ORIGIN || 'https://eillon.maison';
+const ORIGIN = (process.env.EILLON_ORIGIN || 'https://eillon.maison').replace(/\/$/, '');
+const COMPARE_DEPLOY_ORIGIN = process.env.COMPARE_DEPLOY_ORIGIN?.replace(/\/$/, '') || null;
 const OUT_DIR = join(root, 'artifacts', 'parity');
-const OUT_JSON = join(OUT_DIR, 'latest.json');
-const OUT_MD = join(OUT_DIR, 'latest.md');
+const OUT_BASENAME = process.env.PARITY_OUT || 'latest';
+const OUT_JSON = join(OUT_DIR, `${OUT_BASENAME}.json`);
+const OUT_MD = join(OUT_DIR, `${OUT_BASENAME}.md`);
 const strict = process.env.VERIFY_PRODUCTION === 'true' || process.argv.includes('--required');
 const maxAttempts = process.env.VERIFY_PRODUCTION_RETRY === 'true' ? 5 : 1;
 const retryDelayMs = Number(process.env.VERIFY_PRODUCTION_RETRY_DELAY_MS || 25000);
@@ -66,6 +65,13 @@ function wait(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+function shaMatches(expected, live) {
+  if (!expected || !live) return true;
+  const e = expected.trim();
+  const l = live.trim();
+  return l === e || l.startsWith(e.slice(0, 7)) || e.startsWith(l.slice(0, 7));
+}
+
 async function fetchText(origin, path, audit) {
   const url = `${origin}${path}${path.includes('?') ? '&' : '?'}audit=${audit}`;
   const res = await fetch(url, {
@@ -78,6 +84,48 @@ async function fetchText(origin, path, audit) {
   return { url, body: await res.text() };
 }
 
+function checkRootLifecycle(html, routeLabel) {
+  const failures = [];
+  const notes = [];
+  const found = [];
+  const awaiting = /Awaiting next release/i.test(html);
+  const staleBeles = html.includes('<p class="mv-chapter__status">Out of stock</p>');
+  const sixLetters = /six letters folded/i.test(html);
+  const houseLetters = /house letters folded/i.test(html);
+
+  found.push(marker(awaiting, 'awaiting_next_release'));
+  found.push(marker(!staleBeles, 'beles_status_not_out_of_stock'));
+  found.push(marker(!sixLetters, 'archive_not_six_letters'));
+  found.push(marker(houseLetters, 'numberless_archive_copy'));
+
+  if (!awaiting) {
+    failures.push(`${routeLabel}: missing "Awaiting next release"`);
+    notes.push('Missing Awaiting next release');
+  }
+  if (staleBeles) {
+    failures.push(`${routeLabel}: Beles status still "Out of stock"`);
+    notes.push('Found <p class="mv-chapter__status">Out of stock</p>');
+  }
+  if (sixLetters) {
+    failures.push(`${routeLabel}: still says "six letters folded"`);
+    notes.push('Found "six letters folded"');
+  }
+  if (!houseLetters) {
+    failures.push(`${routeLabel}: missing numberless archive copy ("house letters folded")`);
+    notes.push('Missing house letters folded archive lede');
+  }
+
+  return { failures, notes, found, pass: failures.length === 0 };
+}
+
+function rootIsCurrent(html) {
+  return (
+    /Awaiting next release/i.test(html) &&
+    !html.includes('<p class="mv-chapter__status">Out of stock</p>') &&
+    !/six letters folded/i.test(html)
+  );
+}
+
 async function runParityCheck() {
   const audit = String(Date.now());
   const failures = [];
@@ -87,6 +135,7 @@ async function runParityCheck() {
 
   const pageDefs = [
     { path: '/', label: 'homepage' },
+    { path: '/index.html', label: 'index-html' },
     { path: '/store', label: 'store' },
     { path: '/beles', label: 'beles' },
     { path: '/asmara', label: 'asmara' },
@@ -96,7 +145,10 @@ async function runParityCheck() {
 
   const assetDefs = [
     { path: '/data/letters.js', label: 'data-letters-js' },
-    { path: `/scripts/home.js${repo.expectedAssets.homeJs ? `?v=${repo.expectedAssets.homeJs}` : ''}`, label: 'home-js' },
+    {
+      path: `/scripts/home.js${repo.expectedAssets.homeJs ? `?v=${repo.expectedAssets.homeJs}` : ''}`,
+      label: 'home-js',
+    },
     { path: '/build-manifest.json', label: 'build-manifest' },
   ];
 
@@ -128,33 +180,37 @@ async function runParityCheck() {
   }
 
   if (html.homepage) {
-    const notes = [];
-    const found = [];
-    const staleBeles = html.homepage.includes('<p class="mv-chapter__status">Out of stock</p>');
-    const sixLetters = /six letters folded/i.test(html.homepage);
-
-    found.push(marker(!staleBeles, 'beles_status_not_out_of_stock'));
-    found.push(marker(!sixLetters, 'archive_not_six_letters'));
-
-    if (staleBeles) {
-      failures.push('live homepage: Beles status still "Out of stock"');
-      notes.push('Found <p class="mv-chapter__status">Out of stock</p>');
-    }
-    if (sixLetters) {
-      failures.push('live homepage: still says "six letters folded"');
-      notes.push('Found "six letters folded"');
-    }
-
+    const root = checkRootLifecycle(html.homepage, 'live /');
+    failures.push(...root.failures);
     routes.push(
-      routeResult(
-        'homepage',
-        urls.homepage,
-        ['Beles not Out of stock', 'No six letters folded'],
-        found,
-        notes.length === 0,
-        notes,
-      ),
+      routeResult('homepage', urls.homepage, ['Root lifecycle current'], root.found, root.pass, root.notes),
     );
+  }
+
+  if (html['index-html']) {
+    const root = checkRootLifecycle(html['index-html'], 'live /index.html');
+    failures.push(...root.failures);
+    routes.push(
+      routeResult('index-html', urls['index-html'], ['Root lifecycle current'], root.found, root.pass, root.notes),
+    );
+  }
+
+  if (html.homepage && html['index-html']) {
+    const homeOk = rootIsCurrent(html.homepage);
+    const indexOk = rootIsCurrent(html['index-html']);
+    if (indexOk && !homeOk) {
+      const msg = 'clean URL root stale: /index.html is current but / (clean URL) is stale';
+      failures.push(msg);
+      classifications.push('clean_url_root_stale');
+      routes.push(
+        routeResult('classification', ORIGIN, ['Clean URL parity'], [marker(true, 'clean_url_root_stale')], false, [msg]),
+      );
+    }
+    if (!indexOk && homeOk) {
+      const msg = 'index.html stale: / is current but /index.html is stale';
+      failures.push(msg);
+      classifications.push('index_html_stale');
+    }
   }
 
   if (html.store && html.homepage) {
@@ -168,8 +224,34 @@ async function runParityCheck() {
       failures.push(msg);
       classifications.push('root_html_stale');
       routes.push(
-        routeResult('classification', ORIGIN, ['Store current, homepage stale'], [marker(true, 'root_html_stale')], false, [msg]),
+        routeResult('classification', ORIGIN, ['Store vs root'], [marker(true, 'root_html_stale')], false, [msg]),
       );
+    }
+  }
+
+  if (COMPARE_DEPLOY_ORIGIN) {
+    try {
+      const deployFetch = await fetchText(COMPARE_DEPLOY_ORIGIN, '/', audit);
+      const deployCurrent = rootIsCurrent(deployFetch.body);
+      const aliasCurrent = html.homepage ? rootIsCurrent(html.homepage) : false;
+      if (deployCurrent && !aliasCurrent) {
+        const msg = `domain alias stale: deploy ${COMPARE_DEPLOY_ORIGIN} is current but ${ORIGIN} is stale`;
+        failures.push(msg);
+        classifications.push('domain_alias_stale');
+        classifications.push('deploy_url_current_alias_stale');
+        routes.push(
+          routeResult(
+            'classification',
+            ORIGIN,
+            ['Deploy vs alias'],
+            [marker(true, 'deploy_url_current_alias_stale')],
+            false,
+            [msg],
+          ),
+        );
+      }
+    } catch (err) {
+      failures.push(`Could not compare deploy origin ${COMPARE_DEPLOY_ORIGIN}: ${err.message}`);
     }
   }
 
@@ -196,6 +278,7 @@ async function runParityCheck() {
     const notes = [];
     const found = [];
     const liveHome = assets['home-js'];
+    let assetStale = false;
 
     for (const [key, label, pattern] of [
       ['dataLettersJs', 'data_letters_version', /data\/letters\.js\?v=(\d+)/],
@@ -206,10 +289,15 @@ async function runParityCheck() {
       const ok = expected && liveVersion === expected;
       found.push(marker(ok, label));
       if (expected && !ok) {
+        assetStale = true;
         const msg = `live scripts/home.js: ${key} version ${liveVersion || 'missing'} !== repo ${expected}`;
         failures.push(msg);
         notes.push(msg);
       }
+    }
+
+    if (assetStale) {
+      classifications.push('asset_version_stale');
     }
 
     routes.push(
@@ -295,14 +383,13 @@ async function runParityCheck() {
       }
 
       if (repo.expectedCommitSha && liveManifest.commitSha) {
-        const expected = repo.expectedCommitSha.trim();
-        const live = liveManifest.commitSha.trim();
-        const ok = live === expected || live.startsWith(expected.slice(0, 7)) || expected.startsWith(live.slice(0, 7));
+        const ok = shaMatches(repo.expectedCommitSha, liveManifest.commitSha);
         found.push(marker(ok, 'commitSha'));
         if (!ok) {
-          const msg = `live build-manifest.json: commitSha ${live.slice(0, 7)} !== expected ${expected.slice(0, 7)}`;
+          const msg = `live build-manifest.json: commitSha ${liveManifest.commitSha.slice(0, 7)} !== expected ${repo.expectedCommitSha.slice(0, 7)}`;
           failures.push(msg);
           notes.push(msg);
+          classifications.push('manifest_commit_mismatch');
         }
       } else {
         found.push(marker(true, 'commitSha_skipped'));
@@ -317,8 +404,9 @@ async function runParityCheck() {
         const live = liveManifest.assets?.[manifestKey];
         if (expected && live && live !== expected) {
           const msg = `live build-manifest assets.${manifestKey} ${live} !== repo ${expected}`;
-          if (strict) failures.push(msg);
+          failures.push(msg);
           notes.push(msg);
+          classifications.push('asset_version_stale');
         }
       }
     } catch (err) {
@@ -336,12 +424,13 @@ async function runParityCheck() {
   return {
     timestamp: new Date().toISOString(),
     origin: ORIGIN,
+    compareDeployOrigin: COMPARE_DEPLOY_ORIGIN,
     audit,
     strict,
     attempt: null,
     pass: failures.length === 0,
     repo,
-    classifications,
+    classifications: [...new Set(classifications)],
     routes,
     failures,
   };
@@ -352,6 +441,7 @@ function writeMarkdown(report) {
     '# Production parity report',
     '',
     `- **Origin:** ${report.origin}`,
+    `- **Compare deploy:** ${report.compareDeployOrigin || 'none'}`,
     `- **Timestamp:** ${report.timestamp}`,
     `- **Pass:** ${report.pass ? 'yes' : 'no'}`,
     `- **Strict:** ${report.strict}`,
