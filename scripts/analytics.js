@@ -277,6 +277,43 @@
     });
   };
 
+  const bindAnswerLedger = () => {
+    document.querySelectorAll('.answer-ledger__item[data-answer-id]').forEach((item) => {
+      if (item.dataset.answerAnalytics) return;
+      item.dataset.answerAnalytics = '1';
+      const answerId = item.dataset.answerId;
+      const seen = { value: false };
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting || entry.intersectionRatio < 0.35 || seen.value) return;
+            seen.value = true;
+            track('answer_block_viewed', {
+              answer_id: answerId,
+              page: window.location.pathname,
+              source_anchor: `#answer-${answerId}`,
+            });
+          });
+        },
+        { threshold: [0.35] },
+      );
+      io.observe(item);
+    });
+
+    document.querySelectorAll('.answer-ledger__proof-link').forEach((link) => {
+      if (link.dataset.answerProofBound) return;
+      link.dataset.answerProofBound = '1';
+      link.addEventListener('click', () => {
+        const item = link.closest('[data-answer-id]');
+        track('answer_proof_link_clicked', {
+          answer_id: item?.dataset.answerId || undefined,
+          page: window.location.pathname,
+          proof_href: link.getAttribute('href') || link.dataset.answerProofHref,
+        });
+      });
+    });
+  };
+
   const bindLetterArchive = () => {
     const section = document.getElementById('letters');
     if (!section || section.dataset.letterAnalytics) return;
@@ -309,6 +346,11 @@
         props.scene = target.dataset.analyticsScene || target.dataset.analyticsLabel;
         props.source = target.dataset.analyticsSource || 'scene_rail';
       }
+      if (target.dataset.analyticsEvent === 'answer_proof_link_clicked') {
+        props.answer_id = target.closest('[data-answer-id]')?.dataset.answerId;
+        props.proof_href = target.getAttribute('href') || target.dataset.answerProofHref;
+        props.page = window.location.pathname;
+      }
       track(target.dataset.analyticsEvent, props);
     },
     { capture: true },
@@ -326,6 +368,7 @@
     bindScentAtlas();
     bindObjectDetails();
     bindLetterArchive();
+    bindAnswerLedger();
   };
 
   window.EILLON_ANALYTICS = {

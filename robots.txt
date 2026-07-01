@@ -18,3 +18,4 @@ Sitemap: https://eillon.maison/sitemap.xml
 
 # AI / LLM context (optional)
 Allow: /llms.txt
+Allow: /llms-full.txt

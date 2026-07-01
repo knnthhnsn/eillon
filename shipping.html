@@ -142,6 +142,39 @@
       ]
     }
   </script>
+  <!-- eillon:aeo-schema:start -->
+  <script type="application/ld+json" id="eillon-aeo-schema">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "FAQPage",
+      "@id": "https://eillon.maison/shipping#aeo-faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How does the Beles restock list work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Leave your email and size interest on the Beles page. We send one restock letter when the next batch is ready—no charge today, unsubscribe anytime.",
+            "url": "https://eillon.maison/shipping#answer-beles-restock-list"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Beles available to buy?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Beles is awaiting its next release. There is no checkout today—join the restock list to record size interest and receive one private note when bottles return.",
+            "url": "https://eillon.maison/shipping#answer-is-beles-available"
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+<!-- eillon:aeo-schema:end -->
 </head>
 <body class="editorial-page legal-page info-page">
   <a class="skip-link" href="#top">Skip to content</a>
@@ -232,6 +265,31 @@
         <p class="footer__status" aria-live="polite"></p>
       </div>
     </section>
+  <!-- eillon:aeo:start -->
+<section class="answer-ledger" aria-labelledby="answer-ledger-heading" data-aeo-ledger="true">
+  <header class="answer-ledger__head">
+    <p class="sx-eyebrow">Studio index</p>
+    <h2 class="answer-ledger__title" id="answer-ledger-heading">House answer index</h2>
+    <p class="answer-ledger__lede">Canonical answers filed from the studio archive—visible on this page and mirrored in schema where marked.</p>
+  </header>
+  <div class="answer-ledger__list">
+
+    <article class="answer-ledger__item" id="answer-beles-restock-list" data-answer-id="beles-restock-list" data-analytics-section="answer" data-analytics-section-id="beles-restock-list">
+      <h3 class="answer-ledger__question">How does the Beles restock list work?</h3>
+      <div class="answer-ledger__answer"><p>Leave your email and size interest on the Beles page. We send one restock letter when the next batch is ready—no charge today, unsubscribe anytime.</p></div>
+      <p class="answer-ledger__proof"><span class="answer-ledger__proof-label">Proof file</span> <a class="answer-ledger__proof-link" href="/beles#waitlist" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/beles#waitlist">beles#waitlist</a><a class="answer-ledger__proof-link" href="/shipping" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/shipping">shipping</a></p>
+      <p class="answer-ledger__source">Filed from <a href="/beles#answer-beles-restock-list">/beles</a></p>
+    </article>
+
+    <article class="answer-ledger__item" id="answer-is-beles-available" data-answer-id="is-beles-available" data-analytics-section="answer" data-analytics-section-id="is-beles-available">
+      <h3 class="answer-ledger__question">Is Beles available to buy?</h3>
+      <div class="answer-ledger__answer"><p>Beles is awaiting its next release. There is no checkout today—join the restock list to record size interest and receive one private note when bottles return.</p></div>
+      <p class="answer-ledger__proof"><span class="answer-ledger__proof-label">Proof file</span> <a class="answer-ledger__proof-link" href="/beles#waitlist" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/beles#waitlist">beles#waitlist</a><a class="answer-ledger__proof-link" href="/store" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/store">store</a></p>
+      <p class="answer-ledger__source">Filed from <a href="/beles#answer-is-beles-available">/beles</a></p>
+    </article>
+  </div>
+</section>
+<!-- eillon:aeo:end -->
   </main>
 
   <footer class="editorial-page__footer">

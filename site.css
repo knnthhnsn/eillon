@@ -3599,3 +3599,99 @@ footer.editorial-page__footer > *:not(.mv-shader) {
   }
 }
 
+/* =====================================================
+   AEO — answer ledger (house file / provenance index)
+   ===================================================== */
+.answer-ledger {
+  margin: clamp(48px, 8vw, 96px) auto;
+  padding: clamp(32px, 5vw, 56px) clamp(20px, 4vw, 48px);
+  max-width: var(--content-max, 920px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(165deg, rgba(18, 16, 14, 0.92), rgba(10, 9, 8, 0.88));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+.answer-ledger__head {
+  margin-bottom: clamp(24px, 4vw, 40px);
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.answer-ledger__title {
+  font-family: var(--font-display, 'Fraunces', serif);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 400;
+  line-height: 1.15;
+  margin: 0.35rem 0 0.75rem;
+}
+.answer-ledger__lede {
+  margin: 0;
+  max-width: 52ch;
+  color: rgba(248, 246, 240, 0.72);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+.answer-ledger__list {
+  display: grid;
+  gap: clamp(20px, 3vw, 28px);
+}
+.answer-ledger__item {
+  padding: 1.25rem 0 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  scroll-margin-top: 88px;
+}
+.answer-ledger__item:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+.answer-ledger__question {
+  font-family: var(--font-display, 'Fraunces', serif);
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  font-weight: 400;
+  margin: 0 0 0.65rem;
+  line-height: 1.3;
+}
+.answer-ledger__answer p {
+  margin: 0 0 0.65rem;
+  color: rgba(248, 246, 240, 0.86);
+  line-height: 1.6;
+  max-width: 62ch;
+}
+.answer-ledger__answer p:last-child {
+  margin-bottom: 0;
+}
+.answer-ledger__proof {
+  margin: 0.85rem 0 0;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(248, 246, 240, 0.5);
+}
+.answer-ledger__proof-label {
+  margin-right: 0.5rem;
+}
+.answer-ledger__proof-link {
+  display: inline-block;
+  margin: 0.15rem 0.5rem 0 0;
+  color: rgba(248, 246, 240, 0.78);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.88rem;
+}
+.answer-ledger__proof-link:hover {
+  color: #fff;
+}
+.answer-ledger__source {
+  margin: 0.5rem 0 0;
+  font-size: 0.8rem;
+  color: rgba(248, 246, 240, 0.45);
+}
+.answer-ledger__source a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+.home .answer-ledger {
+  margin-inline: clamp(16px, 4vw, 48px);
+}
+

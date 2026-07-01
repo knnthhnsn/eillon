@@ -45,9 +45,24 @@
         {
           "@type": "BreadcrumbList",
           "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "EILLON", "item": "https://eillon.maison/" },
-            { "@type": "ListItem", "position": 2, "name": "The Boutique", "item": "https://eillon.maison/store" },
-            { "@type": "ListItem", "position": 3, "name": "Beles · Fico d'India", "item": "https://eillon.maison/beles" }
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "EILLON",
+              "item": "https://eillon.maison/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "The Boutique",
+              "item": "https://eillon.maison/store"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Beles · Fico d'India",
+              "item": "https://eillon.maison/beles"
+            }
           ]
         },
         {
@@ -58,9 +73,23 @@
           "url": "https://eillon.maison/beles",
           "sku": "EILLON-BELES-PARFUM",
           "category": "Oil-rich Parfum",
-          "brand": { "@type": "Brand", "name": "EILLON" },
-          "manufacturer": { "@type": "Organization", "name": "EILLON", "address": { "@type": "PostalAddress", "addressLocality": "Copenhagen", "addressCountry": "DK" } },
-          "countryOfOrigin": { "@type": "Country", "name": "Denmark" },
+          "brand": {
+            "@type": "Brand",
+            "name": "EILLON"
+          },
+          "manufacturer": {
+            "@type": "Organization",
+            "name": "EILLON",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Copenhagen",
+              "addressCountry": "DK"
+            }
+          },
+          "countryOfOrigin": {
+            "@type": "Country",
+            "name": "Denmark"
+          },
           "image": [
             "https://eillon.maison/images/beles-luxury-1254.jpg?v=2",
             "https://eillon.maison/images/plain-bottle-with-logo.png"
@@ -73,50 +102,113 @@
             "offerCount": 3,
             "availability": "https://schema.org/OutOfStock",
             "url": "https://eillon.maison/beles#waitlist",
-            "seller": { "@id": "https://eillon.maison/#organization" }
-          },
-          "isRelatedTo": { "@id": "https://eillon.maison/#organization" }
-        },
-        {
-          "@type": "FAQPage",
-          "mainEntity": [
-            {
-              "@type": "Question",
-              "name": "Is Beles an oil-rich parfum?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Yes. Beles · Fico d'India is composed as an oil-rich parfum with a high concentration of perfume oils, designed to wear close and unfold slowly on skin."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "What is Fico d'India?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Fico d'India is Italian for prickly pear — the sun-warmed fruit at the heart of Beles. The name appears on the bottle and describes the fragrance's central accord: prickly pear, cactus water, hibiscus, and mineral air."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Where is EILLON Beles made?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Beles is composed and hand-finished in Copenhagen, Denmark, by EILLON studio."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "How do restock notifications work?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Beles awaits its next release. Join with your email and preferred size interest — we send one private restock email when bottles return to the boutique, before the public release opens. No charge today; unsubscribe anytime."
-              }
+            "seller": {
+              "@id": "https://eillon.maison/#organization"
             }
-          ]
+          },
+          "isRelatedTo": {
+            "@id": "https://eillon.maison/#organization"
+          }
         }
       ]
     }
   </script>
+  <!-- eillon:aeo-schema:start -->
+  <script type="application/ld+json" id="eillon-aeo-schema">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "FAQPage",
+      "@id": "https://eillon.maison/beles#aeo-faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What does Beles smell like?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Beles reads airy and watery at first—prickly pear and pear skin—then hibiscus and green leaves over soft musk, mineral air, and warm stone. The accord is built to feel sun-warmed and close to skin: not loud projection, but a green-pink fruit veil that unfolds slowly on pulse points.",
+            "url": "https://eillon.maison/beles#answer-what-does-beles-smell-like"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is Fico d'India?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Fico d'India is Italian for prickly pear—the sun-warmed fruit named on the Beles bottle and at the heart of the chapter's accord.",
+            "url": "https://eillon.maison/beles#answer-what-is-fico-d-india"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Beles available to buy?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Beles is awaiting its next release. There is no checkout today—join the restock list to record size interest and receive one private note when bottles return.",
+            "url": "https://eillon.maison/beles#answer-is-beles-available"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does the Beles restock list work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Leave your email and size interest on the Beles page. We send one restock letter when the next batch is ready—no charge today, unsubscribe anytime.",
+            "url": "https://eillon.maison/beles#answer-beles-restock-list"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What sizes and prices are shown for Beles?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The boutique displays 2 ml sample (€28), 50 ml (€170), and 100 ml (€240) as size-interest references—availability follows the next release window.",
+            "url": "https://eillon.maison/beles#answer-beles-sizes-prices"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is there a Beles sample?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A 2 ml discovery vial is listed for size interest. Samples ship when Beles returns—not as a separate always-on SKU.",
+            "url": "https://eillon.maison/beles#answer-beles-sample"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Where is Beles made?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Beles is composed and hand-finished in Copenhagen, Denmark, by EILLON studio.",
+            "url": "https://eillon.maison/beles#answer-where-is-beles-made"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What does oil-rich parfum mean?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Oil-rich parfum means a high concentration of fragrance oils in a skin-close base—designed to wear slowly and intimately, not as a loud alcohol-forward spray.",
+            "url": "https://eillon.maison/beles#answer-oil-rich-parfum-meaning"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What proof exists for Beles?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Beles proof includes batch BL-001 filing, IFRA assessment notes, wear-testing records, and craftsmanship documentation linked from the Beles proof ledger.",
+            "url": "https://eillon.maison/beles#answer-beles-proof"
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+<!-- eillon:aeo-schema:end -->
 </head>
 <body class="editorial-page beles-page" data-nav-waitlist="#waitlist" data-chapter-slug="beles">
   <a class="skip-link" href="#top">Skip to content</a>
@@ -599,6 +691,87 @@
         </nav>
       </div>
     </section>
+  <!-- eillon:aeo:start -->
+<section class="answer-ledger" aria-labelledby="answer-ledger-heading" data-aeo-ledger="true">
+  <header class="answer-ledger__head">
+    <p class="sx-eyebrow">Studio index</p>
+    <h2 class="answer-ledger__title" id="answer-ledger-heading">Beles answer file</h2>
+    <p class="answer-ledger__lede">Chapter I facts: accord, availability, restock, and proof cross-references.</p>
+  </header>
+  <div class="answer-ledger__list">
+
+    <article class="answer-ledger__item" id="answer-what-is-beles" data-answer-id="what-is-beles" data-analytics-section="answer" data-analytics-section-id="what-is-beles">
+      <h3 class="answer-ledger__question">What is Beles · Fico d'India?</h3>
+      <div class="answer-ledger__answer"><p>Beles · Fico d'India is EILLON Chapter I—an oil-rich parfum centred on sun-warmed prickly pear, cactus water, hibiscus, and mineral desert air.</p></div>
+      <p class="answer-ledger__proof"><span class="answer-ledger__proof-label">Proof file</span> <a class="answer-ledger__proof-link" href="/beles" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/beles">beles</a><a class="answer-ledger__proof-link" href="/journal/fico-d-india" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/journal/fico-d-india">journal · fico-d-india</a></p>
+      <p class="answer-ledger__source">Filed from <a href="/beles#answer-what-is-beles">/beles</a></p>
+    </article>
+
+    <article class="answer-ledger__item" id="answer-what-does-beles-smell-like" data-answer-id="what-does-beles-smell-like" data-analytics-section="answer" data-analytics-section-id="what-does-beles-smell-like">
+      <h3 class="answer-ledger__question">What does Beles smell like?</h3>
+      <div class="answer-ledger__answer"><p>Beles reads airy and watery at first—prickly pear and pear skin—then hibiscus and green leaves over soft musk, mineral air, and warm stone.</p><p>The accord is built to feel sun-warmed and close to skin: not loud projection, but a green-pink fruit veil that unfolds slowly on pulse points.</p></div>
+      <p class="answer-ledger__proof"><span class="answer-ledger__proof-label">Proof file</span> <a class="answer-ledger__proof-link" href="/beles" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/beles">beles</a><a class="answer-ledger__proof-link" href="/journal/what-does-fico-d-india-smell-like" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/journal/what-does-fico-d-india-smell-like">journal · what-does-fico-d-india-smell-like</a></p>
+      <p class="answer-ledger__source">Filed from <a href="/beles#answer-what-does-beles-smell-like">/beles</a></p>
+    </article>
+
+    <article class="answer-ledger__item" id="answer-what-is-fico-d-india" data-answer-id="what-is-fico-d-india" data-analytics-section="answer" data-analytics-section-id="what-is-fico-d-india">
+      <h3 class="answer-ledger__question">What is Fico d'India?</h3>
+      <div class="answer-ledger__answer"><p>Fico d'India is Italian for prickly pear—the sun-warmed fruit named on the Beles bottle and at the heart of the chapter's accord.</p></div>
+      <p class="answer-ledger__proof"><span class="answer-ledger__proof-label">Proof file</span> <a class="answer-ledger__proof-link" href="/journal/fico-d-india" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/journal/fico-d-india">journal · fico-d-india</a><a class="answer-ledger__proof-link" href="/beles" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/beles">beles</a></p>
+      <p class="answer-ledger__source">Filed from <a href="/journal/fico-d-india#answer-what-is-fico-d-india">/journal/fico-d-india</a></p>
+    </article>
+
+    <article class="answer-ledger__item" id="answer-is-beles-available" data-answer-id="is-beles-available" data-analytics-section="answer" data-analytics-section-id="is-beles-available">
+      <h3 class="answer-ledger__question">Is Beles available to buy?</h3>
+      <div class="answer-ledger__answer"><p>Beles is awaiting its next release. There is no checkout today—join the restock list to record size interest and receive one private note when bottles return.</p></div>
+      <p class="answer-ledger__proof"><span class="answer-ledger__proof-label">Proof file</span> <a class="answer-ledger__proof-link" href="/beles#waitlist" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/beles#waitlist">beles#waitlist</a><a class="answer-ledger__proof-link" href="/store" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/store">store</a></p>
+      <p class="answer-ledger__source">Filed from <a href="/beles#answer-is-beles-available">/beles</a></p>
+    </article>
+
+    <article class="answer-ledger__item" id="answer-beles-restock-list" data-answer-id="beles-restock-list" data-analytics-section="answer" data-analytics-section-id="beles-restock-list">
+      <h3 class="answer-ledger__question">How does the Beles restock list work?</h3>
+      <div class="answer-ledger__answer"><p>Leave your email and size interest on the Beles page. We send one restock letter when the next batch is ready—no charge today, unsubscribe anytime.</p></div>
+      <p class="answer-ledger__proof"><span class="answer-ledger__proof-label">Proof file</span> <a class="answer-ledger__proof-link" href="/beles#waitlist" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/beles#waitlist">beles#waitlist</a><a class="answer-ledger__proof-link" href="/shipping" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/shipping">shipping</a></p>
+      <p class="answer-ledger__source">Filed from <a href="/beles#answer-beles-restock-list">/beles</a></p>
+    </article>
+
+    <article class="answer-ledger__item" id="answer-beles-sizes-prices" data-answer-id="beles-sizes-prices" data-analytics-section="answer" data-analytics-section-id="beles-sizes-prices">
+      <h3 class="answer-ledger__question">What sizes and prices are shown for Beles?</h3>
+      <div class="answer-ledger__answer"><p>The boutique displays 2 ml sample (€28), 50 ml (€170), and 100 ml (€240) as size-interest references—availability follows the next release window.</p></div>
+      <p class="answer-ledger__proof"><span class="answer-ledger__proof-label">Proof file</span> <a class="answer-ledger__proof-link" href="/beles" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/beles">beles</a><a class="answer-ledger__proof-link" href="/store" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/store">store</a></p>
+      <p class="answer-ledger__source">Filed from <a href="/beles#answer-beles-sizes-prices">/beles</a></p>
+    </article>
+
+    <article class="answer-ledger__item" id="answer-beles-sample" data-answer-id="beles-sample" data-analytics-section="answer" data-analytics-section-id="beles-sample">
+      <h3 class="answer-ledger__question">Is there a Beles sample?</h3>
+      <div class="answer-ledger__answer"><p>A 2 ml discovery vial is listed for size interest. Samples ship when Beles returns—not as a separate always-on SKU.</p></div>
+      <p class="answer-ledger__proof"><span class="answer-ledger__proof-label">Proof file</span> <a class="answer-ledger__proof-link" href="/beles" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/beles">beles</a></p>
+      <p class="answer-ledger__source">Filed from <a href="/beles#answer-beles-sample">/beles</a></p>
+    </article>
+
+    <article class="answer-ledger__item" id="answer-where-is-beles-made" data-answer-id="where-is-beles-made" data-analytics-section="answer" data-analytics-section-id="where-is-beles-made">
+      <h3 class="answer-ledger__question">Where is Beles made?</h3>
+      <div class="answer-ledger__answer"><p>Beles is composed and hand-finished in Copenhagen, Denmark, by EILLON studio.</p></div>
+      <p class="answer-ledger__proof"><span class="answer-ledger__proof-label">Proof file</span> <a class="answer-ledger__proof-link" href="/beles" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/beles">beles</a><a class="answer-ledger__proof-link" href="/craftsmanship" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/craftsmanship">craftsmanship</a></p>
+      <p class="answer-ledger__source">Filed from <a href="/beles#answer-where-is-beles-made">/beles</a></p>
+    </article>
+
+    <article class="answer-ledger__item" id="answer-oil-rich-parfum-meaning" data-answer-id="oil-rich-parfum-meaning" data-analytics-section="answer" data-analytics-section-id="oil-rich-parfum-meaning">
+      <h3 class="answer-ledger__question">What does oil-rich parfum mean?</h3>
+      <div class="answer-ledger__answer"><p>Oil-rich parfum means a high concentration of fragrance oils in a skin-close base—designed to wear slowly and intimately, not as a loud alcohol-forward spray.</p></div>
+      <p class="answer-ledger__proof"><span class="answer-ledger__proof-label">Proof file</span> <a class="answer-ledger__proof-link" href="/beles" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/beles">beles</a><a class="answer-ledger__proof-link" href="/wear" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/wear">wear</a></p>
+      <p class="answer-ledger__source">Filed from <a href="/beles#answer-oil-rich-parfum-meaning">/beles</a></p>
+    </article>
+
+    <article class="answer-ledger__item" id="answer-beles-proof" data-answer-id="beles-proof" data-analytics-section="answer" data-analytics-section-id="beles-proof">
+      <h3 class="answer-ledger__question">What proof exists for Beles?</h3>
+      <div class="answer-ledger__answer"><p>Beles proof includes batch BL-001 filing, IFRA assessment notes, wear-testing records, and craftsmanship documentation linked from the Beles proof ledger.</p></div>
+      <p class="answer-ledger__proof"><span class="answer-ledger__proof-label">Proof file</span> <a class="answer-ledger__proof-link" href="/beles#proof" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/beles#proof">beles#proof</a><a class="answer-ledger__proof-link" href="/journal/beles-batch-bl001" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/journal/beles-batch-bl001">journal · beles-batch-bl001</a><a class="answer-ledger__proof-link" href="/craftsmanship" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/craftsmanship">craftsmanship</a></p>
+      <p class="answer-ledger__source">Filed from <a href="/beles#answer-beles-proof">/beles</a></p>
+    </article>
+  </div>
+</section>
+<!-- eillon:aeo:end -->
   </main>
 
   <footer class="editorial-page__footer">

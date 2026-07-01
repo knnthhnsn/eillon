@@ -2,46 +2,55 @@
 
 > Afro-Mediterranean memory perfumery. Oil-rich parfums composed in Copenhagen, Denmark.
 
+Last updated: 2026-06-23
+Answers version: 1.0.0
+
 ## Brand
 - Name: EILLON
 - Category: Independent perfume maison / niche fragrance house
 - Niche: Afro-Mediterranean memory perfumery — oil-rich parfums, not diluted alcohol-forward scents
 - Primary market: Denmark (Copenhagen studio)
-- Shipping: Denmark, Nordics (SE, NO), EU, UK, US — dispatched from Copenhagen
-- Location: 1050 Copenhagen, Capital Region of Denmark (DK-84)
-- Coordinates: 55.6761, 12.5683
-- Studio hours: Thursday–Saturday 12–18 (appointments by request)
 - Website: https://eillon.maison
-- Sitemap: https://eillon.maison/sitemap.xml
 - Email: care@eillon.maison
-- Language: English (Denmark locale en-DK), with Danish and Swedish UI copy on site
+- Operator: Eillon Hansen & Kenneth Hansen (CVR 43933485)
+- Studio: 1050 Copenhagen, Denmark — appointments Thursday–Saturday 12–18 by request
+- Sitemap: https://eillon.maison/sitemap.xml
+- Full answer brief: https://eillon.maison/llms-full.txt
 
-## Local / geographic SEO
-- City: Copenhagen, Denmark
-- Region: Capital Region of Denmark (Hovedstaden)
-- Country code: DK
-- Geo keywords: Copenhagen perfume, niche parfum Denmark, oil-rich parfum Copenhagen, Afro-Mediterranean fragrance house Scandinavia
-- Imprint: https://eillon.maison/imprint
-- Shipping regions: https://eillon.maison/shipping
+## Chapter lifecycle (source: data/lifecycle.js)
+| Chapter | Status | Notes |
+|---------|--------|-------|
+| Beles · Fico d'India | Awaiting next release | Awaiting next release. Join the Beles restock list. |
+| Asmara · Rain on Stone | In development | Chapter II in development. Follow studio notes as the chapter advances. |
+| Massawa · Red Sea Citrus | In development | Chapter III in development. Follow studio notes as the chapter advances. |
+| Ritual · Frankincense & Myrrh | Studio archive | Studio archive lab study. Not for sale. |
 
-## Fragrance chapters
-All chapters are currently out of stock. Leave your email on any chapter page for a restock note.
+Restock signup records size interest and email — it is not checkout. No purchase is taken on the site today.
 
-- Beles · Fico d'India — Out of stock. Oil-rich parfum. Prickly pear, cactus water, hibiscus, mineral air, soft musk.
-- Asmara — Out of stock. Rain on stone, espresso, cardamom, jasmine, amber, white musk.
-- Massawa — Out of stock. Red Sea air, orange, papaya, salt skin, mineral coastal stone.
-- Ritual — Out of stock. Lab study — frankincense, myrrh, sacred smoke, amber, warm skin. Not offered for sale.
+## Key product facts (Beles)
+- Type: Oil-rich parfum
+- Accord: Prickly pear, cactus water, hibiscus, mineral air, soft musk
+- Sizes shown: 2 ml sample (€28), 50 ml (€170), 100 ml (€240) — size-interest references
+- Made in: Copenhagen, Denmark
+- Batch proof: BL-001 pilot file (see journal)
 
-## Key pages
+## Answer & proof pages
 - Maison: https://eillon.maison/
 - About: https://eillon.maison/about
-- Craftsmanship: https://eillon.maison/craftsmanship
-- Fragrance care guide: https://eillon.maison/wear
-- Shipping & returns: https://eillon.maison/shipping
 - Store: https://eillon.maison/store
-- Beles product: https://eillon.maison/beles
-- Asmara chapter: https://eillon.maison/asmara
-- Massawa chapter: https://eillon.maison/massawa
-- Ritual lab study: https://eillon.maison/ritual
+- Beles: https://eillon.maison/beles
+- Asmara: https://eillon.maison/asmara
+- Massawa: https://eillon.maison/massawa
+- Ritual: https://eillon.maison/ritual
+- Craftsmanship: https://eillon.maison/craftsmanship
+- Wear guide: https://eillon.maison/wear
 - Journal: https://eillon.maison/journal
+- BL-001 batch notes: https://eillon.maison/journal/beles-batch-bl001
+- Shipping: https://eillon.maison/shipping
+- Imprint: https://eillon.maison/imprint
+- Privacy: https://eillon.maison/privacy
+- Terms: https://eillon.maison/terms
+
+## Contact
+- care@eillon.maison
 - Imprint: https://eillon.maison/imprint
