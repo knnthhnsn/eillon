@@ -48,12 +48,14 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&display=swap" /></noscript>
   <link rel="preload" href="styles.min.css?v=163" as="style" />
-  <link rel="preload" href="home.min.css?v=92" as="style" />
-  <link rel="preload" as="image" href="images/cowboy-cowgirl-720.webp" type="image/webp" fetchpriority="high" media="(max-width: 900px)" />
-  <link rel="preload" as="image" href="images/cowboy-cowgirl-1100.webp" type="image/webp" fetchpriority="high" media="(min-width: 901px)" />
+  <link rel="preload" href="home.min.css?v=93" as="style" />
+  <link rel="preload" as="image"
+    href="images/cowboy-cowgirl-720.webp"
+    imagesrcset="images/cowboy-cowgirl-480.webp 480w, images/cowboy-cowgirl-720.webp 720w, images/cowboy-cowgirl-960.webp 960w, images/cowboy-cowgirl-1100.webp 1100w, images/cowboy-cowgirl-1200.webp 1200w"
+    imagesizes="100vw"
+    type="image/webp"
+    fetchpriority="high" />
 
   <style>
     :root { --bg: #F3EFE6; --ink: #17150F; --paper: #F8F6F0; }
@@ -80,7 +82,7 @@
     }
     .mv-hero__word {
       margin: 0;
-      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-family: Georgia, 'Times New Roman', serif;
       font-weight: 400;
       font-style: italic;
       font-size: clamp(86px, 21vw, 320px);
@@ -88,6 +90,9 @@
       letter-spacing: -0.02em;
       color: var(--paper);
       text-shadow: 0 2px 60px rgba(0,0,0,0.35);
+    }
+    html.fonts-cormorant .mv-hero__word {
+      font-family: 'Cormorant Garamond', Georgia, serif;
     }
     .mv-hero__tag {
       margin: 0;
@@ -108,8 +113,11 @@
       }
       .mv-hero__word {
         font-size: clamp(48px, 16.5vw, 120px);
-        font-family: 'Cormorant Garamond', Georgia, serif !important;
+        font-family: Georgia, 'Times New Roman', serif !important;
         font-weight: 400 !important;
+      }
+      html.fonts-cormorant .mv-hero__word {
+        font-family: 'Cormorant Garamond', Georgia, serif !important;
       }
       .mv-hero__img { object-position: 46% 28%; }
     }
@@ -162,8 +170,9 @@
     }
   </style>
   <link rel="stylesheet" href="styles.min.css?v=163" />
-  <link rel="stylesheet" href="home.min.css?v=92" />
-  <noscript><link rel="stylesheet" href="letters.min.css?v=25" /></noscript>
+  <link rel="preload" href="home.min.css?v=93" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="home.min.css?v=93" /></noscript>
+  <noscript><link rel="stylesheet" href="letters.min.css?v=26" /></noscript>
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -349,9 +358,9 @@
       <div class="mv-hero__stage">
       <div class="mv-hero__media">
         <picture>
-          <source type="image/webp" media="(max-width: 900px)" srcset="images/cowboy-cowgirl-720.webp" />
-          <source type="image/webp" media="(min-width: 901px)" srcset="images/cowboy-cowgirl-1100.webp" />
-          <img class="mv-hero__img" src="images/cowboy-cowgirl-720.webp" width="720" height="405" alt="A couple held close at blue hour beneath a luminous white hat" fetchpriority="high" decoding="sync" loading="eager" />
+          <source type="image/avif" srcset="images/cowboy-cowgirl-480.avif 480w, images/cowboy-cowgirl-720.avif 720w, images/cowboy-cowgirl-960.avif 960w, images/cowboy-cowgirl-1100.avif 1100w, images/cowboy-cowgirl-1200.avif 1200w" sizes="100vw" />
+          <source type="image/webp" srcset="images/cowboy-cowgirl-480.webp 480w, images/cowboy-cowgirl-720.webp 720w, images/cowboy-cowgirl-960.webp 960w, images/cowboy-cowgirl-1100.webp 1100w, images/cowboy-cowgirl-1200.webp 1200w" sizes="100vw" />
+          <img class="mv-hero__img" src="images/cowboy-cowgirl-720.webp" srcset="images/cowboy-cowgirl-480.webp 480w, images/cowboy-cowgirl-720.webp 720w, images/cowboy-cowgirl-960.webp 960w, images/cowboy-cowgirl-1100.webp 1100w, images/cowboy-cowgirl-1200.webp 1200w" sizes="100vw" width="1200" height="675" alt="A couple held close at blue hour beneath a luminous white hat" fetchpriority="high" decoding="sync" loading="eager" />
         </picture>
         <span class="mv-hero__veil" aria-hidden="true"></span>
       </div>
@@ -675,9 +684,8 @@
 
   <script src="/scripts/site-nav.js?v=25" defer></script>
   <script src="script.min.js?v=91" defer></script>
-  <script src="/scripts/vendor/gsap.min.js?v=1" defer></script>
-  <script src="/scripts/vendor/ScrollTrigger.min.js?v=1" defer></script>
-  <script src="/scripts/home.js?v=52" defer></script>
+  <script src="/scripts/letters-lazy.js?v=1" defer></script>
+  <script src="/scripts/load-after-hero.js?v=1" defer></script>
   <script src="/scripts/scene-rail.js?v=2" defer></script>
   <script>
     (function () {
@@ -690,6 +698,18 @@
       }
       if ('requestIdleCallback' in window) requestIdleCallback(loadFonts, { timeout: 4500 });
       else window.addEventListener('load', function () { setTimeout(loadFonts, 1200); });
+    })();
+    (function () {
+      var href = 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&display=optional';
+      function loadCormorant() {
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = href;
+        link.onload = function () { document.documentElement.classList.add('fonts-cormorant'); };
+        document.head.appendChild(link);
+      }
+      if ('requestIdleCallback' in window) requestIdleCallback(loadCormorant, { timeout: 4000 });
+      else window.addEventListener('load', function () { setTimeout(loadCormorant, 900); }, { once: true });
     })();
     (function () {
       function loadScript(url, next) {

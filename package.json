@@ -34,6 +34,8 @@
     "build:vendor": "node scripts/copy-vendor.mjs",
     "build:sitemap": "node scripts/generate-sitemap.mjs",
     "optimize:images": "python scripts/optimize-images.py",
+    "optimize:hero": "python scripts/optimize-hero-images.py",
+    "perf:analyze": "node scripts/analyze-lighthouse-lcp.mjs",
     "build": "npm run build:css && npm run build:home && npm run build:site && npm run build:letters && npm run build:js && npm run build:vendor && npm run build:sitemap && npm run build:manifest",
     "growth:validate-ledger": "node scripts/growth/validate-ledger.mjs",
     "growth:score": "node scripts/growth/score-experiment.mjs",

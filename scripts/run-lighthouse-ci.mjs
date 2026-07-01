@@ -41,15 +41,24 @@ function waitForServer(maxMs = 30000) {
   });
 }
 
+async function analyzeReport() {
+  try {
+    await run('node', ['scripts/analyze-lighthouse-lcp.mjs', reportPath], { stdio: 'inherit' });
+  } catch (err) {
+    console.warn('LCP analysis failed:', err.message);
+  }
+}
+
 const server = spawn('python', ['scripts/dev-server.py'], {
   cwd: root,
   env: { ...process.env, PORT: port },
   stdio: ['ignore', 'pipe', 'pipe'],
 });
 
-let serverOut = '';
-server.stdout.on('data', (d) => { serverOut += d; });
-server.stderr.on('data', (d) => { serverOut += d; });
+server.stdout.on('data', () => {});
+server.stderr.on('data', () => {});
+
+let budgetFailed = false;
 
 try {
   await waitForServer();
@@ -65,14 +74,23 @@ try {
     '--chrome-flags=--headless',
     '--quiet',
   ]);
-  await run('node', ['scripts/check-lighthouse-budget.mjs', reportPath], {
-    env: {
-      ...process.env,
-      LH_PERF_MIN: String(budgets.performanceMin),
-      LH_LCP_MAX_MS: String(budgets.lcpMaxMs),
-      LH_CLS_MAX: String(budgets.clsMax),
-    },
-  });
+  try {
+    await run('node', ['scripts/check-lighthouse-budget.mjs', reportPath], {
+      env: {
+        ...process.env,
+        LH_PERF_MIN: String(budgets.performanceMin),
+        LH_LCP_MAX_MS: String(budgets.lcpMaxMs),
+        LH_CLS_MAX: String(budgets.clsMax),
+      },
+    });
+  } catch {
+    budgetFailed = true;
+  }
 } finally {
   server.kill('SIGTERM');
+  await analyzeReport();
+}
+
+if (budgetFailed) {
+  process.exit(1);
 }

@@ -17,6 +17,7 @@ const lcp = report.audits?.['largest-contentful-paint']?.numericValue ?? Infinit
 const cls = report.audits?.['cumulative-layout-shift']?.numericValue ?? Infinity;
 
 const budgets = {
+  /* CI passes LH_PERF_MIN/LH_LCP_MAX_MS via run-lighthouse-ci.mjs (defaults 60 / 4500). */
   performanceMin: Number(process.env.LH_PERF_MIN || 85),
   lcpMaxMs: Number(process.env.LH_LCP_MAX_MS || 3000),
   clsMax: Number(process.env.LH_CLS_MAX || 0.1),

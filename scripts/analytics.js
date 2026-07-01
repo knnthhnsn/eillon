@@ -2,6 +2,7 @@
   'use strict';
 
   const RESTOCK_SOURCE_KEY = 'eillon_restock_source';
+  const UTM_KEY = 'eillon_utm';
   const UTM_PARAMS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
   const CHAPTER_PATHS = new Set(['beles', 'asmara', 'massawa', 'ritual']);
 
@@ -139,26 +140,63 @@
 
   const observeWebVitals = () => {
     try {
-      const send = (metric, value) => {
-        track('web_vital', { metric, value: Math.round(value) });
+      const sendCls = (value) => {
+        track('web_vital', {
+          metric: 'CLS',
+          value: Math.round(value),
+          page: window.location.pathname,
+          device: getDeviceClass(),
+        });
+      };
+
+      const sendLcp = (entry) => {
+        const payload = {
+          metric: 'LCP',
+          value: Math.round(entry.startTime),
+          page: window.location.pathname,
+          device: getDeviceClass(),
+        };
+        if (entry.element) {
+          payload.lcp_tag = entry.element.tagName?.toLowerCase?.() || undefined;
+          const cls = entry.element.className;
+          if (typeof cls === 'string' && cls) {
+            payload.lcp_class = cls.slice(0, 120);
+          }
+        }
+        if (entry.url) {
+          try {
+            const parsed = new URL(entry.url, window.location.origin);
+            if (parsed.origin === window.location.origin) {
+              payload.lcp_url_path = parsed.pathname;
+            }
+          } catch {
+            // ignore malformed URLs
+          }
+        }
+        track('web_vital', payload);
       };
 
       new PerformanceObserver((list) => {
         const entries = list.getEntries();
         const last = entries[entries.length - 1];
-        if (last) send('LCP', last.startTime);
+        if (last) sendLcp(last);
       }).observe({ type: 'largest-contentful-paint', buffered: true });
 
       new PerformanceObserver((list) => {
         list.getEntries().forEach((entry) => {
-          if (!entry.hadRecentInput) send('CLS', entry.value * 1000);
+          if (!entry.hadRecentInput) sendCls(entry.value * 1000);
         });
       }).observe({ type: 'layout-shift', buffered: true });
 
       /* Custom proxy — not official INP (see docs/performance-stage-budget.md). */
       new PerformanceObserver((list) => {
         list.getEntries().forEach((entry) => {
-          send('interaction_event_duration', entry.duration);
+          track('web_vital', {
+            metric: 'interaction_event_duration',
+            value: Math.round(entry.duration),
+            page: window.location.pathname,
+            device: getDeviceClass(),
+          });
         });
       }).observe({ type: 'event', buffered: true, durationThreshold: 16 });
     } catch {

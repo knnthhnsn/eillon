@@ -88,6 +88,43 @@ Scene rail nav clicks fire once via delegated `data-analytics-event` (with `sour
 
 Visual capture includes `homepage-letters-beles-dispatch-open.png` when the Beles Dispatch letter is present.
 
+## Cinematic LCP Recovery v1
+
+The goal is **not austerity**. The homepage stays cinematic — hero, marquee, Scene Rail, shaders, pins, and Letters archive remain.
+
+| Target | Value |
+|---|---|
+| CI LCP | ≤ 4500ms (immediate gate) |
+| Stretch CI LCP | ≤ 3500ms via `LH_LCP_MAX_MS=3500` |
+| Field p75 LCP | ≤ 2500ms long-term |
+
+### Protect
+
+- One high-priority LCP asset — hero `picture` with `fetchpriority="high"` and responsive `srcset`
+- Critical hero CSS inline; `home.min.css` deferred after first paint
+- GSAP / ScrollTrigger / `home.js` pins load via `load-after-hero.js` after hero decode (`eillon:hero-ready`)
+- Decorative shaders remain idle until visible
+- Cormorant loads with `display=optional` after idle — hero word uses Georgia first to avoid font-blocked LCP
+- Visual parity screenshots (`npm run test:visual`, `npm run test:production-visual`)
+- `prefers-reduced-motion` unchanged
+
+### Analyze
+
+```bash
+npm run lighthouse:ci
+npm run perf:analyze
+```
+
+Writes `artifacts/performance/lcp-analysis.json` and `.md`.
+
+### Hero variants
+
+```bash
+npm run optimize:hero
+```
+
+Generates responsive WebP/AVIF/JPEG under `images/cowboy-cowgirl-{width}.*` and `artifacts/performance/hero-image-report.md`.
+
 ## File ownership
 
 | Concern | Primary files |
