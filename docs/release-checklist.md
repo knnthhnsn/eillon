@@ -40,8 +40,9 @@ Run **Release production** (`.github/workflows/release-production.yml`) after Ve
 
 Inputs:
 - `expected_sha` — commit to verify (defaults to workflow SHA)
+- `production_origin` — alias to verify (default `https://eillon.maison`)
 - `verify_only` — default true; parity only
-- `deploy_with_vercel_cli` — optional CLI deploy (requires Vercel secrets)
+- `deploy_with_vercel_cli` — optional CLI deploy (requires Vercel secrets; writes `artifacts/parity/deployment-url.txt`)
 
 Workflow must pass:
 - `artifacts/parity/production-alias.json` — **pass**

@@ -16,6 +16,15 @@ const ORIGIN = (process.env.EILLON_ORIGIN || 'https://eillon.maison').replace(/\
 const COMPARE_DEPLOY_ORIGIN = process.env.COMPARE_DEPLOY_ORIGIN?.replace(/\/$/, '') || null;
 const OUT_DIR = join(root, 'artifacts', 'parity');
 const OUT_BASENAME = process.env.PARITY_OUT || 'latest';
+const VERIFY_TARGET =
+  process.env.VERIFY_TARGET ||
+  (OUT_BASENAME === 'deploy-url'
+    ? 'deployment-url'
+    : OUT_BASENAME === 'production-alias'
+      ? 'production-alias'
+      : ORIGIN.includes('vercel.app')
+        ? 'deployment-url'
+        : 'production-alias');
 const OUT_JSON = join(OUT_DIR, `${OUT_BASENAME}.json`);
 const OUT_MD = join(OUT_DIR, `${OUT_BASENAME}.md`);
 const strict = process.env.VERIFY_PRODUCTION === 'true' || process.argv.includes('--required');
@@ -424,6 +433,7 @@ async function runParityCheck() {
   return {
     timestamp: new Date().toISOString(),
     origin: ORIGIN,
+    verifyTarget: VERIFY_TARGET,
     compareDeployOrigin: COMPARE_DEPLOY_ORIGIN,
     audit,
     strict,
@@ -441,6 +451,7 @@ function writeMarkdown(report) {
     '# Production parity report',
     '',
     `- **Origin:** ${report.origin}`,
+    `- **Verify target:** ${report.verifyTarget || 'unknown'}`,
     `- **Compare deploy:** ${report.compareDeployOrigin || 'none'}`,
     `- **Timestamp:** ${report.timestamp}`,
     `- **Pass:** ${report.pass ? 'yes' : 'no'}`,

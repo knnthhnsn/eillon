@@ -15,6 +15,32 @@ const PORT = Number(process.env.PORT || 8767);
 const BASE = `http://127.0.0.1:${PORT}`;
 const OUT_DIR = join(root, 'artifacts', 'parity');
 const OUT_FILE = join(OUT_DIR, 'dispatch-funnel-local.json');
+const OUT_MD = join(OUT_DIR, 'dispatch-funnel-local.md');
+
+function writeMarkdown(result) {
+  const lines = [
+    '# Dispatch funnel simulation',
+    '',
+    `- **Pass:** ${result.pass ? 'yes' : 'no'}`,
+    `- **Final URL:** ${result.finalUrl || 'n/a'}`,
+    `- **Timestamp:** ${result.timestamp}`,
+    '',
+  ];
+  if (result.eventNames?.length) {
+    lines.push('## Events captured', ...result.eventNames.map((e) => `- ${e}`), '');
+  }
+  if (result.failures?.length) {
+    lines.push('## Failures', ...result.failures.map((f) => `- ${f}`), '');
+  }
+  if (result.timeline?.length) {
+    lines.push(
+      '## Timeline',
+      ...result.timeline.map((e) => `- ${e.kind === 'mark' ? `mark:${e.source}` : e.name}`),
+      '',
+    );
+  }
+  return `${lines.join('\n')}\n`;
+}
 
 function wait(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -203,7 +229,14 @@ try {
 
   if (!eventNames.includes('restock_anchor_reached')) {
     result.failures.push('restock_anchor_reached did not fire after Beles #waitlist loaded');
+    result.diagnostics = {
+      eventNames,
+      timelineLength: timeline.length,
+      hint: 'Observer may need more time; check EILLON_RESTOCK_SOURCE sessionStorage on /beles',
+    };
   }
+
+  result.eventNames = eventNames;
 
   if (result.failures.length) {
     throw new Error(result.failures.join('; '));
@@ -221,6 +254,7 @@ try {
 } finally {
   mkdirSync(OUT_DIR, { recursive: true });
   writeFileSync(OUT_FILE, `${JSON.stringify(result, null, 2)}\n`);
+  writeFileSync(OUT_MD, writeMarkdown(result));
   server.kill('SIGTERM');
   await wait(300);
 }

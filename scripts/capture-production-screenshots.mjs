@@ -38,22 +38,12 @@ function wait(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-function assertRootLifecycle(html, label, assertions) {
-  if (html.includes('<p class="mv-chapter__status">Out of stock</p>')) {
-    assertions.push({ pass: false, label: `${label}_beles_not_out_of_stock` });
-  } else {
-    assertions.push({ pass: true, label: `${label}_beles_not_out_of_stock` });
-  }
-  if (/six letters folded/i.test(html)) {
-    assertions.push({ pass: false, label: `${label}_no_six_letters_copy` });
-  } else {
-    assertions.push({ pass: true, label: `${label}_no_six_letters_copy` });
-  }
-  if (!/Awaiting next release/i.test(html)) {
-    assertions.push({ pass: false, label: `${label}_awaiting_next_release` });
-  } else {
-    assertions.push({ pass: true, label: `${label}_awaiting_next_release` });
-  }
+function rootLifecyclePass(html) {
+  return (
+    /Awaiting next release/i.test(html) &&
+    !html.includes('<p class="mv-chapter__status">Out of stock</p>') &&
+    !/six letters folded/i.test(html)
+  );
 }
 
 async function fetchRootHtml(path) {
@@ -63,30 +53,37 @@ async function fetchRootHtml(path) {
   return res.text();
 }
 
+const screenshots = [];
 const assertions = [];
 
 try {
   await mkdir(OUT, { recursive: true });
 
   const homepageHtml = await fetchRootHtml('/');
-  assertRootLifecycle(homepageHtml, 'homepage', assertions);
-
   const indexHtml = await fetchRootHtml('/index.html');
-  assertRootLifecycle(indexHtml, 'index_html', assertions);
+  const rootPass = rootLifecyclePass(homepageHtml);
+  const indexPass = rootLifecyclePass(indexHtml);
+
+  assertions.push({ pass: rootPass, label: 'homepage_root_lifecycle' });
+  assertions.push({ pass: indexPass, label: 'index_html_root_lifecycle' });
 
   const browser = await launchBrowser();
   const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
 
   await page.goto(`${ORIGIN}/?audit=${AUDIT}`, { waitUntil: 'networkidle', timeout: 90000 });
   await wait(1200);
-  await page.screenshot({ path: join(OUT, 'homepage-hero.png'), fullPage: false });
+  const heroPath = join(OUT, 'homepage-hero.png');
+  await page.screenshot({ path: heroPath, fullPage: false });
+  screenshots.push(heroPath.replace(/\\/g, '/'));
 
   await page.evaluate(() => {
     const chapter = document.querySelector('#collection, .mv-chapter--beles, [data-chapter="beles"]');
     if (chapter) chapter.scrollIntoView({ behavior: 'instant', block: 'center' });
   });
   await wait(800);
-  await page.screenshot({ path: join(OUT, 'homepage-beles-chapter.png'), fullPage: false });
+  const chapterPath = join(OUT, 'homepage-beles-chapter.png');
+  await page.screenshot({ path: chapterPath, fullPage: false });
+  screenshots.push(chapterPath.replace(/\\/g, '/'));
 
   await page.goto(`${ORIGIN}/?audit=${AUDIT}#letters`, { waitUntil: 'networkidle', timeout: 90000 });
   await wait(2500);
@@ -96,19 +93,27 @@ try {
     .then(() => true)
     .catch(() => false);
 
-  if (!dispatchExists) {
-    assertions.push({ pass: false, label: 'beles_dispatch_visible' });
-  } else {
-    assertions.push({ pass: true, label: 'beles_dispatch_visible' });
-    await page.screenshot({ path: join(OUT, 'homepage-letters-desk.png'), fullPage: false });
+  let dispatchVisible = dispatchExists;
+  let dispatchOpenActionsVisible = false;
+
+  if (dispatchExists) {
+    const deskPath = join(OUT, 'homepage-letters-desk.png');
+    await page.screenshot({ path: deskPath, fullPage: false });
+    screenshots.push(deskPath.replace(/\\/g, '/'));
     await page.click('.correspondence[data-letter-id="beles-dispatch"]', { force: true });
     await page.waitForSelector('.letter-reader.is-active', { timeout: 15000 });
     await page.waitForSelector('.letter-sheet__action--restock[href*="/beles#waitlist"]', { timeout: 15000 });
     await wait(1200);
-    await page.screenshot({ path: join(OUT, 'homepage-beles-dispatch-open.png'), fullPage: false });
-    const actionVisible = await page.locator('.letter-sheet__action--restock[href*="/beles#waitlist"]').isVisible();
-    assertions.push({ pass: actionVisible, label: 'beles_dispatch_restock_action_visible' });
+    const openPath = join(OUT, 'homepage-beles-dispatch-open.png');
+    await page.screenshot({ path: openPath, fullPage: false });
+    screenshots.push(openPath.replace(/\\/g, '/'));
+    dispatchOpenActionsVisible = await page
+      .locator('.letter-sheet__action--restock[href*="/beles#waitlist"]')
+      .isVisible();
   }
+
+  assertions.push({ pass: dispatchVisible, label: 'beles_dispatch_visible' });
+  assertions.push({ pass: dispatchOpenActionsVisible, label: 'beles_dispatch_restock_action_visible' });
 
   await page.goto(`${ORIGIN}/index.html?audit=${AUDIT}`, { waitUntil: 'networkidle', timeout: 90000 });
   await page.evaluate(() => {
@@ -116,21 +121,33 @@ try {
     if (chapter) chapter.scrollIntoView({ behavior: 'instant', block: 'center' });
   });
   await wait(800);
-  await page.screenshot({ path: join(OUT, 'index-html-beles-chapter.png'), fullPage: false });
+  const indexChapterPath = join(OUT, 'index-html-beles-chapter.png');
+  await page.screenshot({ path: indexChapterPath, fullPage: false });
+  screenshots.push(indexChapterPath.replace(/\\/g, '/'));
+
+  await browser.close();
 
   const report = {
     captured_at: new Date().toISOString(),
     origin: ORIGIN,
     audit: AUDIT,
+    rootPass,
+    indexPass,
+    dispatchVisible,
+    dispatchOpenActionsVisible,
+    screenshots,
     assertions,
-    pass: assertions.every((a) => a.pass),
+    pass: rootPass && indexPass && dispatchVisible && dispatchOpenActionsVisible,
   };
 
   await writeFile(join(OUT, 'report.json'), `${JSON.stringify(report, null, 2)}\n`);
-  await browser.close();
 
   if (!report.pass) {
-    const failed = assertions.filter((a) => !a.pass).map((a) => a.label);
+    const failed = [];
+    if (!rootPass) failed.push('root');
+    if (!indexPass) failed.push('index');
+    if (!dispatchVisible) failed.push('dispatch');
+    if (!dispatchOpenActionsVisible) failed.push('dispatch_actions');
     console.error(`✗ Production visual parity failed: ${failed.join(', ')}`);
     process.exit(1);
   }

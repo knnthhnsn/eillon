@@ -16,6 +16,7 @@ const EXPECT_SHA = process.env.EXPECT_COMMIT_SHA || '';
 const TIMEOUT_MS = Number(process.env.TIMEOUT_MS || 180000);
 const INTERVAL_MS = Number(process.env.INTERVAL_MS || 10000);
 const OUT = join(root, 'artifacts', 'parity', 'manifest-wait.json');
+const OUT_MD = join(root, 'artifacts', 'parity', 'manifest-wait.md');
 
 function read(rel) {
   return readFileSync(join(root, rel), 'utf8');
@@ -110,12 +111,28 @@ const report = {
 mkdirSync(join(root, 'artifacts', 'parity'), { recursive: true });
 writeFileSync(OUT, `${JSON.stringify(report, null, 2)}\n`);
 
+const md = [
+  '# Manifest wait report',
+  '',
+  `- **Origin:** ${ORIGIN}`,
+  `- **Expected SHA:** ${EXPECT_SHA || 'any'}`,
+  `- **Success:** ${success ? 'yes' : 'no'}`,
+  `- **Elapsed:** ${report.elapsedMs}ms`,
+  `- **Attempts:** ${attempts.length}`,
+  '',
+  success ? 'Manifest matched repo expectations.' : `Last error: ${lastError || 'timeout'}`,
+  '',
+].join('\n');
+writeFileSync(OUT_MD, `${md}\n`);
+
 if (!success) {
   console.error(`✗ Manifest wait timed out (${ORIGIN})`);
   if (lastError) console.error(`  • ${lastError}`);
   console.error(`Report: ${OUT.replace(/\\/g, '/')}`);
+  console.error(`Summary: ${OUT_MD.replace(/\\/g, '/')}`);
   process.exit(1);
 }
 
 console.log(`✓ Manifest ready (${ORIGIN})`);
 console.log(`Report: ${OUT.replace(/\\/g, '/')}`);
+console.log(`Summary: ${OUT_MD.replace(/\\/g, '/')}`);

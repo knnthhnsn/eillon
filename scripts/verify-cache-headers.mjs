@@ -68,7 +68,8 @@ const checks = [
     label: 'versioned home.css cacheable',
   },
   {
-    path: '/images/beles-no-background.png',
+    path: '/images/beles-no-background-hi.webp',
+    fallback: '/images/beles-no-background.webp',
     expect: (cc) => /immutable/i.test(cc) || /max-age=31536000/i.test(cc),
     label: 'image immutable',
   },
@@ -77,13 +78,28 @@ const checks = [
 const failures = [];
 
 for (const check of checks) {
-  try {
-    const cacheControl = await fetchCacheControl(check.path);
-    if (!check.expect(cacheControl)) {
-      failures.push(`${check.path}: Cache-Control "${cacheControl}" failed (${check.label})`);
+  const pathsToTry = [check.path, ...(check.fallback ? [check.fallback] : [])];
+  let ok = false;
+  let lastCc = '';
+  let lastErr = null;
+  for (const path of pathsToTry) {
+    try {
+      const cacheControl = await fetchCacheControl(path);
+      lastCc = cacheControl;
+      if (check.expect(cacheControl)) {
+        ok = true;
+        break;
+      }
+    } catch (err) {
+      lastErr = err.message;
     }
-  } catch (err) {
-    failures.push(`${check.path}: ${err.message}`);
+  }
+  if (!ok) {
+    failures.push(
+      lastErr
+        ? `${check.path}: ${lastErr}`
+        : `${check.path}: Cache-Control "${lastCc}" failed (${check.label})`,
+    );
   }
 }
 
