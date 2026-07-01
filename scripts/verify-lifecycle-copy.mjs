@@ -21,6 +21,12 @@ const index = read('index.html');
 if (index.includes('<p class="mv-chapter__status">Out of stock</p>')) {
   failures.push('index.html: homepage Beles status still says "Out of stock"');
 }
+if (/six letters folded/i.test(index)) {
+  failures.push('index.html: homepage still says "six letters folded"');
+}
+if (/\d+\s+letters\s+folded/i.test(index)) {
+  failures.push('index.html: use numberless archive copy ("house letters folded on the desk...")');
+}
 
 const asmara = read('asmara.html');
 if (/Out of stock/i.test(asmara)) {

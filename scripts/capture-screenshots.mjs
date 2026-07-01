@@ -144,7 +144,7 @@ try {
       if (!window.EILLON_LETTERS) {
         await new Promise((resolve, reject) => {
           const s = document.createElement('script');
-          s.src = '/data/letters.js?v=13';
+          s.src = '/data/letters.js?v=15';
           s.onload = resolve;
           s.onerror = reject;
           document.head.appendChild(s);
@@ -155,11 +155,14 @@ try {
       btn.click();
       return true;
     });
-    if (dispatchOpened) {
-      await wait(1400);
-      captured.push(await snap(desktop, 'homepage-letters-beles-dispatch-open', { fullPage: false }));
-      await desktop.locator('.letter-reader__close').click({ force: true, timeout: 5000 }).catch(() => {});
+    if (!dispatchOpened) {
+      throw new Error(
+        'Beles Dispatch letter missing: expected .correspondence[data-letter-id="beles-dispatch"] on homepage. Add beles-dispatch to data/letters.js and ensure letters archive renders seven slots.',
+      );
     }
+    await wait(1400);
+    captured.push(await snap(desktop, 'homepage-letters-beles-dispatch-open', { fullPage: false }));
+    await desktop.locator('.letter-reader__close').click({ force: true, timeout: 5000 }).catch(() => {});
   }
 
   /* Homepage mobile */

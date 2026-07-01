@@ -1,5 +1,7 @@
 /** EILLON chapter lifecycle — single source for status labels, meta copy, CTAs, and schema availability. */
 
+window.EILLON_LIFECYCLE_VERSION = '1.0.0';
+
 window.EILLON_LIFECYCLE = {
   beles: {
     statusLabel: 'Awaiting next release',

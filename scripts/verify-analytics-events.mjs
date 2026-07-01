@@ -19,6 +19,12 @@ const hasManualSceneTrack = /track\s*\(\s*['"]scene_nav_clicked['"]/.test(sceneR
 if (hasDataAnalytics && hasManualSceneTrack) {
   failures.push('scripts/scene-rail.js: scene_nav_clicked is tracked both via data-analytics-event and manual track()');
 }
+if (!/scene_viewed/.test(sceneRail)) {
+  failures.push('scripts/scene-rail.js: missing scene_viewed tracking');
+}
+if (!/#nav,\s*\.nav,\s*\.site-nav,\s*\[data-site-nav\]/.test(sceneRail)) {
+  failures.push('scripts/scene-rail.js: navOffset must query #nav, .nav, .site-nav, [data-site-nav]');
+}
 
 const letters = read('scripts/letters.js');
 if (!/function runStages/.test(letters)) {
@@ -30,6 +36,15 @@ if (!/letter_action_clicked/.test(letters)) {
 if (!/archive_to_beles_click/.test(letters)) {
   failures.push('scripts/letters.js: missing archive_to_beles_click tracking');
 }
+if (!/markRestockSource\s*\(\s*['"]letter_archive['"]\s*\)/.test(letters)) {
+  failures.push('scripts/letters.js: missing markRestockSource("letter_archive") for waitlist actions');
+}
+const markIdx = letters.indexOf('markRestockSource');
+const actionIdx = letters.indexOf("track('letter_action_clicked'");
+const archiveIdx = letters.indexOf("track('archive_to_beles_click'");
+if (markIdx === -1 || actionIdx === -1 || archiveIdx === -1 || !(markIdx < actionIdx && actionIdx < archiveIdx)) {
+  failures.push('scripts/letters.js: waitlist actions must call markRestockSource before letter_action_clicked before archive_to_beles_click');
+}
 
 const scriptJs = read('script.js');
 if (!/size_interest_selected/.test(scriptJs)) {
@@ -37,6 +52,13 @@ if (!/size_interest_selected/.test(scriptJs)) {
 }
 
 const analytics = read('scripts/analytics.js');
+if (!/restock_anchor_reached/.test(analytics)) {
+  failures.push('scripts/analytics.js: missing restock_anchor_reached tracking');
+}
+if (!/proof_link_clicked/.test(analytics)) {
+  failures.push('scripts/analytics.js: missing proof_link_clicked tracking');
+}
+
 const requiredBindings = [
   ['bindProofLinks', 'proof links'],
   ['bindScentAtlas', 'scent atlas'],

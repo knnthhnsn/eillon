@@ -39,6 +39,12 @@ npm run lighthouse:ci
 npm run test:visual
 ```
 
+After deploy, compare live against repo lifecycle + archive expectations (not part of default CI):
+
+```bash
+VERIFY_PRODUCTION=true npm run verify:production
+```
+
 ### Lighthouse CI
 
 Starts the local dev server, audits `/` on mobile, enforces performance/LCP/CLS budgets via `scripts/check-lighthouse-budget.mjs`.

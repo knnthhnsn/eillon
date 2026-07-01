@@ -11,6 +11,9 @@
     "verify:stockists": "node scripts/verify-stockists.mjs",
     "verify:lifecycle": "node scripts/verify-lifecycle-copy.mjs",
     "verify:analytics": "node scripts/verify-analytics-events.mjs",
+    "verify:production": "node scripts/verify-production-parity.mjs",
+    "verify:production:required": "node scripts/verify-production-parity.mjs --required",
+    "build:manifest": "node scripts/generate-build-manifest.mjs",
     "verify:all": "npm run verify && npm run verify:links && npm run verify:copy && npm run verify:head && npm run verify:stockists && npm run verify:lifecycle && npm run verify:analytics",
     "smoke:funnel": "node scripts/smoke-funnel.mjs",
     "lighthouse:budget": "node scripts/check-lighthouse-budget.mjs",
@@ -28,7 +31,7 @@
     "build:vendor": "node scripts/copy-vendor.mjs",
     "build:sitemap": "node scripts/generate-sitemap.mjs",
     "optimize:images": "python scripts/optimize-images.py",
-    "build": "npm run build:css && npm run build:home && npm run build:site && npm run build:letters && npm run build:js && npm run build:vendor && npm run build:sitemap",
+    "build": "npm run build:css && npm run build:home && npm run build:site && npm run build:letters && npm run build:js && npm run build:vendor && npm run build:sitemap && npm run build:manifest",
     "growth:validate-ledger": "node scripts/growth/validate-ledger.mjs",
     "growth:score": "node scripts/growth/score-experiment.mjs",
     "growth:state": "node scripts/growth/check-state.mjs",
@@ -36,7 +39,8 @@
     "growth:qa": "node scripts/growth/qa.mjs",
     "growth:validate-ai-review": "node scripts/growth/validate-ai-review.mjs",
     "growth:branch": "node scripts/growth/create-experiment-branch-name.mjs",
-    "test:visual": "node scripts/capture-screenshots.mjs"
+    "test:visual": "node scripts/capture-screenshots.mjs",
+    "test:dispatch-funnel": "node scripts/simulate-dispatch-funnel.mjs"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.0",

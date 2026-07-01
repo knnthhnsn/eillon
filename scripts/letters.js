@@ -262,6 +262,9 @@
         var kind = link.dataset.letterAction || 'chapter';
         var labelEl = link.querySelector('.letter-sheet__action-label');
         var label = (labelEl && labelEl.textContent ? labelEl.textContent.trim() : '') || link.textContent.trim();
+        if (href.indexOf('#waitlist') !== -1 && window.EILLON_ANALYTICS?.markRestockSource) {
+          window.EILLON_ANALYTICS.markRestockSource('letter_archive');
+        }
         if (window.EILLON_ANALYTICS?.track) {
           window.EILLON_ANALYTICS.track('letter_action_clicked', {
             letter_id: letter.id,
@@ -438,6 +441,7 @@
 
       readerFocus.innerHTML = buildOpenSheetHTML(letter, silhouette);
       var sheet = readerFocus.querySelector('.letter-sheet');
+      bindLetterActions(sheet, letter);
 
       reader.classList.add('is-active');
       reader.setAttribute('aria-hidden', 'false');

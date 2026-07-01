@@ -1,0 +1,14 @@
+{
+  "commitSha": "20ed20624795411f22807a2463b322b59dc3ef0b",
+  "builtAt": "2026-07-01T08:50:11.573Z",
+  "assets": {
+    "homeJs": "52",
+    "homeMinCss": "92",
+    "dataLettersJs": "15",
+    "lettersJs": "20",
+    "lettersMinCss": "26"
+  },
+  "lifecycleVersion": "1.0.0",
+  "lettersCount": 7,
+  "hasBelesDispatch": true
+}

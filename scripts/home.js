@@ -498,8 +498,8 @@
   if (!section) return;
 
   var loaded = false;
-  var cssHref = 'letters.min.css?v=25';
-  var scriptQueue = ['data/letters.js?v=14', '/scripts/letters.js?v=19'];
+  var cssHref = 'letters.min.css?v=26';
+  var scriptQueue = ['data/letters.js?v=15', '/scripts/letters.js?v=20'];
 
   function loadScripts(index) {
     if (index >= scriptQueue.length) return;
