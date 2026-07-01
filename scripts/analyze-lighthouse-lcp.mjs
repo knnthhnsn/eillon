@@ -140,18 +140,67 @@ function extractOpportunities() {
     .sort((a, b) => (a.score ?? 1) - (b.score ?? 1));
 }
 
+function extractBootScripts(network, lcpMs) {
+  return network
+    .filter((r) => r.resourceType === 'Script' || /\.js(\?|$)/i.test(r.url))
+    .filter((r) => r.endTime <= lcpMs + 50 || r.startTime <= lcpMs)
+    .map((r) => ({
+      url: r.url,
+      transferSize: r.transferSize,
+      startTime: r.startTime,
+      endTime: r.endTime,
+      blockingHint: r.endTime > lcpMs * 0.4 ? 'likely_pre_lcp_parse' : 'may_overlap_lcp',
+    }))
+    .sort((a, b) => b.transferSize - a.transferSize);
+}
+
+function classifyLcpElement(lcpElement) {
+  const haystack = `${lcpElement?.selector || ''} ${lcpElement?.snippet || ''}`.toLowerCase();
+  if (!haystack) return 'unknown';
+  if (/<video|data-model-video|\.mp4|\.webm/i.test(lcpElement?.snippet || '')) return 'video';
+  if (/<img|picture|\.webp|\.jpg|\.png|\.avif/i.test(lcpElement?.snippet || '')) return 'image';
+  if (/h1|h2|p|span|\.word|display|title|text/i.test(haystack)) return 'text';
+  return 'unknown';
+}
+
+function recommendNextPatch({ lcpType, tbt, lcpMs, scripts, renderBlocking }) {
+  if (lcpType === 'text' && tbt > 1000) {
+    return 'main_thread_render_delay — defer non-critical JS (home-interactions post-hero), shrink pre-LCP parse, audit below-fold CSS backgrounds';
+  }
+  if (scripts.some((s) => /script\.min|shared-interactions|beles-shop/i.test(s.url))) {
+    return 'route_js_split — ensure homepage does not load shop/chapter bundles before eillon:hero-ready';
+  }
+  if (renderBlocking.length) {
+    return 'render_blocking — defer non-critical stylesheets or inline critical CSS only';
+  }
+  if (lcpMs > 4500) {
+    return 'lcp_budget — hero asset weight or font render delay; run npm run optimize:hero and verify fetchpriority on LCP element only';
+  }
+  return 'monitor — re-run lighthouse:ci after deploy; compare artifacts/performance/lcp-analysis.json';
+}
+
 const performanceScore = Math.round((report.categories?.performance?.score ?? 0) * 100);
 const lcpMs = Math.round(auditValue('largest-contentful-paint') || 0);
 const cls = auditValue('cumulative-layout-shift');
 const tbt = Math.round(auditValue('total-blocking-time') || 0);
 const speedIndex = Math.round(auditValue('speed-index') || 0);
 const lcpElement = extractLcpElement();
+const lcpType = classifyLcpElement(lcpElement);
 const network = extractNetworkRequests();
 const byteWeight = extractByteWeightByType();
 const renderBlocking = extractRenderBlocking();
 const unusedCss = extractUnused('unused-css-rules');
 const unusedJs = extractUnused('unused-javascript');
 const opportunities = extractOpportunities();
+const bootScripts = extractBootScripts(network, lcpMs);
+const bottleneck = lcpType === 'text' && tbt > 1000 ? 'main_thread_render_delay' : null;
+const recommendedNextPatch = recommendNextPatch({
+  lcpType,
+  tbt,
+  lcpMs,
+  scripts: bootScripts,
+  renderBlocking,
+});
 
 const lcpResource = network.find((r) =>
   /cowboy-cowgirl|\.webp|\.jpg|fonts\.gstatic|\.css|\.js/i.test(r.url),
@@ -172,9 +221,13 @@ const analysis = {
     speedIndexDisplay: auditDisplay('speed-index'),
   },
   lcpElement,
+  lcpElementType: lcpType,
+  bottleneck,
+  recommendedNextPatch,
   lcpResourceGuess: lcpResource
     ? { url: lcpResource.url, transferSize: lcpResource.transferSize, resourceType: lcpResource.resourceType }
     : null,
+  scriptsBeforeLcp: bootScripts.slice(0, 12),
   renderBlocking,
   byteWeight,
   unusedCss,
@@ -196,12 +249,21 @@ const md = [
   `- **CLS:** ${cls?.toFixed?.(3) ?? cls}`,
   `- **TBT:** ${tbt}ms`,
   `- **Speed Index:** ${speedIndex}ms`,
+  `- **LCP element type:** ${lcpType}`,
+  bottleneck ? `- **Bottleneck:** ${bottleneck}` : '',
+  `- **Recommended next patch:** ${recommendedNextPatch}`,
   '',
   '## LCP element',
   '',
   lcpElement?.selector ? `- **Selector:** \`${lcpElement.selector}\`` : '- Selector: unknown',
   lcpElement?.snippet ? `- **Snippet:** \`${lcpElement.snippet}\`` : '',
   lcpElement?.nodeLabel ? `- **Label:** ${lcpElement.nodeLabel}` : '',
+  '',
+  '## Scripts near LCP',
+  '',
+  ...(bootScripts.length
+    ? bootScripts.slice(0, 8).map((s) => `- ${Math.round(s.transferSize / 1024)}KB — ${s.url} (${s.blockingHint})`)
+    : ['- none listed']),
   '',
   '## Top opportunities',
   '',

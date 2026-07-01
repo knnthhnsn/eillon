@@ -1,16 +1,13 @@
-/* =====================================================
-   EILLON — BELES · interactive layer
-   Cinematic loader, scroll motion, hero spotlight,
-   magnetic CTAs, marquee, shop logic.
-   ===================================================== */
+/* EILLON global-core — shared helpers, no pre-LCP DOM work */
 (() => {
   'use strict';
-
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const finePointer    = window.matchMedia('(pointer: fine)').matches;
-  const mobileLayout   = window.matchMedia('(max-width: 900px)');
-  const isLocalDev     = /^(localhost|127\.0\.0\.1)$/.test(window.location.hostname);
-
+  const E = window.EILLON = window.EILLON || {};
+  E.prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  E.finePointer = window.matchMedia('(pointer: fine)').matches;
+  E.mobileLayout = window.matchMedia('(max-width: 900px)');
+  E.isLocalDev = /^(localhost|127\.0\.0\.1)$/.test(window.location.hostname);
+  E.saveData = navigator.connection?.saveData === true;
+  E.readScrollY = () => window.scrollY || window.pageYOffset || 0;
   const isIOS = () =>
     /iPhone|iPad|iPod/i.test(navigator.userAgent) ||
     (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -88,10 +85,24 @@
     video.addEventListener('canplay', () => attempt(retries), { once: true });
     video.load();
   };
+  E.isIOS = isIOS;
+  E.canPlayWebmVp9 = canPlayWebmVp9;
+  E.needsFlatVideoFallback = needsFlatVideoFallback;
+  E.addVideoSource = addVideoSource;
+  E.ensureLazyVideoSource = ensureLazyVideoSource;
+  E.configureBottleVideo = configureBottleVideo;
+  E.playVideoSafe = playVideoSafe;
+})();
 
-  /* ---------- 1. PAGE READY ---------- */
-  document.body.classList.add('is-loaded');
 
+/* EILLON interactions-core — reveals, nav, waitlist, anchors */
+(() => {
+  'use strict';
+  const E = window.EILLON || {};
+  const prefersReduced = E.prefersReduced ?? window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const finePointer = E.finePointer ?? window.matchMedia('(pointer: fine)').matches;
+  const mobileLayout = E.mobileLayout ?? window.matchMedia('(max-width: 900px)');
+  const readScrollY = E.readScrollY;
   /* ---------- 2. REVEAL ON SCROLL ----------
      Two systems:
        - legacy `.reveal` (simple fade-up)
@@ -169,7 +180,6 @@
 
   /* ---------- 2e. SCROLL PROGRESS BAR ---------- */
   const progressEl = document.querySelector('.scroll-progress');
-  const readScrollY = () => window.scrollY || window.pageYOffset || 0;
   if (progressEl) {
     let pTicking = false;
     const updateProgress = () => {
@@ -456,688 +466,6 @@
     step();
   }
 
-  /* ---------- 7b. HERO BOTTLE VIDEO — poster first; video after idle ---------- */
-  const scheduleHeroVideo = (fn) => {
-    const timeout = mobileLayout.matches ? 8000 : 5000;
-    if ('requestIdleCallback' in window) {
-      requestIdleCallback(fn, { timeout });
-    } else {
-      setTimeout(fn, timeout);
-    }
-  };
-
-  document.querySelectorAll('.hero__bottle').forEach((video) => {
-    if (!(video instanceof HTMLVideoElement)) return;
-
-    const link = video.closest('.hero__bottle-link');
-    if (saveData) {
-      link?.classList.add('is-static-fallback');
-      return;
-    }
-
-    let heroVideoStarted = false;
-
-    const revealHeroVideo = () => link?.classList.add('is-video-playing');
-    video.addEventListener('loadeddata', revealHeroVideo, { once: true });
-
-    const beginHeroVideo = () => {
-      if (heroVideoStarted) return;
-      heroVideoStarted = true;
-
-      configureBottleVideo(video);
-
-      video.pause();
-      video.currentTime = 0;
-      video.removeAttribute('autoplay');
-
-      if (prefersReduced) {
-        link?.classList.add('is-static-fallback');
-        return;
-      }
-
-      video.addEventListener('playing', revealHeroVideo, { once: true });
-      playVideoSafe(video);
-    };
-
-    const queueHeroVideo = () => scheduleHeroVideo(beginHeroVideo);
-
-    queueHeroVideo();
-
-    document.addEventListener('visibilitychange', () => {
-      if (!heroVideoStarted || prefersReduced) return;
-      if (document.hidden) video.pause();
-      else playVideoSafe(video);
-    });
-  });
-
-  /* ---------- 7c. CRAFT WINGS VIDEO — play when visible, hold last frame, reset on section leave ---------- */
-  const craftSection = document.getElementById('craft');
-  const craftMedia   = document.querySelector('.craft__image');
-  const craftVideo   = document.querySelector('.craft__video');
-
-  if (craftSection && craftMedia && craftVideo instanceof HTMLVideoElement) {
-    const craftInner = craftVideo.closest('.craft__image-inner');
-    const { mode } = configureBottleVideo(craftVideo);
-    craftVideo.loop = false;
-    craftVideo.pause();
-    craftVideo.currentTime = 0;
-
-    /* iOS / no-WebM: still bottle. Android + desktop: transparent wings video. */
-    if (craftInner && mode === 'mobile') {
-      craftInner.classList.add('is-static-fallback');
-    } else if (!prefersReduced) {
-      let craftAtEnd = false;
-      let resetTimer   = 0;
-
-      const holdLastFrame = () => {
-        craftAtEnd = true;
-        craftVideo.removeAttribute('poster');
-        craftVideo.pause();
-      };
-
-      const resetCraftVideo = () => {
-        craftAtEnd = false;
-        craftVideo.pause();
-        craftVideo.currentTime = 0;
-      };
-
-      const playCraftVideo = () => {
-        if (craftAtEnd) return;
-
-        const start = () => {
-          if (craftAtEnd) return;
-          craftVideo.removeAttribute('poster');
-          playVideoSafe(craftVideo, 3);
-        };
-
-        if (craftVideo.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
-          start();
-        } else {
-          craftVideo.addEventListener('canplay', start, { once: true });
-          craftVideo.load();
-        }
-      };
-
-      craftVideo.addEventListener('ended', holdLastFrame);
-
-      craftVideo.addEventListener('timeupdate', () => {
-        const d = craftVideo.duration;
-        if (!craftAtEnd && Number.isFinite(d) && d > 0 && craftVideo.currentTime >= d - 0.05) {
-          holdLastFrame();
-        }
-      });
-
-      const mediaObsOpts = mobileLayout.matches
-        ? { threshold: 0.12, rootMargin: '48px 0px 0px 0px' }
-        : { threshold: 0.25, rootMargin: '0px 0px -5% 0px' };
-
-      const mediaObserver = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) playCraftVideo();
-          else if (!craftAtEnd) craftVideo.pause();
-        },
-        mediaObsOpts
-      );
-
-      const sectionObserver = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) return;
-          clearTimeout(resetTimer);
-          const delay = mobileLayout.matches ? 320 : 0;
-          resetTimer = window.setTimeout(() => {
-            const rect = craftSection.getBoundingClientRect();
-            const gone = rect.bottom <= 0 || rect.top >= window.innerHeight;
-            if (gone) resetCraftVideo();
-          }, delay);
-        },
-        { threshold: 0 }
-      );
-
-      mediaObserver.observe(craftMedia);
-      sectionObserver.observe(craftSection);
-
-      document.addEventListener('visibilitychange', () => {
-        if (document.hidden) {
-          craftVideo.pause();
-        } else {
-          const mediaRect = craftMedia.getBoundingClientRect();
-          const inMedia = mediaRect.bottom > 0 && mediaRect.top < window.innerHeight * 0.95;
-          if (inMedia) playCraftVideo();
-          else if (craftAtEnd) craftVideo.pause();
-        }
-      });
-    }
-  }
-
-  /* ---------- 7d. MODEL VIDEO — play when parent section in view ---------- */
-  const modelSections = document.querySelectorAll('.model-showcase, .ritual--wear, .chapter-visuals');
-
-  if (modelSections.length) {
-    if (!prefersReduced) {
-      modelSections.forEach((section) => {
-        const videos = section.querySelectorAll('[data-model-video]');
-        if (!videos.length) return;
-
-        const syncSectionVideos = (inView) => {
-          section.classList.toggle('is-inview', inView);
-          videos.forEach((video) => {
-            if (!(video instanceof HTMLVideoElement)) return;
-            if (inView) {
-              ensureLazyVideoSource(video);
-              playVideoSafe(video);
-            } else {
-              video.pause();
-            }
-          });
-        };
-
-        const syncFromViewport = () => {
-          const rect = section.getBoundingClientRect();
-          const inView = rect.bottom > 0 && rect.top < window.innerHeight * 0.92;
-          syncSectionVideos(inView);
-        };
-
-        let syncTick = 0;
-        const requestSync = () => {
-          if (syncTick) return;
-          syncTick = window.requestAnimationFrame(() => {
-            syncTick = 0;
-            syncFromViewport();
-          });
-        };
-
-        if ('IntersectionObserver' in window) {
-          const sectionObserver = new IntersectionObserver(
-            ([entry]) => syncSectionVideos(entry.isIntersecting),
-            { threshold: 0.18, rootMargin: '0px 0px -6% 0px' }
-          );
-
-          sectionObserver.observe(section);
-        }
-
-        window.addEventListener('scroll', requestSync, { passive: true });
-        window.addEventListener('resize', requestSync);
-        requestSync();
-
-        document.addEventListener('visibilitychange', () => {
-          if (document.hidden) {
-            videos.forEach((video) => video.pause());
-            return;
-          }
-          syncFromViewport();
-        });
-      });
-    } else {
-      modelSections.forEach((section) => {
-        section.classList.add('is-inview');
-        section.querySelectorAll('[data-model-video]').forEach((video) => {
-          if (!(video instanceof HTMLVideoElement)) return;
-          video.pause();
-          video.currentTime = 0;
-        });
-      });
-    }
-  }
-
-  /* ---------- 7e. COLLECTION PANEL — Beles showcase background ---------- */
-  const collectionPanels = document.querySelectorAll('.collection-panel');
-  const collectionVideos = document.querySelectorAll('[data-collection-video]');
-
-  if (collectionPanels.length && collectionVideos.length) {
-    if (!prefersReduced) {
-      collectionPanels.forEach((panel) => {
-        const video = panel.querySelector('[data-collection-video]');
-        if (!(video instanceof HTMLVideoElement)) return;
-
-        const syncPanel = (inView) => {
-          panel.classList.toggle('is-inview', inView);
-        };
-
-        const panelObserver = new IntersectionObserver(
-          ([entry]) => {
-            const inView = entry.isIntersecting;
-            syncPanel(inView);
-            if (inView) {
-              ensureLazyVideoSource(video);
-              playVideoSafe(video);
-            } else {
-              video.pause();
-            }
-          },
-          { threshold: 0.15, rootMargin: '0px 0px -2% 0px' }
-        );
-
-        panelObserver.observe(panel);
-
-        video.addEventListener('playing', () => {
-          panel.classList.add('is-inview');
-        }, { once: false });
-      });
-
-      document.addEventListener('visibilitychange', () => {
-        collectionVideos.forEach((video) => {
-          if (!(video instanceof HTMLVideoElement)) return;
-          if (document.hidden) {
-            video.pause();
-            return;
-          }
-          const panel = video.closest('.collection-panel');
-          if (!panel) return;
-          const rect = panel.getBoundingClientRect();
-          const inView = rect.bottom > 0 && rect.top < window.innerHeight * 0.92;
-          panel.classList.toggle('is-inview', inView);
-          if (inView) {
-            ensureLazyVideoSource(video);
-            playVideoSafe(video);
-          }
-        });
-      });
-    } else {
-      collectionVideos.forEach((video) => {
-        if (!(video instanceof HTMLVideoElement)) return;
-        video.pause();
-        video.currentTime = 0;
-      });
-    }
-  }
-
-  /* ---------- 8. SHOP — SIZE SELECTOR ---------- */
-  const sizes = document.querySelectorAll('.size');
-  const priceEl = document.querySelector('[data-price]');
-  const volumeEl = document.querySelector('[data-volume]');
-  const shopImage = document.querySelector('.shop__image');
-  const guideButtons = document.querySelectorAll('[data-guide-size]');
-  const guideText = document.getElementById('sizeGuideText');
-  const canHover = window.matchMedia('(hover: hover) and (pointer: fine)');
-  let selectedSize = '100';
-  const volumeMap = {
-    'sample': '2 ml · discovery vial',
-    '50':     '50 ml · 1.7 fl. oz.',
-    '100':    '100 ml · 3.4 fl. oz.',
-  };
-  const sizeLabelMap = {
-    'sample': '2 ml sample',
-    '50': '50 ml',
-    '100': '100 ml',
-  };
-  const priceMap = {
-    'sample': 28,
-    '50': 170,
-    '100': 240,
-  };
-  const imageLabelMap = {
-    'sample': 'SAMPLE',
-    '50': '50 ML',
-    '100': '100 ML',
-  };
-  const shopImageMap = {
-    sample: {
-      webp: 'images/samples.webp',
-      png: 'images/samples.png',
-      alt: 'EILLON Beles · Fico d\'India 2 ml discovery sample vials',
-    },
-    '50': {
-      webp: 'images/beles-no-background.webp?v=1',
-      png: 'images/beles-no-background.png?v=1',
-      alt: 'EILLON Beles · Fico d\'India 50 ml parfum',
-    },
-    '100': {
-      webp: 'images/beles-no-background.webp?v=1',
-      png: 'images/beles-no-background.png?v=1',
-      alt: 'EILLON Beles · Fico d\'India 100 ml parfum',
-    },
-  };
-  const shopImageWebp = shopImage?.querySelector('[data-shop-webp]');
-  const shopImageImg = shopImage?.querySelector('[data-shop-img]');
-  const shopImageInner = shopImage?.querySelector('.shop__image-inner');
-  const shopVideo = shopImage?.querySelector('[data-shop-video]');
-  const shopSplashSizes = new Set(['50', '100']);
-  const isBelesShop = Boolean(shopImage?.closest('.shop--beles'));
-  let shopVideoWanted = false;
-  let shopVideoPrimed = false;
-  let shopVideoPrimeQueued = false;
-
-  const resetShopVideoToStart = () => {
-    try { shopVideo.currentTime = 0; } catch (_) {}
-  };
-
-  const primeShopVideo = () => {
-    if (!(shopVideo instanceof HTMLVideoElement) || prefersReduced || saveData) return;
-    if (!shopImage || !shopSplashSizes.has(shopImage.dataset.productSize)) return;
-    if (shopVideoPrimed) return;
-
-    shopVideo.muted = true;
-    shopVideo.defaultMuted = true;
-    shopVideo.preload = 'auto';
-
-    const settle = () => {
-      if (shopVideoPrimed || document.hidden) return;
-      const playPromise = shopVideo.play();
-      if (!playPromise || typeof playPromise.then !== 'function') {
-        shopVideoPrimed = true;
-        if (!shopVideoWanted) {
-          shopVideo.pause();
-          resetShopVideoToStart();
-        }
-        return;
-      }
-
-      playPromise
-        .then(() => {
-          shopVideoPrimed = true;
-          if (!shopVideoWanted) {
-            shopVideo.pause();
-            resetShopVideoToStart();
-          }
-        })
-        .catch(() => {
-          shopVideo.load();
-        });
-    };
-
-    if (shopVideo.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
-      settle();
-    } else {
-      shopVideo.addEventListener('canplay', settle, { once: true });
-      shopVideo.load();
-    }
-  };
-
-  const scheduleShopVideoPrime = () => {
-    if (shopVideoPrimeQueued) return;
-    shopVideoPrimeQueued = true;
-    const run = () => {
-      if ('requestIdleCallback' in window) {
-        requestIdleCallback(primeShopVideo, { timeout: 1800 });
-      } else {
-        setTimeout(primeShopVideo, 500);
-      }
-    };
-    run();
-  };
-
-  const syncShopVideo = (shouldPlay) => {
-    if (!(shopVideo instanceof HTMLVideoElement) || prefersReduced) return;
-    shopVideoWanted = shouldPlay;
-    if (!shopImage || !shopSplashSizes.has(shopImage.dataset.productSize)) {
-      shopVideo.pause();
-      resetShopVideoToStart();
-      return;
-    }
-    if (shouldPlay) {
-      shopVideo.preload = 'auto';
-      playVideoSafe(shopVideo);
-    }
-    else shopVideo.pause();
-  };
-
-  const belesMobileMq = window.matchMedia('(max-width: 900px)');
-
-  const applySplashProgress = (progress) => {
-    if (!shopImage) return;
-    const clamped = Math.min(1, Math.max(0, progress));
-    shopImage.style.setProperty('--splash-progress', clamped.toFixed(3));
-    const onBelesMobile = isBelesShop && belesMobileMq.matches;
-    if (isBelesShop) {
-      shopImage.classList.remove('is-splash-visible');
-      if (onBelesMobile) return;
-      return;
-    }
-    if (!onBelesMobile) {
-      const splashVisible = clamped > 0.35;
-      shopImage.classList.toggle('is-splash-visible', splashVisible);
-      if (!canHover.matches) syncShopVideo(clamped > 0.28);
-    }
-  };
-
-  let splashManual = null;
-  let belesRevealTimer = null;
-
-  const clearBelesTimedReveal = () => {
-    if (belesRevealTimer) {
-      clearTimeout(belesRevealTimer);
-      belesRevealTimer = null;
-    }
-    shopImage?.classList.remove('is-beles-revealing');
-    if (isBelesShop && belesMobileMq.matches) syncShopVideo(false);
-  };
-
-  const startBelesTimedReveal = () => {
-    clearBelesTimedReveal();
-    if (!isBelesShop || !belesMobileMq.matches || !shopImage) return;
-    if (!shopSplashSizes.has(shopImage.dataset.productSize)) return;
-
-    const delay = prefersReduced ? 600 : 1400;
-    belesRevealTimer = setTimeout(() => {
-      belesRevealTimer = null;
-      shopImage.classList.add('is-beles-revealing');
-      syncShopVideo(true);
-    }, delay);
-  };
-
-  const setShopSplash = (visible) => {
-    applySplashProgress(visible ? 1 : 0);
-  };
-
-  const updateShopImage = (size) => {
-    const asset = shopImageMap[size];
-    if (!asset || !shopImage) return;
-    if (shopImageWebp) shopImageWebp.srcset = asset.webp;
-    if (shopImageImg) {
-      shopImageImg.src = asset.png;
-      shopImageImg.alt = asset.alt;
-    }
-    shopImage.dataset.productSize = size;
-    splashManual = null;
-    if (isBelesShop && belesMobileMq.matches) {
-      clearBelesTimedReveal();
-      if (shopSplashSizes.has(size)) startBelesTimedReveal();
-      return;
-    }
-    applySplashProgress(0);
-    if (!canHover.matches) window.dispatchEvent(new Event('scroll'));
-  };
-  const guideCopyMap = {
-    'sample': 'A first encounter with the sun-warmed accord before choosing a bottle.',
-    '50': 'A considered introduction to Beles, ideal for travel or a first bottle.',
-    '100': 'Daily wear, gifting, and the fullest expression of the Beles accord.',
-  };
-
-  const selectSize = (btn) => {
-    sizes.forEach((b) => {
-      b.classList.remove('is-active');
-      b.setAttribute('aria-checked', 'false');
-      b.tabIndex = -1;
-    });
-    btn.classList.add('is-active');
-    btn.setAttribute('aria-checked', 'true');
-    btn.tabIndex = 0;
-    const amount = btn.dataset.amount;
-    const size   = btn.dataset.size;
-    selectedSize = size || selectedSize;
-    window.EILLON_ANALYTICS?.track?.('size_interest_selected', { chapter: 'beles', size });
-    if (priceEl  && amount)              priceEl.textContent  = `€ ${amount}`;
-    if (volumeEl && volumeMap[size])     volumeEl.textContent = volumeMap[size];
-    if (shopImage && imageLabelMap[size]) shopImage.dataset.selectedVolume = imageLabelMap[size];
-    updateShopImage(size);
-    syncShopVideo(false);
-    if (guideText && guideCopyMap[size])  guideText.textContent = guideCopyMap[size];
-    guideButtons.forEach((guide) => {
-      guide.classList.toggle('is-active', guide.dataset.guideSize === size);
-    });
-    const stickySizeEl = document.getElementById('belesStickySize');
-    if (stickySizeEl && sizeLabelMap[size]) {
-      stickySizeEl.textContent = `${sizeLabelMap[size]} · size interest`;
-    }
-  };
-
-  sizes.forEach((btn, index) => {
-    btn.addEventListener('click', () => selectSize(btn));
-    btn.addEventListener('keydown', (e) => {
-      const keys = ['ArrowLeft', 'ArrowUp', 'ArrowRight', 'ArrowDown', 'Home', 'End'];
-      if (!keys.includes(e.key)) return;
-      e.preventDefault();
-      let nextIndex = index;
-      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') nextIndex = (index - 1 + sizes.length) % sizes.length;
-      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextIndex = (index + 1) % sizes.length;
-      if (e.key === 'Home') nextIndex = 0;
-      if (e.key === 'End') nextIndex = sizes.length - 1;
-      const next = sizes[nextIndex];
-      selectSize(next);
-      next.focus();
-    });
-  });
-  guideButtons.forEach((guide) => {
-    guide.addEventListener('click', () => {
-      const match = document.querySelector(`.size[data-size="${guide.dataset.guideSize}"]`);
-      if (!match) return;
-      selectSize(match);
-      match.focus();
-    });
-  });
-
-  const belesRestockSticky = document.getElementById('belesRestockSticky');
-  const belesProofLayer = document.getElementById('proof');
-  if (belesRestockSticky && belesProofLayer) {
-    const stickyMobileMq = window.matchMedia('(max-width: 900px)');
-    const syncSticky = (visible) => {
-      belesRestockSticky.hidden = !visible;
-      belesRestockSticky.classList.toggle('is-visible', visible);
-    };
-    const stickyObserver = new IntersectionObserver(
-      ([entry]) => {
-        if (!stickyMobileMq.matches) {
-          syncSticky(false);
-          return;
-        }
-        syncSticky(!entry.isIntersecting);
-      },
-      { threshold: 0 },
-    );
-    stickyObserver.observe(belesProofLayer);
-    stickyMobileMq.addEventListener('change', () => {
-      if (!stickyMobileMq.matches) syncSticky(false);
-    });
-    belesRestockSticky.querySelector('[data-restock-source]')?.addEventListener('click', () => {
-      window.EILLON_ANALYTICS?.markRestockSource?.('sticky_card');
-    });
-    const stickySizeEl = document.getElementById('belesStickySize');
-    if (stickySizeEl) stickySizeEl.textContent = `${sizeLabelMap[selectedSize]} · size interest`;
-  }
-
-  if (canHover.matches && shopImage) {
-    shopImage.addEventListener('mouseenter', () => {
-      if (shopSplashSizes.has(shopImage.dataset.productSize)) syncShopVideo(true);
-    });
-    shopImage.addEventListener('mouseleave', () => syncShopVideo(false));
-  }
-
-  if (isBelesShop && shopVideo instanceof HTMLVideoElement && !prefersReduced) {
-    scheduleShopVideoPrime();
-  }
-
-  if (shopVideo instanceof HTMLVideoElement && prefersReduced) {
-    shopVideo.pause();
-    resetShopVideoToStart();
-  }
-
-  /* ---------- 8d. TOUCH UI — mobile alternatives to hover ---------- */
-  const useTouchSplash = () => !canHover.matches && !isBelesShop;
-
-  if (isBelesShop && belesMobileMq.matches) {
-    startBelesTimedReveal();
-    belesMobileMq.addEventListener('change', (e) => {
-      if (e.matches) startBelesTimedReveal();
-      else clearBelesTimedReveal();
-    });
-  } else if (useTouchSplash()) {
-    let touchStartX = 0;
-    let touchStartY = 0;
-
-    const supportsSplash = () => shopSplashSizes.has(shopImage?.dataset.productSize);
-
-    const updateSplashFromScroll = () => {
-      if (!shopImage || !supportsSplash()) {
-        applySplashProgress(0);
-        return;
-      }
-      if (splashManual !== null) return;
-
-      const rect = shopImage.getBoundingClientRect();
-      const vh = window.innerHeight;
-      const centerY = rect.top + rect.height * 0.45;
-      const progress = Math.min(1, Math.max(0, (vh * 0.72 - centerY) / (vh * 0.32)));
-      applySplashProgress(progress);
-    };
-
-    let splashTick = false;
-    const queueSplashScroll = () => {
-      if (splashTick) return;
-      splashTick = true;
-      requestAnimationFrame(() => {
-        splashManual = null;
-        updateSplashFromScroll();
-        splashTick = false;
-      });
-    };
-
-    window.addEventListener('scroll', queueSplashScroll, { passive: true });
-    window.addEventListener('resize', queueSplashScroll);
-    queueSplashScroll();
-
-    if (shopImageInner) {
-      shopImageInner.addEventListener('touchstart', (e) => {
-        if (!supportsSplash() || e.touches.length !== 1) return;
-        touchStartX = e.touches[0].clientX;
-        touchStartY = e.touches[0].clientY;
-      }, { passive: true });
-
-      shopImageInner.addEventListener('touchend', (e) => {
-        if (!supportsSplash()) return;
-        const touch = e.changedTouches[0];
-        const dx = touch.clientX - touchStartX;
-        const dy = touch.clientY - touchStartY;
-        if (Math.abs(dx) < 36 || Math.abs(dx) < Math.abs(dy)) return;
-
-        splashManual = dx < 0 ? 1 : 0;
-        applySplashProgress(splashManual);
-      }, { passive: true });
-    }
-  }
-
-  if (!canHover.matches) {
-    const accordCells = document.querySelectorAll('.accord-profile__list > div');
-    accordCells.forEach((cell) => {
-      cell.setAttribute('role', 'button');
-      cell.setAttribute('tabindex', '0');
-      cell.addEventListener('click', () => {
-        const wasFocused = cell.classList.contains('is-focused');
-        accordCells.forEach((item) => item.classList.remove('is-focused'));
-        if (!wasFocused) cell.classList.add('is-focused');
-      });
-      cell.addEventListener('keydown', (e) => {
-        if (e.key !== 'Enter' && e.key !== ' ') return;
-        e.preventDefault();
-        cell.click();
-      });
-    });
-
-    if ('IntersectionObserver' in window) {
-      const noteIO = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            entry.target.classList.toggle(
-              'is-inview',
-              entry.isIntersecting && entry.intersectionRatio >= 0.42
-            );
-          });
-        },
-        { threshold: [0, 0.42, 0.55] }
-      );
-      document.querySelectorAll('.note').forEach((note) => noteIO.observe(note));
-    }
-  }
-
   /* ---------- 9. WAITLIST ---------- */
   const CONSENT_NOTICE_VERSION = '2026-06-29';
 
@@ -1325,6 +653,67 @@
 
   document.querySelectorAll('[data-waitlist-form]').forEach(setupWaitlistForm);
 
+  /* ---------- 11. SMOOTH ANCHOR SCROLL ---------- */
+  const scrollToHashTarget = (hash, { focusEmail = false } = {}) => {
+    const id = (hash || window.location.hash).replace(/^#/, '');
+    if (!id) return;
+    const target = document.getElementById(id);
+    if (!target) return;
+    const top = target.getBoundingClientRect().top + window.scrollY - 60;
+    window.scrollTo({ top, behavior: prefersReduced ? 'auto' : 'smooth' });
+    if (focusEmail) {
+      target.querySelector('input[type="email"]')?.focus({ preventScroll: true });
+    }
+  };
+
+  if (window.location.hash) {
+    requestAnimationFrame(() => scrollToHashTarget(window.location.hash, { focusEmail: true }));
+  }
+
+  window.addEventListener('hashchange', () => {
+    scrollToHashTarget(window.location.hash, { focusEmail: true });
+  });
+
+  document.querySelectorAll('a[href*="#"]').forEach((a) => {
+    a.addEventListener('click', (e) => {
+      const href = a.getAttribute('href');
+      if (!href || !href.includes('#')) return;
+      if (href.includes('#waitlist')) {
+        const source = a.dataset.restockSource
+          || (a.closest('.scene-rail') ? 'scene_rail' : null)
+          || (a.closest('.mv-chapter') ? 'homepage_beles' : null)
+          || 'cta';
+        window.EILLON_ANALYTICS?.markRestockSource?.(source);
+      }
+      if (href.startsWith('/') && !href.startsWith(window.location.pathname)) return;
+      const hash = href.slice(href.indexOf('#'));
+      if (hash.length < 2) return;
+      const target = document.querySelector(hash);
+      if (!target) return;
+      const isSamePage = href.startsWith('#') || href.startsWith(window.location.pathname);
+      if (!isSamePage) return;
+      e.preventDefault();
+      history.pushState(null, '', hash);
+      scrollToHashTarget(hash, {
+        focusEmail: Boolean(target.id === 'waitlist' || target.querySelector('[data-waitlist-form]')),
+      });
+    });
+  });
+})();
+
+
+/* EILLON shared-interactions — product grid, bottle explorer, is-loaded */
+(() => {
+  'use strict';
+  if (document.body.dataset.navHome !== 'true') {
+    document.body.classList.add('is-loaded');
+  }
+  if (window.EILLON?.__SHARED_INTERACTIONS_BOOTED__) return;
+  if (window.EILLON) window.EILLON.__SHARED_INTERACTIONS_BOOTED__ = true;
+
+  const E = window.EILLON || {};
+  const prefersReduced = E.prefersReduced ?? window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const playVideoSafe = E.playVideoSafe || (() => {});
   /* ---------- 10. PRODUCT GRID RENDER ---------- */
   const isOutOfStock = (product) => (
     ['awaiting-next-release', 'in-development', 'studio-archive', 'out-of-stock', 'waitlist-open'].includes(product.status)
@@ -1726,53 +1115,6 @@
 
   mountProductGrids();
 
-  /* ---------- 11. SMOOTH ANCHOR SCROLL ---------- */
-  const scrollToHashTarget = (hash, { focusEmail = false } = {}) => {
-    const id = (hash || window.location.hash).replace(/^#/, '');
-    if (!id) return;
-    const target = document.getElementById(id);
-    if (!target) return;
-    const top = target.getBoundingClientRect().top + window.scrollY - 60;
-    window.scrollTo({ top, behavior: prefersReduced ? 'auto' : 'smooth' });
-    if (focusEmail) {
-      target.querySelector('input[type="email"]')?.focus({ preventScroll: true });
-    }
-  };
-
-  if (window.location.hash) {
-    requestAnimationFrame(() => scrollToHashTarget(window.location.hash, { focusEmail: true }));
-  }
-
-  window.addEventListener('hashchange', () => {
-    scrollToHashTarget(window.location.hash, { focusEmail: true });
-  });
-
-  document.querySelectorAll('a[href*="#"]').forEach((a) => {
-    a.addEventListener('click', (e) => {
-      const href = a.getAttribute('href');
-      if (!href || !href.includes('#')) return;
-      if (href.includes('#waitlist')) {
-        const source = a.dataset.restockSource
-          || (a.closest('.scene-rail') ? 'scene_rail' : null)
-          || (a.closest('.mv-chapter') ? 'homepage_beles' : null)
-          || 'cta';
-        window.EILLON_ANALYTICS?.markRestockSource?.(source);
-      }
-      if (href.startsWith('/') && !href.startsWith(window.location.pathname)) return;
-      const hash = href.slice(href.indexOf('#'));
-      if (hash.length < 2) return;
-      const target = document.querySelector(hash);
-      if (!target) return;
-      const isSamePage = href.startsWith('#') || href.startsWith(window.location.pathname);
-      if (!isSamePage) return;
-      e.preventDefault();
-      history.pushState(null, '', hash);
-      scrollToHashTarget(hash, {
-        focusEmail: Boolean(target.id === 'waitlist' || target.querySelector('[data-waitlist-form]')),
-      });
-    });
-  });
-
   /* ---------- MAISON STORY MODAL ---------- */
   /* Wired in /scripts/site-nav.js — keeps modal markup and handlers in sync. */
 
@@ -1808,6 +1150,730 @@
     wrap.addEventListener('pointerup', reset);
     wrap.addEventListener('pointerleave', reset);
   });
+})();
 
+
+/* EILLON beles-shop — size selector, sticky restock, shop video */
+(() => {
+  'use strict';
+  const E = window.EILLON || {};
+  const prefersReduced = E.prefersReduced ?? window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const mobileLayout = E.mobileLayout ?? window.matchMedia('(max-width: 900px)');
+  const playVideoSafe = E.playVideoSafe || (() => {});
+  const saveData = E.saveData ?? navigator.connection?.saveData === true;
+
+  /* ---------- 8. SHOP — SIZE SELECTOR ---------- */
+  const sizes = document.querySelectorAll('.size');
+  const priceEl = document.querySelector('[data-price]');
+  const volumeEl = document.querySelector('[data-volume]');
+  const shopImage = document.querySelector('.shop__image');
+  const guideButtons = document.querySelectorAll('[data-guide-size]');
+  const guideText = document.getElementById('sizeGuideText');
+  const canHover = window.matchMedia('(hover: hover) and (pointer: fine)');
+  let selectedSize = '100';
+  const volumeMap = {
+    'sample': '2 ml · discovery vial',
+    '50':     '50 ml · 1.7 fl. oz.',
+    '100':    '100 ml · 3.4 fl. oz.',
+  };
+  const sizeLabelMap = {
+    'sample': '2 ml sample',
+    '50': '50 ml',
+    '100': '100 ml',
+  };
+  const priceMap = {
+    'sample': 28,
+    '50': 170,
+    '100': 240,
+  };
+  const imageLabelMap = {
+    'sample': 'SAMPLE',
+    '50': '50 ML',
+    '100': '100 ML',
+  };
+  const shopImageMap = {
+    sample: {
+      webp: 'images/samples.webp',
+      png: 'images/samples.png',
+      alt: 'EILLON Beles · Fico d\'India 2 ml discovery sample vials',
+    },
+    '50': {
+      webp: 'images/beles-no-background.webp?v=1',
+      png: 'images/beles-no-background.png?v=1',
+      alt: 'EILLON Beles · Fico d\'India 50 ml parfum',
+    },
+    '100': {
+      webp: 'images/beles-no-background.webp?v=1',
+      png: 'images/beles-no-background.png?v=1',
+      alt: 'EILLON Beles · Fico d\'India 100 ml parfum',
+    },
+  };
+  const shopImageWebp = shopImage?.querySelector('[data-shop-webp]');
+  const shopImageImg = shopImage?.querySelector('[data-shop-img]');
+  const shopImageInner = shopImage?.querySelector('.shop__image-inner');
+  const shopVideo = shopImage?.querySelector('[data-shop-video]');
+  const shopSplashSizes = new Set(['50', '100']);
+  const isBelesShop = Boolean(shopImage?.closest('.shop--beles'));
+  let shopVideoWanted = false;
+  let shopVideoPrimed = false;
+  let shopVideoPrimeQueued = false;
+
+  const resetShopVideoToStart = () => {
+    try { shopVideo.currentTime = 0; } catch (_) {}
+  };
+
+  const primeShopVideo = () => {
+    if (!(shopVideo instanceof HTMLVideoElement) || prefersReduced || saveData) return;
+    if (!shopImage || !shopSplashSizes.has(shopImage.dataset.productSize)) return;
+    if (shopVideoPrimed) return;
+
+    shopVideo.muted = true;
+    shopVideo.defaultMuted = true;
+    shopVideo.preload = 'auto';
+
+    const settle = () => {
+      if (shopVideoPrimed || document.hidden) return;
+      const playPromise = shopVideo.play();
+      if (!playPromise || typeof playPromise.then !== 'function') {
+        shopVideoPrimed = true;
+        if (!shopVideoWanted) {
+          shopVideo.pause();
+          resetShopVideoToStart();
+        }
+        return;
+      }
+
+      playPromise
+        .then(() => {
+          shopVideoPrimed = true;
+          if (!shopVideoWanted) {
+            shopVideo.pause();
+            resetShopVideoToStart();
+          }
+        })
+        .catch(() => {
+          shopVideo.load();
+        });
+    };
+
+    if (shopVideo.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
+      settle();
+    } else {
+      shopVideo.addEventListener('canplay', settle, { once: true });
+      shopVideo.load();
+    }
+  };
+
+  const scheduleShopVideoPrime = () => {
+    if (shopVideoPrimeQueued) return;
+    shopVideoPrimeQueued = true;
+    const run = () => {
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(primeShopVideo, { timeout: 1800 });
+      } else {
+        setTimeout(primeShopVideo, 500);
+      }
+    };
+    run();
+  };
+
+  const syncShopVideo = (shouldPlay) => {
+    if (!(shopVideo instanceof HTMLVideoElement) || prefersReduced) return;
+    shopVideoWanted = shouldPlay;
+    if (!shopImage || !shopSplashSizes.has(shopImage.dataset.productSize)) {
+      shopVideo.pause();
+      resetShopVideoToStart();
+      return;
+    }
+    if (shouldPlay) {
+      shopVideo.preload = 'auto';
+      playVideoSafe(shopVideo);
+    }
+    else shopVideo.pause();
+  };
+
+  const belesMobileMq = window.matchMedia('(max-width: 900px)');
+
+  const applySplashProgress = (progress) => {
+    if (!shopImage) return;
+    const clamped = Math.min(1, Math.max(0, progress));
+    shopImage.style.setProperty('--splash-progress', clamped.toFixed(3));
+    const onBelesMobile = isBelesShop && belesMobileMq.matches;
+    if (isBelesShop) {
+      shopImage.classList.remove('is-splash-visible');
+      if (onBelesMobile) return;
+      return;
+    }
+    if (!onBelesMobile) {
+      const splashVisible = clamped > 0.35;
+      shopImage.classList.toggle('is-splash-visible', splashVisible);
+      if (!canHover.matches) syncShopVideo(clamped > 0.28);
+    }
+  };
+
+  let splashManual = null;
+  let belesRevealTimer = null;
+
+  const clearBelesTimedReveal = () => {
+    if (belesRevealTimer) {
+      clearTimeout(belesRevealTimer);
+      belesRevealTimer = null;
+    }
+    shopImage?.classList.remove('is-beles-revealing');
+    if (isBelesShop && belesMobileMq.matches) syncShopVideo(false);
+  };
+
+  const startBelesTimedReveal = () => {
+    clearBelesTimedReveal();
+    if (!isBelesShop || !belesMobileMq.matches || !shopImage) return;
+    if (!shopSplashSizes.has(shopImage.dataset.productSize)) return;
+
+    const delay = prefersReduced ? 600 : 1400;
+    belesRevealTimer = setTimeout(() => {
+      belesRevealTimer = null;
+      shopImage.classList.add('is-beles-revealing');
+      syncShopVideo(true);
+    }, delay);
+  };
+
+  const setShopSplash = (visible) => {
+    applySplashProgress(visible ? 1 : 0);
+  };
+
+  const updateShopImage = (size) => {
+    const asset = shopImageMap[size];
+    if (!asset || !shopImage) return;
+    if (shopImageWebp) shopImageWebp.srcset = asset.webp;
+    if (shopImageImg) {
+      shopImageImg.src = asset.png;
+      shopImageImg.alt = asset.alt;
+    }
+    shopImage.dataset.productSize = size;
+    splashManual = null;
+    if (isBelesShop && belesMobileMq.matches) {
+      clearBelesTimedReveal();
+      if (shopSplashSizes.has(size)) startBelesTimedReveal();
+      return;
+    }
+    applySplashProgress(0);
+    if (!canHover.matches) window.dispatchEvent(new Event('scroll'));
+  };
+  const guideCopyMap = {
+    'sample': 'A first encounter with the sun-warmed accord before choosing a bottle.',
+    '50': 'A considered introduction to Beles, ideal for travel or a first bottle.',
+    '100': 'Daily wear, gifting, and the fullest expression of the Beles accord.',
+  };
+
+  const selectSize = (btn) => {
+    sizes.forEach((b) => {
+      b.classList.remove('is-active');
+      b.setAttribute('aria-checked', 'false');
+      b.tabIndex = -1;
+    });
+    btn.classList.add('is-active');
+    btn.setAttribute('aria-checked', 'true');
+    btn.tabIndex = 0;
+    const amount = btn.dataset.amount;
+    const size   = btn.dataset.size;
+    selectedSize = size || selectedSize;
+    window.EILLON_ANALYTICS?.track?.('size_interest_selected', { chapter: 'beles', size });
+    if (priceEl  && amount)              priceEl.textContent  = `€ ${amount}`;
+    if (volumeEl && volumeMap[size])     volumeEl.textContent = volumeMap[size];
+    if (shopImage && imageLabelMap[size]) shopImage.dataset.selectedVolume = imageLabelMap[size];
+    updateShopImage(size);
+    syncShopVideo(false);
+    if (guideText && guideCopyMap[size])  guideText.textContent = guideCopyMap[size];
+    guideButtons.forEach((guide) => {
+      guide.classList.toggle('is-active', guide.dataset.guideSize === size);
+    });
+    const stickySizeEl = document.getElementById('belesStickySize');
+    if (stickySizeEl && sizeLabelMap[size]) {
+      stickySizeEl.textContent = `${sizeLabelMap[size]} · size interest`;
+    }
+  };
+
+  sizes.forEach((btn, index) => {
+    btn.addEventListener('click', () => selectSize(btn));
+    btn.addEventListener('keydown', (e) => {
+      const keys = ['ArrowLeft', 'ArrowUp', 'ArrowRight', 'ArrowDown', 'Home', 'End'];
+      if (!keys.includes(e.key)) return;
+      e.preventDefault();
+      let nextIndex = index;
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') nextIndex = (index - 1 + sizes.length) % sizes.length;
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextIndex = (index + 1) % sizes.length;
+      if (e.key === 'Home') nextIndex = 0;
+      if (e.key === 'End') nextIndex = sizes.length - 1;
+      const next = sizes[nextIndex];
+      selectSize(next);
+      next.focus();
+    });
+  });
+  guideButtons.forEach((guide) => {
+    guide.addEventListener('click', () => {
+      const match = document.querySelector(`.size[data-size="${guide.dataset.guideSize}"]`);
+      if (!match) return;
+      selectSize(match);
+      match.focus();
+    });
+  });
+
+  const belesRestockSticky = document.getElementById('belesRestockSticky');
+  const belesProofLayer = document.getElementById('proof');
+  if (belesRestockSticky && belesProofLayer) {
+    const stickyMobileMq = window.matchMedia('(max-width: 900px)');
+    const syncSticky = (visible) => {
+      belesRestockSticky.hidden = !visible;
+      belesRestockSticky.classList.toggle('is-visible', visible);
+    };
+    const stickyObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (!stickyMobileMq.matches) {
+          syncSticky(false);
+          return;
+        }
+        syncSticky(!entry.isIntersecting);
+      },
+      { threshold: 0 },
+    );
+    stickyObserver.observe(belesProofLayer);
+    stickyMobileMq.addEventListener('change', () => {
+      if (!stickyMobileMq.matches) syncSticky(false);
+    });
+    belesRestockSticky.querySelector('[data-restock-source]')?.addEventListener('click', () => {
+      window.EILLON_ANALYTICS?.markRestockSource?.('sticky_card');
+    });
+    const stickySizeEl = document.getElementById('belesStickySize');
+    if (stickySizeEl) stickySizeEl.textContent = `${sizeLabelMap[selectedSize]} · size interest`;
+  }
+
+  if (canHover.matches && shopImage) {
+    shopImage.addEventListener('mouseenter', () => {
+      if (shopSplashSizes.has(shopImage.dataset.productSize)) syncShopVideo(true);
+    });
+    shopImage.addEventListener('mouseleave', () => syncShopVideo(false));
+  }
+
+  if (isBelesShop && shopVideo instanceof HTMLVideoElement && !prefersReduced) {
+    scheduleShopVideoPrime();
+  }
+
+  if (shopVideo instanceof HTMLVideoElement && prefersReduced) {
+    shopVideo.pause();
+    resetShopVideoToStart();
+  }
+
+  /* ---------- 8d. TOUCH UI — mobile alternatives to hover ---------- */
+  const useTouchSplash = () => !canHover.matches && !isBelesShop;
+
+  if (isBelesShop && belesMobileMq.matches) {
+    startBelesTimedReveal();
+    belesMobileMq.addEventListener('change', (e) => {
+      if (e.matches) startBelesTimedReveal();
+      else clearBelesTimedReveal();
+    });
+  } else if (useTouchSplash()) {
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    const supportsSplash = () => shopSplashSizes.has(shopImage?.dataset.productSize);
+
+    const updateSplashFromScroll = () => {
+      if (!shopImage || !supportsSplash()) {
+        applySplashProgress(0);
+        return;
+      }
+      if (splashManual !== null) return;
+
+      const rect = shopImage.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const centerY = rect.top + rect.height * 0.45;
+      const progress = Math.min(1, Math.max(0, (vh * 0.72 - centerY) / (vh * 0.32)));
+      applySplashProgress(progress);
+    };
+
+    let splashTick = false;
+    const queueSplashScroll = () => {
+      if (splashTick) return;
+      splashTick = true;
+      requestAnimationFrame(() => {
+        splashManual = null;
+        updateSplashFromScroll();
+        splashTick = false;
+      });
+    };
+
+    window.addEventListener('scroll', queueSplashScroll, { passive: true });
+    window.addEventListener('resize', queueSplashScroll);
+    queueSplashScroll();
+
+    if (shopImageInner) {
+      shopImageInner.addEventListener('touchstart', (e) => {
+        if (!supportsSplash() || e.touches.length !== 1) return;
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      }, { passive: true });
+
+      shopImageInner.addEventListener('touchend', (e) => {
+        if (!supportsSplash()) return;
+        const touch = e.changedTouches[0];
+        const dx = touch.clientX - touchStartX;
+        const dy = touch.clientY - touchStartY;
+        if (Math.abs(dx) < 36 || Math.abs(dx) < Math.abs(dy)) return;
+
+        splashManual = dx < 0 ? 1 : 0;
+        applySplashProgress(splashManual);
+      }, { passive: true });
+    }
+  }
+
+  if (!canHover.matches) {
+    const accordCells = document.querySelectorAll('.accord-profile__list > div');
+    accordCells.forEach((cell) => {
+      cell.setAttribute('role', 'button');
+      cell.setAttribute('tabindex', '0');
+      cell.addEventListener('click', () => {
+        const wasFocused = cell.classList.contains('is-focused');
+        accordCells.forEach((item) => item.classList.remove('is-focused'));
+        if (!wasFocused) cell.classList.add('is-focused');
+      });
+      cell.addEventListener('keydown', (e) => {
+        if (e.key !== 'Enter' && e.key !== ' ') return;
+        e.preventDefault();
+        cell.click();
+      });
+    });
+
+    if ('IntersectionObserver' in window) {
+      const noteIO = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            entry.target.classList.toggle(
+              'is-inview',
+              entry.isIntersecting && entry.intersectionRatio >= 0.42
+            );
+          });
+        },
+        { threshold: [0, 0.42, 0.55] }
+      );
+      document.querySelectorAll('.note').forEach((note) => noteIO.observe(note));
+    }
+  }
+})();
+
+
+/* EILLON chapter-interactions — chapter video + status sync */
+(() => {
+  'use strict';
+  const E = window.EILLON || {};
+  const prefersReduced = E.prefersReduced ?? window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const mobileLayout = E.mobileLayout ?? window.matchMedia('(max-width: 900px)');
+  const configureBottleVideo = E.configureBottleVideo || (() => ({ mode: 'none' }));
+  const playVideoSafe = E.playVideoSafe || (() => {});
+  const ensureLazyVideoSource = E.ensureLazyVideoSource || (() => false);
+  const saveData = E.saveData ?? navigator.connection?.saveData === true;
+
+  /* ---------- 7b. HERO BOTTLE VIDEO — poster first; video after idle ---------- */
+  const scheduleHeroVideo = (fn) => {
+    const timeout = mobileLayout.matches ? 8000 : 5000;
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(fn, { timeout });
+    } else {
+      setTimeout(fn, timeout);
+    }
+  };
+
+  document.querySelectorAll('.hero__bottle').forEach((video) => {
+    if (!(video instanceof HTMLVideoElement)) return;
+
+    const link = video.closest('.hero__bottle-link');
+    if (saveData) {
+      link?.classList.add('is-static-fallback');
+      return;
+    }
+
+    let heroVideoStarted = false;
+
+    const revealHeroVideo = () => link?.classList.add('is-video-playing');
+    video.addEventListener('loadeddata', revealHeroVideo, { once: true });
+
+    const beginHeroVideo = () => {
+      if (heroVideoStarted) return;
+      heroVideoStarted = true;
+
+      configureBottleVideo(video);
+
+      video.pause();
+      video.currentTime = 0;
+      video.removeAttribute('autoplay');
+
+      if (prefersReduced) {
+        link?.classList.add('is-static-fallback');
+        return;
+      }
+
+      video.addEventListener('playing', revealHeroVideo, { once: true });
+      playVideoSafe(video);
+    };
+
+    const queueHeroVideo = () => scheduleHeroVideo(beginHeroVideo);
+
+    queueHeroVideo();
+
+    document.addEventListener('visibilitychange', () => {
+      if (!heroVideoStarted || prefersReduced) return;
+      if (document.hidden) video.pause();
+      else playVideoSafe(video);
+    });
+  });
+
+  /* ---------- 7c. CRAFT WINGS VIDEO — play when visible, hold last frame, reset on section leave ---------- */
+  const craftSection = document.getElementById('craft');
+  const craftMedia   = document.querySelector('.craft__image');
+  const craftVideo   = document.querySelector('.craft__video');
+
+  if (craftSection && craftMedia && craftVideo instanceof HTMLVideoElement) {
+    const craftInner = craftVideo.closest('.craft__image-inner');
+    const { mode } = configureBottleVideo(craftVideo);
+    craftVideo.loop = false;
+    craftVideo.pause();
+    craftVideo.currentTime = 0;
+
+    /* iOS / no-WebM: still bottle. Android + desktop: transparent wings video. */
+    if (craftInner && mode === 'mobile') {
+      craftInner.classList.add('is-static-fallback');
+    } else if (!prefersReduced) {
+      let craftAtEnd = false;
+      let resetTimer   = 0;
+
+      const holdLastFrame = () => {
+        craftAtEnd = true;
+        craftVideo.removeAttribute('poster');
+        craftVideo.pause();
+      };
+
+      const resetCraftVideo = () => {
+        craftAtEnd = false;
+        craftVideo.pause();
+        craftVideo.currentTime = 0;
+      };
+
+      const playCraftVideo = () => {
+        if (craftAtEnd) return;
+
+        const start = () => {
+          if (craftAtEnd) return;
+          craftVideo.removeAttribute('poster');
+          playVideoSafe(craftVideo, 3);
+        };
+
+        if (craftVideo.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
+          start();
+        } else {
+          craftVideo.addEventListener('canplay', start, { once: true });
+          craftVideo.load();
+        }
+      };
+
+      craftVideo.addEventListener('ended', holdLastFrame);
+
+      craftVideo.addEventListener('timeupdate', () => {
+        const d = craftVideo.duration;
+        if (!craftAtEnd && Number.isFinite(d) && d > 0 && craftVideo.currentTime >= d - 0.05) {
+          holdLastFrame();
+        }
+      });
+
+      const mediaObsOpts = mobileLayout.matches
+        ? { threshold: 0.12, rootMargin: '48px 0px 0px 0px' }
+        : { threshold: 0.25, rootMargin: '0px 0px -5% 0px' };
+
+      const mediaObserver = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) playCraftVideo();
+          else if (!craftAtEnd) craftVideo.pause();
+        },
+        mediaObsOpts
+      );
+
+      const sectionObserver = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) return;
+          clearTimeout(resetTimer);
+          const delay = mobileLayout.matches ? 320 : 0;
+          resetTimer = window.setTimeout(() => {
+            const rect = craftSection.getBoundingClientRect();
+            const gone = rect.bottom <= 0 || rect.top >= window.innerHeight;
+            if (gone) resetCraftVideo();
+          }, delay);
+        },
+        { threshold: 0 }
+      );
+
+      mediaObserver.observe(craftMedia);
+      sectionObserver.observe(craftSection);
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          craftVideo.pause();
+        } else {
+          const mediaRect = craftMedia.getBoundingClientRect();
+          const inMedia = mediaRect.bottom > 0 && mediaRect.top < window.innerHeight * 0.95;
+          if (inMedia) playCraftVideo();
+          else if (craftAtEnd) craftVideo.pause();
+        }
+      });
+    }
+  }
+
+  /* ---------- 7d. MODEL VIDEO — play when parent section in view ---------- */
+  const modelSections = document.querySelectorAll('.model-showcase, .ritual--wear, .chapter-visuals');
+
+  if (modelSections.length) {
+    if (!prefersReduced) {
+      modelSections.forEach((section) => {
+        const videos = section.querySelectorAll('[data-model-video]');
+        if (!videos.length) return;
+
+        const syncSectionVideos = (inView) => {
+          section.classList.toggle('is-inview', inView);
+          videos.forEach((video) => {
+            if (!(video instanceof HTMLVideoElement)) return;
+            if (inView) {
+              ensureLazyVideoSource(video);
+              playVideoSafe(video);
+            } else {
+              video.pause();
+            }
+          });
+        };
+
+        const syncFromViewport = () => {
+          const rect = section.getBoundingClientRect();
+          const inView = rect.bottom > 0 && rect.top < window.innerHeight * 0.92;
+          syncSectionVideos(inView);
+        };
+
+        let syncTick = 0;
+        const requestSync = () => {
+          if (syncTick) return;
+          syncTick = window.requestAnimationFrame(() => {
+            syncTick = 0;
+            syncFromViewport();
+          });
+        };
+
+        if ('IntersectionObserver' in window) {
+          const sectionObserver = new IntersectionObserver(
+            ([entry]) => syncSectionVideos(entry.isIntersecting),
+            { threshold: 0.18, rootMargin: '0px 0px -6% 0px' }
+          );
+
+          sectionObserver.observe(section);
+        }
+
+        window.addEventListener('scroll', requestSync, { passive: true });
+        window.addEventListener('resize', requestSync);
+        requestSync();
+
+        document.addEventListener('visibilitychange', () => {
+          if (document.hidden) {
+            videos.forEach((video) => video.pause());
+            return;
+          }
+          syncFromViewport();
+        });
+      });
+    } else {
+      modelSections.forEach((section) => {
+        section.classList.add('is-inview');
+        section.querySelectorAll('[data-model-video]').forEach((video) => {
+          if (!(video instanceof HTMLVideoElement)) return;
+          video.pause();
+          video.currentTime = 0;
+        });
+      });
+    }
+  }
+
+  /* ---------- 7e. COLLECTION PANEL — Beles showcase background ---------- */
+  const collectionPanels = document.querySelectorAll('.collection-panel');
+  const collectionVideos = document.querySelectorAll('[data-collection-video]');
+
+  if (collectionPanels.length && collectionVideos.length) {
+    if (!prefersReduced) {
+      collectionPanels.forEach((panel) => {
+        const video = panel.querySelector('[data-collection-video]');
+        if (!(video instanceof HTMLVideoElement)) return;
+
+        const syncPanel = (inView) => {
+          panel.classList.toggle('is-inview', inView);
+        };
+
+        const panelObserver = new IntersectionObserver(
+          ([entry]) => {
+            const inView = entry.isIntersecting;
+            syncPanel(inView);
+            if (inView) {
+              ensureLazyVideoSource(video);
+              playVideoSafe(video);
+            } else {
+              video.pause();
+            }
+          },
+          { threshold: 0.15, rootMargin: '0px 0px -2% 0px' }
+        );
+
+        panelObserver.observe(panel);
+
+        video.addEventListener('playing', () => {
+          panel.classList.add('is-inview');
+        }, { once: false });
+      });
+
+      document.addEventListener('visibilitychange', () => {
+        collectionVideos.forEach((video) => {
+          if (!(video instanceof HTMLVideoElement)) return;
+          if (document.hidden) {
+            video.pause();
+            return;
+          }
+          const panel = video.closest('.collection-panel');
+          if (!panel) return;
+          const rect = panel.getBoundingClientRect();
+          const inView = rect.bottom > 0 && rect.top < window.innerHeight * 0.92;
+          panel.classList.toggle('is-inview', inView);
+          if (inView) {
+            ensureLazyVideoSource(video);
+            playVideoSafe(video);
+          }
+        });
+      });
+    } else {
+      collectionVideos.forEach((video) => {
+        if (!(video instanceof HTMLVideoElement)) return;
+        video.pause();
+        video.currentTime = 0;
+      });
+    }
+  }
+
+  const applyChapterPageStatus = () => {
+    const slug = document.body.dataset.chapterSlug;
+    if (!slug || !Array.isArray(window.EILLON_PRODUCTS)) return;
+    const product = window.EILLON_PRODUCTS.find((p) => p.slug === slug);
+    if (!product) return;
+
+    document.querySelectorAll('.stock-status').forEach((el) => {
+      el.textContent = product.statusLabel;
+    });
+
+    const submitLabel = document.querySelector('[data-waitlist-form] .btn__label');
+    if (submitLabel && product.ctaLabel) submitLabel.textContent = product.ctaLabel;
+
+    const submitHover = document.querySelector('[data-waitlist-form] .btn__hover');
+    if (submitHover && product.ctaHover) submitHover.textContent = product.ctaHover;
+  };
+
+  document.addEventListener('eillon:products-ready', applyChapterPageStatus);
   applyChapterPageStatus();
 })();

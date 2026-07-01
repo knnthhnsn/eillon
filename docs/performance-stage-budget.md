@@ -125,6 +125,37 @@ npm run optimize:hero
 
 Generates responsive WebP/AVIF/JPEG under `images/cowboy-cowgirl-{width}.*` and `artifacts/performance/hero-image-report.md`.
 
+## Main-Thread Recovery v2
+
+The LCP element on `/` is **text** (`h1.mv-hero__word`), not the hero image. Failures are dominated by **render delay / main-thread blocking** (high TBT), not hero transfer.
+
+| Target | Value |
+|---|---|
+| CI LCP | ≤ 4500ms (gate) |
+| Stretch CI LCP | ≤ 3500ms via `LH_LCP_MAX_MS=3500` |
+| TBT warning | > 1000ms (warn only; hard fail when `LH_TBT_MAX_MS` set) |
+
+### Rules
+
+- Homepage must **not** parse shop/chapter/video/bottle logic before hero — use `global-core.min.js` + `home-critical.min.js` only pre-hero; `home-interactions.min.js` loads on `eillon:hero-ready` or idle.
+- **Do not** load `script.min.js` on the homepage.
+- GSAP / ScrollTrigger / `home.js` remain post-hero via `load-after-hero.js`.
+- Below-fold imagery (stairs PNG, chapter/atlas assets) must not compete with hero — `loading="lazy"`, `fetchpriority="low"`, defer CSS backgrounds until `html.house-stairs-ready`.
+- Visual spectacle stays — no minimalism, no feature removal.
+
+### Bundles
+
+| Bundle | Role |
+|---|---|
+| `global-core.min.js` | Shared helpers only; no heavy DOM scans |
+| `home-critical.min.js` | `is-loaded` on homepage |
+| `home-interactions.min.js` | Reveals, nav UX, waitlist, anchors — post-hero |
+| `shared-interactions.min.js` | Editorial/store pages |
+| `beles-shop.min.js` | `/beles` shop + sticky restock |
+| `chapter-interactions.min.js` | Chapter video + status sync |
+
+Verify: `npm run verify:critical-path`
+
 ## File ownership
 
 | Concern | Primary files |

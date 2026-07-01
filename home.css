@@ -660,8 +660,17 @@ body[data-nav-home="true"] .nav__waitlist {
       rgba(248, 246, 240, 0.08) 0%,
       rgba(248, 246, 240, 0.02) 55%,
       transparent 78%
+    );
+}
+html.house-stairs-ready .mv-house__backdrop {
+  background:
+    radial-gradient(
+      ellipse 34% 40% at 52% 78%,
+      rgba(248, 246, 240, 0.08) 0%,
+      rgba(248, 246, 240, 0.02) 55%,
+      transparent 78%
     ),
-    url("images/white-stone-stairs.png") no-repeat center center / cover;
+    var(--house-stairs-bg, none) no-repeat center center / cover;
 }
 .mv-house__scrim {
   z-index: 1;
@@ -714,10 +723,19 @@ body[data-nav-home="true"] .nav__waitlist {
       rgba(248, 246, 240, 0.08) 0%,
       rgba(248, 246, 240, 0.02) 55%,
       transparent 78%
-    ),
-    url("images/white-stone-stairs.png") no-repeat center center / cover;
+    );
   pointer-events: none;
   z-index: 0;
+}
+html.house-stairs-ready .mv-house::before {
+  background:
+    radial-gradient(
+      ellipse 34% 40% at 52% 78%,
+      rgba(248, 246, 240, 0.08) 0%,
+      rgba(248, 246, 240, 0.02) 55%,
+      transparent 78%
+    ),
+    var(--house-stairs-bg, none) no-repeat center center / cover;
 }
 .mv-house::after {
   content: "";
