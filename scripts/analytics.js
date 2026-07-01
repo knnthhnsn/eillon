@@ -5,6 +5,31 @@
   const UTM_PARAMS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
   const CHAPTER_PATHS = new Set(['beles', 'asmara', 'massawa', 'ritual']);
 
+  window.EILLON_ANALYTICS_CONFIG = window.EILLON_ANALYTICS_CONFIG || { posthogBridge: false };
+
+  const POSTHOG_BRIDGE_EVENTS = new Set([
+    'scene_viewed',
+    'letter_archive_viewed',
+    'letter_opened',
+    'letter_action_clicked',
+    'archive_to_beles_click',
+    'restock_anchor_reached',
+    'restock_form_started',
+    'restock_form_submitted',
+    'size_interest_selected',
+    'proof_link_clicked',
+  ]);
+
+  const PII_PROPERTY_KEYS = new Set([
+    'email',
+    'name',
+    'first_name',
+    'last_name',
+    'full_name',
+    'phone',
+    'address',
+  ]);
+
   const isLocal = /^(localhost|127\.0\.0\.1)$/.test(window.location.hostname);
 
   const getDeviceClass = () => {
@@ -54,6 +79,28 @@
     ...getUtm(),
   });
 
+  const sanitizeBridgeProps = (props = {}) => {
+    const out = { ...props };
+    delete out.name;
+    PII_PROPERTY_KEYS.forEach((key) => {
+      delete out[key];
+    });
+    return out;
+  };
+
+  const bridgeToPosthog = (eventName, props = {}) => {
+    const cfg = window.EILLON_ANALYTICS_CONFIG || {};
+    const enabled = cfg.posthogBridge === true || window.EILLON_POSTHOG_BRIDGE === true;
+    if (!enabled || !POSTHOG_BRIDGE_EVENTS.has(eventName)) return;
+    try {
+      if (typeof window.posthog?.capture === 'function') {
+        window.posthog.capture(eventName, sanitizeBridgeProps(props));
+      }
+    } catch {
+      // PostHog unavailable — fail silently.
+    }
+  };
+
   const track = (name, props = {}) => {
     if (!name) return;
     const payload = { name, ...getContext(), ...props };
@@ -67,6 +114,7 @@
     } catch {
       // Vercel Analytics unavailable — fail silently.
     }
+    bridgeToPosthog(name, payload);
   };
 
   const observeProofSections = () => {

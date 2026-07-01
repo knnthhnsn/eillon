@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Generate build-manifest.json — deploy fingerprint for production parity checks.
+ * Generate build-manifest.json — deploy fingerprint (not committed; generated at build/deploy).
  */
 import { execSync } from 'node:child_process';
 import { readFileSync, writeFileSync } from 'node:fs';

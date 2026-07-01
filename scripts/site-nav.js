@@ -10,7 +10,7 @@
       el.defer = true;
       document.head.appendChild(el);
     };
-    appendScript('/scripts/analytics.js?v=2');
+    appendScript('/scripts/analytics.js?v=3');
     var loadShaders = function () {
       appendScript('/scripts/site-shaders.js?v=55');
     };

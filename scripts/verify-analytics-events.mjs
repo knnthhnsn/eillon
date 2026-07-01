@@ -52,6 +52,18 @@ if (!/size_interest_selected/.test(scriptJs)) {
 }
 
 const analytics = read('scripts/analytics.js');
+if (!/POSTHOG_BRIDGE_EVENTS/.test(analytics)) {
+  failures.push('scripts/analytics.js: missing PostHog bridge event allowlist');
+}
+if (!/bridgeToPosthog/.test(analytics)) {
+  failures.push('scripts/analytics.js: missing PostHog bridge helper');
+}
+if (!/EILLON_ANALYTICS_CONFIG/.test(analytics)) {
+  failures.push('scripts/analytics.js: missing EILLON_ANALYTICS_CONFIG (posthogBridge default off)');
+}
+if (!/sanitizeBridgeProps/.test(analytics)) {
+  failures.push('scripts/analytics.js: missing PII sanitization for PostHog bridge');
+}
 if (!/restock_anchor_reached/.test(analytics)) {
   failures.push('scripts/analytics.js: missing restock_anchor_reached tracking');
 }

@@ -1,0 +1,32 @@
+name: Production parity
+
+# Run after Vercel deploy succeeds — does not block PR CI.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 6 * * *'
+
+jobs:
+  parity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci || npm install
+      - run: npm run build
+      - name: Verify live production parity
+        env:
+          VERIFY_PRODUCTION: 'true'
+          EXPECT_COMMIT_SHA: ${{ github.sha }}
+        run: npm run verify:production
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: production-parity-${{ github.run_id }}
+          path: |
+            artifacts/parity/latest.json
+            artifacts/parity/latest.md
+          retention-days: 30

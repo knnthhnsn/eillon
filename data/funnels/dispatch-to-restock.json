@@ -1,0 +1,24 @@
+{
+  "id": "dispatch_to_restock",
+  "name": "Beles Dispatch → Restock",
+  "steps": [
+    { "event": "page_view", "filters": { "page": "/" } },
+    { "event": "scene_viewed", "filters": { "scene": "letters" } },
+    { "event": "letter_archive_viewed" },
+    { "event": "letter_opened", "filters": { "letter_id": "beles-dispatch" } },
+    { "event": "letter_action_clicked" },
+    { "event": "archive_to_beles_click" },
+    { "event": "restock_anchor_reached", "filters": { "source": "letter_archive" } },
+    { "event": "restock_form_started" },
+    { "event": "restock_form_submitted" }
+  ],
+  "breakdowns": [
+    "device",
+    "referrer",
+    "utm_source",
+    "utm_medium",
+    "utm_campaign",
+    "action_kind",
+    "size"
+  ]
+}

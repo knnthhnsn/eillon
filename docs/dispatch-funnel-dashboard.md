@@ -1,5 +1,7 @@
 # Beles Dispatch → Restock Micro-Funnel Dashboard
 
+Machine-readable funnel definition: [`data/funnels/dispatch-to-restock.json`](../data/funnels/dispatch-to-restock.json)
+
 Intended measurement path from homepage archive to Beles restock interest. Use this taxonomy in PostHog, Vercel Analytics exports, or any BI layer — event names must match exactly.
 
 ## Funnel steps
@@ -27,8 +29,10 @@ Intended measurement path from homepage archive to Beles restock interest. Use t
 
 ## Collector notes
 
-- **PostHog:** Custom events (`letter_action_clicked`, `archive_to_beles_click`, etc.) must be explicitly captured into PostHog — they are not automatic from Vercel Analytics.
+- **PostHog:** Enable optional bridge in `scripts/analytics.js` — set `window.EILLON_ANALYTICS_CONFIG = { posthogBridge: true }` when PostHog is loaded. Bridge is **off by default**. PII fields are stripped before `posthog.capture`.
 - **Vercel Analytics:** Events flow through `window.va('event', payload)` via `scripts/analytics.js`. Mirror the same taxonomy before relying on PostHog funnels, or export VA data into your dashboard tool.
+
+See also [`docs/deployment-truth.md`](deployment-truth.md) for post-deploy verification.
 
 ## Local verification
 

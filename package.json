@@ -40,7 +40,8 @@
     "growth:validate-ai-review": "node scripts/growth/validate-ai-review.mjs",
     "growth:branch": "node scripts/growth/create-experiment-branch-name.mjs",
     "test:visual": "node scripts/capture-screenshots.mjs",
-    "test:dispatch-funnel": "node scripts/simulate-dispatch-funnel.mjs"
+    "test:dispatch-funnel": "node scripts/simulate-dispatch-funnel.mjs",
+    "test:production-visual": "node scripts/capture-production-screenshots.mjs"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.0",

@@ -41,11 +41,13 @@
 | EXP-034 | Campaign folder `/content/campaigns/` scaffold | social_distribution | 3 | 5 | 5 | 4 | 0 | 75 | backlog |
 | EXP-035 | journal_to_beles_click event | analytics_measurement | 3 | 4 | 4 | 4 | 0 | 48 | backlog |
 | EXP-036 | House Archive → Beles Dispatch bridge | conversion_storytelling | 5 | 4 | 3 | 5 | 1 | 150 | done |
+| EXP-038 | Production parity release gate | automation_os | 5 | 5 | 4 | 5 | 0 | 500 | next |
 | EXP-037 | Beles Dispatch → Restock micro-funnel dashboard | analytics_measurement | 5 | 4 | 3 | 5 | 1 | 150 | next |
 
 ## Top 10 next (after EXP-001/002)
 
-1. **EXP-037** — Beles Dispatch → Restock micro-funnel dashboard (archive_to_beles_click + letter_action_clicked)
+1. **EXP-038** — Production parity release gate (stale `/` invalidates funnel data)
+2. **EXP-037** — Beles Dispatch → Restock micro-funnel dashboard
 2. **EXP-008** — Journal → Beles internal links
 2. **EXP-007** — Newsletter analytics events
 3. **EXP-010** — Copenhagen appointment improvements

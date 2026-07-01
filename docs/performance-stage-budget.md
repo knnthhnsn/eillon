@@ -43,7 +43,10 @@ After deploy, compare live against repo lifecycle + archive expectations (not pa
 
 ```bash
 VERIFY_PRODUCTION=true npm run verify:production
+EXPECT_COMMIT_SHA=<sha> VERIFY_PRODUCTION=true npm run verify:production
 ```
+
+See [`docs/deployment-truth.md`](deployment-truth.md).
 
 ### Lighthouse CI
 
