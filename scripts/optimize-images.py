@@ -41,6 +41,9 @@ JOBS: list[tuple[str, int, int, int | None, bool]] = [
     ("accord-warmth-hover.jpg", 550, 80, 82, False),
 ]
 
+STAIRS_WIDTHS = (960, 1100, 1400)
+STAIRS_SOURCE = "white-stone-stairs.png"
+
 
 def resize_to_width(im: Image.Image, max_width: int) -> Image.Image:
     if im.width <= max_width:
@@ -99,9 +102,26 @@ def process(name: str, max_width: int, webp_q: int, jpeg_q: int | None, replace:
                 print(f"   alias {alias.name} ({kb(alias):.0f} KB)")
 
 
+def process_stairs() -> None:
+    src = ROOT / STAIRS_SOURCE
+    if not src.exists():
+        print(f"SKIP missing {STAIRS_SOURCE}")
+        return
+    with Image.open(src) as im:
+        for width in STAIRS_WIDTHS:
+            sized = resize_to_width(im, width)
+            webp_out = ROOT / f"white-stone-stairs-{width}.webp"
+            save_webp(sized, webp_out, 82)
+            print(f"OK stairs -> {webp_out.name} ({kb(webp_out):.0f} KB)")
+        fallback = ROOT / "white-stone-stairs-1100.jpg"
+        save_jpeg(resize_to_width(im, 1100), fallback, 82)
+        print(f"   fallback {fallback.name} ({kb(fallback):.0f} KB)")
+
+
 def main() -> None:
     for job in JOBS:
         process(*job)
+    process_stairs()
 
 
 if __name__ == "__main__":

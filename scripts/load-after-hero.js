@@ -9,7 +9,7 @@
   var SCRIPTS = [
     '/scripts/vendor/gsap.min.js?v=1',
     '/scripts/vendor/ScrollTrigger.min.js?v=1',
-    '/scripts/home.js?v=53',
+    '/scripts/home.js?v=54',
   ];
   var fired = false;
   var interactionsQueued = false;
@@ -30,20 +30,32 @@
     });
   }
 
+  function markHouseStairsReady() {
+    if (document.documentElement.classList.contains('house-stairs-ready')) return;
+    document.documentElement.classList.add('house-stairs-ready');
+    window.dispatchEvent(new CustomEvent('eillon:house-stairs-ready'));
+  }
+
+  function pickHouseStairsSrc() {
+    var w = window.innerWidth || 1100;
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var need = w * dpr;
+    if (need <= 820) return '/images/white-stone-stairs-960.webp';
+    if (need <= 1280) return '/images/white-stone-stairs-1100.webp';
+    return '/images/white-stone-stairs-1400.webp';
+  }
+
   function deferHouseStairs() {
+    var src = pickHouseStairsSrc();
+    document.documentElement.style.setProperty('--house-stairs-image', "url('" + src + "')");
     var img = new Image();
     img.decoding = 'async';
-    img.loading = 'lazy';
-    img.src = 'images/white-stone-stairs.png';
-    img.onload = function () {
-      document.documentElement.style.setProperty(
-        '--house-stairs-bg',
-        'url("images/white-stone-stairs.png")',
-      );
-      document.documentElement.classList.add('house-stairs-ready');
-    };
+    img.src = src;
+    img.onload = markHouseStairsReady;
     img.onerror = function () {
-      document.documentElement.classList.add('house-stairs-ready');
+      var fallback = src.replace('.webp', '.jpg');
+      document.documentElement.style.setProperty('--house-stairs-image', "url('" + fallback + "')");
+      markHouseStairsReady();
     };
   }
 

@@ -393,11 +393,20 @@
     });
   }
 
+  function bootPinsWhenReady() {
+    if (document.documentElement.classList.contains('house-stairs-ready')) {
+      bootPins();
+      return;
+    }
+    window.addEventListener('eillon:house-stairs-ready', bootPins, { once: true });
+    setTimeout(bootPins, 6000);
+  }
+
   if (window.__EILLON_HERO_READY__) {
-    bootPins();
+    bootPinsWhenReady();
   } else {
-    window.addEventListener('eillon:hero-ready', bootPins, { once: true });
-    setTimeout(bootPins, 4500);
+    window.addEventListener('eillon:hero-ready', bootPinsWhenReady, { once: true });
+    setTimeout(bootPinsWhenReady, 4500);
   }
 
   if (document.fonts && document.fonts.ready) {

@@ -14,12 +14,75 @@ import { EILLON_AEO_PAGE_MAP } from '../data/answers.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 
-const PAGE_TITLES = {
-  'index.html': { title: 'Maison answers', lede: 'Filed answers for the house—memory, place, and studio practice.' },
-  'beles.html': { title: 'Beles answer file', lede: 'Chapter I facts: accord, availability, restock, and proof cross-references.' },
-  'craftsmanship.html': { title: 'Craft & proof answers', lede: 'Authorship, safety assessment, traceability, and wear records.' },
-  'wear.html': { title: 'Wear & care answers', lede: 'Application, storage, and chapter pairing—filed from the care guide.' },
-  'journal.html': { title: 'Journal answer index', lede: 'Editorial cross-links to canonical house facts.' },
+const PAGE_LEDGER_OPTIONS = {
+  'index.html': {
+    title: 'Filed from the archive',
+    lede: 'Canonical answers on memory, place, and studio practice.',
+    modifier: 'answer-ledger--home answer-ledger--excerpt answer-ledger--dark',
+    limit: 2,
+    collapsible: false,
+    footerHtml: `<p class="answer-ledger__more"><a href="/answers" class="answer-ledger__more-link sx-link" data-analytics-event="answer_index_viewed" data-analytics-label="home-excerpt">Browse full House Index <span aria-hidden="true">→</span></a></p>`,
+  },
+  'beles.html': {
+    title: 'Beles answer file',
+    lede: 'Chapter I facts: accord, availability, restock, and proof cross-references.',
+    modifier: 'answer-ledger--chapter answer-ledger--dark',
+    collapsible: true,
+  },
+  'craftsmanship.html': {
+    title: 'Craft & proof answers',
+    lede: 'Authorship, safety assessment, traceability, and wear records.',
+    modifier: 'answer-ledger--editorial',
+    collapsible: true,
+  },
+  'wear.html': {
+    title: 'Wear & care answers',
+    lede: 'Application, storage, and chapter pairing—filed from the care guide.',
+    modifier: 'answer-ledger--editorial',
+    collapsible: true,
+  },
+  'shipping.html': {
+    title: 'Shipping & restock answers',
+    lede: 'Dispatch windows, restock signup, and purchase flow—filed from studio policy.',
+    modifier: 'answer-ledger--editorial',
+    collapsible: true,
+  },
+  'journal.html': {
+    title: 'Journal answer index',
+    lede: 'Editorial cross-links to canonical house facts.',
+    modifier: 'answer-ledger--editorial answer-ledger--compact',
+    collapsible: false,
+  },
+  'about.html': {
+    title: 'Maison answers',
+    lede: 'Memory, place, and studio practice—filed from the about page.',
+    modifier: 'answer-ledger--editorial',
+    collapsible: true,
+  },
+  'store.html': {
+    title: 'Chapter & boutique answers',
+    lede: 'Lifecycle, availability, and chapter status from the boutique index.',
+    modifier: 'answer-ledger--editorial',
+    collapsible: true,
+  },
+  'asmara.html': {
+    title: 'Asmara answer file',
+    lede: 'Chapter II development status and proof cross-references.',
+    modifier: 'answer-ledger--chapter answer-ledger--dark',
+    collapsible: true,
+  },
+  'massawa.html': {
+    title: 'Massawa answer file',
+    lede: 'Chapter development status and proof cross-references.',
+    modifier: 'answer-ledger--chapter answer-ledger--dark',
+    collapsible: true,
+  },
+  'ritual.html': {
+    title: 'Ritual archive answers',
+    lede: 'Lab study status—Ritual is not for sale.',
+    modifier: 'answer-ledger--chapter answer-ledger--dark',
+    collapsible: true,
+  },
 };
 
 function injectLedger(relPath, html) {
@@ -38,8 +101,8 @@ function injectLedger(relPath, html) {
   const answers = getAnswersForPage(relPath);
   if (!answers.length) return html;
 
-  const meta = PAGE_TITLES[relPath] || {};
-  const block = renderAnswerLedger(answers, meta);
+  const opts = PAGE_LEDGER_OPTIONS[relPath] || {};
+  const block = renderAnswerLedger(answers, opts);
   const region = `${AEO_MARKER_START}[\\s\\S]*?${AEO_MARKER_END}`;
 
   if (new RegExp(region).test(html)) {

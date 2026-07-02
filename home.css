@@ -670,7 +670,7 @@ html.house-stairs-ready .mv-house__backdrop {
       rgba(248, 246, 240, 0.02) 55%,
       transparent 78%
     ),
-    var(--house-stairs-bg, none) no-repeat center center / cover;
+    var(--house-stairs-image, url('/images/white-stone-stairs-1100.webp')) no-repeat center center / cover;
 }
 .mv-house__scrim {
   z-index: 1;
@@ -735,7 +735,7 @@ html.house-stairs-ready .mv-house::before {
       rgba(248, 246, 240, 0.02) 55%,
       transparent 78%
     ),
-    var(--house-stairs-bg, none) no-repeat center center / cover;
+    var(--house-stairs-image, url('/images/white-stone-stairs-1100.webp')) no-repeat center center / cover;
 }
 .mv-house::after {
   content: "";
@@ -2122,4 +2122,122 @@ body[data-nav-home="true"] .footer__legal a:hover { color: #fff; }
   .scene-rail__program,
   .scene-rail__btn,
   .scene-rail__toggle-chevron { transition: none; }
+}
+
+/* —— Homepage answer ledger excerpt (AEO) —— */
+.home .answer-ledger--excerpt {
+  margin: clamp(32px, 5vw, 56px) clamp(16px, 4vw, 48px) clamp(48px, 8vw, 80px);
+  max-width: min(920px, calc(100% - 32px));
+  scroll-margin-top: 88px;
+}
+.home .answer-ledger--home .answer-ledger__panel {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background:
+    linear-gradient(165deg, rgba(18, 16, 14, 0.94), rgba(10, 9, 8, 0.9)),
+    repeating-linear-gradient(90deg, transparent, transparent 23px, rgba(255, 255, 255, 0.02) 24px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  padding: clamp(28px, 4vw, 44px);
+}
+.home .answer-ledger__head {
+  margin-bottom: clamp(20px, 3vw, 28px);
+  padding-bottom: 1.1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.home .answer-ledger__eyebrow {
+  margin: 0 0 0.35rem;
+  color: rgba(248, 246, 240, 0.55);
+}
+.home .answer-ledger__title {
+  font-family: var(--font-display, 'Fraunces', serif);
+  font-size: clamp(1.45rem, 2.6vw, 1.85rem);
+  font-weight: 400;
+  line-height: 1.15;
+  margin: 0 0 0.55rem;
+  color: var(--paper, #f8f6f0);
+}
+.home .answer-ledger__lede {
+  margin: 0;
+  max-width: 52ch;
+  color: rgba(248, 246, 240, 0.68);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+.home .answer-ledger__list {
+  display: grid;
+  gap: 0;
+}
+.home .answer-ledger__item {
+  padding: clamp(16px, 2.5vw, 20px) 0;
+  scroll-margin-top: 96px;
+}
+.home .answer-ledger__item + .answer-ledger__item {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+.home .answer-ledger__question {
+  font-family: var(--font-display, 'Fraunces', serif);
+  font-size: clamp(1.02rem, 1.8vw, 1.18rem);
+  font-weight: 400;
+  margin: 0 0 0.55rem;
+  line-height: 1.3;
+  color: var(--paper, #f8f6f0);
+}
+.home .answer-ledger__answer p {
+  margin: 0 0 0.55rem;
+  color: rgba(248, 246, 240, 0.84);
+  line-height: 1.6;
+  max-width: 62ch;
+  font-size: 0.92rem;
+}
+.home .answer-ledger__proof {
+  margin: 0.75rem 0 0;
+  display: grid;
+  gap: 0.4rem;
+}
+.home .answer-ledger__proof-label {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(248, 246, 240, 0.42);
+}
+.home .answer-ledger__proof-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.home .answer-ledger__proof-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 12px;
+  border: 1px solid rgba(248, 246, 240, 0.18);
+  font-family: var(--sans, 'Inter', sans-serif);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(248, 246, 240, 0.82);
+  text-decoration: none;
+  transition: border-color 0.35s ease, background 0.35s ease;
+}
+.home .answer-ledger__proof-link:hover {
+  border-color: rgba(248, 246, 240, 0.42);
+  background: rgba(248, 246, 240, 0.06);
+  color: #fff;
+}
+.home .answer-ledger__source {
+  margin: 0.55rem 0 0;
+  font-size: 0.76rem;
+  color: rgba(248, 246, 240, 0.4);
+}
+.home .answer-ledger__source a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+.home .answer-ledger__more {
+  margin: clamp(20px, 3vw, 28px) 0 0;
+  padding-top: 1.1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.home .answer-ledger__more-link {
+  color: rgba(248, 246, 240, 0.88);
+  font-size: 0.88rem;
 }

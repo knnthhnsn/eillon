@@ -589,7 +589,7 @@ window.EILLON_ANSWERS = [
   {
     "id": "what-hand-filled-copenhagen-means",
     "group": "proof",
-    "question": "What does \"hand-filled in Copenhagen\" mean?",
+    "question": "What does hand-filled in Copenhagen mean?",
     "shortAnswer": "Each flacon is compounded, filled, inspected, and wrapped by hand in the EILLON studio at 1050 Copenhagen—not outsourced mass filling.",
     "sourcePage": "/craftsmanship",
     "sourceAnchor": "#answer-what-hand-filled-copenhagen-means",
@@ -604,7 +604,7 @@ window.EILLON_ANSWERS = [
   {
     "id": "what-ifra-category-4-means",
     "group": "proof",
-    "question": "What does \"IFRA Category 4\" mean in plain language?",
+    "question": "What does IFRA Category 4 mean in plain language?",
     "shortAnswer": "IFRA Category 4 is the fine-fragrance-on-skin category—limits how much of each raw material can safely appear in a parfum worn on pulse points.",
     "longAnswer": "Beles was reviewed against Category 4 limits; allergen declarations on the chapter page match batch BL-001 labelling notes.",
     "sourcePage": "/craftsmanship",
