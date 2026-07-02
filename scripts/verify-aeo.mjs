@@ -121,7 +121,26 @@ for (const rel of allHtml.filter((p) => p.startsWith('journal/') && p !== 'journ
   }
 }
 
-// answers.js exists
+// answers.html House Index
+if (!existsSync(join(root, 'answers.html'))) {
+  failures.push('answers.html missing — House Index route');
+} else {
+  const answersHtml = read('answers.html');
+  if (!answersHtml.includes('class="answer-index"') && !answersHtml.includes('answer-index-page')) {
+    failures.push('answers.html: missing House Index layout');
+  }
+  if (!answersHtml.includes('https://eillon.maison/answers')) {
+    failures.push('answers.html: missing canonical URL');
+  }
+}
+
+if (existsSync(join(root, 'sitemap.xml'))) {
+  const sitemap = read('sitemap.xml');
+  if (!sitemap.includes('/answers')) {
+    failures.push('sitemap.xml missing /answers route');
+  }
+}
+
 if (!existsSync(join(root, 'data/answers.js'))) {
   failures.push('data/answers.js missing — run npm run build:aeo');
 }

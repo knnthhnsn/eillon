@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/** Generate llms.txt and llms-full.txt from lifecycle + answers source truth. */
+/** Generate llms.txt and llms-full.txt from lifecycle + answers + query intent. */
 import { readFileSync, writeFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -8,6 +8,7 @@ import {
   EILLON_ANSWERS_LAST_REVIEWED,
   EILLON_ANSWERS_VERSION,
 } from '../data/answers.mjs';
+import { EILLON_AEO_QUERIES } from '../data/aeo-queries.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const ORIGIN = 'https://eillon.maison';
@@ -43,15 +44,16 @@ Answers version: ${EILLON_ANSWERS_VERSION}
 - Operator: Eillon Hansen & Kenneth Hansen (CVR 43933485)
 - Studio: 1050 Copenhagen, Denmark — appointments Thursday–Saturday 12–18 by request
 - Sitemap: ${ORIGIN}/sitemap.xml
+- House Index: ${ORIGIN}/answers
 - Full answer brief: ${ORIGIN}/llms-full.txt
 
 ## Chapter lifecycle (source: data/lifecycle.js)
 | Chapter | Status | Notes |
 |---------|--------|-------|
-| Beles · Fico d'India | ${lifecycle.beles.label} | ${lifecycle.beles.meta} |
-| Asmara · Rain on Stone | ${lifecycle.asmara.label} | ${lifecycle.asmara.meta} |
-| Massawa · Red Sea Citrus | ${lifecycle.massawa.label} | ${lifecycle.massawa.meta} |
-| Ritual · Frankincense & Myrrh | ${lifecycle.ritual.label} | ${lifecycle.ritual.meta} |
+| Beles · Fico d'India | ${lifecycle.beles.label} | Awaiting next release; restock list open |
+| Asmara · Rain on Stone | ${lifecycle.asmara.label} | In development — not for sale |
+| Massawa · Red Sea Citrus | ${lifecycle.massawa.label} | In development — not for sale |
+| Ritual · Frankincense & Myrrh | ${lifecycle.ritual.label} | Studio archive — not for sale |
 
 Restock signup records size interest and email — it is not checkout. No purchase is taken on the site today.
 
@@ -63,6 +65,7 @@ Restock signup records size interest and email — it is not checkout. No purcha
 - Batch proof: BL-001 pilot file (see journal)
 
 ## Answer & proof pages
+- House Index: ${ORIGIN}/answers
 - Maison: ${ORIGIN}/
 - About: ${ORIGIN}/about
 - Store: ${ORIGIN}/store
@@ -74,6 +77,7 @@ Restock signup records size interest and email — it is not checkout. No purcha
 - Wear guide: ${ORIGIN}/wear
 - Journal: ${ORIGIN}/journal
 - BL-001 batch notes: ${ORIGIN}/journal/beles-batch-bl001
+- The bottle: ${ORIGIN}/journal/the-bottle
 - Shipping: ${ORIGIN}/shipping
 - Imprint: ${ORIGIN}/imprint
 - Privacy: ${ORIGIN}/privacy
@@ -85,8 +89,23 @@ Restock signup records size interest and email — it is not checkout. No purcha
 `;
 
 const canonicalSection = EILLON_ANSWERS.filter((a) => a.visible)
-  .map((a) => `### ${a.question}\n${a.shortAnswer}${a.longAnswer ? `\n\n${a.longAnswer}` : ''}\n\n- Source: ${ORIGIN}${a.sourcePage}${a.sourceAnchor}\n- Proof: ${a.proofLinks.map((p) => ORIGIN + p).join(', ')}`)
+  .map(
+    (a) =>
+      `### ${a.question}\n${a.shortAnswer}${a.longAnswer ? `\n\n${a.longAnswer}` : ''}\n\n- Source: ${ORIGIN}${a.sourcePage}${a.sourceAnchor}\n- Proof: ${a.proofLinks.map((p) => ORIGIN + p).join(', ')}`,
+  )
   .join('\n\n');
+
+const intentSummary = [...new Set(EILLON_AEO_QUERIES.map((q) => q.intent))]
+  .map((intent) => {
+    const count = EILLON_AEO_QUERIES.filter((q) => q.intent === intent).length;
+    return `- ${intent}: ${count} mapped queries`;
+  })
+  .join('\n');
+
+const popularQuestions = EILLON_AEO_QUERIES.filter((q) => q.priority >= 4)
+  .slice(0, 20)
+  .map((q) => `- ${q.query} → ${q.targetAnswerId} (${q.targetPage})`)
+  .join('\n');
 
 const llmsFull = `# EILLON — full answer brief
 
@@ -97,6 +116,10 @@ Version: ${EILLON_ANSWERS_VERSION}
 
 EILLON is an independent perfume maison in Copenhagen composing oil-rich parfums from Afro-Mediterranean memory. Chapters are released in deliberate windows; the site documents studio proof, wear guidance, and chapter lifecycle without mass-market retail language.
 
+## House Index
+
+All canonical answers are filed at ${ORIGIN}/answers — grouped by maison facts, Beles, chapter lifecycle, proof files, wear and care, and shipping/restock.
+
 ## Chapter lifecycle
 
 | Chapter | Status |
@@ -106,18 +129,29 @@ EILLON is an independent perfume maison in Copenhagen composing oil-rich parfums
 | Massawa | ${lifecycle.massawa.label}. Follow studio notes. |
 | Ritual | ${lifecycle.ritual.label}. Not for sale. |
 
+## Query intent summary
+
+${intentSummary}
+
+## Popular questions
+
+${popularQuestions}
+
 ## Canonical answers
 
 ${canonicalSection}
 
 ## Page map
 
+- ${ORIGIN}/answers — House Index (all canonical answers)
 - ${ORIGIN}/ — maison, hero, letters archive
 - ${ORIGIN}/store — chapter overview
 - ${ORIGIN}/beles — Beles chapter, proof ledger, restock list
-- ${ORIGIN}/craftsmanship — authorship, IFRA, wear testing
+- ${ORIGIN}/craftsmanship — authorship, IFRA, wear testing, evidence table
 - ${ORIGIN}/wear — application and storage
 - ${ORIGIN}/journal — editorial index
+- ${ORIGIN}/journal/beles-batch-bl001 — BL-001 batch evidence table
+- ${ORIGIN}/journal/the-bottle — bottle object evidence table
 - ${ORIGIN}/llms.txt — short LLM context
 - ${ORIGIN}/llms-full.txt — this file
 
@@ -126,10 +160,30 @@ ${canonicalSection}
 - BL-001 batch: ${ORIGIN}/journal/beles-batch-bl001
 - IFRA & safety: ${ORIGIN}/craftsmanship#safety
 - Beles proof ledger: ${ORIGIN}/beles#proof
+- Bottle object file: ${ORIGIN}/journal/the-bottle
+- Craftsmanship evidence table: ${ORIGIN}/craftsmanship#evidence
+
+## Evidence tables (visible on site)
+
+### BL-001 batch (${ORIGIN}/journal/beles-batch-bl001)
+| Batch | Date | Quantity | Formula status | Safety file | Wear testing | Traceability |
+| BL-001 | Compounded Mar 2025 | 24 × 100 ml pilot | Locked at pilot scale | IFRA Cat 4 reviewed | Six studio sessions | Published batch file |
+
+### Bottle object (${ORIGIN}/journal/the-bottle)
+| Bottle | Glass | Cap | Emblem | Lettering | Label state | Prototype/pilot status |
+| Beles flacon | Opaque matte square | Brushed silver rectangular | Winged leopard stipple | Serif into glass face | No wrap label | Concept renders + BL-001 pilot flacons |
+
+### Craftsmanship claims (${ORIGIN}/craftsmanship#evidence)
+| Claim | Evidence page | Status | Last reviewed |
+| IFRA assessed | /craftsmanship#safety | Published | ${updated} |
+| Vegan formulas | /craftsmanship#safety | Published | ${updated} |
+| Hand-filled Copenhagen | /journal/beles-batch-bl001 | BL-001 filed | ${updated} |
+| Wear tested | /craftsmanship#wear-testing | Studio sessions | ${updated} |
 
 ## Restock policy
 
 - Email + size interest only; no charge at signup
+- Does not reserve inventory
 - One private letter when Beles returns
 - Unsubscribe via care@eillon.maison
 
@@ -140,6 +194,7 @@ ${canonicalSection}
 - FAQPage: visible answer-ledger blocks only
 - HowTo: ${ORIGIN}/wear
 - Article: journal entries under ${ORIGIN}/journal/
+- CollectionPage: ${ORIGIN}/answers
 
 ## Do not infer
 

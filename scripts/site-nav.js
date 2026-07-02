@@ -395,6 +395,7 @@
           <h4>Maison</h4>
           <ul>
             <li><a href="/about">About EILLON</a></li>
+            <li><a href="/answers">House Index</a></li>
             <li><a href="/craftsmanship">Craftsmanship</a></li>
             <li><a href="/journal">Editorial Journal</a></li>
             <li><a href="/store">The Boutique</a></li>

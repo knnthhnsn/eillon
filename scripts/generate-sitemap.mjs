@@ -11,6 +11,7 @@ const BASE = 'https://eillon.maison';
 
 const ROUTES = [
   { path: '/', file: 'index.html', priority: '1.0', changefreq: 'weekly', image: 'images/plain-bottle-with-logo.png', imageTitle: 'EILLON — Afro-Mediterranean Memory Perfumery' },
+  { path: '/answers', file: 'answers.html', priority: '0.78', changefreq: 'weekly', image: 'images/about-studio-1400.webp', imageTitle: 'House Index — EILLON answers, proof & chapter status' },
   { path: '/store', file: 'store.html', priority: '0.95', changefreq: 'weekly', image: 'images/beles-no-background.png', imageTitle: 'The Boutique — EILLON fragrance chapters' },
   { path: '/beles', file: 'beles.html', priority: '0.9', changefreq: 'weekly', image: 'images/beles-no-background.png', imageTitle: "Beles · Fico d'India — Oil-rich Parfum" },
   { path: '/prickly-pear-parfum', file: 'prickly-pear-parfum.html', priority: '0.82', changefreq: 'monthly', image: 'images/palette-desert-fruit.webp', imageTitle: 'Prickly pear parfum — Beles · Fico d India' },

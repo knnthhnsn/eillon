@@ -8,6 +8,7 @@ import {
   AEO_MARKER_START,
   getAnswersForPage,
   renderAnswerLedger,
+  renderHouseIndex,
 } from './lib/aeo-shared.mjs';
 import { EILLON_AEO_PAGE_MAP } from '../data/answers.mjs';
 
@@ -22,6 +23,18 @@ const PAGE_TITLES = {
 };
 
 function injectLedger(relPath, html) {
+  if (relPath === 'answers.html') {
+    const block = renderHouseIndex();
+    const region = `${AEO_MARKER_START}[\\s\\S]*?${AEO_MARKER_END}`;
+    if (new RegExp(region).test(html)) {
+      return html.replace(new RegExp(region), block.trim());
+    }
+    if (html.includes('</main>')) {
+      return html.replace('</main>', `${block}\n  </main>`);
+    }
+    return html;
+  }
+
   const answers = getAnswersForPage(relPath);
   if (!answers.length) return html;
 

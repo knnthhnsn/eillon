@@ -12,6 +12,16 @@
     </image:image>
   </url>
   <url>
+    <loc>https://eillon.maison/answers</loc>
+    <lastmod>2026-07-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.78</priority>
+    <image:image>
+      <image:loc>https://eillon.maison/images/about-studio-1400.webp</image:loc>
+      <image:title>House Index — EILLON answers, proof &amp; chapter status</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://eillon.maison/store</loc>
     <lastmod>2026-07-01</lastmod>
     <changefreq>weekly</changefreq>

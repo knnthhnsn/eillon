@@ -1,11 +1,15 @@
 # EILLON — full answer brief
 
 Last updated: 2026-06-23
-Version: 1.0.0
+Version: 2.0.0
 
 ## Overview
 
 EILLON is an independent perfume maison in Copenhagen composing oil-rich parfums from Afro-Mediterranean memory. Chapters are released in deliberate windows; the site documents studio proof, wear guidance, and chapter lifecycle without mass-market retail language.
+
+## House Index
+
+All canonical answers are filed at https://eillon.maison/answers — grouped by maison facts, Beles, chapter lifecycle, proof files, wear and care, and shipping/restock.
 
 ## Chapter lifecycle
 
@@ -15,6 +19,40 @@ EILLON is an independent perfume maison in Copenhagen composing oil-rich parfums
 | Asmara | In development. Follow studio notes. |
 | Massawa | In development. Follow studio notes. |
 | Ritual | Studio archive. Not for sale. |
+
+## Query intent summary
+
+- brand: 7 mapped queries
+- local: 2 mapped queries
+- product: 9 mapped queries
+- availability: 9 mapped queries
+- care: 7 mapped queries
+- ingredient: 5 mapped queries
+- proof: 12 mapped queries
+- shipping: 6 mapped queries
+
+## Popular questions
+
+- what is eillon → what-is-eillon (/about)
+- where is eillon based → where-is-eillon-based (/imprint)
+- is eillon made in copenhagen → copenhagen-studio (/about)
+- who makes eillon perfume → who-composes-eillon (/craftsmanship)
+- what is afro mediterranean perfumery → afro-mediterranean-meaning (/about)
+- what is beles perfume → what-is-beles (/beles)
+- what does beles smell like → what-does-beles-smell-like (/beles)
+- is beles available → is-beles-available (/beles)
+- beles perfume price → beles-sizes-prices (/beles)
+- beles sample size → beles-sample (/beles)
+- what is oil rich parfum → oil-rich-parfum-meaning (/beles)
+- how long does beles last → how-long-beles-wears (/wear)
+- is beles unisex → is-beles-gendered (/beles)
+- is beles genderless → is-beles-gendered (/beles)
+- is beles strong or close to skin → is-beles-strong-or-close (/wear)
+- where is beles made → where-is-beles-made (/beles)
+- what does fico d india mean → what-is-fico-d-india (/journal/fico-d-india)
+- is fico d india fig → is-fico-d-india-fig (/journal/fico-d-india)
+- what does prickly pear perfume smell like → what-prickly-pear-smells-like (/journal/what-does-fico-d-india-smell-like)
+- can i buy asmara → can-buy-asmara-today (/asmara)
 
 ## Canonical answers
 
@@ -202,14 +240,153 @@ Beles suits warm skin and daylight fruit; Asmara reads rain and stone; Massawa c
 - Source: https://eillon.maison/wear#answer-chapter-mood-season
 - Proof: https://eillon.maison/wear, https://eillon.maison/store
 
+### Can I buy Asmara today?
+No. Asmara · Rain on Stone is in development—not offered for purchase. Follow studio notes on the chapter page.
+
+- Source: https://eillon.maison/asmara#answer-can-buy-asmara-today
+- Proof: https://eillon.maison/asmara, https://eillon.maison/store
+
+### Can I buy Massawa today?
+No. Massawa · Red Sea Citrus is in development—not offered for purchase. Follow studio notes on the chapter page.
+
+- Source: https://eillon.maison/massawa#answer-can-buy-massawa-today
+- Proof: https://eillon.maison/massawa, https://eillon.maison/store
+
+### Is Ritual a product?
+Ritual is a studio archive lab study—not a product for sale. There is no purchase offer or checkout path.
+
+- Source: https://eillon.maison/ritual#answer-is-ritual-a-product
+- Proof: https://eillon.maison/ritual, https://eillon.maison/store
+
+### Why does Ritual have no offer?
+Ritual is filed as a lab study in frankincense and myrrh—documented for the archive, not released as a commercial chapter.
+
+- Source: https://eillon.maison/ritual#answer-why-ritual-no-offer
+- Proof: https://eillon.maison/ritual
+
+### What does studio archive mean?
+Studio archive means a chapter is documented in the house file for reference and wear notes—not listed for sale or waitlist.
+
+Ritual is the published studio archive chapter: readers can follow lab notes, but there is no bottle offer or waitlist.
+
+- Source: https://eillon.maison/ritual#answer-what-studio-archive-means
+- Proof: https://eillon.maison/ritual, https://eillon.maison/store
+
+### What is the Beles proof ledger?
+The Beles proof ledger on /beles links batch BL-001, IFRA notes, wear testing, and craftsmanship files—a visible provenance trail for Chapter I.
+
+- Source: https://eillon.maison/beles#answer-what-beles-proof-ledger
+- Proof: https://eillon.maison/beles#proof, https://eillon.maison/journal/beles-batch-bl001, https://eillon.maison/craftsmanship
+
+### What is the winged leopard emblem?
+The winged leopard is the Beles flacon emblem—fine stipple ink at the bottle base, mythic and still against the matte glass field.
+
+- Source: https://eillon.maison/journal/the-bottle#answer-what-winged-leopard-emblem
+- Proof: https://eillon.maison/journal/the-bottle, https://eillon.maison/beles
+
+### What is the EILLON bottle made from?
+The Beles flacon is opaque matte glass with a brushed-silver rectangular cap—lettering set directly into the face, no wrap label.
+
+- Source: https://eillon.maison/journal/the-bottle#answer-what-eillon-bottle-made-from
+- Proof: https://eillon.maison/journal/the-bottle
+
+### Are Beles bottles concept renders or real pilot flacons?
+Site hero imagery includes studio concept renders; BL-001 documents twenty-four hand-filled 100 ml pilot flacons—real bottles from the Copenhagen studio.
+
+- Source: https://eillon.maison/journal/the-bottle#answer-beles-bottles-real-or-render
+- Proof: https://eillon.maison/journal/the-bottle, https://eillon.maison/journal/beles-batch-bl001
+
+### What does "hand-filled in Copenhagen" mean?
+Each flacon is compounded, filled, inspected, and wrapped by hand in the EILLON studio at 1050 Copenhagen—not outsourced mass filling.
+
+- Source: https://eillon.maison/craftsmanship#answer-what-hand-filled-copenhagen-means
+- Proof: https://eillon.maison/craftsmanship, https://eillon.maison/journal/beles-batch-bl001
+
+### What does "IFRA Category 4" mean in plain language?
+IFRA Category 4 is the fine-fragrance-on-skin category—limits how much of each raw material can safely appear in a parfum worn on pulse points.
+
+Beles was reviewed against Category 4 limits; allergen declarations on the chapter page match batch BL-001 labelling notes.
+
+- Source: https://eillon.maison/craftsmanship#answer-what-ifra-category-4-means
+- Proof: https://eillon.maison/craftsmanship#safety, https://eillon.maison/journal/beles-batch-bl001
+
+### Does joining the restock list reserve a bottle?
+No. The restock list records email and size interest only—it does not hold inventory or guarantee allocation.
+
+- Source: https://eillon.maison/shipping#answer-restock-list-reserve-bottle
+- Proof: https://eillon.maison/shipping, https://eillon.maison/beles#waitlist
+
+### Is payment taken today?
+No payment is taken on eillon.maison today. Restock signup and newsletter forms collect interest only—no checkout.
+
+- Source: https://eillon.maison/shipping#answer-is-payment-taken-today
+- Proof: https://eillon.maison/shipping, https://eillon.maison/beles#waitlist
+
+### What happens after joining the Beles restock list?
+You receive one private restock letter when Beles returns—no charge at signup. Unsubscribe anytime via care@eillon.maison.
+
+- Source: https://eillon.maison/shipping#answer-after-beles-restock-signup
+- Proof: https://eillon.maison/shipping, https://eillon.maison/beles#waitlist
+
+### Where will EILLON ship when commerce opens?
+Shipping zones and carriers will be published on /shipping before checkout opens—Denmark and EU first, with broader regions filed as the studio scales.
+
+- Source: https://eillon.maison/shipping#answer-where-eillon-ships-when-commerce-opens
+- Proof: https://eillon.maison/shipping
+
+### How are returns handled when commerce opens?
+Return policy will follow Danish consumer law and be published on /shipping before purchases are accepted—contact care@eillon.maison for questions today.
+
+- Source: https://eillon.maison/shipping#answer-how-returns-when-commerce-opens
+- Proof: https://eillon.maison/shipping, https://eillon.maison/terms
+
+### Is Fico d'India the same as fig?
+No. Fico d'India is Italian for prickly pear—the desert fruit at the heart of Beles—not common fig (Ficus carica).
+
+- Source: https://eillon.maison/journal/fico-d-india#answer-is-fico-d-india-fig
+- Proof: https://eillon.maison/journal/fico-d-india, https://eillon.maison/journal/what-does-fico-d-india-smell-like
+
+### What does prickly pear smell like in perfume?
+In Beles it reads as sun-warmed pear skin and green water—airy fruit over mineral desert air, not jammy or sugary.
+
+- Source: https://eillon.maison/journal/what-does-fico-d-india-smell-like#answer-what-prickly-pear-smells-like
+- Proof: https://eillon.maison/journal/what-does-fico-d-india-smell-like, https://eillon.maison/beles
+
+### Is Beles a fruity fragrance?
+Yes—Beles opens with prickly pear and pear skin, but the accord dries to mineral air, hibiscus green, and soft musk rather than loud candy fruit.
+
+- Source: https://eillon.maison/beles#answer-is-beles-fruity
+- Proof: https://eillon.maison/beles, https://eillon.maison/journal/what-does-fico-d-india-smell-like
+
+### Is Beles gendered?
+Beles is composed as genderless parfum—worn on any skin without masculine or feminine marketing framing.
+
+- Source: https://eillon.maison/beles#answer-is-beles-gendered
+- Proof: https://eillon.maison/beles, https://eillon.maison/about
+
+### Is Beles strong or close to skin?
+Beles is composed close to skin—moderate projection from an oil-rich base, unfolding over hours rather than filling a room.
+
+- Source: https://eillon.maison/wear#answer-is-beles-strong-or-close
+- Proof: https://eillon.maison/wear, https://eillon.maison/beles
+
+### How should I test a sample?
+Apply once to an inner forearm pulse point—let it open without rubbing; revisit at one, four, and eight hours to read the dry-down.
+
+- Source: https://eillon.maison/wear#answer-how-to-test-sample
+- Proof: https://eillon.maison/wear, https://eillon.maison/beles
+
 ## Page map
 
+- https://eillon.maison/answers — House Index (all canonical answers)
 - https://eillon.maison/ — maison, hero, letters archive
 - https://eillon.maison/store — chapter overview
 - https://eillon.maison/beles — Beles chapter, proof ledger, restock list
-- https://eillon.maison/craftsmanship — authorship, IFRA, wear testing
+- https://eillon.maison/craftsmanship — authorship, IFRA, wear testing, evidence table
 - https://eillon.maison/wear — application and storage
 - https://eillon.maison/journal — editorial index
+- https://eillon.maison/journal/beles-batch-bl001 — BL-001 batch evidence table
+- https://eillon.maison/journal/the-bottle — bottle object evidence table
 - https://eillon.maison/llms.txt — short LLM context
 - https://eillon.maison/llms-full.txt — this file
 
@@ -218,10 +395,30 @@ Beles suits warm skin and daylight fruit; Asmara reads rain and stone; Massawa c
 - BL-001 batch: https://eillon.maison/journal/beles-batch-bl001
 - IFRA & safety: https://eillon.maison/craftsmanship#safety
 - Beles proof ledger: https://eillon.maison/beles#proof
+- Bottle object file: https://eillon.maison/journal/the-bottle
+- Craftsmanship evidence table: https://eillon.maison/craftsmanship#evidence
+
+## Evidence tables (visible on site)
+
+### BL-001 batch (https://eillon.maison/journal/beles-batch-bl001)
+| Batch | Date | Quantity | Formula status | Safety file | Wear testing | Traceability |
+| BL-001 | Compounded Mar 2025 | 24 × 100 ml pilot | Locked at pilot scale | IFRA Cat 4 reviewed | Six studio sessions | Published batch file |
+
+### Bottle object (https://eillon.maison/journal/the-bottle)
+| Bottle | Glass | Cap | Emblem | Lettering | Label state | Prototype/pilot status |
+| Beles flacon | Opaque matte square | Brushed silver rectangular | Winged leopard stipple | Serif into glass face | No wrap label | Concept renders + BL-001 pilot flacons |
+
+### Craftsmanship claims (https://eillon.maison/craftsmanship#evidence)
+| Claim | Evidence page | Status | Last reviewed |
+| IFRA assessed | /craftsmanship#safety | Published | 2026-06-23 |
+| Vegan formulas | /craftsmanship#safety | Published | 2026-06-23 |
+| Hand-filled Copenhagen | /journal/beles-batch-bl001 | BL-001 filed | 2026-06-23 |
+| Wear tested | /craftsmanship#wear-testing | Studio sessions | 2026-06-23 |
 
 ## Restock policy
 
 - Email + size interest only; no charge at signup
+- Does not reserve inventory
 - One private letter when Beles returns
 - Unsubscribe via care@eillon.maison
 
@@ -232,6 +429,7 @@ Beles suits warm skin and daylight fruit; Asmara reads rain and stone; Massawa c
 - FAQPage: visible answer-ledger blocks only
 - HowTo: https://eillon.maison/wear
 - Article: journal entries under https://eillon.maison/journal/
+- CollectionPage: https://eillon.maison/answers
 
 ## Do not infer
 

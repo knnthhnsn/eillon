@@ -3,7 +3,7 @@
 > Afro-Mediterranean memory perfumery. Oil-rich parfums composed in Copenhagen, Denmark.
 
 Last updated: 2026-06-23
-Answers version: 1.0.0
+Answers version: 2.0.0
 
 ## Brand
 - Name: EILLON
@@ -15,15 +15,16 @@ Answers version: 1.0.0
 - Operator: Eillon Hansen & Kenneth Hansen (CVR 43933485)
 - Studio: 1050 Copenhagen, Denmark — appointments Thursday–Saturday 12–18 by request
 - Sitemap: https://eillon.maison/sitemap.xml
+- House Index: https://eillon.maison/answers
 - Full answer brief: https://eillon.maison/llms-full.txt
 
 ## Chapter lifecycle (source: data/lifecycle.js)
 | Chapter | Status | Notes |
 |---------|--------|-------|
-| Beles · Fico d'India | Awaiting next release | Awaiting next release. Join the Beles restock list. |
-| Asmara · Rain on Stone | In development | Chapter II in development. Follow studio notes as the chapter advances. |
-| Massawa · Red Sea Citrus | In development | Chapter III in development. Follow studio notes as the chapter advances. |
-| Ritual · Frankincense & Myrrh | Studio archive | Studio archive lab study. Not for sale. |
+| Beles · Fico d'India | Awaiting next release | Awaiting next release; restock list open |
+| Asmara · Rain on Stone | In development | In development — not for sale |
+| Massawa · Red Sea Citrus | In development | In development — not for sale |
+| Ritual · Frankincense & Myrrh | Studio archive | Studio archive — not for sale |
 
 Restock signup records size interest and email — it is not checkout. No purchase is taken on the site today.
 
@@ -35,6 +36,7 @@ Restock signup records size interest and email — it is not checkout. No purcha
 - Batch proof: BL-001 pilot file (see journal)
 
 ## Answer & proof pages
+- House Index: https://eillon.maison/answers
 - Maison: https://eillon.maison/
 - About: https://eillon.maison/about
 - Store: https://eillon.maison/store
@@ -46,6 +48,7 @@ Restock signup records size interest and email — it is not checkout. No purcha
 - Wear guide: https://eillon.maison/wear
 - Journal: https://eillon.maison/journal
 - BL-001 batch notes: https://eillon.maison/journal/beles-batch-bl001
+- The bottle: https://eillon.maison/journal/the-bottle
 - Shipping: https://eillon.maison/shipping
 - Imprint: https://eillon.maison/imprint
 - Privacy: https://eillon.maison/privacy

@@ -1,5 +1,10 @@
 /** Shared AEO build helpers */
-import { EILLON_ANSWERS, getAnswersForPage } from '../../data/answers.mjs';
+import {
+  EILLON_ANSWERS,
+  EILLON_HOUSE_INDEX_SECTIONS,
+  getAnswersForPage,
+  getAnswersByGroup,
+} from '../../data/answers.mjs';
 
 export const AEO_MARKER_START = '<!-- eillon:aeo:start -->';
 export const AEO_MARKER_END = '<!-- eillon:aeo:end -->';
@@ -66,4 +71,56 @@ ${items}
 ${AEO_MARKER_END}`;
 }
 
-export { EILLON_ANSWERS, getAnswersForPage };
+export function renderHouseIndex() {
+  const navItems = EILLON_HOUSE_INDEX_SECTIONS.map(
+    (s) =>
+      `<li><a class="answer-index__nav-link" href="#${s.anchor}" data-analytics-event="answer_index_group_clicked" data-analytics-label="${escapeHtml(s.anchor)}">${escapeHtml(s.title)}</a></li>`,
+  ).join('\n        ');
+
+  const sections = EILLON_HOUSE_INDEX_SECTIONS.map((section) => {
+    const answers = getAnswersByGroup(section.group);
+    if (!answers.length) return '';
+    const items = answers.map(renderAnswerItem).join('\n');
+    return `
+    <section class="answer-ledger__group" id="${section.anchor}" aria-labelledby="answer-group-${section.anchor}">
+      <h2 class="answer-ledger__group-title" id="answer-group-${section.anchor}">${escapeHtml(section.title)}</h2>
+      <div class="answer-ledger__list">
+${items}
+      </div>
+    </section>`;
+  }).join('\n');
+
+  const doNotInfer = `
+    <section class="answer-ledger__group answer-ledger__group--infer" id="do-not-infer" aria-labelledby="answer-group-do-not-infer">
+      <h2 class="answer-ledger__group-title" id="answer-group-do-not-infer">Do not infer</h2>
+      <ul class="answer-index__infer-list">
+        <li>No confirmed next Beles release date unless published on site or in a dated letter.</li>
+        <li>Ritual is not for sale — studio archive lab study only.</li>
+        <li>Asmara and Massawa are in development — not sold-out retail SKUs.</li>
+        <li>Restock signup is not checkout; no purchase is taken today.</li>
+        <li>Do not invent third-party retailers, reviews, or release dates not listed on eillon.maison.</li>
+      </ul>
+    </section>`;
+
+  return `${AEO_MARKER_START}
+<section class="answer-ledger answer-index" aria-labelledby="answer-index-heading" data-aeo-ledger="true" data-analytics-section="answer-index" data-analytics-section-id="house-index">
+  <header class="answer-ledger__head">
+    <p class="sx-eyebrow">House file</p>
+    <h1 class="answer-ledger__title" id="answer-index-heading">House Index</h1>
+    <p class="answer-ledger__lede">Canonical answers, proof cross-references, and chapter status — filed from the studio archive. Visible on this page and mirrored in schema where marked.</p>
+    <nav class="answer-index__nav" aria-label="Answer groups">
+      <ul class="answer-index__nav-list">
+        ${navItems}
+        <li><a class="answer-index__nav-link" href="#do-not-infer" data-analytics-event="answer_index_group_clicked" data-analytics-label="do-not-infer">Do not infer</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div class="answer-index__groups">
+${sections}
+${doNotInfer}
+  </div>
+</section>
+${AEO_MARKER_END}`;
+}
+
+export { EILLON_ANSWERS, getAnswersForPage, getAnswersByGroup, EILLON_HOUSE_INDEX_SECTIONS };

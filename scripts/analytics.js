@@ -351,10 +351,32 @@
         props.proof_href = target.getAttribute('href') || target.dataset.answerProofHref;
         props.page = window.location.pathname;
       }
+      if (target.dataset.analyticsEvent === 'answer_index_group_clicked') {
+        props.group = target.dataset.analyticsLabel;
+        props.page = window.location.pathname;
+      }
       track(target.dataset.analyticsEvent, props);
     },
     { capture: true },
   );
+
+  const bindAnswerIndex = () => {
+    const index = document.querySelector('.answer-index[data-aeo-ledger="true"]');
+    if (!index || index.dataset.indexAnalytics) return;
+    index.dataset.indexAnalytics = '1';
+    const seenIndex = { value: false };
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting || entry.intersectionRatio < 0.2 || seenIndex.value) return;
+          seenIndex.value = true;
+          track('answer_index_viewed', { page: window.location.pathname });
+        });
+      },
+      { threshold: [0.2] },
+    );
+    io.observe(index);
+  };
 
   const init = () => {
     captureUtm();
@@ -369,6 +391,7 @@
     bindObjectDetails();
     bindLetterArchive();
     bindAnswerLedger();
+    bindAnswerIndex();
   };
 
   window.EILLON_ANALYTICS = {

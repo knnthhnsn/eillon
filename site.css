@@ -3695,3 +3695,74 @@ footer.editorial-page__footer > *:not(.mv-shader) {
   margin-inline: clamp(16px, 4vw, 48px);
 }
 
+/* House Index — grouped ledger */
+.answer-index-page__body {
+  padding-bottom: clamp(48px, 8vw, 96px);
+}
+.answer-index .answer-ledger__title {
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+}
+.answer-index__nav {
+  margin-top: 1.25rem;
+}
+.answer-index__nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.answer-index__nav-link {
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(248, 246, 240, 0.65);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  padding-bottom: 0.15em;
+}
+.answer-index__nav-link:hover {
+  color: #fff;
+}
+.answer-index__groups {
+  display: grid;
+  gap: clamp(32px, 5vw, 48px);
+}
+.answer-ledger__group {
+  scroll-margin-top: 96px;
+}
+.answer-ledger__group-title {
+  font-family: var(--font-display, 'Fraunces', serif);
+  font-size: clamp(1.25rem, 2.5vw, 1.6rem);
+  font-weight: 400;
+  margin: 0 0 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.answer-ledger__group--infer .answer-index__infer-list {
+  margin: 0;
+  padding-left: 1.25rem;
+  color: rgba(248, 246, 240, 0.72);
+  line-height: 1.6;
+}
+.answer-evidence-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+.answer-evidence-table th,
+.answer-evidence-table td {
+  padding: 0.65rem 0.85rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: left;
+  vertical-align: top;
+}
+.answer-evidence-table th {
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.04);
+}
+.page-hero--compact {
+  min-height: clamp(280px, 40vh, 420px);
+}
+
