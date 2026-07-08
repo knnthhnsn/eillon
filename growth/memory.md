@@ -39,7 +39,12 @@
 ## Social demand (2026-06-28)
 
 - Pinterest/visual search loop undeveloped in repo (backlog EXP-009).
-- Campaign kits not yet in `/content/campaigns/`.
+
+## Social demand (2026-06-29)
+
+- First campaign kit shipped: `content/campaigns/2026-06-29-prickly-pear-not-candy.md` (EXP-006, social_to_letter loop).
+- Primary CTA: The Letter (`/about`); secondary Beles restock (`/beles#waitlist`).
+- Angle: prickly pear reframed as mineral/skin-close — addresses “too sweet?” objection from demand research.
 
 ## Technical architecture (2026-06-28)
 
