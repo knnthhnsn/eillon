@@ -73,3 +73,25 @@
 
 - Autonomy default L1–L2; no auto-merge.
 - Favicon switched to `images/favicon.jpeg` (ensure committed for prod).
+
+## Main branch digest (2026-06-29)
+
+### Wins
+
+- **EXP-003–005 shipped on main:** `/prickly-pear-parfum`, smell-intent journal article, Beles restock trust microcopy (PR #44).
+- **Growth OS live:** 10 automations active in Cursor UI; L2b auto-merge proven on EXP-005 (790ad6f, 0 block findings).
+- **Sitemap:** 19 public URLs (was 17 in baseline capture).
+- **Agent-Reach:** Reddit authenticated as eillonofficial; Exa/GitHub/web channels available for demand research.
+
+### Lessons
+
+- Homepage GSAP scroll pins remain fragile on iOS Safari — `normalizeScroll` + pin re-init commits (`0e92d94`, `4c04c10`) required after lazy bundle changes.
+- Deferring letters bundle helps Lighthouse but can reintroduce pin jitter; eager GSAP load on mobile is the safer default.
+- Baseline must be refreshed after route additions — prickly-pear and smell-intent pages were live before baseline gaps were cleared.
+- First auto-merge succeeded only when AI hard review artifact, CI green, and forbidden-path checks all passed — keep ledger row per merge.
+
+### Still open (from digest)
+
+- Analytics gaps: newsletter-distinct events (EXP-007), `journal_to_beles_click` (EXP-035).
+- Next backlog priority: EXP-008 internal linking.
+- Monitor GSC for prickly-pear/smell cluster; monitor Beles form completion 14d post EXP-005.
