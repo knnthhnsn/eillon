@@ -73,3 +73,24 @@
 
 - Autonomy default L1–L2; no auto-merge.
 - Favicon switched to `images/favicon.jpeg` (ensure committed for prod).
+
+## Shipped wins (2026-06-29 — main_branch_digest)
+
+- **EXP-003** `/prickly-pear-parfum` discovery landing live with FAQ schema and Beles restock CTAs.
+- **EXP-004** `/journal/what-does-fico-d-india-smell-like` smell-intent article live; sitemap at 19 URLs.
+- **EXP-005** Beles `.shop__restock-trust` microcopy above `#waitlist` — first L2b auto-merge (PR #44 @ `790ad6f`).
+- **EXP-031** Ten growth automations verified active in Cursor UI; `pr_growth_auto_merge` operational.
+- Growth OS fully scaffolded: rules, prompts, scoring, QA scripts, AI hard review protocol.
+
+## Performance lessons (2026-06-29)
+
+- Lazy GSAP loading caused mobile scroll jitter — keep eager script tags for pin-critical paths.
+- `normalizeScroll` + Maison pin chained to house pin end stabilized iOS Safari scroll locks.
+- Vercel free-tier daily deploy limit blocked production pin fixes — temporary jsDelivr CDN for `home.js` @ `94b69cc` until quota resets; revert to self-hosted after next deploy.
+- Python wax-seal step split from CI build to avoid numpy dependency failures.
+
+## Measurement follow-ups (2026-06-29)
+
+- Monitor GSC prickly-pear + smell-intent clusters 14–28d post EXP-003/004.
+- Monitor Beles `restock_form_started` → `restock_form_submitted` 14d post EXP-005.
+- Next backlog priority: **EXP-008** (journal → Beles internal links).
