@@ -71,5 +71,26 @@
 
 ## Human decisions (2026-06-28)
 
-- Autonomy default L1–L2; no auto-merge.
-- Favicon switched to `images/favicon.jpeg` (ensure committed for prod).
+- Autonomy default L1–L2; L2b conditional auto-merge enabled for eligible `growth/*` PRs (2026-06-29).
+- Favicon switched to `images/favicon.jpeg` (committed 2026-06-29).
+
+## Shipped on main (2026-06-29 digest)
+
+- **EXP-003** `/prickly-pear-parfum` — prickly-pear discovery landing with FAQ schema and journal links.
+- **EXP-004** `/journal/what-does-fico-d-india-smell-like` — smell-intent article; sitemap now 19 URLs.
+- **EXP-005** Beles `.shop__restock-trust` microcopy above waitlist (one email, no charge, privacy); auto-merged PR #44 via L2b.
+- **EXP-031** Ten growth automations verified in Cursor UI; `pr_growth_auto_merge` active.
+- **Growth OS** complete: AI hard review gate, automation prompts, QA/score scripts, autonomy policy v1.1.
+
+## Performance lessons (2026-06-29)
+
+- Homepage GSAP ScrollTrigger pins require eager script load — lazy GSAP caused mobile jitter (fixed).
+- iOS Safari needs `normalizeScroll` and careful pin chaining (Maison → House of Memory); multiple follow-up commits on main.
+- Vercel deploy quota workaround: home scroll pin script temporarily loaded from jsDelivr (`c714cf6`).
+- CI: Python wax-seal step split from main build to fix Vercel failures.
+
+## Automation wins (2026-06-29)
+
+- First L2b auto-merge succeeded (EXP-005, 0 block findings, CI green).
+- Agent-Reach: Reddit authenticated as eillonofficial; 8/15 channels active per state.json.
+- Codebase memory indexed (~10k nodes) for faster agent context.
