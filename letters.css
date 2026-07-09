@@ -3,19 +3,19 @@
    ============================================================ */
 
 :root {
-  --paper-ivory: #f8f4eb;
-  --paper-cream: #f2ebe0;
-  --paper-parchment: #ebe3d4;
-  --paper-aged: #e4dccf;
-  --paper-warm: #f0e8da;
-  --paper-cool: #eceae5;
-  --paper-blush: #f3ece6;
+  --paper-ivory: #FAFAFA;
+  --paper-cream: #F5F5F5;
+  --paper-parchment: #EFEFEF;
+  --paper-aged: #E8E8E8;
+  --paper-warm: #F3F3F3;
+  --paper-cool: #F0F0F2;
+  --paper-blush: #F5F5F7;
   --ink-charcoal: #2a2620;
   --ink-muted: rgba(42, 38, 32, 0.58);
   --ink-faded: rgba(42, 38, 32, 0.38);
   --shadow-warm: rgba(58, 44, 32, 0.18);
   --shadow-soft: rgba(58, 44, 32, 0.1);
-  --veil-parchment: rgba(248, 242, 230, 0.72);
+  --veil-parchment: rgba(255, 255, 255, 0.72);
   --wax-blush: rgba(168, 118, 98, 0.35);
   --letter-hand: 'La Belle Aurore', 'Segoe Script', cursive;
   --letter-caption: 'Cormorant Garamond', var(--serif);
@@ -83,8 +83,8 @@
   position: relative;
   padding: clamp(88px, 12vw, 152px) clamp(16px, 4vw, 80px);
   background:
-    radial-gradient(ellipse 62% 48% at 50% 34%, rgba(255, 251, 245, 0.45), transparent 74%),
-    linear-gradient(180deg, rgba(248, 242, 232, 0.22) 0%, rgba(255, 255, 255, 0.04) 38%, rgba(242, 232, 214, 0.28) 100%),
+    radial-gradient(ellipse 62% 48% at 50% 34%, rgba(255, 255, 255, 0.42), transparent 74%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0%, rgba(247, 247, 248, 0.08) 38%, rgba(240, 240, 242, 0.22) 100%),
     var(--sky-bg);
   background-size: auto, auto, cover;
   background-position: center top;
@@ -286,15 +286,15 @@
 
 /* tone variants */
 .correspondence-wrap--orchard .correspondence__paper,
-.correspondence-wrap--orchard .correspondence__env-back { --tone: #ebe1d0; }
+.correspondence-wrap--orchard .correspondence__env-back { --tone: #EFEFEF; }
 .correspondence-wrap--stone .correspondence__paper,
-.correspondence-wrap--stone .correspondence__env-back { --tone: #e4e2dc; }
+.correspondence-wrap--stone .correspondence__env-back { --tone: #ECECEE; }
 .correspondence-wrap--coast .correspondence__paper,
-.correspondence-wrap--coast .correspondence__env-back { --tone: #ede5de; }
+.correspondence-wrap--coast .correspondence__env-back { --tone: #F0F0F2; }
 .correspondence-wrap--atelier .correspondence__paper,
-.correspondence-wrap--atelier .correspondence__env-back { --tone: #ece4d6; }
+.correspondence-wrap--atelier .correspondence__env-back { --tone: #EBEBED; }
 .correspondence-wrap--proof .correspondence__paper,
-.correspondence-wrap--proof .correspondence__env-back { --tone: #e6dece; }
+.correspondence-wrap--proof .correspondence__env-back { --tone: #E6E6E8; }
 .correspondence-wrap--archive .correspondence__paper,
 .correspondence-wrap--archive .correspondence__env-back {
   --tone: #ddd4c4;

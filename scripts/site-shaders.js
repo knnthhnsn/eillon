@@ -24,6 +24,9 @@
     { sel: '.journal-shader-band--index', key: 'journalArchive', mode: 'journalWater', prepend: true, blend: 'screen' },
     { sel: '.wear-shader-band--application', key: 'wearSkin', prepend: true, blend: 'screen' },
     { sel: '.boutique-shader-band--atlas', key: 'boutiqueAtlas', prepend: true, blend: 'overlay' },
+    { sel: '.boutique-shader-band--collection', key: 'collectionFrost', prepend: true },
+    { sel: '.boutique-shader-band--answers', key: 'collectionFrost', prepend: true },
+    { sel: '.store-hero-band', key: 'shopHero', prepend: true },
     { sel: '.boutique-chapter-band--beles', key: 'belesNotes', prepend: true, blend: 'screen' },
     { sel: '.boutique-chapter-band--oliva', key: 'olivaNotes', prepend: true, blend: 'screen' },
     { sel: '.boutique-chapter-band--asmara', key: 'asmaraNotes', prepend: true, blend: 'screen' },
@@ -54,7 +57,9 @@
     productionStill: { c1: [0.04, 0.05, 0.04], c2: [0.28, 0.34, 0.26], c3: [0.74, 0.72, 0.60], opacity: 0.48, baseAlpha: 0.44, scale: 1.06, speed: 0.64 },
     journalArchive: { c1: [0.02, 0.05, 0.14], c2: [0.06, 0.14, 0.34], c3: [1.0, 1.0, 1.0], opacity: 0.66, baseAlpha: 0.54, scale: 1.30, speed: 1.48 },
     wearSkin:     { c1: [0.16, 0.06, 0.05], c2: [0.68, 0.32, 0.24], c3: [0.98, 0.78, 0.52], opacity: 0.54, scale: 1.14, speed: 0.88 },
-    boutiqueAtlas:  { c1: [0.90, 0.84, 0.74], c2: [0.58, 0.44, 0.32], c3: [0.98, 0.88, 0.58], opacity: 0.34, scale: 1.02, speed: 0.68 },
+    boutiqueAtlas:  { c1: [0.96, 0.96, 0.97], c2: [0.82, 0.82, 0.84], c3: [1.0, 1.0, 1.0], opacity: 0.34, scale: 1.02, speed: 0.68 },
+    collectionFrost: { c1: [0.97, 0.97, 0.98], c2: [1.0, 1.0, 1.0], c3: [1.0, 1.0, 1.0], opacity: 0.88, baseAlpha: 0.88, scale: 1.28, speed: 1.08 },
+    shopHero:      { c1: [0.96, 0.96, 0.97], c2: [1.0, 1.0, 1.0], c3: [1.0, 1.0, 1.0], opacity: 0.9, baseAlpha: 0.9, scale: 1.34, speed: 1.18 },
     boutiqueMemory: { c1: [0.12, 0.06, 0.08], c2: [0.54, 0.32, 0.22], c3: [0.90, 0.68, 0.44], opacity: 0.50, scale: 1.12, speed: 0.90 },
     darkBand:     { c1: [0.03, 0.06, 0.12], c2: [0.14, 0.34, 0.58], c3: [0.82, 0.50, 0.14], opacity: 0.74, scale: 1.15, speed: 1.2 },
     belesNotes:   { c1: [0.22, 0.52, 0.20], c2: [0.58, 0.78, 0.28], c3: [1.0, 0.62, 0.08], opacity: 0.58, scale: 1.28, speed: 1.15 },
@@ -487,6 +492,7 @@
     });
 
     document.addEventListener('eillon:nav-ready', mountAll);
+    document.addEventListener('eillon:shop-grid-ready', mountAll);
   }
 
   function boot() {

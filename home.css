@@ -2,7 +2,7 @@
    EILLON — Homepage redesign
    "The house between heat and shadow."
    Cinematic editorial: dark cobalt/ink movements alternating
-   with luminous bone movements. Loaded only on the homepage.
+   Clean neutral white movements. Loaded only on the homepage.
    ===================================================== */
 
 :root {
@@ -1103,11 +1103,11 @@ html.house-stairs-ready .mv-house::before {
   position: sticky;
   top: clamp(80px, 12vh, 140px);
   aspect-ratio: 4 / 5;
-  background: linear-gradient(150deg, #e7dccb, #d8c6ad);
+  background: linear-gradient(150deg, #f0f0f2, #e4e4e8);
   overflow: hidden;
 }
 .mv-chapter__media--flacon {
-  background: #d8d4ce;
+  background: var(--surface-well);
   display: grid;
   place-items: center;
 }
@@ -2173,7 +2173,7 @@ body[data-nav-home="true"] .footer__legal a:hover { color: #fff; }
   font-weight: 400;
   line-height: 1.15;
   margin: 0 0 0.55rem;
-  color: var(--paper, #f8f6f0);
+  color: var(--paper, #FFFFFF);
 }
 .home .answer-ledger__lede {
   margin: 0;
@@ -2199,7 +2199,7 @@ body[data-nav-home="true"] .footer__legal a:hover { color: #fff; }
   font-weight: 400;
   margin: 0 0 0.55rem;
   line-height: 1.3;
-  color: var(--paper, #f8f6f0);
+  color: var(--paper, #FFFFFF);
 }
 .home .answer-ledger__answer p {
   margin: 0 0 0.55rem;

@@ -88,8 +88,14 @@ export function renderAnswerLedger(
   if (!items) return '';
 
   const modClass = modifier ? ` ${modifier}` : '';
+  const isDark = modifier.includes('answer-ledger--dark');
+  const bandOpen = isDark
+    ? ''
+    : `<div class="boutique-shader-band boutique-shader-band--answers">`;
+  const bandClose = isDark ? '' : '</div>';
 
   return `${AEO_MARKER_START}
+${bandOpen}
 <section class="answer-ledger${modClass}" aria-labelledby="answer-ledger-heading" data-aeo-ledger="true">
   <div class="answer-ledger__panel">
   <header class="answer-ledger__head">
@@ -103,6 +109,7 @@ ${items}
   ${footerHtml}
   </div>
 </section>
+${bandClose}
 ${AEO_MARKER_END}`;
 }
 

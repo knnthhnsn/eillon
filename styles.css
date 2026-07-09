@@ -5,16 +5,18 @@
 
 /* ---------- TOKENS ----------
    EILLON — monumental intimacy.
-   Sun-warmed limestone & bone, not cold Scandinavian white.
-   Afro-Mediterranean atmosphere held with Copenhagen discipline.
+   Clean neutral white & cool grey — Copenhagen discipline, no warm bone.
 */
 :root {
-  /* Neutral system — warm bone & limestone (no pure white) */
-  --bg:           #F3EFE6;   /* warm bone page */
-  --bg-soft:      #EEE9DD;   /* soft limestone panel */
-  --bg-deep:      #E6DFD0;   /* sun-warmed limestone */
-  --bg-warm:      #F0EBE0;   /* lifted neutral */
-  --paper:        #FBF8F1;   /* warm card white (not #FFF) */
+  /* Neutral system — modern white (no yellow/cream cast) */
+  --bg:           #FFFFFF;
+  --bg-soft:      #F7F7F8;
+  --bg-deep:      #EFEFEF;
+  --bg-warm:      #F5F5F5;
+  --paper:        #FFFFFF;
+  --surface-well: #F0F0F2;   /* flacon / product wells */
+  --surface-panel: #FFFFFF;  /* cards, ledgers, panels on light bg */
+  --surface-glass: rgba(255, 255, 255, 0.88);
 
   /* Accent — sand-brass, retuned away from champagne-gold cliché */
   --gold:         #A98A57;   /* warm brass accent */
@@ -44,8 +46,8 @@
   --line:         rgba(23, 21, 15, 0.12);
   --line-soft:    rgba(23, 21, 15, 0.06);
   --line-faint:   rgba(23, 21, 15, 0.03);
-  --shadow-soft:  0 30px 80px -40px rgba(20, 16, 8, 0.14);
-  --shadow-deep:  0 60px 140px -60px rgba(20, 16, 8, 0.18);
+  --shadow-soft:  0 30px 80px -40px rgba(0, 0, 0, 0.10);
+  --shadow-deep:  0 60px 140px -60px rgba(0, 0, 0, 0.14);
 
   /* Image overlays — for legibility & atmospheric transition only */
   --scrim-cobalt: linear-gradient(180deg, rgba(5, 17, 31, 0.30) 0%, rgba(5, 17, 31, 0) 26%, rgba(5, 17, 31, 0) 58%, rgba(5, 17, 31, 0.46) 100%);
@@ -388,7 +390,7 @@ body.is-loaded .veil { transition: visibility 0s linear 1.9s; visibility: hidden
   pointer-events: none;
 }
 .nav.is-scrolled {
-  background: rgba(250, 250, 248, 0.88);
+  background: var(--surface-glass);
   backdrop-filter: saturate(120%) blur(14px);
   -webkit-backdrop-filter: saturate(120%) blur(14px);
   border-bottom-color: var(--line-soft);
@@ -1282,7 +1284,7 @@ body[data-nav-home="true"] .hero__brand-line {
   background: rgba(255, 255, 255, 0.72);
 }
 body[data-nav-home="true"] .hero__title {
-  color: #FAFAF8;
+  color: #FFFFFF;
   text-shadow:
     0 2px 28px rgba(0, 0, 0, 0.28),
     0 1px 0 rgba(255, 255, 255, 0.12);
@@ -2785,7 +2787,7 @@ body[data-nav-home="true"] .hero__cta .btn--primary:hover {
   height: auto;
   object-fit: contain;
   object-position: center;
-  background: #d8d4ce;
+  background: var(--surface-well);
   border: 0;
 }
 .info-page__figure figcaption {
@@ -2930,7 +2932,7 @@ body[data-nav-home="true"] .hero__cta .btn--primary:hover {
   height: auto;
   object-fit: contain;
   object-position: center;
-  background: #d8d4ce;
+  background: var(--surface-well);
 }
 .chapter-gallery__video {
   grid-column: 1 / -1;
@@ -3564,7 +3566,7 @@ body[data-nav-home="true"] .hero__cta .btn--primary:hover {
   display: flex;
   justify-content: center;
   padding: 24px;
-  background: linear-gradient(180deg, rgba(250, 250, 248, 0) 0%, rgba(237, 234, 228, 0.45) 100%);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(235, 235, 238, 0.45) 100%);
 }
 .beles-hero__media img {
   width: min(100%, 420px);
@@ -3786,7 +3788,7 @@ body[data-nav-home="true"] .hero__cta .btn--primary:hover {
 .chapter-hero__media--flacon {
   display: grid;
   place-items: center;
-  background: #d8d4ce;
+  background: var(--surface-well);
 }
 
 .chapter-hero__media--flacon picture {
@@ -4920,7 +4922,7 @@ body.is-loaded .scroll-progress { opacity: 1; }
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
-  background: #c8b4a8;
+  background: var(--bg-deep);
 }
 
 .collection-panel__video {
@@ -5081,53 +5083,86 @@ a.product-card--link:focus-visible {
 .product-card--shop {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 0;
   min-height: 0;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  box-shadow: none;
-  overflow: visible;
+  padding: 0 !important;
+  border: 1px solid rgba(248, 246, 240, 0.12);
+  box-shadow: none !important;
+  overflow: hidden;
+  isolation: isolate;
   text-decoration: none;
-  color: inherit;
-  transition: opacity 0.35s ease;
+  color: rgba(248, 246, 240, 0.92);
+  transition: border-color 0.35s ease, transform 0.35s ease;
+}
+
+.product-card--shop.chapter-shader-band > .mv-shader {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.product-card--shop .product-card__media {
+  display: block;
+  min-height: 0;
+  margin-bottom: 0;
+  background: var(--surface-well);
+  place-items: unset;
 }
 
 .product-card--shop:hover,
 .product-card--shop:focus-visible {
-  transform: none;
+  transform: translateY(-2px);
   box-shadow: none;
-  opacity: 0.82;
+  opacity: 1;
+  border-color: rgba(248, 246, 240, 0.22);
 }
 
 .product-card--shop .product-card__media--flacon {
   display: grid;
   place-items: center;
+  position: relative;
+  z-index: 2;
   aspect-ratio: 4 / 5;
+  width: 100%;
   min-height: 0;
-  margin-bottom: 0;
-  padding: clamp(18px, 3vw, 28px);
-  background: #f3f1ea;
-  border: 1px solid rgba(23, 21, 15, 0.08);
-  transition: background-color 0.35s ease;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  box-shadow: inset 0 0 0 1px rgba(248, 246, 240, 0.14);
 }
 
-.product-card--shop:hover .product-card__media--flacon,
-.product-card--shop:focus-visible .product-card__media--flacon {
-  background: #ece8df;
-}
-
-.product-card__flacon {
-  width: auto;
-  height: clamp(148px, 22vw, 240px);
-  max-width: 58%;
-  object-fit: contain;
+.product-card--shop .product-card__media--flacon img,
+.product-card--shop .product-card__flacon {
+  position: relative;
+  inset: auto;
+  display: block;
+  width: auto !important;
+  height: auto !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
   object-position: center center;
+  transform: none;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.product-card--shop:hover .product-card__flacon,
+.product-card--shop:focus-visible .product-card__flacon {
+  transform: scale(1.03);
 }
 
 .product-card__shop-body {
+  position: relative;
+  z-index: 2;
   display: grid;
   gap: 3px;
+  padding: 14px 14px 16px;
+  border-top: 1px solid rgba(248, 246, 240, 0.1);
+  background: transparent;
 }
 
 .product-card__shop-title {
@@ -5137,7 +5172,7 @@ a.product-card--link:focus-visible {
   font-weight: 400;
   line-height: 1.25;
   letter-spacing: 0.01em;
-  color: var(--ink);
+  color: var(--paper);
 }
 
 .product-card__shop-subtitle {
@@ -5146,7 +5181,7 @@ a.product-card--link:focus-visible {
   font-size: 12px;
   line-height: 1.35;
   letter-spacing: 0.06em;
-  color: var(--ink-faint);
+  color: rgba(248, 246, 240, 0.62);
 }
 
 .product-card__shop-meta {
@@ -5157,7 +5192,7 @@ a.product-card--link:focus-visible {
 }
 
 .product-card__shop-price {
-  color: var(--ink);
+  color: rgba(248, 246, 240, 0.92);
   letter-spacing: 0.02em;
 }
 
@@ -5165,15 +5200,15 @@ a.product-card--link:focus-visible {
   font-size: 11px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--ink-faint);
+  color: rgba(248, 246, 240, 0.55);
 }
 
 .product-card__shop-status--awaiting-next-release {
-  color: var(--cactus, #5a664f);
+  color: #9fd4a0;
 }
 
 .product-card__shop-status--studio-archive {
-  color: var(--stone);
+  color: rgba(248, 246, 240, 0.45);
 }
 
 .product-grid--boutique .product-card--compact .product-card__image-label {
@@ -5311,7 +5346,7 @@ a.product-card--link:focus-visible {
   place-items: center;
   min-height: 280px;
   margin-bottom: 22px;
-  background: linear-gradient(180deg, rgba(255,255,255,.75), rgba(250,250,248,.3));
+  background: linear-gradient(180deg, rgba(255,255,255,.75), rgba(245,245,247,.3));
 }
 
 .product-card__media:not(.product-card__media--showcase) img {
@@ -5420,7 +5455,7 @@ a.product-card--link:focus-visible {
   gap: 3px;
   max-width: calc(100% - 20px);
   padding: 8px 11px;
-  background: rgba(250, 248, 245, 0.94);
+  background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.72);
@@ -5728,11 +5763,6 @@ a.product-card--link:focus-visible {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 22px 12px;
     max-width: none;
-  }
-
-  .product-card__flacon {
-    height: clamp(120px, 34vw, 180px);
-    max-width: 62%;
   }
 
   .product-grid--boutique {
@@ -6100,7 +6130,7 @@ a.product-card--link:focus-visible {
   padding: 2px;
   border: 1px solid rgba(28, 28, 26, 0.12);
   border-radius: 999px;
-  background: rgba(250, 250, 248, 0.6);
+  background: rgba(255, 255, 255, 0.72);
 }
 .nav__lang-btn {
   border: none;
@@ -6236,7 +6266,7 @@ a.product-card--link:focus-visible {
 .chapter-nav {
   margin-top: clamp(72px, 9vw, 96px);
   z-index: 40;
-  background: rgba(250, 250, 248, 0.92);
+  background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(28, 28, 26, 0.08);
 }

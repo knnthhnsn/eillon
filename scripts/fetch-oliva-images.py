@@ -16,7 +16,7 @@ SINGLE = {
     "scent-oliva": "https://upload.wikimedia.org/wikipedia/commons/2/26/Olive_grove.jpg",
     "palette-olive-grove": "https://upload.wikimedia.org/wikipedia/commons/2/26/Olive_grove.jpg",
     "gallery-oliva-grove": "https://upload.wikimedia.org/wikipedia/commons/9/94/Olive_tree.jpg",
-    "gallery-oliva-fruit": "https://upload.wikimedia.org/wikipedia/commons/b/b7/Olives.jpg",
+    "gallery-oliva-fruit": "https://upload.wikimedia.org/wikipedia/commons/a/a7/Olive_tree_%28Olea_europaea%29_branch_with_immature_olives%2C_Pra%C3%A7a_Jo%C3%A3o_do_Rio%2C_Lisbon%2C_Portugal_julesvernex2.jpg",
     "gallery-oliva-oil": "https://upload.wikimedia.org/wikipedia/commons/9/97/Olive_oil.jpg",
 }
 
@@ -26,7 +26,7 @@ PAIRS = {
         "https://upload.wikimedia.org/wikipedia/commons/7/7e/Olea_europaea.jpg",
     ),
     "accord-oliva-fruit": (
-        "https://upload.wikimedia.org/wikipedia/commons/b/b7/Olives.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/a/a7/Olive_tree_%28Olea_europaea%29_branch_with_immature_olives%2C_Pra%C3%A7a_Jo%C3%A3o_do_Rio%2C_Lisbon%2C_Portugal_julesvernex2.jpg",
         "https://upload.wikimedia.org/wikipedia/commons/5/51/Green_olives.jpg",
     ),
     "accord-oliva-oil": (

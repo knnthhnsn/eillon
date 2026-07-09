@@ -122,9 +122,11 @@
   const buildFlaconMedia = (product) => {
     const media = document.createElement('div');
     media.className = 'product-card__media product-card__media--flacon';
+
     const img = document.createElement('img');
     img.className = 'product-card__flacon';
     appendLazyImage(img, product.image, `EILLON ${product.name} · ${product.subtitle} flacon`);
+
     media.appendChild(img);
     return media;
   };
@@ -132,13 +134,13 @@
   const formatShopPrice = (product) => {
     const priced = product.formats?.filter((f) => typeof f.price === 'number');
     if (!priced?.length) return null;
-    const min = Math.min(...priced.map((f) => f.price));
-    return `From €${min}`;
+    const max = Math.max(...priced.map((f) => f.price));
+    return `€${max}`;
   };
 
   const createShopProductCard = (product) => {
     const card = document.createElement('a');
-    card.className = `product-card product-card--shop product-card--${product.slug} product-card--link`;
+    card.className = `product-card product-card--shop chapter-shader-band chapter-shader-band--${product.slug} product-card--link`;
     card.id = `card-${product.slug}`;
     card.href = product.url || `/${product.slug}`;
 
@@ -435,6 +437,20 @@
         products.forEach((product) => {
           container.appendChild(createShopProductCard(product));
         });
+        document.dispatchEvent(new Event('eillon:shop-grid-ready'));
+        const mountShopShaders = () => {
+          if (typeof window.__EILLON_MOUNT_SHADERS__ === 'function') {
+            window.__EILLON_MOUNT_SHADERS__();
+            return true;
+          }
+          return false;
+        };
+        if (!mountShopShaders()) {
+          let tries = 0;
+          const timer = setInterval(() => {
+            if (mountShopShaders() || ++tries > 24) clearInterval(timer);
+          }, 250);
+        }
         return;
       }
 
