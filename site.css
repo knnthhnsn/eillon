@@ -368,6 +368,51 @@
   padding: 0;
 }
 
+/* Store — one continuous frost shader behind hero, collection, and answers */
+.store-page.editorial-page {
+  background: #f2f2f5;
+}
+.store-page .boutique-page__main {
+  position: relative;
+  z-index: 1;
+  background: transparent;
+}
+.store-page .store-frost-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(165deg, #fafafa 0%, #ececf0 52%, #f6f6f8 100%);
+}
+.store-page .store-frost-bg > .mv-shader {
+  z-index: 0 !important;
+}
+.store-page .store-hero-band,
+.store-page .boutique-shader-band--collection,
+.store-page .boutique-shader-band--answers {
+  background: transparent !important;
+  background-image: none !important;
+  border: none !important;
+}
+.store-page .store-hero-band::before,
+.store-page .boutique-shader-band--collection::before,
+.store-page .boutique-shader-band--answers::before {
+  content: none;
+  display: none;
+}
+.store-page .boutique-guide,
+.store-page .boutique-shader-band--memory,
+.store-page .sx-letter {
+  position: relative;
+  z-index: 2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .store-page .store-frost-bg {
+    background: linear-gradient(165deg, #fafafa 0%, #e2e2e8 48%, #f4f4f7 100%);
+  }
+}
+
 /* =====================================================
    STORE — boutique hero (light shader vitrine)
    ===================================================== */
@@ -380,57 +425,12 @@
   margin-top: calc(-1 * clamp(96px, 10vw, 128px));
   padding-top: clamp(96px, 10vw, 128px);
   overflow: hidden;
-  isolation: isolate;
-  background-color: #ececf0;
-  background-image: linear-gradient(
-    165deg,
-    #fafafa 0%,
-    #d8d8e0 36%,
-    #c9c9d3 58%,
-    #e4e4ea 100%
-  );
-  border-bottom: 1px solid rgba(23, 21, 15, 0.08);
+  background: transparent;
   color: var(--ink);
-}
-.store-hero-band::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.78;
-  background:
-    radial-gradient(ellipse 120% 85% at 12% 18%, rgba(152, 154, 164, 0.62) 0%, transparent 58%),
-    radial-gradient(ellipse 95% 70% at 88% 72%, rgba(132, 134, 144, 0.48) 0%, transparent 54%),
-    radial-gradient(ellipse 110% 65% at 52% 100%, rgba(176, 178, 186, 0.42) 0%, transparent 50%);
 }
 .store-hero-band > *:not(.mv-shader) {
   position: relative;
   z-index: 2;
-}
-.store-hero-band > .mv-shader {
-  z-index: 1 !important;
-}
-
-@keyframes shop-frost-drift {
-  0% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.72; }
-  100% { transform: translate3d(2.5%, -2%, 0) scale(1.05); opacity: 0.92; }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .store-hero-band::before,
-  .editorial-page .boutique-shader-band--collection::before,
-  .editorial-page .boutique-shader-band--answers::before {
-    animation: shop-frost-drift 24s ease-in-out infinite alternate;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .store-hero-band::before,
-  .editorial-page .boutique-shader-band--collection::before,
-  .editorial-page .boutique-shader-band--answers::before {
-    opacity: 0.84;
-  }
 }
 
 .store-hero {
@@ -3942,34 +3942,11 @@
   z-index: 2;
 }
 
-/* The Collection — white & bright grey moving shader (full shop section) */
+/* The Collection — shares store frost background (no section split) */
 .editorial-page .boutique-shader-band--collection {
-  background-color: #eaeaf0;
-  background-image: linear-gradient(
-    168deg,
-    #f8f8fa 0%,
-    #d4d4dc 34%,
-    #c4c4ce 56%,
-    #e2e2ea 100%
-  );
+  background: transparent;
   padding: clamp(56px, 8vw, 104px) var(--gutter);
-  border-bottom: 1px solid rgba(23, 21, 15, 0.08);
   color: var(--ink);
-}
-.editorial-page .boutique-shader-band--collection::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.76;
-  background:
-    radial-gradient(ellipse 115% 80% at 18% 22%, rgba(148, 150, 160, 0.58) 0%, transparent 56%),
-    radial-gradient(ellipse 100% 72% at 82% 68%, rgba(128, 130, 140, 0.46) 0%, transparent 52%),
-    radial-gradient(ellipse 105% 62% at 48% 100%, rgba(168, 170, 178, 0.40) 0%, transparent 48%);
-}
-.editorial-page .boutique-shader-band--collection > .mv-shader {
-  z-index: 1 !important;
 }
 .editorial-page .boutique-shader-band--collection > *:not(.mv-shader) {
   position: relative;
@@ -3986,34 +3963,11 @@
 }
 .editorial-page .boutique-shader-band--collection .store-shop__count { color: var(--ink-faint); }
 
-/* Studio index — white & bright grey moving shader (answer ledgers) */
+/* Studio index — shares store frost background (no section split) */
 .editorial-page .boutique-shader-band--answers {
-  background-color: #eaeaf0;
-  background-image: linear-gradient(
-    168deg,
-    #f8f8fa 0%,
-    #d4d4dc 34%,
-    #c4c4ce 56%,
-    #e2e2ea 100%
-  );
+  background: transparent;
   padding: clamp(56px, 8vw, 104px) var(--gutter);
-  border-top: 1px solid rgba(23, 21, 15, 0.08);
   color: var(--ink);
-}
-.editorial-page .boutique-shader-band--answers::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.76;
-  background:
-    radial-gradient(ellipse 115% 80% at 18% 22%, rgba(148, 150, 160, 0.58) 0%, transparent 56%),
-    radial-gradient(ellipse 100% 72% at 82% 68%, rgba(128, 130, 140, 0.46) 0%, transparent 52%),
-    radial-gradient(ellipse 105% 62% at 48% 100%, rgba(168, 170, 178, 0.40) 0%, transparent 48%);
-}
-.editorial-page .boutique-shader-band--answers > .mv-shader {
-  z-index: 1 !important;
 }
 .editorial-page .boutique-shader-band--answers > *:not(.mv-shader) {
   position: relative;
