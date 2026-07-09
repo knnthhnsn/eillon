@@ -102,7 +102,7 @@
   };
 
   const appendLazyImage = (img, src, alt) => {
-    const busted = src && !/\?/.test(src) ? `${src}?v=3` : src;
+    const busted = src && !/\?/.test(src) ? `${src}?v=4` : src;
     img.src = busted;
     img.alt = alt;
     img.loading = 'lazy';

@@ -16,6 +16,9 @@ const TRACKED = [
   { key: 'homeMinCss', file: 'home.min.css', patterns: [/home\.min\.css\?v=\d+/g] },
   { key: 'lettersMinCss', file: 'letters.min.css', patterns: [/letters\.min\.css\?v=\d+/g] },
   { key: 'siteShadersJs', file: 'scripts/site-shaders.js', patterns: [/site-shaders\.js\?v=\d+/g] },
+  { key: 'sharedInteractionsJs', file: 'scripts/shared-interactions.min.js', patterns: [/shared-interactions\.min\.js\?v=\d+/g] },
+  { key: 'globalCoreJs', file: 'scripts/global-core.min.js', patterns: [/global-core\.min\.js\?v=\d+/g] },
+  { key: 'productsJs', file: 'data/products.js', patterns: [/products\.js\?v=\d+/g] },
 ];
 
 const JS_PATCHES = [

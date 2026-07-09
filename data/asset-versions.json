@@ -1,14 +1,20 @@
 {
   "stylesMinCss": 171,
-  "siteMinCss": 58,
+  "siteMinCss": 59,
   "homeMinCss": 42,
   "lettersMinCss": 42,
   "siteShadersJs": 62,
+  "sharedInteractionsJs": 5,
+  "globalCoreJs": 2,
+  "productsJs": 16,
   "hashes": {
     "styles.min.css": "a52db0cace7e",
-    "site.min.css": "17d6d230dc08",
+    "site.min.css": "09ee46056e6d",
     "home.min.css": "a5e8de4e313c",
     "letters.min.css": "7799946c5745",
-    "scripts/site-shaders.js": "8e12a848bdb7"
+    "scripts/site-shaders.js": "8e12a848bdb7",
+    "scripts/shared-interactions.min.js": "07656f641447",
+    "scripts/global-core.min.js": "ba1bde65a721",
+    "data/products.js": "1ec2a5b71383"
   }
 }

@@ -774,7 +774,7 @@
   </footer>
 
   <script src="/scripts/site-nav.js?v=25" defer></script>
-  <script src="/scripts/global-core.min.js?v=1" defer></script>
+  <script src="/scripts/global-core.min.js?v=2" defer></script>
   <script src="/scripts/home-critical.min.js?v=1" defer></script>
   <script src="/scripts/letters-lazy.js?v=1" defer></script>
   <script src="/scripts/load-after-hero.js?v=4" defer></script>
@@ -810,7 +810,7 @@
         script.onload = next || function () {};
         document.body.appendChild(script);
       }
-      function kickProducts() { loadScript('data/products.js?v=14'); }
+      function kickProducts() { loadScript('data/products.js?v=16'); }
       if ('requestIdleCallback' in window) requestIdleCallback(kickProducts, { timeout: 3200 });
       else window.addEventListener('load', function () { setTimeout(kickProducts, 400); });
     })();

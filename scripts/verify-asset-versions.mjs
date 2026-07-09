@@ -13,6 +13,9 @@ const CHECKS = [
   { key: 'homeMinCss', pattern: /home\.min\.css\?v=(\d+)/g },
   { key: 'lettersMinCss', pattern: /letters\.min\.css\?v=(\d+)/g },
   { key: 'siteShadersJs', pattern: /site-shaders\.js\?v=(\d+)/g },
+  { key: 'sharedInteractionsJs', pattern: /shared-interactions\.min\.js\?v=(\d+)/g },
+  { key: 'globalCoreJs', pattern: /global-core\.min\.js\?v=(\d+)/g },
+  { key: 'productsJs', pattern: /products\.js\?v=(\d+)/g },
 ];
 
 function walkHtml(dir, out = []) {
