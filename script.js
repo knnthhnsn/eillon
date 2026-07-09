@@ -1198,13 +1198,13 @@
       alt: 'EILLON Beles · Fico d\'India 2 ml discovery sample vials',
     },
     '50': {
-      webp: 'images/beles-no-background.webp?v=1',
-      png: 'images/beles-no-background.png?v=1',
+      webp: 'images/flacon-beles-1100.webp?v=1',
+      png: 'images/flacon-beles.png?v=1',
       alt: 'EILLON Beles · Fico d\'India 50 ml parfum',
     },
     '100': {
-      webp: 'images/beles-no-background.webp?v=1',
-      png: 'images/beles-no-background.png?v=1',
+      webp: 'images/flacon-beles-1100.webp?v=1',
+      png: 'images/flacon-beles.png?v=1',
       alt: 'EILLON Beles · Fico d\'India 100 ml parfum',
     },
   };

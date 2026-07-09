@@ -10,10 +10,10 @@ const root = fileURLToPath(new URL('..', import.meta.url));
 const BASE = 'https://eillon.maison';
 
 const ROUTES = [
-  { path: '/', file: 'index.html', priority: '1.0', changefreq: 'weekly', image: 'images/plain-bottle-with-logo.png', imageTitle: 'EILLON — Afro-Mediterranean Memory Perfumery' },
+  { path: '/', file: 'index.html', priority: '1.0', changefreq: 'weekly', image: 'images/flacon-beles.png', imageTitle: 'EILLON — Afro-Mediterranean Memory Perfumery' },
   { path: '/answers', file: 'answers.html', priority: '0.78', changefreq: 'weekly', image: 'images/about-studio-1400.webp', imageTitle: 'House Index — EILLON answers, proof & chapter status' },
-  { path: '/store', file: 'store.html', priority: '0.95', changefreq: 'weekly', image: 'images/beles-no-background.png', imageTitle: 'The Boutique — EILLON fragrance chapters' },
-  { path: '/beles', file: 'beles.html', priority: '0.9', changefreq: 'weekly', image: 'images/beles-no-background.png', imageTitle: "Beles · Fico d'India — Oil-rich Parfum" },
+  { path: '/store', file: 'store.html', priority: '0.95', changefreq: 'weekly', image: 'images/flacon-beles.png', imageTitle: 'The Boutique — EILLON fragrance chapters' },
+  { path: '/beles', file: 'beles.html', priority: '0.9', changefreq: 'weekly', image: 'images/flacon-beles.png', imageTitle: "Beles · Fico d'India — Oil-rich Parfum" },
   { path: '/prickly-pear-parfum', file: 'prickly-pear-parfum.html', priority: '0.82', changefreq: 'monthly', image: 'images/palette-desert-fruit.webp', imageTitle: 'Prickly pear parfum — Beles · Fico d India' },
   { path: '/oliva', file: 'oliva.html', priority: '0.85', changefreq: 'weekly', image: 'images/scent-oliva.jpg', imageTitle: 'Oliva · Olive Grove — Parfum concept' },
   { path: '/asmara', file: 'asmara.html', priority: '0.85', changefreq: 'weekly', image: 'images/scent-asmara.jpg', imageTitle: 'Asmara · Rain on Stone — Parfum concept' },
@@ -21,10 +21,10 @@ const ROUTES = [
   { path: '/petricor', file: 'petricor.html', priority: '0.85', changefreq: 'weekly', image: 'images/scent-petricor.jpg', imageTitle: 'Petricor · Wet Earth — Parfum concept' },
   { path: '/ritual', file: 'ritual.html', priority: '0.8', changefreq: 'monthly', image: 'images/ritual.jpg', imageTitle: 'Ritual · Frankincense & Myrrh — Lab study' },
   { path: '/journal', file: 'journal.html', priority: '0.7', changefreq: 'monthly', image: 'images/about-studio-1400.webp', imageTitle: 'EILLON Journal — studio notes from Copenhagen' },
-  { path: '/journal/fico-d-india', file: 'journal/fico-d-india.html', priority: '0.75', changefreq: 'monthly', image: 'images/beles-no-background.png', imageTitle: "What Fico d'India means in Beles" },
+  { path: '/journal/fico-d-india', file: 'journal/fico-d-india.html', priority: '0.75', changefreq: 'monthly', image: 'images/flacon-beles.png', imageTitle: "What Fico d'India means in Beles" },
   { path: '/journal/what-does-fico-d-india-smell-like', file: 'journal/what-does-fico-d-india-smell-like.html', priority: '0.76', changefreq: 'monthly', image: 'images/palette-desert-fruit.webp', imageTitle: "What does Fico d'India smell like" },
   { path: '/journal/the-bottle', file: 'journal/the-bottle.html', priority: '0.75', changefreq: 'monthly', image: 'images/beles-concept-1100.webp', imageTitle: 'The EILLON Beles bottle' },
-  { path: '/journal/beles-batch-bl001', file: 'journal/beles-batch-bl001.html', priority: '0.75', changefreq: 'monthly', image: 'images/beles-no-background.png', imageTitle: 'Beles pilot batch BL-001 traceability' },
+  { path: '/journal/beles-batch-bl001', file: 'journal/beles-batch-bl001.html', priority: '0.75', changefreq: 'monthly', image: 'images/flacon-beles.png', imageTitle: 'Beles pilot batch BL-001 traceability' },
   { path: '/wear', file: 'wear.html', priority: '0.65', changefreq: 'monthly' },
   { path: '/about', file: 'about.html', priority: '0.75', changefreq: 'monthly', image: 'images/about-origin-1400.webp', imageTitle: 'About EILLON — Copenhagen perfume maison' },
   { path: '/craftsmanship', file: 'craftsmanship.html', priority: '0.75', changefreq: 'monthly', image: 'images/cactus-craft.jpg', imageTitle: 'Craftsmanship — EILLON parfum production' },

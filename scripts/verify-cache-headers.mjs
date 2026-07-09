@@ -68,8 +68,8 @@ const checks = [
     label: 'versioned home.css cacheable',
   },
   {
-    path: '/images/beles-no-background-hi.webp',
-    fallback: '/images/beles-no-background.webp',
+    path: '/images/flacon-beles-1100.webp',
+    fallback: '/images/flacon-beles-900.webp',
     expect: (cc) => /immutable/i.test(cc) || /max-age=31536000/i.test(cc),
     label: 'image immutable',
   },
