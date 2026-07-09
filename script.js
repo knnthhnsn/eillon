@@ -823,6 +823,63 @@
     return product.url || '/store';
   };
 
+  const buildFlaconMedia = (product) => {
+    const media = document.createElement('div');
+    media.className = 'product-card__media product-card__media--flacon';
+    const img = document.createElement('img');
+    img.className = 'product-card__flacon';
+    appendLazyImage(img, product.image, `EILLON ${product.name} · ${product.subtitle} flacon`);
+    media.appendChild(img);
+    return media;
+  };
+
+  const formatShopPrice = (product) => {
+    const priced = product.formats?.filter((f) => typeof f.price === 'number');
+    if (!priced?.length) return null;
+    const min = Math.min(...priced.map((f) => f.price));
+    return `From €${min}`;
+  };
+
+  const createShopProductCard = (product) => {
+    const card = document.createElement('a');
+    card.className = `product-card product-card--shop product-card--${product.slug} product-card--link`;
+    card.id = `card-${product.slug}`;
+    card.href = product.url || `/${product.slug}`;
+
+    card.appendChild(buildFlaconMedia(product));
+
+    const body = document.createElement('div');
+    body.className = 'product-card__shop-body';
+
+    const title = document.createElement('h3');
+    title.className = 'product-card__shop-title';
+    title.textContent = product.name;
+
+    const subtitle = document.createElement('p');
+    subtitle.className = 'product-card__shop-subtitle';
+    subtitle.textContent = product.subtitle;
+
+    const meta = document.createElement('div');
+    meta.className = 'product-card__shop-meta';
+
+    const price = formatShopPrice(product);
+    if (price) {
+      const priceEl = document.createElement('span');
+      priceEl.className = 'product-card__shop-price';
+      priceEl.textContent = price;
+      meta.appendChild(priceEl);
+    } else {
+      const status = document.createElement('span');
+      status.className = `product-card__shop-status product-card__shop-status--${product.status}`;
+      status.textContent = product.statusLabel;
+      meta.appendChild(status);
+    }
+
+    body.append(title, subtitle, meta);
+    card.appendChild(body);
+    return card;
+  };
+
   const legacyChapterHash = window.location.hash.replace(/^#/, '');
   if (
     CHAPTER_SIGNUP_SLUGS.has(legacyChapterHash)
@@ -1076,6 +1133,15 @@
       if (container.dataset.rendered === 'true') return;
       container.dataset.rendered = 'true';
       const mode = container.dataset.productGridMode || 'store';
+
+      if (mode === 'shop') {
+        container.classList.add('product-grid--shop');
+        products.forEach((product) => {
+          container.appendChild(createShopProductCard(product));
+        });
+        return;
+      }
+
       container.classList.add('product-grid--collection', 'product-grid--boutique');
       products.forEach((product) => {
         container.appendChild(createProductCard(product, mode));

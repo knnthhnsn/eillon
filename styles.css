@@ -5069,6 +5069,113 @@ a.product-card--link:focus-visible {
   margin-inline: auto;
 }
 
+/* Shopify-style shop collection grid */
+.product-grid.product-grid--shop {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(28px, 3.5vw, 48px) clamp(18px, 2.2vw, 28px);
+  width: 100%;
+  max-width: 1080px;
+  margin-inline: auto;
+}
+
+.product-card--shop {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  overflow: visible;
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.35s ease;
+}
+
+.product-card--shop:hover,
+.product-card--shop:focus-visible {
+  transform: none;
+  box-shadow: none;
+  opacity: 0.82;
+}
+
+.product-card--shop .product-card__media--flacon {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 5;
+  min-height: 0;
+  margin-bottom: 0;
+  padding: clamp(18px, 3vw, 28px);
+  background: #f3f1ea;
+  border: 1px solid rgba(23, 21, 15, 0.08);
+  transition: background-color 0.35s ease;
+}
+
+.product-card--shop:hover .product-card__media--flacon,
+.product-card--shop:focus-visible .product-card__media--flacon {
+  background: #ece8df;
+}
+
+.product-card__flacon {
+  width: auto;
+  height: clamp(148px, 22vw, 240px);
+  max-width: 58%;
+  object-fit: contain;
+  object-position: center center;
+}
+
+.product-card__shop-body {
+  display: grid;
+  gap: 3px;
+}
+
+.product-card__shop-title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(15px, 1.35vw, 17px);
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+}
+
+.product-card__shop-subtitle {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  line-height: 1.35;
+  letter-spacing: 0.06em;
+  color: var(--ink-faint);
+}
+
+.product-card__shop-meta {
+  margin-top: 6px;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.product-card__shop-price {
+  color: var(--ink);
+  letter-spacing: 0.02em;
+}
+
+.product-card__shop-status {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.product-card__shop-status--awaiting-next-release {
+  color: var(--cactus, #5a664f);
+}
+
+.product-card__shop-status--studio-archive {
+  color: var(--stone);
+}
+
 .product-grid--boutique .product-card--compact .product-card__image-label {
   top: auto;
   bottom: 10px;
@@ -5615,6 +5722,17 @@ a.product-card--link:focus-visible {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 14px;
+  }
+
+  .product-grid.product-grid--shop {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px 12px;
+    max-width: none;
+  }
+
+  .product-card__flacon {
+    height: clamp(120px, 34vw, 180px);
+    max-width: 62%;
   }
 
   .product-grid--boutique {
