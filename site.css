@@ -710,6 +710,9 @@
   opacity: 0.84;
   filter: contrast(1.04) brightness(0.9) saturate(0.88);
 }
+.store-label-strip__mark:nth-of-type(even) img {
+  transform: scaleX(-1);
+}
 @media (prefers-reduced-motion: reduce) {
   .store-label-strip__sheen { animation: none; opacity: 0.42; transform: translateY(-50%); }
 }

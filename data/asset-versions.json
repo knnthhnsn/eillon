@@ -1,12 +1,12 @@
 {
   "stylesMinCss": 171,
-  "siteMinCss": 56,
+  "siteMinCss": 57,
   "homeMinCss": 42,
   "lettersMinCss": 42,
   "siteShadersJs": 62,
   "hashes": {
     "styles.min.css": "a52db0cace7e",
-    "site.min.css": "e663676b5048",
+    "site.min.css": "3382a46ef3b7",
     "home.min.css": "a5e8de4e313c",
     "letters.min.css": "7799946c5745",
     "scripts/site-shaders.js": "8e12a848bdb7"
