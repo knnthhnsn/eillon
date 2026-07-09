@@ -37,19 +37,24 @@ function hasBelesDispatch(lettersJs) {
 }
 
 const index = read('index.html');
+const store = read('store.html');
 const homeJs = read('scripts/home.js');
 const lettersData = read('data/letters.js');
 const lifecycle = read('data/lifecycle.js');
+const assetVersions = JSON.parse(read('data/asset-versions.json'));
 
 const manifest = {
   commitSha: gitSha(),
   builtAt: new Date().toISOString(),
   assets: {
     homeJs: matchVersion(index, /home\.js\?v=(\d+)/),
-    homeMinCss: matchVersion(index, /home\.min\.css\?v=(\d+)/),
+    homeMinCss: assetVersions.homeMinCss ?? matchVersion(index, /home\.min\.css\?v=(\d+)/),
+    stylesMinCss: assetVersions.stylesMinCss ?? matchVersion(index, /styles\.min\.css\?v=(\d+)/),
+    siteMinCss: assetVersions.siteMinCss ?? matchVersion(store, /site\.min\.css\?v=(\d+)/),
+    siteShadersJs: assetVersions.siteShadersJs ?? matchVersion(store, /site-shaders\.js\?v=(\d+)/),
+    lettersMinCss: assetVersions.lettersMinCss ?? matchVersion(index, /letters\.min\.css\?v=(\d+)/),
     dataLettersJs: matchVersion(homeJs, /data\/letters\.js\?v=(\d+)/),
     lettersJs: matchVersion(homeJs, /\/scripts\/letters\.js\?v=(\d+)/),
-    lettersMinCss: matchVersion(homeJs, /letters\.min\.css\?v=(\d+)/),
   },
   lifecycleVersion:
     matchVersion(lifecycle, /EILLON_LIFECYCLE_VERSION\s*=\s*['"]([^'"]+)['"]/) || '1.0.0',

@@ -6,7 +6,7 @@
   if (!section) return;
 
   var loaded = false;
-  var cssHref = 'letters.min.css?v=26';
+  var cssHref = 'letters.min.css?v=42';
   var scriptQueue = ['data/letters.js?v=15', '/scripts/letters.js?v=20'];
 
   function loadScripts(index) {

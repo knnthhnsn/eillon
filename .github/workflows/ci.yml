@@ -15,4 +15,9 @@ jobs:
           node-version: '22'
           cache: npm
       - run: npm ci || npm install
+      - name: Install Chrome for Lighthouse
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y chromium-browser || sudo apt-get install -y chromium
+          echo "CHROME_PATH=$(command -v chromium-browser || command -v chromium)" >> "$GITHUB_ENV"
       - run: npm run ci

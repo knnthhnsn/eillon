@@ -15,6 +15,13 @@ const budgets = {
   lcpMaxMs: Number(process.env.LH_LCP_MAX_MS || 4500),
   clsMax: Number(process.env.LH_CLS_MAX || 0.1),
 };
+const CHROME_FLAGS = [
+  '--headless=new',
+  '--no-sandbox',
+  '--disable-gpu',
+  '--disable-dev-shm-usage',
+].join(' ');
+const MAX_LIGHTHOUSE_ATTEMPTS = Number(process.env.LH_ATTEMPTS || 3);
 
 function run(cmd, args, opts = {}) {
   return new Promise((resolve, reject) => {
@@ -22,6 +29,10 @@ function run(cmd, args, opts = {}) {
     child.on('error', reject);
     child.on('close', (code) => (code === 0 ? resolve() : reject(new Error(`${cmd} exited ${code}`))));
   });
+}
+
+function wait(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 function waitForServer(maxMs = 30000) {
@@ -49,6 +60,32 @@ async function analyzeReport() {
   }
 }
 
+async function runLighthouse(attempt) {
+  try {
+    await run('npx', [
+      'lighthouse',
+      url,
+      '--only-categories=performance',
+      '--form-factor=mobile',
+      '--screenEmulation.mobile',
+      '--throttling-method=devtools',
+      '--output=json',
+      `--output-path=${reportPath}`,
+      `--chrome-flags=${CHROME_FLAGS}`,
+      '--quiet',
+    ]);
+    return true;
+  } catch (err) {
+    const retryable = /chrome|chromium|devtools|ECONNREFUSED|spawn/i.test(String(err?.message || err));
+    if (attempt < MAX_LIGHTHOUSE_ATTEMPTS && retryable) {
+      console.warn(`Lighthouse attempt ${attempt} failed (${err.message}); retrying…`);
+      await wait(2500 * attempt);
+      return runLighthouse(attempt + 1);
+    }
+    throw err;
+  }
+}
+
 const server = spawn('python', ['scripts/dev-server.py'], {
   cwd: root,
   env: { ...process.env, PORT: port },
@@ -62,18 +99,7 @@ let budgetFailed = false;
 
 try {
   await waitForServer();
-  await run('npx', [
-    'lighthouse',
-    url,
-    '--only-categories=performance',
-    '--form-factor=mobile',
-    '--screenEmulation.mobile',
-    '--throttling-method=devtools',
-    '--output=json',
-    `--output-path=${reportPath}`,
-    '--chrome-flags=--headless',
-    '--quiet',
-  ]);
+  await runLighthouse(1);
   try {
     await run('node', ['scripts/check-lighthouse-budget.mjs', reportPath], {
       env: {
