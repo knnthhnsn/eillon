@@ -601,6 +601,13 @@
     inset 0 0 0 1px rgba(255, 255, 255, 0.55),
     0 20px 52px -26px rgba(23, 21, 15, 0.24);
 }
+.store-hero__flacon:hover .store-hero__flacon-well.chapter-cap-well,
+.store-hero__flacon:focus-visible .store-hero__flacon-well.chapter-cap-well {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.26),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.18),
+    0 20px 52px -26px rgba(23, 21, 15, 0.28);
+}
 .store-hero__flacon img {
   display: block;
   width: auto;
@@ -1468,6 +1475,50 @@
 .chapter-shader-band--massawa { background-color: #120a06; color: rgba(248,246,240,0.88); }
 .chapter-shader-band--petricor { background-color: #0a100e; color: rgba(248,246,240,0.88); }
 .chapter-shader-band--ritual { background-color: #100808; color: rgba(248,246,240,0.88); }
+
+/* Flacon cap gradients — sampled from chapter bottle art */
+:root {
+  --cap-gradient-beles: linear-gradient(180deg, #c38618 0%, #7a9428 52%, #4c6f23 100%);
+  --cap-gradient-oliva: linear-gradient(180deg, #75702d 0%, #4a5224 55%, #242f18 100%);
+  --cap-gradient-asmara: linear-gradient(180deg, #8e6447 0%, #6e5344 55%, #4f423a 100%);
+  --cap-gradient-massawa: linear-gradient(180deg, #b4551b 0%, #944418 55%, #763210 100%);
+  --cap-gradient-petricor: linear-gradient(180deg, #2e3e37 0%, #1f2824 55%, #0f1215 100%);
+  --cap-gradient-ritual: linear-gradient(180deg, #8f4e37 0%, #673832 55%, #45212e 100%);
+}
+
+.chapter-cap-well {
+  border-color: rgba(0, 0, 0, 0.14);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.16);
+}
+
+.chapter-cap-well--beles { background: var(--cap-gradient-beles); }
+.chapter-cap-well--oliva { background: var(--cap-gradient-oliva); }
+.chapter-cap-well--asmara { background: var(--cap-gradient-asmara); }
+.chapter-cap-well--massawa { background: var(--cap-gradient-massawa); }
+.chapter-cap-well--petricor { background: var(--cap-gradient-petricor); }
+.chapter-cap-well--ritual { background: var(--cap-gradient-ritual); }
+
+.product-card--shop.chapter-shader-band--beles .product-card__media--flacon { background: var(--cap-gradient-beles); }
+.product-card--shop.chapter-shader-band--oliva .product-card__media--flacon { background: var(--cap-gradient-oliva); }
+.product-card--shop.chapter-shader-band--asmara .product-card__media--flacon { background: var(--cap-gradient-asmara); }
+.product-card--shop.chapter-shader-band--massawa .product-card__media--flacon { background: var(--cap-gradient-massawa); }
+.product-card--shop.chapter-shader-band--petricor .product-card__media--flacon { background: var(--cap-gradient-petricor); }
+.product-card--shop.chapter-shader-band--ritual .product-card__media--flacon { background: var(--cap-gradient-ritual); }
+
+.product-card--shop .product-card__media--flacon.chapter-cap-well,
+.product-card--shop.chapter-shader-band--beles .product-card__media--flacon,
+.product-card--shop.chapter-shader-band--oliva .product-card__media--flacon,
+.product-card--shop.chapter-shader-band--asmara .product-card__media--flacon,
+.product-card--shop.chapter-shader-band--massawa .product-card__media--flacon,
+.product-card--shop.chapter-shader-band--petricor .product-card__media--flacon,
+.product-card--shop.chapter-shader-band--ritual .product-card__media--flacon {
+  border-color: rgba(0, 0, 0, 0.14);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.14);
+}
 
 .chapter-shader-band .shop {
   background: transparent;
