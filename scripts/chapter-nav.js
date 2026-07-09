@@ -4,9 +4,10 @@
 
   const chapters = [
     { slug: 'beles', chapter: 'Chapter I', short: 'Beles', name: "Beles · Fico d'India", url: '/beles' },
-    { slug: 'asmara', chapter: 'Chapter II', short: 'Asmara', name: 'Asmara · Rain on Stone', url: '/asmara' },
-    { slug: 'massawa', chapter: 'Chapter III', short: 'Massawa', name: 'Massawa · Red Sea Citrus', url: '/massawa' },
-    { slug: 'petricor', chapter: 'Chapter IV', short: 'Petricor', name: 'Petricor · Wet Earth', url: '/petricor' },
+    { slug: 'oliva', chapter: 'Chapter II', short: 'Oliva', name: 'Oliva · Olive Grove', url: '/oliva' },
+    { slug: 'asmara', chapter: 'Chapter III', short: 'Asmara', name: 'Asmara · Rain on Stone', url: '/asmara' },
+    { slug: 'massawa', chapter: 'Chapter IV', short: 'Massawa', name: 'Massawa · Red Sea Citrus', url: '/massawa' },
+    { slug: 'petricor', chapter: 'Chapter V', short: 'Petricor', name: 'Petricor · Wet Earth', url: '/petricor' },
     { slug: 'ritual', chapter: 'Lab', short: 'Ritual', name: 'Ritual · Frankincense & Myrrh', url: '/ritual' },
   ];
 

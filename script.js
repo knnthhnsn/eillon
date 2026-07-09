@@ -812,7 +812,7 @@
     img.decoding = 'async';
   };
 
-  const CHAPTER_SIGNUP_SLUGS = new Set(['beles', 'asmara', 'massawa', 'ritual']);
+  const CHAPTER_SIGNUP_SLUGS = new Set(['beles', 'oliva', 'asmara', 'massawa', 'petricor', 'ritual']);
 
   const getChapterSignupHref = (slug) => `/${slug}#waitlist`;
 

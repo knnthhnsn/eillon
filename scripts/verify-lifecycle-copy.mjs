@@ -28,6 +28,14 @@ if (/\d+\s+letters\s+folded/i.test(index)) {
   failures.push('index.html: use numberless archive copy ("house letters folded on the desk...")');
 }
 
+const oliva = read('oliva.html');
+if (/Out of stock/i.test(oliva)) {
+  failures.push('oliva.html: contains "Out of stock"');
+}
+if (/Notify when back/i.test(oliva)) {
+  failures.push('oliva.html: contains "Notify when back"');
+}
+
 const asmara = read('asmara.html');
 if (/Out of stock/i.test(asmara)) {
   failures.push('asmara.html: contains "Out of stock"');
@@ -69,6 +77,7 @@ if (/restock/i.test(ritualVisible)) {
 }
 
 for (const [file, label] of [
+  ['oliva.html', 'Oliva'],
   ['asmara.html', 'Asmara'],
   ['massawa.html', 'Massawa'],
   ['petricor.html', 'Petricor'],

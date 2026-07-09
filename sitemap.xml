@@ -52,6 +52,16 @@
     </image:image>
   </url>
   <url>
+    <loc>https://eillon.maison/oliva</loc>
+    <lastmod>2026-07-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://eillon.maison/images/scent-oliva.jpg</image:loc>
+      <image:title>Oliva · Olive Grove — Parfum concept</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://eillon.maison/asmara</loc>
     <lastmod>2026-07-09</lastmod>
     <changefreq>weekly</changefreq>

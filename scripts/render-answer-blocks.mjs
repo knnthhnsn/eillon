@@ -65,9 +65,15 @@ const PAGE_LEDGER_OPTIONS = {
     modifier: 'answer-ledger--editorial',
     collapsible: true,
   },
+  'oliva.html': {
+    title: 'Oliva answer file',
+    lede: 'Chapter II development status and proof cross-references.',
+    modifier: 'answer-ledger--chapter answer-ledger--dark',
+    collapsible: true,
+  },
   'asmara.html': {
     title: 'Asmara answer file',
-    lede: 'Chapter II development status and proof cross-references.',
+    lede: 'Chapter III development status and proof cross-references.',
     modifier: 'answer-ledger--chapter answer-ledger--dark',
     collapsible: true,
   },
@@ -79,7 +85,7 @@ const PAGE_LEDGER_OPTIONS = {
   },
   'petricor.html': {
     title: 'Petricor answer file',
-    lede: 'Chapter IV development status and proof cross-references.',
+    lede: 'Chapter V development status and proof cross-references.',
     modifier: 'answer-ledger--chapter answer-ledger--dark',
     collapsible: true,
   },

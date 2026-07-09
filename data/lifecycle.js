@@ -10,23 +10,30 @@ window.EILLON_LIFECYCLE = {
     purpose: 'Restock note and size-interest record',
     schemaAvailability: 'https://schema.org/OutOfStock',
   },
-  asmara: {
+  oliva: {
     statusLabel: 'In development',
     metaStatus: 'Chapter II in development. Follow studio notes as the chapter advances.',
     cta: 'Follow the chapter',
     purpose: 'Studio notes, not reservation or purchase',
     schemaAvailability: 'https://schema.org/OutOfStock',
   },
-  massawa: {
+  asmara: {
     statusLabel: 'In development',
     metaStatus: 'Chapter III in development. Follow studio notes as the chapter advances.',
     cta: 'Follow the chapter',
     purpose: 'Studio notes, not reservation or purchase',
     schemaAvailability: 'https://schema.org/OutOfStock',
   },
-  petricor: {
+  massawa: {
     statusLabel: 'In development',
     metaStatus: 'Chapter IV in development. Follow studio notes as the chapter advances.',
+    cta: 'Follow the chapter',
+    purpose: 'Studio notes, not reservation or purchase',
+    schemaAvailability: 'https://schema.org/OutOfStock',
+  },
+  petricor: {
+    statusLabel: 'In development',
+    metaStatus: 'Chapter V in development. Follow studio notes as the chapter advances.',
     cta: 'Follow the chapter',
     purpose: 'Studio notes, not reservation or purchase',
     schemaAvailability: 'https://schema.org/OutOfStock',

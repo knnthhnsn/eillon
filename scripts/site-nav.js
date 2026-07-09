@@ -145,17 +145,21 @@
           <span>Beles · Fico d'India</span>
           <small>Oil-rich parfum — full product page</small>
         </a>
+        <a href="/oliva" data-search-item data-search-keywords="oliva olive grove in development chapter">
+          <span>Oliva · Olive Grove</span>
+          <small>Chapter II — in development</small>
+        </a>
         <a href="/asmara" data-search-item data-search-keywords="asmara rain on stone in development chapter">
           <span>Asmara · Rain on Stone</span>
-          <small>Chapter II — in development</small>
+          <small>Chapter III — in development</small>
         </a>
         <a href="/massawa" data-search-item data-search-keywords="massawa red sea citrus in development chapter">
           <span>Massawa · Red Sea Citrus</span>
-          <small>Chapter III — in development</small>
+          <small>Chapter IV — in development</small>
         </a>
         <a href="/petricor" data-search-item data-search-keywords="petricor wet earth geosmin rain in development chapter">
           <span>Petricor · Wet Earth</span>
-          <small>Chapter IV — in development</small>
+          <small>Chapter V — in development</small>
         </a>
         <a href="/ritual" data-search-item data-search-keywords="ritual frankincense myrrh lab studio archive">
           <span>Ritual · Frankincense & Myrrh</span>

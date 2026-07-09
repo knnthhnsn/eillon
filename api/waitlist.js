@@ -4,7 +4,7 @@ const { getClientIp, checkRateLimit } = require('../lib/rate-limit');
 const { CONSENT_NOTICE_VERSION } = require('../lib/consent');
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const VALID_PRODUCTS = new Set(['beles', 'asmara', 'massawa', 'petricor', 'ritual', 'all']);
+const VALID_PRODUCTS = new Set(['beles', 'oliva', 'asmara', 'massawa', 'petricor', 'ritual', 'all']);
 const VALID_SOURCES = new Set(['waitlist', 'newsletter', 'store', 'product-card', 'footer']);
 const VALID_SIZES = new Set(['sample', '50', '100']);
 

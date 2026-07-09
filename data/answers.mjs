@@ -222,11 +222,24 @@ export const EILLON_ANSWERS = [
   },
   // —— chapters ——
   {
+    id: 'what-is-oliva',
+    group: 'chapters',
+    question: 'What is Oliva?',
+    shortAnswer:
+      'Oliva · Olive Grove is EILLON Chapter II—a green olive leaf and golden-oil accord still in development. Follow studio notes; it is not sold today.',
+    sourcePage: '/oliva',
+    sourceAnchor: '#answer-what-is-oliva',
+    schemaType: 'FAQPage',
+    proofLinks: ['/oliva', '/store'],
+    lastReviewed: EILLON_ANSWERS_LAST_REVIEWED,
+    visible: true,
+  },
+  {
     id: 'what-is-asmara',
     group: 'chapters',
     question: 'What is Asmara?',
     shortAnswer:
-      'Asmara · Rain on Stone is EILLON Chapter II—a mineral rain and espresso accord still in development. Follow studio notes; it is not sold today.',
+      'Asmara · Rain on Stone is EILLON Chapter III—a mineral rain and espresso accord still in development. Follow studio notes; it is not sold today.',
     sourcePage: '/asmara',
     sourceAnchor: '#answer-what-is-asmara',
     schemaType: 'FAQPage',
@@ -239,7 +252,7 @@ export const EILLON_ANSWERS = [
     group: 'chapters',
     question: 'What is Massawa?',
     shortAnswer:
-      'Massawa · Red Sea Citrus is Chapter III—solar coastal citrus and salt-warmed skin—in development. Follow studio notes; it is not sold today.',
+      'Massawa · Red Sea Citrus is Chapter IV—solar coastal citrus and salt-warmed skin—in development. Follow studio notes; it is not sold today.',
     sourcePage: '/massawa',
     sourceAnchor: '#answer-what-is-massawa',
     schemaType: 'FAQPage',
@@ -252,7 +265,7 @@ export const EILLON_ANSWERS = [
     group: 'chapters',
     question: 'What is Petricor?',
     shortAnswer:
-      'Petricor · Wet Earth is EILLON Chapter IV—a mineral geosmin and wet-clay accord still in development. Follow studio notes; it is not sold today.',
+      'Petricor · Wet Earth is EILLON Chapter V—a mineral geosmin and wet-clay accord still in development. Follow studio notes; it is not sold today.',
     sourcePage: '/petricor',
     sourceAnchor: '#answer-what-is-petricor',
     schemaType: 'FAQPage',
@@ -277,11 +290,11 @@ export const EILLON_ANSWERS = [
     id: 'which-chapters-in-development',
     group: 'chapters',
     question: 'Which EILLON chapters are in development?',
-    shortAnswer: 'Asmara (Chapter II), Massawa (Chapter III), and Petricor (Chapter IV) are in development—studio notes only, not available to purchase.',
+    shortAnswer: 'Oliva (Chapter II), Asmara (Chapter III), Massawa (Chapter IV), and Petricor (Chapter V) are in development—studio notes only, not available to purchase.',
     sourcePage: '/store',
     sourceAnchor: '#answer-which-chapters-in-development',
     schemaType: 'FAQPage',
-    proofLinks: ['/store', '/asmara', '/massawa', '/petricor'],
+    proofLinks: ['/store', '/oliva', '/asmara', '/massawa', '/petricor'],
     lastReviewed: EILLON_ANSWERS_LAST_REVIEWED,
     visible: true,
   },
@@ -421,7 +434,7 @@ export const EILLON_ANSWERS = [
     group: 'wear',
     question: 'Which chapter fits which mood or season?',
     shortAnswer:
-      'Beles suits warm skin and daylight fruit; Asmara reads rain and stone; Massawa carries coastal sun; Petricor is cold wet earth after rain; Ritual is evening resin—see the wear guide for pairing notes.',
+      'Beles suits warm skin and daylight fruit; Oliva reads olive grove and golden oil; Asmara reads rain and stone; Massawa carries coastal sun; Petricor is cold wet earth after rain; Ritual is evening resin—see the wear guide for pairing notes.',
     sourcePage: '/wear',
     sourceAnchor: '#answer-chapter-mood-season',
     schemaType: 'FAQPage',
@@ -430,6 +443,19 @@ export const EILLON_ANSWERS = [
     visible: true,
   },
   // —— availability ——
+  {
+    id: 'can-buy-oliva-today',
+    group: 'chapters',
+    question: 'Can I buy Oliva today?',
+    shortAnswer:
+      'No. Oliva · Olive Grove is in development—not offered for purchase. Follow studio notes on the chapter page.',
+    sourcePage: '/oliva',
+    sourceAnchor: '#answer-can-buy-oliva-today',
+    schemaType: 'FAQPage',
+    proofLinks: ['/oliva', '/store'],
+    lastReviewed: EILLON_ANSWERS_LAST_REVIEWED,
+    visible: true,
+  },
   {
     id: 'can-buy-asmara-today',
     group: 'chapters',
@@ -761,6 +787,7 @@ export const EILLON_AEO_PAGE_MAP = {
     'which-chapters-in-development',
     'which-chapter-studio-archive',
     'is-beles-available',
+    'can-buy-oliva-today',
     'can-buy-asmara-today',
     'can-buy-massawa-today',
     'can-buy-petricor-today',
@@ -785,9 +812,15 @@ export const EILLON_AEO_PAGE_MAP = {
     'after-beles-restock-signup',
     'restock-list-reserve-bottle',
   ],
+  'oliva.html': [
+    'what-is-oliva',
+    'which-chapters-in-development',
+    'can-buy-oliva-today',
+  ],
   'asmara.html': [
     'what-is-asmara',
     'which-chapters-in-development',
+    'can-buy-oliva-today',
     'can-buy-asmara-today',
   ],
   'massawa.html': [

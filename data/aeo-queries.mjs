@@ -221,6 +221,15 @@ export const EILLON_AEO_QUERIES = [
   },
   // availability — chapters
   {
+    query: 'can i buy oliva',
+    intent: 'availability',
+    targetAnswerId: 'can-buy-oliva-today',
+    targetPage: '/oliva',
+    priority: 5,
+    expectedTerms: ['development', 'not', 'purchase'],
+    mustNotSay: ['add to cart', 'sold out'],
+  },
+  {
     query: 'can i buy asmara',
     intent: 'availability',
     targetAnswerId: 'can-buy-asmara-today',

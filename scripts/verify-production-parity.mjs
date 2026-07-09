@@ -147,6 +147,7 @@ async function runParityCheck() {
     { path: '/index.html', label: 'index-html' },
     { path: '/store', label: 'store' },
     { path: '/beles', label: 'beles' },
+    { path: '/oliva', label: 'oliva' },
     { path: '/asmara', label: 'asmara' },
     { path: '/massawa', label: 'massawa' },
     { path: '/petricor', label: 'petricor' },
@@ -322,7 +323,7 @@ async function runParityCheck() {
     );
   }
 
-  for (const label of ['asmara', 'massawa', 'petricor']) {
+  for (const label of ['oliva', 'asmara', 'massawa', 'petricor']) {
     if (!html[label]) continue;
     const notes = [];
     const found = [];

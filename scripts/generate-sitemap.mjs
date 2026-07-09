@@ -15,6 +15,7 @@ const ROUTES = [
   { path: '/store', file: 'store.html', priority: '0.95', changefreq: 'weekly', image: 'images/beles-no-background.png', imageTitle: 'The Boutique — EILLON fragrance chapters' },
   { path: '/beles', file: 'beles.html', priority: '0.9', changefreq: 'weekly', image: 'images/beles-no-background.png', imageTitle: "Beles · Fico d'India — Oil-rich Parfum" },
   { path: '/prickly-pear-parfum', file: 'prickly-pear-parfum.html', priority: '0.82', changefreq: 'monthly', image: 'images/palette-desert-fruit.webp', imageTitle: 'Prickly pear parfum — Beles · Fico d India' },
+  { path: '/oliva', file: 'oliva.html', priority: '0.85', changefreq: 'weekly', image: 'images/scent-oliva.jpg', imageTitle: 'Oliva · Olive Grove — Parfum concept' },
   { path: '/asmara', file: 'asmara.html', priority: '0.85', changefreq: 'weekly', image: 'images/scent-asmara.jpg', imageTitle: 'Asmara · Rain on Stone — Parfum concept' },
   { path: '/massawa', file: 'massawa.html', priority: '0.85', changefreq: 'weekly', image: 'images/scent-massawa.jpg', imageTitle: 'Massawa · Red Sea Citrus — Parfum concept' },
   { path: '/petricor', file: 'petricor.html', priority: '0.85', changefreq: 'weekly', image: 'images/scent-petricor.jpg', imageTitle: 'Petricor · Wet Earth — Parfum concept' },
