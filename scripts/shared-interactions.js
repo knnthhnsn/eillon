@@ -101,8 +101,10 @@
     return pyramid;
   };
 
+  const IMAGE_CACHE_BUST = '5';
+
   const appendLazyImage = (img, src, alt) => {
-    const busted = src && !/\?/.test(src) ? `${src}?v=4` : src;
+    const busted = src && !/\?/.test(src) ? `${src}?v=${IMAGE_CACHE_BUST}` : src;
     img.src = busted;
     img.alt = alt;
     img.loading = 'lazy';

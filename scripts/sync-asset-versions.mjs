@@ -50,6 +50,33 @@ function replaceVersion(text, patterns, version) {
   return next;
 }
 
+const ASSET_STAMP_KEYS = ['siteMinCss', 'sharedInteractionsJs', 'productsJs', 'stylesMinCss'];
+
+const ASSET_STAMP_BLOCK_RE =
+  /<meta name="eillon-asset-stamp" content="[^"]*" \/>\s*<script>\/\* eillon-asset-stamp \*\/[\s\S]*?<\/script>\s*/;
+
+const ASSET_STAMP_SCRIPT =
+  '<script>/* eillon-asset-stamp */(function(){try{var m=document.querySelector(\'meta[name=eillon-asset-stamp]\');if(!m)return;var s=m.content,k=\'eillon:assets:\'+location.pathname,p=sessionStorage.getItem(k);sessionStorage.setItem(k,s);if(p&&p!==s&&!/[?&]refresh=1/.test(location.search)){location.replace(location.pathname+\'?refresh=1\'+location.hash);}}catch(e){}})();</script>\n  ';
+
+function assetStampContent(versions) {
+  return ASSET_STAMP_KEYS.map((key) => versions[key] ?? 0).join('.');
+}
+
+function assetStampBlock(versions) {
+  return `<meta name="eillon-asset-stamp" content="${assetStampContent(versions)}" />\n  ${ASSET_STAMP_SCRIPT}`;
+}
+
+function syncAssetStamp(html, versions) {
+  const block = assetStampBlock(versions);
+  if (ASSET_STAMP_BLOCK_RE.test(html)) {
+    return html.replace(ASSET_STAMP_BLOCK_RE, `${block}`);
+  }
+  return html.replace(
+    /(<meta charset="UTF-8" \/>)/,
+    `$1\n  ${block}`,
+  );
+}
+
 const versions = JSON.parse(readFileSync(versionsPath, 'utf8'));
 versions.hashes ||= {};
 
@@ -72,6 +99,7 @@ for (const file of walkHtml(root)) {
   for (const item of TRACKED) {
     after = replaceVersion(after, item.patterns, versions[item.key]);
   }
+  after = syncAssetStamp(after, versions);
   if (after !== before) {
     writeFileSync(file, after, 'utf8');
     htmlCount += 1;

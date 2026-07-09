@@ -4,8 +4,8 @@
   "homeMinCss": 42,
   "lettersMinCss": 42,
   "siteShadersJs": 62,
-  "sharedInteractionsJs": 5,
-  "globalCoreJs": 2,
+  "sharedInteractionsJs": 6,
+  "globalCoreJs": 3,
   "productsJs": 16,
   "hashes": {
     "styles.min.css": "a52db0cace7e",
@@ -13,8 +13,8 @@
     "home.min.css": "a5e8de4e313c",
     "letters.min.css": "7799946c5745",
     "scripts/site-shaders.js": "8e12a848bdb7",
-    "scripts/shared-interactions.min.js": "07656f641447",
-    "scripts/global-core.min.js": "ba1bde65a721",
+    "scripts/shared-interactions.min.js": "3ab25dafb931",
+    "scripts/global-core.min.js": "7709199fe97f",
     "data/products.js": "1ec2a5b71383"
   }
 }
