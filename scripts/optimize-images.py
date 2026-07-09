@@ -71,6 +71,18 @@ JOBS: list[tuple[str, int, int, int | None, bool]] = [
     ("accord-ritual-amber-hover.jpg", 550, 80, 82, False),
     ("accord-ritual-woods.jpg", 550, 80, 82, False),
     ("accord-ritual-woods-hover.jpg", 550, 80, 82, False),
+    ("gallery-asmara-rain.jpg", 900, 82, 82, False),
+    ("gallery-asmara-stone.jpg", 900, 82, 82, False),
+    ("gallery-asmara-city.jpg", 900, 82, 82, False),
+    ("gallery-massawa-sea.jpg", 900, 82, 82, False),
+    ("gallery-massawa-citrus.jpg", 900, 82, 82, False),
+    ("gallery-massawa-bloom.jpg", 900, 82, 82, False),
+    ("gallery-petricor-earth.jpg", 900, 82, 82, False),
+    ("gallery-petricor-moss.jpg", 900, 82, 82, False),
+    ("gallery-petricor-storm.jpg", 900, 82, 82, False),
+    ("gallery-ritual-incense.jpg", 900, 82, 82, False),
+    ("gallery-ritual-smoke.jpg", 900, 82, 82, False),
+    ("gallery-ritual-resin.jpg", 900, 82, 82, False),
 ]
 
 STAIRS_WIDTHS = (960, 1100, 1400)
