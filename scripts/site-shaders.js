@@ -24,7 +24,7 @@
     { sel: '.journal-shader-band--index', key: 'journalArchive', mode: 'journalWater', prepend: true, blend: 'screen' },
     { sel: '.wear-shader-band--application', key: 'wearSkin', prepend: true, blend: 'screen' },
     { sel: '.boutique-shader-band--atlas', key: 'boutiqueAtlas', prepend: true, blend: 'overlay' },
-    { sel: '.store-frost-bg', key: 'shopFrost', prepend: true, blend: 'overlay' },
+    { sel: '.store-frost-bg', key: 'shopFrost', mode: 'shopGlass', prepend: true, blend: 'soft-light' },
     { sel: '.boutique-chapter-band--beles', key: 'belesNotes', prepend: true, blend: 'screen' },
     { sel: '.boutique-chapter-band--oliva', key: 'olivaNotes', prepend: true, blend: 'screen' },
     { sel: '.boutique-chapter-band--asmara', key: 'asmaraNotes', prepend: true, blend: 'screen' },
@@ -56,7 +56,7 @@
     journalArchive: { c1: [0.02, 0.05, 0.14], c2: [0.06, 0.14, 0.34], c3: [1.0, 1.0, 1.0], opacity: 0.66, baseAlpha: 0.54, scale: 1.30, speed: 1.48 },
     wearSkin:     { c1: [0.16, 0.06, 0.05], c2: [0.68, 0.32, 0.24], c3: [0.98, 0.78, 0.52], opacity: 0.54, scale: 1.14, speed: 0.88 },
     boutiqueAtlas:  { c1: [0.96, 0.96, 0.97], c2: [0.82, 0.82, 0.84], c3: [1.0, 1.0, 1.0], opacity: 0.34, scale: 1.02, speed: 0.68 },
-    shopFrost:     { c1: [0.68, 0.69, 0.72], c2: [0.42, 0.44, 0.48], c3: [0.94, 0.94, 0.96], opacity: 1, baseAlpha: 0.92, scale: 1.42, speed: 1.14 },
+    shopFrost:     { c1: [0.50, 0.52, 0.56], c2: [0.70, 0.72, 0.76], c3: [1.0, 1.0, 1.0], opacity: 1, baseAlpha: 0.74, scale: 1.26, speed: 0.76 },
     boutiqueMemory: { c1: [0.12, 0.06, 0.08], c2: [0.54, 0.32, 0.22], c3: [0.90, 0.68, 0.44], opacity: 0.50, scale: 1.12, speed: 0.90 },
     darkBand:     { c1: [0.03, 0.06, 0.12], c2: [0.14, 0.34, 0.58], c3: [0.82, 0.50, 0.14], opacity: 0.74, scale: 1.15, speed: 1.2 },
     belesNotes:   { c1: [0.22, 0.52, 0.20], c2: [0.58, 0.78, 0.28], c3: [1.0, 0.62, 0.08], opacity: 0.58, scale: 1.28, speed: 1.15 },
@@ -142,6 +142,47 @@
     '  float pulse = sin(t * 1.2 + uv.x * 5.8 + uv.y * 4.0) * 0.5 + 0.5;',
     '  col = mix(col, uC3, pulse * 0.52 * smoothstep(0.32, 0.9, m));',
     '  float alpha = uBaseAlpha * mix(0.08, 1.0, smoothstep(0.18, 0.88, m));',
+    '  gl_FragColor = vec4(col, alpha);',
+    '}',
+  ].join('\n');
+
+  var FRAG_SHOP_GLASS = [
+    'precision mediump float;',
+    'uniform float uTime;',
+    'uniform float uSpeed;',
+    'uniform vec2 uScale;',
+    'uniform vec3 uC1;',
+    'uniform vec3 uC2;',
+    'uniform vec3 uC3;',
+    'uniform float uBaseAlpha;',
+    'varying vec2 vUv;',
+    'float wave(vec2 p, float t){',
+    '  return sin(p.x * 2.2 + t) * cos(p.y * 1.6 - t * 0.62)',
+    '       + sin(p.x * 1.1 - t * 0.44 + p.y * 2.6) * 0.52',
+    '       + cos(p.x * 3.4 + p.y * 1.0 + t * 0.38) * 0.26;',
+    '}',
+    'float grain(vec2 p){',
+    '  return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);',
+    '}',
+    'void main(){',
+    '  vec2 uv = vUv * uScale;',
+    '  float t = uTime * uSpeed;',
+    '  vec2 drift = vec2(t * 0.05, t * 0.032);',
+    '  vec2 warp = vec2(wave(uv * 0.82 + drift, t * 0.58), wave(uv * 0.82 + 2.1 - drift, t * 0.54));',
+    '  float w1 = wave(uv + warp * 0.34 + drift, t);',
+    '  float w2 = wave(uv * 1.48 + warp * 0.18 + 1.3, t * 0.88);',
+    '  float m = smoothstep(-0.06, 0.90, w1 + w2 * 0.60);',
+    '  vec3 col = mix(uC1, uC2, m);',
+    '  float spec = sin(t * 0.92 + uv.x * 7.8 + uv.y * 2.8) * 0.5 + 0.5;',
+    '  spec *= sin(t * 0.74 + uv.x * 3.4 - uv.y * 5.2) * 0.5 + 0.5;',
+    '  float gleam = smoothstep(0.48, 0.96, m) * spec;',
+    '  col = mix(col, uC3, gleam * 0.78);',
+    '  float bloom = sin(t * 0.62 + uv.y * 3.8 + uv.x * 1.4) * 0.5 + 0.5;',
+    '  col = mix(col, mix(uC2, uC3, 0.72), bloom * 0.16 * smoothstep(0.30, 0.82, m));',
+    '  float g = (grain(uv * 52.0 + t * 0.12) - 0.5) * 0.07;',
+    '  col += vec3(g);',
+    '  float alpha = uBaseAlpha * mix(0.48, 0.92, m);',
+    '  alpha = mix(alpha, min(uBaseAlpha + 0.14, 0.96), gleam * 0.58);',
     '  gl_FragColor = vec4(col, alpha);',
     '}',
   ].join('\n');
@@ -293,6 +334,7 @@
       : mode === 'studioSettle' ? FRAG_STUDIO_SETTLE
       : mode === 'journalWater' ? FRAG_JOURNAL_WATER
       : mode === 'nameLight' ? FRAG_NAME_LIGHT
+      : mode === 'shopGlass' ? FRAG_SHOP_GLASS
       : FRAG;
     var vs = compileShader(gl, gl.VERTEX_SHADER, VERT);
     var fs = compileShader(gl, gl.FRAGMENT_SHADER, fsSrc);

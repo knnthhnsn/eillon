@@ -368,9 +368,9 @@
   padding: 0;
 }
 
-/* Store — one continuous frost shader behind hero, collection, and answers */
+/* Store — one continuous frosted-glass shader behind hero, collection, and answers */
 .store-page.editorial-page {
-  background: #d8d8e0;
+  background: #e8e8ee;
 }
 .store-page .boutique-page__main {
   position: relative;
@@ -382,10 +382,38 @@
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background: linear-gradient(165deg, #ececf0 0%, #c8c8d2 46%, #b8b8c4 100%);
+  overflow: hidden;
+  background: linear-gradient(165deg, #fafafa 0%, #e2e2ea 44%, #ececf2 100%);
+}
+.store-page .store-frost-bg::before {
+  content: "";
+  position: absolute;
+  inset: -8%;
+  z-index: 0;
+  opacity: 0.68;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E"),
+    linear-gradient(
+      155deg,
+      rgba(255, 255, 255, 0.58) 0%,
+      rgba(168, 170, 178, 0.32) 36%,
+      rgba(128, 130, 138, 0.26) 58%,
+      rgba(210, 212, 220, 0.38) 100%
+    );
+  background-blend-mode: overlay, normal;
+  box-shadow: inset 0 0 120px rgba(255, 255, 255, 0.42);
 }
 .store-page .store-frost-bg > .mv-shader {
-  z-index: 0 !important;
+  z-index: 1 !important;
+}
+@keyframes store-glass-drift {
+  0% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.62; }
+  100% { transform: translate3d(2%, -1.5%, 0) scale(1.04); opacity: 0.78; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .store-page .store-frost-bg::before {
+    animation: store-glass-drift 26s ease-in-out infinite alternate;
+  }
 }
 .store-page .store-hero-band,
 .store-page .boutique-shader-band--collection,
@@ -409,7 +437,10 @@
 
 @media (prefers-reduced-motion: reduce) {
   .store-page .store-frost-bg {
-    background: linear-gradient(165deg, #e8e8ee 0%, #c4c4ce 48%, #b0b0bc 100%);
+    background: linear-gradient(165deg, #f4f4f8 0%, #d8d8e2 48%, #e6e6ec 100%);
+  }
+  .store-page .store-frost-bg::before {
+    opacity: 0.76;
   }
 }
 
