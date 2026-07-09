@@ -842,10 +842,6 @@
     const media = document.createElement('div');
     media.className = `product-card__media product-card__media--flacon chapter-cap-well chapter-cap-well--${product.slug}`;
 
-    if (Array.isArray(product.accordCollage) && product.accordCollage.length) {
-      media.appendChild(buildAccordCollage(product.accordCollage));
-    }
-
     const img = document.createElement('img');
     img.className = 'product-card__flacon';
     appendLazyImage(img, product.image, `EILLON ${product.name} · ${product.subtitle} flacon`);

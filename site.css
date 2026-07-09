@@ -1570,8 +1570,6 @@
 }
 
 @media (hover: hover) {
-  .product-card--shop:hover .chapter-cap-well > .product-card__flacon,
-  .product-card--shop:focus-within .chapter-cap-well > .product-card__flacon,
   .store-hero__flacon:hover .chapter-cap-well > img,
   .store-hero__flacon:focus-visible .chapter-cap-well > img {
     opacity: 0;
