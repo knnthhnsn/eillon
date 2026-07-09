@@ -710,7 +710,8 @@
   opacity: 0.84;
   filter: contrast(1.04) brightness(0.9) saturate(0.88);
 }
-.store-label-strip__mark:nth-of-type(even) img {
+/* Every 2nd logo only — marks sit on children 4, 8, 12… (not all even spans) */
+.store-label-strip__mark:nth-child(4n) img {
   transform: scaleX(-1);
 }
 @media (prefers-reduced-motion: reduce) {
