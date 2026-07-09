@@ -2780,6 +2780,14 @@ body[data-nav-home="true"] .hero__cta .btn--primary:hover {
   background: var(--paper);
   border: 1px solid rgba(28, 28, 26, 0.08);
 }
+.info-page__figure--flacon img {
+  aspect-ratio: auto;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+  background: #d8d4ce;
+  border: 0;
+}
 .info-page__figure figcaption {
   margin-top: 10px;
   font-size: 13px;
@@ -2915,6 +2923,14 @@ body[data-nav-home="true"] .hero__cta .btn--primary:hover {
   aspect-ratio: 4/5;
   object-fit: cover;
   display: block;
+}
+.chapter-gallery img[src*="flacon-"],
+.chapter-gallery figure.chapter-gallery__flacon img {
+  aspect-ratio: auto;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+  background: #d8d4ce;
 }
 .chapter-gallery__video {
   grid-column: 1 / -1;
@@ -3767,15 +3783,31 @@ body[data-nav-home="true"] .hero__cta .btn--primary:hover {
   display: none;
 }
 
-.chapter-hero__flacon {
-  position: absolute;
-  inset: 0;
-  display: block;
+.chapter-hero__media--flacon {
+  display: grid;
+  place-items: center;
+  background: #d8d4ce;
+}
+
+.chapter-hero__media--flacon picture {
+  display: grid;
+  place-items: center;
   width: 100%;
   height: 100%;
+  margin: 0;
+}
+
+.chapter-hero__flacon {
+  position: relative;
+  inset: auto;
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
   object-position: center;
-  background: #d8d4ce;
+  background: transparent;
 }
 
 .chapter-hero__scene {
@@ -5108,6 +5140,11 @@ a.product-card--link:focus-visible {
   height: clamp(88px, 12vw, 128px);
   max-width: 42%;
 }
+.product-grid--boutique .product-card--compact .product-card__bottle[src*="flacon-"] {
+  height: clamp(110px, 15vw, 180px);
+  max-width: 52%;
+  mix-blend-mode: normal;
+}
 
 .product-card__caption {
   position: absolute;
@@ -5242,6 +5279,11 @@ a.product-card--link:focus-visible {
   transition:
     transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
     filter 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.product-card__bottle[src*="flacon-"] {
+  mix-blend-mode: normal;
+  height: clamp(100px, 14vw, 168px);
+  max-width: 48%;
 }
 
 .product-card__sheen {
@@ -6253,6 +6295,9 @@ a.product-card--link:focus-visible {
 .bottle-explorer img {
   width: 100%;
   height: auto;
+  max-height: 420px;
+  object-fit: contain;
+  object-position: center;
   transition: transform 0.15s ease-out;
   transform-style: preserve-3d;
   will-change: transform;

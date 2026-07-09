@@ -1091,7 +1091,23 @@
   filter: saturate(0.92) brightness(0.88);
   transition: transform 1.4s var(--ease);
 }
-.editorial-page .chapter-hero:hover .chapter-hero__scene { transform: scale(1.03); }
+.editorial-page .chapter-hero__media--flacon {
+  background: #d8d4ce !important;
+}
+.editorial-page .chapter-hero__media--flacon picture {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+}
+.editorial-page .chapter-hero__flacon {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
 
 /* =====================================================
    COMPOSITION — dark cinematic band (product pages)
@@ -1224,6 +1240,17 @@
   aspect-ratio: auto; height: 100%; min-height: clamp(200px, 28vw, 380px);
   transition: transform 1.2s var(--ease);
 }
+.editorial-page .chapter-gallery img[src*="flacon-"],
+.editorial-page .chapter-gallery figure.chapter-gallery__flacon img {
+  aspect-ratio: auto;
+  height: auto;
+  min-height: 0;
+  max-height: none;
+  width: 100%;
+  object-fit: contain;
+  object-position: center;
+  background: #d8d4ce;
+}
 .editorial-page .chapter-gallery figure:hover img { transform: scale(1.04); }
 .editorial-page .chapter-gallery figure.chapter-gallery__video {
   grid-column: 1 / span 8;
@@ -1326,7 +1353,8 @@
 .editorial-page .beles-section.beles-section--dark .beles-section__copy .sx-link:hover {
   color: var(--gold-light);
 }
-.editorial-page .beles-section.beles-section--dark .info-page__figure--concept {
+.editorial-page .beles-section.beles-section--dark .info-page__figure--concept,
+.editorial-page .beles-section.beles-section--dark .info-page__figure--flacon {
   margin: 0;
   background: rgba(248,246,240,0.04);
   border: 1px solid rgba(248,246,240,0.12);
@@ -1335,6 +1363,15 @@
 .editorial-page .beles-section.beles-section--dark .info-page__figure--concept img {
   background: transparent;
   border: 1px solid rgba(248,246,240,0.14);
+}
+.editorial-page .beles-section.beles-section--dark .info-page__figure--flacon img {
+  aspect-ratio: auto;
+  height: auto;
+  width: 100%;
+  object-fit: contain;
+  object-position: center;
+  background: #d8d4ce;
+  border: 0;
 }
 .editorial-page .beles-section.beles-section--dark figcaption {
   color: rgba(248,246,240,0.55);
@@ -1415,7 +1452,23 @@
 .editorial-page .wear-panel__figure img {
   width: 100%; height: 100%; object-fit: cover;
 }
-.editorial-page .craft-panel__figure--concept img { object-fit: contain; padding: clamp(20px, 3vw, 48px); }
+.editorial-page .craft-panel__figure--concept,
+.editorial-page .craft-panel__figure--flacon {
+  display: grid;
+  place-items: center;
+  aspect-ratio: auto;
+  min-height: clamp(320px, 42vw, 520px);
+}
+.editorial-page .craft-panel__figure--concept img,
+.editorial-page .craft-panel__figure--flacon img {
+  object-fit: contain;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  margin: auto;
+  padding: clamp(20px, 3vw, 48px);
+}
 .editorial-page .craft-panel__copy h2,
 .editorial-page .wear-panel__copy h2 {
   margin: 0 0 20px;
@@ -3001,8 +3054,15 @@
   background: rgba(8, 6, 4, 0.24);
   border: 1px solid rgba(248, 246, 240, 0.12);
 }
-.editorial-page .journal-shader-band--article .info-page__figure--concept img {
+.editorial-page .journal-shader-band--article .info-page__figure--concept img,
+.editorial-page .journal-shader-band--article .info-page__figure--flacon img {
   padding: clamp(20px, 3vw, 48px);
+  aspect-ratio: auto;
+  height: auto;
+  width: 100%;
+  object-fit: contain;
+  object-position: center;
+  background: #d8d4ce;
 }
 .editorial-page .journal-shader-band--article .info-page__figure figcaption {
   color: rgba(248, 246, 240, 0.52);
