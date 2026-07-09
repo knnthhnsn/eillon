@@ -502,22 +502,10 @@
   width: max-content;
   max-width: 100%;
 }
-.store-hero__title-sep {
-  display: block;
-  align-self: stretch;
-  width: 100%;
-  text-align: center;
-  font-style: normal;
-  font-weight: 400;
-  font-size: clamp(40px, 5.2vw, 72px);
-  line-height: 1;
-  letter-spacing: 0;
-  color: var(--ink-soft);
-  margin: clamp(10px, 1.4vw, 18px) 0;
-}
 .store-hero__title-accent {
   font-style: italic;
   color: var(--skin-umber);
+  margin-top: clamp(8px, 1.2vw, 16px);
 }
 .store-hero__lead {
   margin: clamp(20px, 3vw, 32px) 0 0;
