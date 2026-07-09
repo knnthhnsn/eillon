@@ -80,7 +80,7 @@
       <a href="${homeHref}" class="nav__brand" aria-label="EILLON home">
         <picture>
           <source type="image/webp" srcset="/images/eillon_logo_nav.webp" />
-          <img class="nav__brand-logo" src="/images/eillon_logo_transparent.png" width="200" height="64" alt="EILLON" decoding="async" fetchpriority="low" />
+          <img class="nav__brand-logo" src="/images/eillon_logo_nav.webp" width="200" height="64" alt="EILLON" decoding="async" fetchpriority="low" />
         </picture>
       </a>
 
@@ -439,7 +439,7 @@
     <div class="footer__brand" aria-hidden="true">
       <picture>
         <source type="image/webp" srcset="/images/eillon_logo_veil.webp" />
-        <img src="/images/eillon_logo_transparent.png" width="640" height="200" alt="" loading="lazy" decoding="async" />
+        <img src="/images/eillon_logo_nav.webp" width="640" height="200" alt="" loading="lazy" decoding="async" />
       </picture>
     </div>
     <div class="footer__legal">
