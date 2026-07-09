@@ -805,11 +805,26 @@
     return pyramid;
   };
 
+  const IMAGE_CACHE_BUST = '5';
+
   const appendLazyImage = (img, src, alt) => {
-    img.src = src;
+    const busted = src && !/\?/.test(src) ? `${src}?v=${IMAGE_CACHE_BUST}` : src;
+    img.src = busted;
     img.alt = alt;
     img.loading = 'lazy';
     img.decoding = 'async';
+  };
+
+  const buildAccordCollage = (sources) => {
+    const collage = document.createElement('div');
+    collage.className = 'chapter-scent-collage';
+    collage.setAttribute('aria-hidden', 'true');
+    sources.forEach((src) => {
+      const img = document.createElement('img');
+      appendLazyImage(img, src, '');
+      collage.appendChild(img);
+    });
+    return collage;
   };
 
   const CHAPTER_SIGNUP_SLUGS = new Set(['beles', 'oliva', 'asmara', 'massawa', 'petricor', 'ritual']);
@@ -825,7 +840,11 @@
 
   const buildFlaconMedia = (product) => {
     const media = document.createElement('div');
-    media.className = 'product-card__media product-card__media--flacon';
+    media.className = `product-card__media product-card__media--flacon chapter-cap-well chapter-cap-well--${product.slug}`;
+
+    if (Array.isArray(product.accordCollage) && product.accordCollage.length) {
+      media.appendChild(buildAccordCollage(product.accordCollage));
+    }
 
     const img = document.createElement('img');
     img.className = 'product-card__flacon';
@@ -1166,6 +1185,19 @@
     });
   };
 
+  const initStoreHeroFlacons = () => {
+    const products = window.EILLON_PRODUCTS;
+    if (!Array.isArray(products)) return;
+
+    document.querySelectorAll('.store-hero__flacon-well[data-chapter]').forEach((well) => {
+      if (well.dataset.collageReady === 'true') return;
+      const product = products.find((p) => p.slug === well.dataset.chapter);
+      if (!product?.accordCollage?.length) return;
+      well.dataset.collageReady = 'true';
+      well.insertBefore(buildAccordCollage(product.accordCollage), well.firstChild);
+    });
+  };
+
   const mountProductGrids = () => {
     const targets = document.querySelectorAll('[data-product-preview], [data-product-grid]');
     if (!targets.length) return;
@@ -1173,6 +1205,7 @@
     const boot = () => {
       if (!Array.isArray(window.EILLON_PRODUCTS)) return false;
       renderProductGrids();
+      initStoreHeroFlacons();
       initCardSceneVideos();
       return true;
     };
