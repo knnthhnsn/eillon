@@ -24,6 +24,13 @@ window.EILLON_LIFECYCLE = {
     purpose: 'Studio notes, not reservation or purchase',
     schemaAvailability: 'https://schema.org/OutOfStock',
   },
+  petricor: {
+    statusLabel: 'In development',
+    metaStatus: 'Chapter IV in development. Follow studio notes as the chapter advances.',
+    cta: 'Follow the chapter',
+    purpose: 'Studio notes, not reservation or purchase',
+    schemaAvailability: 'https://schema.org/OutOfStock',
+  },
   ritual: {
     statusLabel: 'Studio archive',
     metaStatus: 'Studio archive lab study. Not for sale.',

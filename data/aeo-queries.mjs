@@ -239,6 +239,15 @@ export const EILLON_AEO_QUERIES = [
     mustNotSay: ['available now'],
   },
   {
+    query: 'can i buy petricor',
+    intent: 'availability',
+    targetAnswerId: 'can-buy-petricor-today',
+    targetPage: '/petricor',
+    priority: 5,
+    expectedTerms: ['development', 'not', 'purchase'],
+    mustNotSay: ['available now'],
+  },
+  {
     query: 'is ritual for sale',
     intent: 'availability',
     targetAnswerId: 'is-ritual-a-product',

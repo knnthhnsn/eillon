@@ -17,6 +17,7 @@ const ROUTES = [
   { path: '/prickly-pear-parfum', file: 'prickly-pear-parfum.html', priority: '0.82', changefreq: 'monthly', image: 'images/palette-desert-fruit.webp', imageTitle: 'Prickly pear parfum — Beles · Fico d India' },
   { path: '/asmara', file: 'asmara.html', priority: '0.85', changefreq: 'weekly', image: 'images/scent-asmara.jpg', imageTitle: 'Asmara · Rain on Stone — Parfum concept' },
   { path: '/massawa', file: 'massawa.html', priority: '0.85', changefreq: 'weekly', image: 'images/scent-massawa.jpg', imageTitle: 'Massawa · Red Sea Citrus — Parfum concept' },
+  { path: '/petricor', file: 'petricor.html', priority: '0.85', changefreq: 'weekly', image: 'images/scent-petricor.jpg', imageTitle: 'Petricor · Wet Earth — Parfum concept' },
   { path: '/ritual', file: 'ritual.html', priority: '0.8', changefreq: 'monthly', image: 'images/ritual.jpg', imageTitle: 'Ritual · Frankincense & Myrrh — Lab study' },
   { path: '/journal', file: 'journal.html', priority: '0.7', changefreq: 'monthly', image: 'images/about-studio-1400.webp', imageTitle: 'EILLON Journal — studio notes from Copenhagen' },
   { path: '/journal/fico-d-india', file: 'journal/fico-d-india.html', priority: '0.75', changefreq: 'monthly', image: 'images/beles-no-background.png', imageTitle: "What Fico d'India means in Beles" },

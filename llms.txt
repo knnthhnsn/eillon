@@ -24,6 +24,7 @@ Answers version: 2.0.0
 | Beles · Fico d'India | Awaiting next release | Awaiting next release; restock list open |
 | Asmara · Rain on Stone | In development | In development — not for sale |
 | Massawa · Red Sea Citrus | In development | In development — not for sale |
+| Petricor · Wet Earth | In development | In development — not for sale |
 | Ritual · Frankincense & Myrrh | Studio archive | Studio archive — not for sale |
 
 Restock signup records size interest and email — it is not checkout. No purchase is taken on the site today.
@@ -43,6 +44,7 @@ Restock signup records size interest and email — it is not checkout. No purcha
 - Beles: https://eillon.maison/beles
 - Asmara: https://eillon.maison/asmara
 - Massawa: https://eillon.maison/massawa
+- Petricor: https://eillon.maison/petricor
 - Ritual: https://eillon.maison/ritual
 - Craftsmanship: https://eillon.maison/craftsmanship
 - Wear guide: https://eillon.maison/wear

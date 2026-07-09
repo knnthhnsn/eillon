@@ -40,6 +40,7 @@ for (const [slug, label] of [
   ['beles', 'Awaiting next release'],
   ['asmara', 'In development'],
   ['massawa', 'In development'],
+  ['petricor', 'In development'],
   ['ritual', 'Studio archive'],
 ]) {
   if (!llms.includes(label)) {

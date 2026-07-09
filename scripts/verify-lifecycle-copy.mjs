@@ -47,6 +47,14 @@ if (/Notify when back/i.test(massawa)) {
   failures.push('massawa.html: contains "Notify when back"');
 }
 
+const petricor = read('petricor.html');
+if (/Out of stock/i.test(petricor)) {
+  failures.push('petricor.html: contains "Out of stock"');
+}
+if (/Notify when back/i.test(petricor)) {
+  failures.push('petricor.html: contains "Notify when back"');
+}
+
 const ritual = read('ritual.html');
 if (/Out of stock/i.test(ritual)) {
   failures.push('ritual.html: contains "Out of stock"');
@@ -63,6 +71,7 @@ if (/restock/i.test(ritualVisible)) {
 for (const [file, label] of [
   ['asmara.html', 'Asmara'],
   ['massawa.html', 'Massawa'],
+  ['petricor.html', 'Petricor'],
 ]) {
   const html = stripComments(read(file));
   if (/returns to the boutique/i.test(html)) {

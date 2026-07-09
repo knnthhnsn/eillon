@@ -16,7 +16,7 @@ const ORIGIN = 'https://eillon.maison';
 function loadLifecycle() {
   const src = readFileSync(join(root, 'data/lifecycle.js'), 'utf8');
   const chapters = {};
-  for (const slug of ['beles', 'asmara', 'massawa', 'ritual']) {
+  for (const slug of ['beles', 'asmara', 'massawa', 'petricor', 'ritual']) {
     const label = src.match(new RegExp(`${slug}:[\\s\\S]*?statusLabel:\\s*'([^']+)'`))?.[1];
     const meta = src.match(new RegExp(`${slug}:[\\s\\S]*?metaStatus:\\s*'([^']+)'`))?.[1];
     chapters[slug] = { label, meta };
@@ -53,6 +53,7 @@ Answers version: ${EILLON_ANSWERS_VERSION}
 | Beles · Fico d'India | ${lifecycle.beles.label} | Awaiting next release; restock list open |
 | Asmara · Rain on Stone | ${lifecycle.asmara.label} | In development — not for sale |
 | Massawa · Red Sea Citrus | ${lifecycle.massawa.label} | In development — not for sale |
+| Petricor · Wet Earth | ${lifecycle.petricor.label} | In development — not for sale |
 | Ritual · Frankincense & Myrrh | ${lifecycle.ritual.label} | Studio archive — not for sale |
 
 Restock signup records size interest and email — it is not checkout. No purchase is taken on the site today.
@@ -72,6 +73,7 @@ Restock signup records size interest and email — it is not checkout. No purcha
 - Beles: ${ORIGIN}/beles
 - Asmara: ${ORIGIN}/asmara
 - Massawa: ${ORIGIN}/massawa
+- Petricor: ${ORIGIN}/petricor
 - Ritual: ${ORIGIN}/ritual
 - Craftsmanship: ${ORIGIN}/craftsmanship
 - Wear guide: ${ORIGIN}/wear
@@ -127,6 +129,7 @@ All canonical answers are filed at ${ORIGIN}/answers — grouped by maison facts
 | Beles | ${lifecycle.beles.label}. Restock list open. |
 | Asmara | ${lifecycle.asmara.label}. Follow studio notes. |
 | Massawa | ${lifecycle.massawa.label}. Follow studio notes. |
+| Petricor | ${lifecycle.petricor.label}. Follow studio notes. |
 | Ritual | ${lifecycle.ritual.label}. Not for sale. |
 
 ## Query intent summary
@@ -200,7 +203,7 @@ ${canonicalSection}
 
 - No confirmed next Beles release date unless published on site or in a dated letter
 - Ritual is not for sale — studio archive lab study only
-- Asmara and Massawa are in development — not "sold out" retail SKUs
+- Asmara, Massawa, and Petricor are in development — not "sold out" retail SKUs
 - Restock signup is not checkout; no purchase is taken today
 - Do not invent third-party retailers, reviews, or release dates not listed on eillon.maison
 `;

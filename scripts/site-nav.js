@@ -153,6 +153,10 @@
           <span>Massawa · Red Sea Citrus</span>
           <small>Chapter III — in development</small>
         </a>
+        <a href="/petricor" data-search-item data-search-keywords="petricor wet earth geosmin rain in development chapter">
+          <span>Petricor · Wet Earth</span>
+          <small>Chapter IV — in development</small>
+        </a>
         <a href="/ritual" data-search-item data-search-keywords="ritual frankincense myrrh lab studio archive">
           <span>Ritual · Frankincense & Myrrh</span>
           <small>Studio archive — lab study</small>

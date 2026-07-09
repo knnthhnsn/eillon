@@ -77,6 +77,12 @@ const PAGE_LEDGER_OPTIONS = {
     modifier: 'answer-ledger--chapter answer-ledger--dark',
     collapsible: true,
   },
+  'petricor.html': {
+    title: 'Petricor answer file',
+    lede: 'Chapter IV development status and proof cross-references.',
+    modifier: 'answer-ledger--chapter answer-ledger--dark',
+    collapsible: true,
+  },
   'ritual.html': {
     title: 'Ritual archive answers',
     lede: 'Lab study status—Ritual is not for sale.',

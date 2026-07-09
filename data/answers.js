@@ -259,6 +259,21 @@ window.EILLON_ANSWERS = [
     "visible": true
   },
   {
+    "id": "what-is-petricor",
+    "group": "chapters",
+    "question": "What is Petricor?",
+    "shortAnswer": "Petricor · Wet Earth is EILLON Chapter IV—a mineral geosmin and wet-clay accord still in development. Follow studio notes; it is not sold today.",
+    "sourcePage": "/petricor",
+    "sourceAnchor": "#answer-what-is-petricor",
+    "schemaType": "FAQPage",
+    "proofLinks": [
+      "/petricor",
+      "/store"
+    ],
+    "lastReviewed": "2026-06-23",
+    "visible": true
+  },
+  {
     "id": "what-is-ritual",
     "group": "chapters",
     "question": "What is Ritual?",
@@ -277,14 +292,15 @@ window.EILLON_ANSWERS = [
     "id": "which-chapters-in-development",
     "group": "chapters",
     "question": "Which EILLON chapters are in development?",
-    "shortAnswer": "Asmara (Chapter II) and Massawa (Chapter III) are in development—studio notes only, not available to purchase.",
+    "shortAnswer": "Asmara (Chapter II), Massawa (Chapter III), and Petricor (Chapter IV) are in development—studio notes only, not available to purchase.",
     "sourcePage": "/store",
     "sourceAnchor": "#answer-which-chapters-in-development",
     "schemaType": "FAQPage",
     "proofLinks": [
       "/store",
       "/asmara",
-      "/massawa"
+      "/massawa",
+      "/petricor"
     ],
     "lastReviewed": "2026-06-23",
     "visible": true
@@ -440,7 +456,7 @@ window.EILLON_ANSWERS = [
     "id": "chapter-mood-season",
     "group": "wear",
     "question": "Which chapter fits which mood or season?",
-    "shortAnswer": "Beles suits warm skin and daylight fruit; Asmara reads rain and stone; Massawa carries coastal sun; Ritual is evening resin—see the wear guide for pairing notes.",
+    "shortAnswer": "Beles suits warm skin and daylight fruit; Asmara reads rain and stone; Massawa carries coastal sun; Petricor is cold wet earth after rain; Ritual is evening resin—see the wear guide for pairing notes.",
     "sourcePage": "/wear",
     "sourceAnchor": "#answer-chapter-mood-season",
     "schemaType": "FAQPage",
@@ -476,6 +492,21 @@ window.EILLON_ANSWERS = [
     "schemaType": "FAQPage",
     "proofLinks": [
       "/massawa",
+      "/store"
+    ],
+    "lastReviewed": "2026-06-23",
+    "visible": true
+  },
+  {
+    "id": "can-buy-petricor-today",
+    "group": "chapters",
+    "question": "Can I buy Petricor today?",
+    "shortAnswer": "No. Petricor · Wet Earth is in development—not offered for purchase. Follow studio notes on the chapter page.",
+    "sourcePage": "/petricor",
+    "sourceAnchor": "#answer-can-buy-petricor-today",
+    "schemaType": "FAQPage",
+    "proofLinks": [
+      "/petricor",
       "/store"
     ],
     "lastReviewed": "2026-06-23",

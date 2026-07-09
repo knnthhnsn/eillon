@@ -828,6 +828,7 @@
 .product-intro--beles .product-intro__media video { object-position: center 35%; }
 .product-intro--asmara .product-intro__media img { object-position: center 40%; }
 .product-intro--massawa .product-intro__media img { object-position: center 30%; }
+.product-intro--petricor .product-intro__media img { object-position: center 42%; }
 .product-intro--ritual .product-intro__media img { object-position: center 45%; }
 .product-intro__veil {
   position: absolute; inset: 0;
@@ -964,6 +965,7 @@
 .chapter-shader-band--beles { background-color: #0a1208; color: rgba(248,246,240,0.88); }
 .chapter-shader-band--asmara { background-color: #0e0c0a; color: rgba(248,246,240,0.88); }
 .chapter-shader-band--massawa { background-color: #120a06; color: rgba(248,246,240,0.88); }
+.chapter-shader-band--petricor { background-color: #0a100e; color: rgba(248,246,240,0.88); }
 .chapter-shader-band--ritual { background-color: #100808; color: rgba(248,246,240,0.88); }
 
 .chapter-shader-band .shop {
@@ -1048,6 +1050,7 @@
 .chapter-shader-band .notes--beles,
 .chapter-shader-band .notes--asmara,
 .chapter-shader-band .notes--massawa,
+.chapter-shader-band .notes--petricor,
 .chapter-shader-band .notes--ritual {
   background: transparent;
 }
@@ -1112,6 +1115,7 @@
 .editorial-page .notes--beles { background-color: #0a1208; }
 .editorial-page .notes--asmara { background-color: #0e0c0a; }
 .editorial-page .notes--massawa { background-color: #120a06; }
+.editorial-page .notes--petricor { background-color: #0a100e; }
 .editorial-page .notes--ritual { background-color: #100808; }
 .editorial-page .notes__head {
   max-width: var(--max); margin: 0 auto clamp(56px, 8vw, 100px);
@@ -2238,6 +2242,7 @@
 .editorial-page .chapter-shader-band--beles { background-color: #0a1208; }
 .editorial-page .chapter-shader-band--asmara { background-color: #0e0c0a; }
 .editorial-page .chapter-shader-band--massawa { background-color: #120a06; }
+.editorial-page .chapter-shader-band--petricor { background-color: #0a100e; }
 .editorial-page .chapter-shader-band--ritual { background-color: #100808; }
 .editorial-page .chapter-shader-band > *:not(.mv-shader) {
   position: relative;
@@ -2401,6 +2406,7 @@
 .editorial-page .chapter-shader-band .notes--beles,
 .editorial-page .chapter-shader-band .notes--asmara,
 .editorial-page .chapter-shader-band .notes--massawa,
+.editorial-page .chapter-shader-band .notes--petricor,
 .editorial-page .chapter-shader-band .notes--ritual {
   background: transparent !important;
   background-color: transparent !important;
@@ -3427,6 +3433,7 @@
 .editorial-page .boutique-chapter-band--beles { background-color: #0a1208; }
 .editorial-page .boutique-chapter-band--asmara { background-color: #0e0c0a; }
 .editorial-page .boutique-chapter-band--massawa { background-color: #120a06; }
+.editorial-page .boutique-chapter-band--petricor { background-color: #0a100e; }
 .editorial-page .boutique-chapter-band--ritual { background-color: #100808; }
 .editorial-page .boutique-chapter-band .chapter-row {
   max-width: var(--max);

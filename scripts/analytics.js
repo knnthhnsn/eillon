@@ -4,7 +4,7 @@
   const RESTOCK_SOURCE_KEY = 'eillon_restock_source';
   const UTM_KEY = 'eillon_utm';
   const UTM_PARAMS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
-  const CHAPTER_PATHS = new Set(['beles', 'asmara', 'massawa', 'ritual']);
+  const CHAPTER_PATHS = new Set(['beles', 'asmara', 'massawa', 'petricor', 'ritual']);
 
   window.EILLON_ANALYTICS_CONFIG = window.EILLON_ANALYTICS_CONFIG || { posthogBridge: false };
 
