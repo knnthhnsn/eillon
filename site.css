@@ -370,7 +370,7 @@
 
 /* Store — one continuous frost shader behind hero, collection, and answers */
 .store-page.editorial-page {
-  background: #f2f2f5;
+  background: #d8d8e0;
 }
 .store-page .boutique-page__main {
   position: relative;
@@ -382,7 +382,7 @@
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background: linear-gradient(165deg, #fafafa 0%, #ececf0 52%, #f6f6f8 100%);
+  background: linear-gradient(165deg, #ececf0 0%, #c8c8d2 46%, #b8b8c4 100%);
 }
 .store-page .store-frost-bg > .mv-shader {
   z-index: 0 !important;
@@ -409,7 +409,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .store-page .store-frost-bg {
-    background: linear-gradient(165deg, #fafafa 0%, #e2e2e8 48%, #f4f4f7 100%);
+    background: linear-gradient(165deg, #e8e8ee 0%, #c4c4ce 48%, #b0b0bc 100%);
   }
 }
 
