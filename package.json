@@ -19,13 +19,15 @@
     "verify:aeo": "node scripts/verify-aeo.mjs",
     "verify:aeo:queries": "node scripts/verify-aeo-query-coverage.mjs",
     "verify:asset-versions": "node scripts/verify-asset-versions.mjs",
+    "verify:product-schema": "node scripts/verify-product-schema-truth.mjs",
     "wait:manifest": "node scripts/wait-for-production-manifest.mjs",
     "build:aeo": "node scripts/build-aeo.mjs",
     "build:sync-versions": "node scripts/sync-asset-versions.mjs",
     "build:manifest": "node scripts/generate-build-manifest.mjs",
-    "verify:all": "npm run verify && npm run verify:links && npm run verify:copy && npm run verify:head && npm run verify:stockists && npm run verify:lifecycle && npm run verify:analytics && npm run verify:posthog-bridge && npm run verify:critical-path && npm run verify:aeo && npm run verify:aeo:queries && npm run verify:asset-versions",
+    "verify:all": "npm run verify && npm run verify:links && npm run verify:copy && npm run verify:head && npm run verify:stockists && npm run verify:lifecycle && npm run verify:analytics && npm run verify:posthog-bridge && npm run verify:critical-path && npm run verify:aeo && npm run verify:aeo:queries && npm run verify:product-schema && npm run verify:asset-versions",
     "aeo:audit": "node scripts/audit-aeo.mjs",
     "smoke:funnel": "node scripts/smoke-funnel.mjs",
+    "smoke:preorder": "node scripts/smoke-preorder.mjs",
     "lighthouse:budget": "node scripts/check-lighthouse-budget.mjs",
     "ci": "npm run build && npm run verify:all && npm run smoke:funnel && npm run lighthouse:ci",
     "lighthouse:ci": "node scripts/run-lighthouse-ci.mjs",
@@ -36,6 +38,7 @@
     "build:home": "npx clean-css-cli -o home.min.css home.css",
     "build:site": "npx clean-css-cli -o site.min.css site.css",
     "build:letters": "npx clean-css-cli -o letters.min.css letters.css",
+    "build:preorder": "npx clean-css-cli -o preorder.min.css preorder.css",
     "build:wax-seal": "python scripts/build-wax-seal-logo.py",
     "build:js": "npx terser script.js -o script.min.js -c -m",
     "build:js:splits": "node scripts/build-js-splits.mjs",
@@ -47,7 +50,7 @@
     "gsc:ping": "node scripts/ping-gsc-sitemap.mjs",
     "optimize:hero": "python scripts/optimize-hero-images.py",
     "perf:analyze": "node scripts/analyze-lighthouse-lcp.mjs",
-    "build": "npm run build:css && npm run build:home && npm run build:site && npm run build:letters && npm run build:js:splits && npm run build:aeo && npm run build:vendor && npm run build:sitemap && npm run build:sync-versions && npm run build:manifest",
+    "build": "npm run build:css && npm run build:home && npm run build:site && npm run build:letters && npm run build:preorder && npm run build:js:splits && npm run build:aeo && npm run build:vendor && npm run build:sitemap && npm run build:sync-versions && npm run build:manifest",
     "growth:validate-ledger": "node scripts/growth/validate-ledger.mjs",
     "growth:score": "node scripts/growth/score-experiment.mjs",
     "growth:state": "node scripts/growth/check-state.mjs",
@@ -61,7 +64,9 @@
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.0",
+    "@vercel/analytics": "^2.0.1",
     "gsap": "^3.13.0",
-    "playwright-core": "^1.61.0"
+    "playwright-core": "^1.61.0",
+    "stripe": "^22.3.1"
   }
 }

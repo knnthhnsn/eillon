@@ -1,7 +1,7 @@
 /** EILLON canonical answers — source of truth for AEO blocks, schema, and llms files. */
 
-export const EILLON_ANSWERS_VERSION = '2.0.0';
-export const EILLON_ANSWERS_LAST_REVIEWED = '2026-06-23';
+export const EILLON_ANSWERS_VERSION = '2.1.0';
+export const EILLON_ANSWERS_LAST_REVIEWED = '2026-07-10';
 
 /** @typedef {'FAQPage'|'QAPage'|'HowTo'|'Product'|'Organization'|'Article'|'none'} SchemaType */
 
@@ -135,11 +135,11 @@ export const EILLON_ANSWERS = [
     group: 'beles',
     question: 'Is Beles available to buy?',
     shortAnswer:
-      'Beles is awaiting its next release. There is no checkout today—join the restock list to record size interest and receive one private note when bottles return.',
+      'Beles full bottles are not in open boutique stock. The separate founder preorder file states whether a €28 sample preorder or €30 refundable bottle deposit is open; no full-bottle payment is taken there.',
     sourcePage: '/beles',
     sourceAnchor: '#answer-is-beles-available',
     schemaType: 'FAQPage',
-    proofLinks: ['/beles#waitlist', '/store'],
+    proofLinks: ['/beles#waitlist', '/beles/preorder', '/store'],
     lastReviewed: EILLON_ANSWERS_LAST_REVIEWED,
     visible: true,
   },
@@ -161,11 +161,11 @@ export const EILLON_ANSWERS = [
     group: 'beles',
     question: 'What sizes and prices are shown for Beles?',
     shortAnswer:
-      'The boutique displays 2 ml sample (€28), 50 ml (€170), and 100 ml (€240) as size-interest references—availability follows the next release window.',
+      'The Beles chapter displays 2 ml, 50 ml, and 100 ml reference sizes. The founder preorder file separately offers only a €28 sample preorder or a €30 refundable bottle deposit when checkout is marked open.',
     sourcePage: '/beles',
     sourceAnchor: '#answer-beles-sizes-prices',
     schemaType: 'FAQPage',
-    proofLinks: ['/beles', '/store'],
+    proofLinks: ['/beles', '/beles/preorder', '/store'],
     lastReviewed: EILLON_ANSWERS_LAST_REVIEWED,
     visible: true,
   },
@@ -174,11 +174,56 @@ export const EILLON_ANSWERS = [
     group: 'beles',
     question: 'Is there a Beles sample?',
     shortAnswer:
-      'A 2 ml discovery vial is listed for size interest. Samples ship when Beles returns—not as a separate always-on SKU.',
+      'A 2 ml Beles founder sample may be preordered for €28 only when the founder preorder page says checkout is open. It dispatches with the first ready batch and is credited toward one 50 ml or 100 ml bottle bought within 30 days after sample dispatch.',
     sourcePage: '/beles',
     sourceAnchor: '#answer-beles-sample',
     schemaType: 'FAQPage',
-    proofLinks: ['/beles'],
+    proofLinks: ['/beles/preorder', '/shipping', '/terms'],
+    lastReviewed: EILLON_ANSWERS_LAST_REVIEWED,
+    visible: true,
+  },
+  {
+    id: 'beles-founder-preorder',
+    group: 'beles',
+    question: 'How does the Beles founder preorder work?',
+    shortAnswer:
+      'The founder file has two paid paths when checkout is open: a €28 preorder for one 2 ml sample, or a €30 refundable deposit for a private 50 ml or 100 ml purchase window.',
+    longAnswer:
+      'The deposit is credited to the later bottle purchase. No full 50 ml or 100 ml bottle payment is taken on the preorder page, and the page shows its live status before any Stripe redirect.',
+    sourcePage: '/beles/preorder',
+    sourceAnchor: '#answer-beles-founder-preorder',
+    schemaType: 'FAQPage',
+    proofLinks: ['/beles/preorder', '/beles#proof', '/terms'],
+    lastReviewed: EILLON_ANSWERS_LAST_REVIEWED,
+    visible: true,
+  },
+  {
+    id: 'beles-founder-bottle-deposit',
+    group: 'beles',
+    question: 'What does the €30 Beles bottle reservation deposit cover?',
+    shortAnswer:
+      'The €30 deposit secures a private purchase window for one 50 ml or 100 ml Beles bottle and is credited in full toward that final purchase.',
+    longAnswer:
+      'It is refundable on request before shipment. If already applied to a final bottle order, cancellation before dispatch includes that €30 amount. The remaining bottle balance is not charged on the preorder page.',
+    sourcePage: '/beles/preorder',
+    sourceAnchor: '#answer-beles-founder-bottle-deposit',
+    schemaType: 'FAQPage',
+    proofLinks: ['/beles/preorder', '/terms', '/shipping'],
+    lastReviewed: EILLON_ANSWERS_LAST_REVIEWED,
+    visible: true,
+  },
+  {
+    id: 'beles-preorder-dispatch',
+    group: 'beles',
+    question: 'When will a Beles founder preorder dispatch?',
+    shortAnswer:
+      'The sample dispatches after the first founder batch is ready and has passed final inspection. EILLON does not promise a fixed release date unless a dated window is published on the preorder page.',
+    longAnswer:
+      'A bottle reservation deposit opens a later private purchase window; the bottle dispatch window is confirmed before the remaining balance is requested.',
+    sourcePage: '/beles/preorder',
+    sourceAnchor: '#answer-beles-preorder-dispatch',
+    schemaType: 'FAQPage',
+    proofLinks: ['/beles/preorder', '/journal/beles-batch-bl001', '/shipping'],
     lastReviewed: EILLON_ANSWERS_LAST_REVIEWED,
     visible: true,
   },
@@ -623,11 +668,11 @@ export const EILLON_ANSWERS = [
     group: 'shipping',
     question: 'Does joining the restock list reserve a bottle?',
     shortAnswer:
-      'No. The restock list records email and size interest only—it does not hold inventory or guarantee allocation.',
+      'No. The restock list records email and size interest only—it does not hold inventory or guarantee allocation. A separate paid bottle reservation, when open, appears only in the Beles founder preorder file.',
     sourcePage: '/shipping',
     sourceAnchor: '#answer-restock-list-reserve-bottle',
     schemaType: 'FAQPage',
-    proofLinks: ['/shipping', '/beles#waitlist'],
+    proofLinks: ['/shipping', '/beles#waitlist', '/beles/preorder'],
     lastReviewed: EILLON_ANSWERS_LAST_REVIEWED,
     visible: true,
   },
@@ -636,11 +681,11 @@ export const EILLON_ANSWERS = [
     group: 'shipping',
     question: 'Is payment taken today?',
     shortAnswer:
-      'No payment is taken on eillon.maison today. Restock signup and newsletter forms collect interest only—no checkout.',
+      'Restock and newsletter forms never take payment. The Beles founder preorder page is the only payment path when its status says checkout is open; otherwise its buttons remain disabled.',
     sourcePage: '/shipping',
     sourceAnchor: '#answer-is-payment-taken-today',
     schemaType: 'FAQPage',
-    proofLinks: ['/shipping', '/beles#waitlist'],
+    proofLinks: ['/shipping', '/beles#waitlist', '/beles/preorder'],
     lastReviewed: EILLON_ANSWERS_LAST_REVIEWED,
     visible: true,
   },
@@ -662,7 +707,7 @@ export const EILLON_ANSWERS = [
     group: 'shipping',
     question: 'Where will EILLON ship when commerce opens?',
     shortAnswer:
-      'Shipping zones and carriers will be published on /shipping before checkout opens—Denmark and EU first, with broader regions filed as the studio scales.',
+      'Founder sample checkout is limited to Denmark, Sweden, Norway, Germany, France, the United Kingdom, and the United States. Perfume carrier restrictions still apply, and any unavailable route is cancelled and refunded.',
     sourcePage: '/shipping',
     sourceAnchor: '#answer-where-eillon-ships-when-commerce-opens',
     schemaType: 'FAQPage',
@@ -675,7 +720,7 @@ export const EILLON_ANSWERS = [
     group: 'shipping',
     question: 'How are returns handled when commerce opens?',
     shortAnswer:
-      'Return policy will follow Danish consumer law and be published on /shipping before purchases are accepted—contact care@eillon.maison for questions today.',
+      'Founder preorders may be cancelled for a refund before dispatch. After physical delivery, the published returns policy and mandatory consumer rights apply; contact care@eillon.maison to cancel or return.',
     sourcePage: '/shipping',
     sourceAnchor: '#answer-how-returns-when-commerce-opens',
     schemaType: 'FAQPage',
@@ -803,6 +848,9 @@ export const EILLON_AEO_PAGE_MAP = {
     'beles-restock-list',
     'beles-sizes-prices',
     'beles-sample',
+    'beles-founder-preorder',
+    'beles-founder-bottle-deposit',
+    'beles-preorder-dispatch',
     'where-is-beles-made',
     'oil-rich-parfum-meaning',
     'beles-proof',
@@ -811,6 +859,12 @@ export const EILLON_AEO_PAGE_MAP = {
     'is-beles-gendered',
     'after-beles-restock-signup',
     'restock-list-reserve-bottle',
+  ],
+  'beles/preorder.html': [
+    'beles-founder-preorder',
+    'beles-sample',
+    'beles-founder-bottle-deposit',
+    'beles-preorder-dispatch',
   ],
   'oliva.html': [
     'what-is-oliva',
@@ -903,6 +957,9 @@ export const EILLON_AEO_PAGE_MAP = {
     'after-beles-restock-signup',
     'where-eillon-ships-when-commerce-opens',
     'how-returns-when-commerce-opens',
+    'beles-founder-preorder',
+    'beles-founder-bottle-deposit',
+    'beles-preorder-dispatch',
   ],
   'imprint.html': ['where-is-eillon-based'],
 };

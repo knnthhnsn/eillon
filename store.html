@@ -2,7 +2,7 @@
 <html lang="en-DK">
 <head>
   <meta charset="UTF-8" />
-  <meta name="eillon-asset-stamp" content="70.8.17.171" />
+  <meta name="eillon-asset-stamp" content="74.28.24.19.171.11" />
   <script>/* eillon-asset-stamp */(function(){try{var m=document.querySelector('meta[name=eillon-asset-stamp]');if(!m)return;var s=m.content,k='eillon:assets:'+location.pathname,p=sessionStorage.getItem(k);sessionStorage.setItem(k,s);if(p&&p!==s&&!/[?&]refresh=1/.test(location.search)){location.replace(location.pathname+'?refresh=1'+location.hash);}}catch(e){}})();</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>The Boutique — EILLON Afro-Mediterranean Memory Perfumery</title>
@@ -38,7 +38,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@300;400;500;600&display=optional" rel="stylesheet" media="print" onload="this.media='all'" />
   <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@300;400;500;600&display=optional" rel="stylesheet" /></noscript>
   <link rel="stylesheet" href="styles.min.css?v=171" />
-  <link rel="stylesheet" href="site.min.css?v=70" />
+  <link rel="stylesheet" href="site.min.css?v=74" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -104,7 +104,7 @@
           "name": "Is Beles available to buy?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Beles is awaiting its next release. There is no checkout today—join the restock list to record size interest and receive one private note when bottles return.",
+            "text": "Beles full bottles are not in open boutique stock. The separate founder preorder file states whether a €28 sample preorder or €30 refundable bottle deposit is open; no full-bottle payment is taken there.",
             "url": "https://eillon.maison/store#answer-is-beles-available"
           }
         },
@@ -167,7 +167,7 @@
           "name": "Is payment taken today?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No payment is taken on eillon.maison today. Restock signup and newsletter forms collect interest only—no checkout.",
+            "text": "Restock and newsletter forms never take payment. The Beles founder preorder page is the only payment path when its status says checkout is open; otherwise its buttons remain disabled.",
             "url": "https://eillon.maison/store#answer-is-payment-taken-today"
           }
         }
@@ -180,7 +180,7 @@
 </head>
 <body class="editorial-page store-page" data-nav-current="boutique">
   <a class="skip-link" href="#top">Skip to content</a>
-  <script src="/scripts/site-nav.js?v=23" defer></script>
+  <script src="/scripts/site-nav.js?v=28" defer></script>
 
   <main class="editorial-page__main boutique-page__main" id="top">
     <div class="store-frost-bg" aria-hidden="true"></div>
@@ -195,8 +195,8 @@
           </h1>
           <p class="store-hero__lead">Six fragrance chapters composed slowly in Copenhagen — desert fruit, olive grove, rain on stone, and wet earth, hand-finished as oil-rich parfums.</p>
           <div class="store-hero__actions">
-            <a class="sx-btn" href="#chapters">Explore the chapters</a>
-            <a class="sx-link" href="/beles#waitlist">Join Beles restock list <span aria-hidden="true">→</span></a>
+            <a class="sx-btn" href="/beles/preorder?source=store_hero">Beles founder preorder</a>
+            <a class="sx-link" href="#chapters">Explore the chapters <span aria-hidden="true">→</span></a>
           </div>
           <dl class="store-hero__metrics">
             <div class="store-hero__metric">
@@ -205,7 +205,7 @@
             </div>
             <div class="store-hero__metric">
               <dt class="store-hero__metric-value">1</dt>
-              <dd class="store-hero__metric-label">Awaiting release</dd>
+              <dd class="store-hero__metric-label">Founder preorder</dd>
             </div>
             <div class="store-hero__metric">
               <dt class="store-hero__metric-value">4</dt>
@@ -233,25 +233,25 @@
           </a>
           <a class="store-hero__flacon" href="/asmara" aria-label="Asmara · Rain on Stone">
             <span class="store-hero__flacon-well chapter-cap-well chapter-cap-well--asmara" data-chapter="asmara">
-              <img src="images/flacon-asmara-1100.webp?v=5" width="440" height="550" loading="eager" decoding="async" alt="" />
+              <img src="images/flacon-asmara-1100.webp?v=6" width="440" height="550" loading="eager" decoding="async" alt="" />
             </span>
             <span class="store-hero__flacon-label">Asmara</span>
           </a>
           <a class="store-hero__flacon" href="/massawa" aria-label="Massawa · Red Sea Citrus">
             <span class="store-hero__flacon-well chapter-cap-well chapter-cap-well--massawa" data-chapter="massawa">
-              <img src="images/flacon-massawa-1100.webp?v=5" width="440" height="550" loading="eager" decoding="async" alt="" />
+              <img src="images/flacon-massawa-1100.webp?v=6" width="440" height="550" loading="eager" decoding="async" alt="" />
             </span>
             <span class="store-hero__flacon-label">Massawa</span>
           </a>
           <a class="store-hero__flacon" href="/petricor" aria-label="Petricor · Wet Earth">
             <span class="store-hero__flacon-well chapter-cap-well chapter-cap-well--petricor" data-chapter="petricor">
-              <img src="images/flacon-petricor-1100.webp?v=5" width="440" height="550" loading="eager" decoding="async" alt="" />
+              <img src="images/flacon-petricor-1100.webp?v=6" width="440" height="550" loading="eager" decoding="async" alt="" />
             </span>
             <span class="store-hero__flacon-label">Petricor</span>
           </a>
           <a class="store-hero__flacon" href="/ritual" aria-label="Ritual · Frankincense &amp; Myrrh">
             <span class="store-hero__flacon-well chapter-cap-well chapter-cap-well--ritual" data-chapter="ritual">
-              <img src="images/flacon-ritual-1100.webp?v=5" width="440" height="550" loading="eager" decoding="async" alt="" />
+              <img src="images/flacon-ritual-1100.webp?v=6" width="440" height="550" loading="eager" decoding="async" alt="" />
             </span>
             <span class="store-hero__flacon-label">Ritual</span>
           </a>
@@ -288,7 +288,7 @@
               <p class="sx-eyebrow">The Collection</p>
               <h2>Six chapters · <em>endlessly you.</em></h2>
             </div>
-            <p class="store-shop__count">Beles awaits release · four in development · Ritual in the archive</p>
+            <p class="store-shop__count">Beles founder preorder · four in development · Ritual in the archive</p>
           </header>
 
           <div class="product-grid product-grid--shop" data-product-grid data-product-grid-mode="shop" aria-live="polite"></div>
@@ -305,8 +305,8 @@
         </div>
         <dl class="boutique-guide__list">
           <div>
-            <dt>Chapter statuses</dt>
-            <dd>Beles awaits its next release. Oliva, Asmara, Massawa, and Petricor are in development. Ritual is a studio archive study — not for sale.</dd>
+            <dt>Beles founder preorder</dt>
+            <dd>Full bottles remain awaiting their next release. Choose a €28 sample preorder or a €30 refundable bottle reservation; no full-bottle payment is taken today.</dd>
           </div>
           <div>
             <dt>Restock list</dt>
@@ -398,8 +398,8 @@
           <span class="answer-ledger__toggle" aria-hidden="true"></span>
         </summary>
         <div class="answer-ledger__body">
-      <div class="answer-ledger__answer"><p>Beles is awaiting its next release. There is no checkout today—join the restock list to record size interest and receive one private note when bottles return.</p></div>
-      <div class="answer-ledger__proof"><span class="answer-ledger__proof-label">Proof file</span><div class="answer-ledger__proof-links"><a class="answer-ledger__proof-link" href="/beles#waitlist" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/beles#waitlist">beles#waitlist</a><a class="answer-ledger__proof-link" href="/store" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/store">store</a></div></div>
+      <div class="answer-ledger__answer"><p>Beles full bottles are not in open boutique stock. The separate founder preorder file states whether a €28 sample preorder or €30 refundable bottle deposit is open; no full-bottle payment is taken there.</p></div>
+      <div class="answer-ledger__proof"><span class="answer-ledger__proof-label">Proof file</span><div class="answer-ledger__proof-links"><a class="answer-ledger__proof-link" href="/beles#waitlist" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/beles#waitlist">beles#waitlist</a><a class="answer-ledger__proof-link" href="/beles/preorder?source=answers_internal" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/beles/preorder?source=answers_internal">beles · preorder</a><a class="answer-ledger__proof-link" href="/store" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/store">store</a></div></div>
       <p class="answer-ledger__source">Filed from <a href="/beles#answer-is-beles-available">/beles</a></p></div>
       </details>
     </article>
@@ -489,8 +489,8 @@
           <span class="answer-ledger__toggle" aria-hidden="true"></span>
         </summary>
         <div class="answer-ledger__body">
-      <div class="answer-ledger__answer"><p>No payment is taken on eillon.maison today. Restock signup and newsletter forms collect interest only—no checkout.</p></div>
-      <div class="answer-ledger__proof"><span class="answer-ledger__proof-label">Proof file</span><div class="answer-ledger__proof-links"><a class="answer-ledger__proof-link" href="/shipping" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/shipping">shipping</a><a class="answer-ledger__proof-link" href="/beles#waitlist" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/beles#waitlist">beles#waitlist</a></div></div>
+      <div class="answer-ledger__answer"><p>Restock and newsletter forms never take payment. The Beles founder preorder page is the only payment path when its status says checkout is open; otherwise its buttons remain disabled.</p></div>
+      <div class="answer-ledger__proof"><span class="answer-ledger__proof-label">Proof file</span><div class="answer-ledger__proof-links"><a class="answer-ledger__proof-link" href="/shipping" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/shipping">shipping</a><a class="answer-ledger__proof-link" href="/beles#waitlist" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/beles#waitlist">beles#waitlist</a><a class="answer-ledger__proof-link" href="/beles/preorder?source=answers_internal" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/beles/preorder?source=answers_internal">beles · preorder</a></div></div>
       <p class="answer-ledger__source">Filed from <a href="/shipping#answer-is-payment-taken-today">/shipping</a></p></div>
       </details>
     </article>
@@ -509,9 +509,9 @@
     </span>
   </footer>
 
-  <script src="data/products.js?v=17" defer></script>
-  <script src="/scripts/global-core.min.js?v=5" defer></script>
-  <script src="/scripts/site-shaders.js?v=68" defer></script>
-  <script src="/scripts/shared-interactions.min.js?v=8" defer></script>
+  <script src="data/products.js?v=19" defer></script>
+  <script src="/scripts/global-core.min.js?v=21" defer></script>
+  <script src="/scripts/site-shaders.js?v=69" defer></script>
+  <script src="/scripts/shared-interactions.min.js?v=24" defer></script>
 </body>
 </html>

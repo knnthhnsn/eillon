@@ -98,7 +98,7 @@ export const EILLON_AEO_QUERIES = [
     targetAnswerId: 'is-beles-available',
     targetPage: '/beles',
     priority: 5,
-    expectedTerms: ['awaiting', 'restock', 'no checkout'],
+    expectedTerms: ['full bottles', 'founder preorder', 'no full-bottle payment'],
     mustNotSay: ['buy now', 'add to cart'],
   },
   {
@@ -417,7 +417,7 @@ export const EILLON_AEO_QUERIES = [
     targetAnswerId: 'is-payment-taken-today',
     targetPage: '/shipping',
     priority: 5,
-    expectedTerms: ['No payment', 'no checkout'],
+    expectedTerms: ['never take payment', 'founder preorder', 'checkout is open'],
     mustNotSay: ['secure checkout today'],
   },
   {
@@ -444,7 +444,7 @@ export const EILLON_AEO_QUERIES = [
     targetAnswerId: 'how-returns-when-commerce-opens',
     targetPage: '/shipping',
     priority: 3,
-    expectedTerms: ['return', 'Danish', 'published'],
+    expectedTerms: ['refund', 'before dispatch', 'consumer rights'],
     mustNotSay: ['no returns ever'],
   },
   // care

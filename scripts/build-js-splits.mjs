@@ -19,6 +19,7 @@ const SPLITS = [
   { name: 'shared-interactions', includes: ['interactions-core.js', 'shared-interactions.js'] },
   { name: 'beles-shop', src: 'beles-shop.js' },
   { name: 'chapter-interactions', src: 'chapter-interactions.js' },
+  { name: 'preorder', src: 'preorder.js' },
 ];
 
 function minify(inputPath, outputPath) {

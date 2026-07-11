@@ -1,7 +1,11 @@
 market-research/
 **/__pycache__/
+artifacts/
 lighthouse-report*.json
+.script.combined.js
+scripts/.*.combined.js
 eillon_composer_implementation_plan.md
 images/*-original*.mp4
 images/* - Copy.mp4
+images/*.zip
 images/white-stone-stairs.png

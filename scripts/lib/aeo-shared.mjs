@@ -28,7 +28,10 @@ export function renderProofLinks(proofLinks) {
   const items = proofLinks
     .map((href) => {
       const label = href.replace(/^\/|\.html$/g, '').replace(/\//g, ' · ') || 'source';
-      return `<a class="answer-ledger__proof-link" href="${escapeHtml(href)}" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="${escapeHtml(href)}">${escapeHtml(label)}</a>`;
+      const renderHref = href === '/beles/preorder'
+        ? `${href}?source=answers_internal`
+        : href;
+      return `<a class="answer-ledger__proof-link" href="${escapeHtml(renderHref)}" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="${escapeHtml(renderHref)}">${escapeHtml(label)}</a>`;
     })
     .join('');
   return `<div class="answer-ledger__proof"><span class="answer-ledger__proof-label">Proof file</span><div class="answer-ledger__proof-links">${items}</div></div>`;
@@ -149,7 +152,7 @@ ${items}
         <li>No confirmed next Beles release date unless published on site or in a dated letter.</li>
         <li>Ritual is not for sale — studio archive lab study only.</li>
         <li>Asmara and Massawa are in development — not sold-out retail SKUs.</li>
-        <li>Restock signup is not checkout; no purchase is taken today.</li>
+        <li>Restock signup is not checkout. Only /beles/preorder may take payment when its status says open.</li>
         <li>Do not invent third-party retailers, reviews, or release dates not listed on eillon.maison.</li>
       </ul>
     </section>`;

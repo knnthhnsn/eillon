@@ -157,7 +157,7 @@
     const card = document.createElement('a');
     card.className = `product-card product-card--shop chapter-shader-band chapter-shader-band--${product.slug} product-card--link`;
     card.id = `card-${product.slug}`;
-    card.href = product.url || `/${product.slug}`;
+    card.href = product.storeUrl || product.url || `/${product.slug}`;
 
     card.appendChild(buildFlaconMedia(product));
 
@@ -176,7 +176,20 @@
     meta.className = 'product-card__shop-meta';
 
     const price = formatShopPrice(product);
-    if (price) {
+    if (product.storeStatusLabel) {
+      const status = document.createElement('span');
+      status.className = `product-card__shop-status product-card__shop-status--${product.status}`;
+      status.textContent = product.storeStatusLabel;
+      meta.appendChild(status);
+
+      if (product.storeOfferLabel) {
+        meta.appendChild(document.createTextNode(' · '));
+        const offer = document.createElement('span');
+        offer.className = 'product-card__shop-price';
+        offer.textContent = product.storeOfferLabel;
+        meta.appendChild(offer);
+      }
+    } else if (price) {
       const priceEl = document.createElement('span');
       priceEl.className = 'product-card__shop-price';
       priceEl.textContent = price;

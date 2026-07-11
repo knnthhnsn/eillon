@@ -55,7 +55,7 @@ try {
   ];
 
   const belesFailures = belesChecks.filter(([needle]) => !belesHtml.includes(needle)).map(([, label]) => label);
-  if (/PreOrder/i.test(belesHtml)) {
+  if (/"availability"\s*:\s*"https:\/\/schema\.org\/PreOrder"/i.test(belesHtml)) {
     belesFailures.push('Beles must not use PreOrder schema');
   }
 

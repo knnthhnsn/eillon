@@ -14,14 +14,34 @@
  */
 import { spawn } from 'node:child_process';
 import { mkdir, writeFile } from 'node:fs/promises';
+import { createRequire } from 'node:module';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright-core';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
+const require = createRequire(import.meta.url);
+const { PREORDER_PRODUCTS } = require('../data/preorder-products.js');
 const PORT = Number(process.env.PORT || 8766);
 const BASE = `http://127.0.0.1:${PORT}`;
 const OUT = join(root, 'artifacts', 'screenshots', 'current');
+const openPreorderConfig = {
+  enabled: true,
+  status: 'open',
+  products: PREORDER_PRODUCTS.map((product) => ({
+    id: product.id,
+    productSlug: product.productSlug,
+    title: product.title,
+    type: product.type,
+    price: product.price,
+    currency: product.currency,
+    description: product.description,
+    expectedShipWindow: product.expectedShipWindow,
+    refundPolicySummary: product.refundPolicySummary,
+    creditPolicy: product.creditPolicy,
+    enabled: true,
+  })),
+};
 
 function resolveBrowserExecutable() {
   return process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH || process.env.CHROME_PATH || null;
@@ -198,6 +218,133 @@ try {
   await mobile.goto(`${BASE}/beles#waitlist`, { waitUntil: 'networkidle', timeout: 45000 });
   await wait(800);
   captured.push(await snap(mobile, 'beles-shop-mobile', { fullPage: false }));
+
+  /* Beles founder preorder (feature disabled by default) */
+  await desktop.goto(`${BASE}/beles/preorder`, { waitUntil: 'networkidle', timeout: 45000 });
+  await wait(800);
+  const desktopPreorderState = await desktop.evaluate(() => ({
+    hasOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    purchaseButtons: Array.from(document.querySelectorAll('[data-preorder-buy]')).map((button) => button.disabled),
+  }));
+  if (desktopPreorderState.hasOverflow || desktopPreorderState.purchaseButtons.some((disabled) => !disabled)) {
+    throw new Error('Beles preorder desktop must have no horizontal overflow and remain disabled without its feature flag.');
+  }
+  captured.push(await snap(desktop, 'beles-preorder-hero-desktop', { fullPage: false }));
+  await desktop.locator('#offers').scrollIntoViewIfNeeded();
+  await wait(400);
+  captured.push(await snap(desktop, 'beles-preorder-offers-desktop', { fullPage: false }));
+
+  await mobile.goto(`${BASE}/beles/preorder`, { waitUntil: 'networkidle', timeout: 45000 });
+  await wait(800);
+  const mobilePreorderState = await mobile.evaluate(() => ({
+    hasOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    purchaseButtons: Array.from(document.querySelectorAll('[data-preorder-buy]')).map((button) => button.disabled),
+  }));
+  if (mobilePreorderState.hasOverflow || mobilePreorderState.purchaseButtons.some((disabled) => !disabled)) {
+    throw new Error('Beles preorder mobile must have no horizontal overflow and remain disabled without its feature flag.');
+  }
+  captured.push(await snap(mobile, 'beles-preorder-hero-mobile', { fullPage: false }));
+  await mobile.locator('#founder-sample').scrollIntoViewIfNeeded();
+  await wait(400);
+  captured.push(await snap(mobile, 'beles-preorder-sample-mobile', { fullPage: false }));
+  await mobile.locator('#founder-bottle').scrollIntoViewIfNeeded();
+  await wait(400);
+  captured.push(await snap(mobile, 'beles-preorder-bottle-mobile', { fullPage: false }));
+
+  /* Simulated launch-ready state: no Stripe or database traffic leaves the test. */
+  let checkoutProbePayload = null;
+  await desktop.route('**/api/preorder-config', (route) => route.fulfill({
+    status: 200,
+    contentType: 'application/json',
+    body: JSON.stringify(openPreorderConfig),
+  }));
+  await desktop.route('**/api/create-preorder-checkout-session', async (route) => {
+    checkoutProbePayload = route.request().postDataJSON();
+    await route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({
+        url: `${BASE}/preorder-success?session_id=cs_test_visual_probe`,
+        session_id: 'cs_test_visual_probe',
+      }),
+    });
+  });
+  await desktop.route('**/api/preorder-session?*', (route) => route.fulfill({
+    status: 200,
+    contentType: 'application/json',
+    body: JSON.stringify({
+      status: 'paid',
+      preorder_type: 'sample_preorder',
+      product_slug: 'beles',
+      amount_total: 2800,
+      currency: 'eur',
+      fulfillment_status: 'pending',
+      size_interest: 'sample',
+    }),
+  }));
+  await desktop.evaluate(() => sessionStorage.removeItem('eillon_utm'));
+  await desktop.goto(`${BASE}/beles/preorder?source=visual_smoke&utm_campaign=founder%40example.com`, { waitUntil: 'networkidle', timeout: 45000 });
+  await wait(500);
+  const openState = await desktop.evaluate(() => {
+    const buttons = Array.from(document.querySelectorAll('[data-preorder-checkout]'));
+    const schema = document.getElementById('eillon-preorder-product-schema');
+    return {
+      buttonCount: buttons.length,
+      allEnabled: buttons.every((button) => !button.disabled && button.getAttribute('aria-disabled') === 'false'),
+      status: document.querySelector('[data-preorder-status]')?.textContent?.trim(),
+      schema: schema ? JSON.parse(schema.textContent) : null,
+      storedUtm: sessionStorage.getItem('eillon_utm'),
+    };
+  });
+  if (openState.buttonCount !== 2 || !openState.allEnabled || openState.status !== 'Founder preorder checkout is open') {
+    throw new Error('Launch-ready preorder config did not enable both visible checkout controls.');
+  }
+  if (openState.schema?.offers?.availability !== 'https://schema.org/PreOrder') {
+    throw new Error('Launch-ready preorder page did not expose its gated PreOrder schema.');
+  }
+  if (openState.storedUtm) {
+    throw new Error('Frontend analytics stored a likely-PII UTM value.');
+  }
+  await desktop.locator('#offers').scrollIntoViewIfNeeded();
+  await wait(300);
+  captured.push(await snap(desktop, 'beles-preorder-open-offers-desktop', { fullPage: false }));
+
+  await desktop.locator('[data-preorder-checkout="beles-founder-sample"]').click();
+  await desktop.waitForURL('**/preorder-success?session_id=cs_test_visual_probe', { timeout: 10000 });
+  await desktop.locator('#successTitle').waitFor({ state: 'visible', timeout: 5000 });
+  await wait(300);
+  if (!checkoutProbePayload || checkoutProbePayload.product_id !== 'beles-founder-sample'
+    || checkoutProbePayload.size_interest !== 'sample' || checkoutProbePayload.utm_campaign
+    || Object.hasOwn(checkoutProbePayload, 'email')) {
+    throw new Error('Frontend Checkout request did not preserve the expected no-email payload contract.');
+  }
+  const successTitle = await desktop.locator('#successTitle').textContent();
+  if (successTitle?.trim() !== 'Payment received') {
+    throw new Error('Webhook-confirmed success lookup did not render Payment received.');
+  }
+  captured.push(await snap(desktop, 'beles-preorder-success-confirmed-desktop', { fullPage: false }));
+
+  await mobile.route('**/api/preorder-config', (route) => route.fulfill({
+    status: 200,
+    contentType: 'application/json',
+    body: JSON.stringify(openPreorderConfig),
+  }));
+  await mobile.goto(`${BASE}/beles/preorder?source=visual_smoke`, { waitUntil: 'networkidle', timeout: 45000 });
+  await mobile.locator('#founder-sample').scrollIntoViewIfNeeded();
+  await wait(300);
+  const mobileOpenButtons = await mobile.locator('[data-preorder-checkout]').evaluateAll(
+    (buttons) => buttons.map((button) => button.disabled),
+  );
+  if (mobileOpenButtons.length !== 2 || mobileOpenButtons.some(Boolean)) {
+    throw new Error('Launch-ready preorder config did not enable both mobile checkout controls.');
+  }
+  captured.push(await snap(mobile, 'beles-preorder-open-sample-mobile', { fullPage: false }));
+
+  await desktop.goto(`${BASE}/journal/fico-d-india`, { waitUntil: 'networkidle', timeout: 45000 });
+  const preorderBridge = desktop.locator('.preorder-bridge');
+  await preorderBridge.scrollIntoViewIfNeeded();
+  await wait(400);
+  captured.push(await snap(desktop, 'journal-preorder-bridge-desktop', { fullPage: false }));
 
   /* Search overlay */
   await desktop.goto(`${BASE}/`, { waitUntil: 'networkidle', timeout: 45000 });

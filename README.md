@@ -53,6 +53,29 @@ Plain `python -m http.server` does **not** rewrite URLs — use `/beles.html` in
 
 Waitlist API requires `npx vercel dev` with `DATABASE_URL` configured.
 
+### Beles founder preorder
+
+The paid route is `/beles/preorder` and is closed unless `ENABLE_PAID_PREORDERS=true` and the complete
+Stripe, webhook, site-origin, and Neon configuration below is present. The server verifies that each Stripe
+Price is active, one-time, EUR, and exactly matches the visible €28 or €30 offer before creating Checkout.
+Run it through `npx vercel dev` so the flag, Checkout Session endpoint, webhook, and Neon lookup are available.
+
+| Variable | Purpose |
+|----------|---------|
+| `ENABLE_PAID_PREORDERS` | Feature flag; defaults to disabled and must be exactly `true` to open checkout |
+| `STRIPE_SECRET_KEY` | Stripe server secret used to create hosted Checkout Sessions |
+| `STRIPE_PRICE_BELES_SAMPLE_PREORDER` | One-time EUR price ID for the €28 founder sample |
+| `STRIPE_PRICE_BELES_BOTTLE_DEPOSIT` | One-time EUR price ID for the €30 refundable bottle deposit |
+| `STRIPE_WEBHOOK_SECRET` | Signing secret for `/api/stripe-webhook` |
+| `SITE_URL` | HTTPS canonical origin used for Checkout success and cancel URLs (`http` is accepted only for localhost) |
+| `DATABASE_URL` | Neon connection used for idempotent preorder records |
+| `WAITLIST_ADMIN_KEY` | Existing admin key, also protecting `/api/preorder-admin` |
+
+Use `npm run smoke:preorder` to prove both the feature-off guard and a simulated launch-ready Checkout/webhook
+lifecycle. The browser never submits an email; hosted Checkout collects it and the signed webhook reads
+`customer_details.email`. Stripe must send `checkout.session.completed`, `checkout.session.expired`, and
+`charge.refunded` events to `/api/stripe-webhook` before live activation.
+
 Optional signup notifications (Resend):
 
 | Variable | Purpose |

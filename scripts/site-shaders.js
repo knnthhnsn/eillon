@@ -39,8 +39,6 @@
     { sel: '.chapter-shader-band--petricor', key: 'petricorNotes', prepend: true, blend: 'screen' },
     { sel: '.chapter-shader-band--ritual', key: 'ritualNotes', prepend: true, blend: 'screen' },
     { sel: '.notes:not(.notes--beles):not(.notes--oliva):not(.notes--asmara):not(.notes--massawa):not(.notes--petricor):not(.notes--ritual)', key: 'darkBand', prepend: true },
-    { sel: '.footer', key: 'footer', prepend: true },
-    { sel: 'footer.editorial-page__footer', key: 'footer', prepend: true },
   ];
 
   var THEMES = {

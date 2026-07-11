@@ -14,6 +14,7 @@ const ROUTES = [
   { path: '/answers', file: 'answers.html', priority: '0.78', changefreq: 'weekly', image: 'images/about-studio-1400.webp', imageTitle: 'House Index — EILLON answers, proof & chapter status' },
   { path: '/store', file: 'store.html', priority: '0.95', changefreq: 'weekly', image: 'images/flacon-beles-1100.webp', imageTitle: 'The Boutique — EILLON fragrance chapters' },
   { path: '/beles', file: 'beles.html', priority: '0.9', changefreq: 'weekly', image: 'images/flacon-beles-1100.webp', imageTitle: "Beles · Fico d'India — Oil-rich Parfum" },
+  { path: '/beles/preorder', file: 'beles/preorder.html', priority: '0.88', changefreq: 'weekly', image: 'images/beles-luxury-1254.webp', imageTitle: 'Beles founder preorder — EILLON' },
   { path: '/prickly-pear-parfum', file: 'prickly-pear-parfum.html', priority: '0.82', changefreq: 'monthly', image: 'images/palette-desert-fruit.webp', imageTitle: 'Prickly pear parfum — Beles · Fico d India' },
   { path: '/oliva', file: 'oliva.html', priority: '0.85', changefreq: 'weekly', image: 'images/scent-oliva-1200.webp', imageTitle: 'Oliva · Olive Grove — Parfum concept' },
   { path: '/asmara', file: 'asmara.html', priority: '0.85', changefreq: 'weekly', image: 'images/scent-asmara-1200.webp', imageTitle: 'Asmara · Rain on Stone — Parfum concept' },

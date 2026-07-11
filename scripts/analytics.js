@@ -19,6 +19,12 @@
     'restock_form_submitted',
     'size_interest_selected',
     'proof_link_clicked',
+    'preorder_page_viewed',
+    'preorder_offer_selected',
+    'preorder_checkout_started',
+    'preorder_checkout_returned_success',
+    'preorder_checkout_cancelled',
+    'preorder_proof_link_clicked',
   ]);
 
   const PII_PROPERTY_KEYS = new Set([
@@ -29,7 +35,27 @@
     'full_name',
     'phone',
     'address',
+    'customer_email',
+    'stripe_session_id',
+    'stripe_payment_intent',
   ]);
+
+  const isLikelyPiiValue = (value) => typeof value === 'string'
+    && (/@|%40/i.test(value) || (value.match(/\d/g) || []).length >= 7);
+
+  const sanitizeAnalyticsProps = (props = {}) => Object.fromEntries(
+    Object.entries(props)
+      .filter(([key]) => !PII_PROPERTY_KEYS.has(key))
+      .filter(([, value]) => value === null || ['string', 'number', 'boolean'].includes(typeof value))
+      .filter(([, value]) => !isLikelyPiiValue(value))
+      .map(([key, value]) => [key, typeof value === 'string' ? value.slice(0, 120) : value]),
+  );
+
+  const sanitizeAttribution = (value) => {
+    const text = String(value || '').replace(/[\r\n\u0000-\u001f]/g, '').trim().slice(0, 120);
+    if (!text || isLikelyPiiValue(text)) return '';
+    return text;
+  };
 
   const isLocal = /^(localhost|127\.0\.0\.1)$/.test(window.location.hostname);
 
@@ -49,8 +75,8 @@
       const params = new URLSearchParams(window.location.search);
       const incoming = {};
       UTM_PARAMS.forEach((key) => {
-        const value = params.get(key);
-        if (value) incoming[key] = value.slice(0, 120);
+        const value = sanitizeAttribution(params.get(key));
+        if (value) incoming[key] = value;
       });
       if (Object.keys(incoming).length) {
         sessionStorage.setItem(UTM_KEY, JSON.stringify(incoming));
@@ -66,7 +92,12 @@
   const getUtm = () => {
     try {
       const stored = sessionStorage.getItem(UTM_KEY);
-      return stored ? JSON.parse(stored) : {};
+      const parsed = stored ? JSON.parse(stored) : {};
+      return Object.fromEntries(
+        UTM_PARAMS
+          .map((key) => [key, sanitizeAttribution(parsed[key])])
+          .filter(([, value]) => Boolean(value)),
+      );
     } catch {
       return {};
     }
@@ -81,11 +112,8 @@
   });
 
   const sanitizeBridgeProps = (props = {}) => {
-    const out = { ...props };
+    const out = sanitizeAnalyticsProps(props);
     delete out.name;
-    PII_PROPERTY_KEYS.forEach((key) => {
-      delete out[key];
-    });
     return out;
   };
 
@@ -104,7 +132,7 @@
 
   const track = (name, props = {}) => {
     if (!name) return;
-    const payload = { name, ...getContext(), ...props };
+    const payload = { name, ...sanitizeAnalyticsProps({ ...getContext(), ...props }) };
     if (isLocal) {
       console.debug('[eillon analytics]', payload);
     }

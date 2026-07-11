@@ -15,10 +15,14 @@ const TRACKED = [
   { key: 'siteMinCss', file: 'site.min.css', patterns: [/site\.min\.css\?v=\d+/g] },
   { key: 'homeMinCss', file: 'home.min.css', patterns: [/home\.min\.css\?v=\d+/g] },
   { key: 'lettersMinCss', file: 'letters.min.css', patterns: [/letters\.min\.css\?v=\d+/g] },
+  { key: 'siteNavJs', file: 'scripts/site-nav.js', patterns: [/site-nav\.js\?v=\d+/g] },
   { key: 'siteShadersJs', file: 'scripts/site-shaders.js', patterns: [/site-shaders\.js\?v=\d+/g] },
   { key: 'sharedInteractionsJs', file: 'scripts/shared-interactions.min.js', patterns: [/shared-interactions\.min\.js\?v=\d+/g] },
   { key: 'globalCoreJs', file: 'scripts/global-core.min.js', patterns: [/global-core\.min\.js\?v=\d+/g] },
+  { key: 'belesShopJs', file: 'scripts/beles-shop.min.js', patterns: [/beles-shop\.min\.js\?v=\d+/g] },
   { key: 'productsJs', file: 'data/products.js', patterns: [/products\.js\?v=\d+/g] },
+  { key: 'preorderMinCss', file: 'preorder.min.css', patterns: [/preorder\.min\.css\?v=\d+/g] },
+  { key: 'preorderJs', file: 'scripts/preorder.min.js', patterns: [/preorder\.min\.js\?v=\d+/g] },
 ];
 
 const JS_PATCHES = [
@@ -50,7 +54,7 @@ function replaceVersion(text, patterns, version) {
   return next;
 }
 
-const ASSET_STAMP_KEYS = ['siteMinCss', 'sharedInteractionsJs', 'productsJs', 'stylesMinCss'];
+const ASSET_STAMP_KEYS = ['siteMinCss', 'siteNavJs', 'sharedInteractionsJs', 'productsJs', 'stylesMinCss', 'belesShopJs'];
 
 const ASSET_STAMP_BLOCK_RE =
   /<meta name="eillon-asset-stamp" content="[^"]*" \/>\s*<script>\/\* eillon-asset-stamp \*\/[\s\S]*?<\/script>\s*/;

@@ -2,7 +2,7 @@
 <html lang="en-DK">
 <head>
   <meta charset="UTF-8" />
-  <meta name="eillon-asset-stamp" content="70.8.17.171" />
+  <meta name="eillon-asset-stamp" content="74.28.24.19.171.11" />
   <script>/* eillon-asset-stamp */(function(){try{var m=document.querySelector('meta[name=eillon-asset-stamp]');if(!m)return;var s=m.content,k='eillon:assets:'+location.pathname,p=sessionStorage.getItem(k);sessionStorage.setItem(k,s);if(p&&p!==s&&!/[?&]refresh=1/.test(location.search)){location.replace(location.pathname+'?refresh=1'+location.hash);}}catch(e){}})();</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>House Index — EILLON answers, proof &amp; chapter status</title>
@@ -32,7 +32,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=optional" rel="stylesheet" media="print" onload="this.media='all'" />
   <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=optional" rel="stylesheet" /></noscript>
   <link rel="stylesheet" href="/styles.min.css?v=171" />
-  <link rel="stylesheet" href="/site.min.css?v=70" />
+  <link rel="stylesheet" href="/site.min.css?v=74" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -87,7 +87,7 @@
           "name": "Is Beles available to buy?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Beles is awaiting its next release. There is no checkout today—join the restock list to record size interest and receive one private note when bottles return.",
+            "text": "Beles full bottles are not in open boutique stock. The separate founder preorder file states whether a €28 sample preorder or €30 refundable bottle deposit is open; no full-bottle payment is taken there.",
             "url": "https://eillon.maison/answers#answer-is-beles-available"
           }
         },
@@ -105,7 +105,7 @@
           "name": "What sizes and prices are shown for Beles?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "The boutique displays 2 ml sample (€28), 50 ml (€170), and 100 ml (€240) as size-interest references—availability follows the next release window.",
+            "text": "The Beles chapter displays 2 ml, 50 ml, and 100 ml reference sizes. The founder preorder file separately offers only a €28 sample preorder or a €30 refundable bottle deposit when checkout is marked open.",
             "url": "https://eillon.maison/answers#answer-beles-sizes-prices"
           }
         },
@@ -114,8 +114,35 @@
           "name": "Is there a Beles sample?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "A 2 ml discovery vial is listed for size interest. Samples ship when Beles returns—not as a separate always-on SKU.",
+            "text": "A 2 ml Beles founder sample may be preordered for €28 only when the founder preorder page says checkout is open. It dispatches with the first ready batch and is credited toward one 50 ml or 100 ml bottle bought within 30 days after sample dispatch.",
             "url": "https://eillon.maison/answers#answer-beles-sample"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does the Beles founder preorder work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The founder file has two paid paths when checkout is open: a €28 preorder for one 2 ml sample, or a €30 refundable deposit for a private 50 ml or 100 ml purchase window. The deposit is credited to the later bottle purchase. No full 50 ml or 100 ml bottle payment is taken on the preorder page, and the page shows its live status before any Stripe redirect.",
+            "url": "https://eillon.maison/answers#answer-beles-founder-preorder"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What does the €30 Beles bottle reservation deposit cover?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The €30 deposit secures a private purchase window for one 50 ml or 100 ml Beles bottle and is credited in full toward that final purchase. It is refundable on request before shipment. If already applied to a final bottle order, cancellation before dispatch includes that €30 amount. The remaining bottle balance is not charged on the preorder page.",
+            "url": "https://eillon.maison/answers#answer-beles-founder-bottle-deposit"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "When will a Beles founder preorder dispatch?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The sample dispatches after the first founder batch is ready and has passed final inspection. EILLON does not promise a fixed release date unless a dated window is published on the preorder page. A bottle reservation deposit opens a later private purchase window; the bottle dispatch window is confirmed before the remaining balance is requested.",
+            "url": "https://eillon.maison/answers#answer-beles-preorder-dispatch"
           }
         },
         {
@@ -393,7 +420,7 @@
           "name": "Does joining the restock list reserve a bottle?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. The restock list records email and size interest only—it does not hold inventory or guarantee allocation.",
+            "text": "No. The restock list records email and size interest only—it does not hold inventory or guarantee allocation. A separate paid bottle reservation, when open, appears only in the Beles founder preorder file.",
             "url": "https://eillon.maison/answers#answer-restock-list-reserve-bottle"
           }
         },
@@ -402,7 +429,7 @@
           "name": "Is payment taken today?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No payment is taken on eillon.maison today. Restock signup and newsletter forms collect interest only—no checkout.",
+            "text": "Restock and newsletter forms never take payment. The Beles founder preorder page is the only payment path when its status says checkout is open; otherwise its buttons remain disabled.",
             "url": "https://eillon.maison/answers#answer-is-payment-taken-today"
           }
         },
@@ -420,7 +447,7 @@
           "name": "Where will EILLON ship when commerce opens?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Shipping zones and carriers will be published on /shipping before checkout opens—Denmark and EU first, with broader regions filed as the studio scales.",
+            "text": "Founder sample checkout is limited to Denmark, Sweden, Norway, Germany, France, the United Kingdom, and the United States. Perfume carrier restrictions still apply, and any unavailable route is cancelled and refunded.",
             "url": "https://eillon.maison/answers#answer-where-eillon-ships-when-commerce-opens"
           }
         },
@@ -429,7 +456,7 @@
           "name": "How are returns handled when commerce opens?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Return policy will follow Danish consumer law and be published on /shipping before purchases are accepted—contact care@eillon.maison for questions today.",
+            "text": "Founder preorders may be cancelled for a refund before dispatch. After physical delivery, the published returns policy and mandatory consumer rights apply; contact care@eillon.maison to cancel or return.",
             "url": "https://eillon.maison/answers#answer-how-returns-when-commerce-opens"
           }
         },
@@ -487,7 +514,7 @@
 </head>
 <body class="editorial-page info-page answer-index-page" data-nav-current="answers">
   <a class="skip-link" href="#top">Skip to content</a>
-  <script src="/scripts/site-nav.js?v=27" defer></script>
+  <script src="/scripts/site-nav.js?v=28" defer></script>
 
   <main class="editorial-page__main info-page__main" id="top">
     <section class="page-hero page-hero--compact">
@@ -509,7 +536,7 @@
 <div class="journal-shader-band journal-shader-band--index answer-index-band">
   <div class="answer-index-page__inner">
     <div class="answer-index__bar">
-      <p class="answer-index__count"><span class="answer-index__count-num">56</span> canonical answers filed</p>
+      <p class="answer-index__count"><span class="answer-index__count-num">59</span> canonical answers filed</p>
       <p class="answer-index__tag">House file · Copenhagen studio</p>
     </div>
     <section class="answer-ledger answer-index" aria-labelledby="answer-index-heading" data-aeo-ledger="true" data-analytics-section="answer-index" data-analytics-section-id="house-index">
@@ -611,7 +638,7 @@
       <div class="answer-ledger__group-head">
         <p class="answer-ledger__group-index" aria-hidden="true">02</p>
         <h2 class="answer-ledger__group-title" id="answer-group-beles-fico-d-india">Beles · Fico d'India</h2>
-        <p class="answer-ledger__group-count">15 filed</p>
+        <p class="answer-ledger__group-count">18 filed</p>
       </div>
       <div class="answer-ledger__list">
 
@@ -661,8 +688,8 @@
           <span class="answer-ledger__toggle" aria-hidden="true"></span>
         </summary>
         <div class="answer-ledger__body">
-      <div class="answer-ledger__answer"><p>Beles is awaiting its next release. There is no checkout today—join the restock list to record size interest and receive one private note when bottles return.</p></div>
-      <div class="answer-ledger__proof"><span class="answer-ledger__proof-label">Proof file</span><div class="answer-ledger__proof-links"><a class="answer-ledger__proof-link" href="/beles#waitlist" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/beles#waitlist">beles#waitlist</a><a class="answer-ledger__proof-link" href="/store" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/store">store</a></div></div>
+      <div class="answer-ledger__answer"><p>Beles full bottles are not in open boutique stock. The separate founder preorder file states whether a €28 sample preorder or €30 refundable bottle deposit is open; no full-bottle payment is taken there.</p></div>
+      <div class="answer-ledger__proof"><span class="answer-ledger__proof-label">Proof file</span><div class="answer-ledger__proof-links"><a class="answer-ledger__proof-link" href="/beles#waitlist" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/beles#waitlist">beles#waitlist</a><a class="answer-ledger__proof-link" href="/beles/preorder?source=answers_internal" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/beles/preorder?source=answers_internal">beles · preorder</a><a class="answer-ledger__proof-link" href="/store" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/store">store</a></div></div>
       <p class="answer-ledger__source">Filed from <a href="/beles#answer-is-beles-available">/beles</a></p></div>
       </details>
     </article>
@@ -687,8 +714,8 @@
           <span class="answer-ledger__toggle" aria-hidden="true"></span>
         </summary>
         <div class="answer-ledger__body">
-      <div class="answer-ledger__answer"><p>The boutique displays 2 ml sample (€28), 50 ml (€170), and 100 ml (€240) as size-interest references—availability follows the next release window.</p></div>
-      <div class="answer-ledger__proof"><span class="answer-ledger__proof-label">Proof file</span><div class="answer-ledger__proof-links"><a class="answer-ledger__proof-link" href="/beles" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/beles">beles</a><a class="answer-ledger__proof-link" href="/store" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/store">store</a></div></div>
+      <div class="answer-ledger__answer"><p>The Beles chapter displays 2 ml, 50 ml, and 100 ml reference sizes. The founder preorder file separately offers only a €28 sample preorder or a €30 refundable bottle deposit when checkout is marked open.</p></div>
+      <div class="answer-ledger__proof"><span class="answer-ledger__proof-label">Proof file</span><div class="answer-ledger__proof-links"><a class="answer-ledger__proof-link" href="/beles" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/beles">beles</a><a class="answer-ledger__proof-link" href="/beles/preorder?source=answers_internal" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/beles/preorder?source=answers_internal">beles · preorder</a><a class="answer-ledger__proof-link" href="/store" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/store">store</a></div></div>
       <p class="answer-ledger__source">Filed from <a href="/beles#answer-beles-sizes-prices">/beles</a></p></div>
       </details>
     </article>
@@ -700,9 +727,48 @@
           <span class="answer-ledger__toggle" aria-hidden="true"></span>
         </summary>
         <div class="answer-ledger__body">
-      <div class="answer-ledger__answer"><p>A 2 ml discovery vial is listed for size interest. Samples ship when Beles returns—not as a separate always-on SKU.</p></div>
-      <div class="answer-ledger__proof"><span class="answer-ledger__proof-label">Proof file</span><div class="answer-ledger__proof-links"><a class="answer-ledger__proof-link" href="/beles" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/beles">beles</a></div></div>
+      <div class="answer-ledger__answer"><p>A 2 ml Beles founder sample may be preordered for €28 only when the founder preorder page says checkout is open. It dispatches with the first ready batch and is credited toward one 50 ml or 100 ml bottle bought within 30 days after sample dispatch.</p></div>
+      <div class="answer-ledger__proof"><span class="answer-ledger__proof-label">Proof file</span><div class="answer-ledger__proof-links"><a class="answer-ledger__proof-link" href="/beles/preorder?source=answers_internal" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/beles/preorder?source=answers_internal">beles · preorder</a><a class="answer-ledger__proof-link" href="/shipping" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/shipping">shipping</a><a class="answer-ledger__proof-link" href="/terms" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/terms">terms</a></div></div>
       <p class="answer-ledger__source">Filed from <a href="/beles#answer-beles-sample">/beles</a></p></div>
+      </details>
+    </article>
+
+    <article class="answer-ledger__item" id="answer-beles-founder-preorder" data-answer-id="beles-founder-preorder" data-analytics-section="answer" data-analytics-section-id="beles-founder-preorder">
+      <details class="answer-ledger__fold">
+        <summary class="answer-ledger__summary">
+          <h3 class="answer-ledger__question">How does the Beles founder preorder work?</h3>
+          <span class="answer-ledger__toggle" aria-hidden="true"></span>
+        </summary>
+        <div class="answer-ledger__body">
+      <div class="answer-ledger__answer"><p>The founder file has two paid paths when checkout is open: a €28 preorder for one 2 ml sample, or a €30 refundable deposit for a private 50 ml or 100 ml purchase window.</p><p>The deposit is credited to the later bottle purchase. No full 50 ml or 100 ml bottle payment is taken on the preorder page, and the page shows its live status before any Stripe redirect.</p></div>
+      <div class="answer-ledger__proof"><span class="answer-ledger__proof-label">Proof file</span><div class="answer-ledger__proof-links"><a class="answer-ledger__proof-link" href="/beles/preorder?source=answers_internal" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/beles/preorder?source=answers_internal">beles · preorder</a><a class="answer-ledger__proof-link" href="/beles#proof" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/beles#proof">beles#proof</a><a class="answer-ledger__proof-link" href="/terms" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/terms">terms</a></div></div>
+      <p class="answer-ledger__source">Filed from <a href="/beles/preorder#answer-beles-founder-preorder">/beles/preorder</a></p></div>
+      </details>
+    </article>
+
+    <article class="answer-ledger__item" id="answer-beles-founder-bottle-deposit" data-answer-id="beles-founder-bottle-deposit" data-analytics-section="answer" data-analytics-section-id="beles-founder-bottle-deposit">
+      <details class="answer-ledger__fold">
+        <summary class="answer-ledger__summary">
+          <h3 class="answer-ledger__question">What does the €30 Beles bottle reservation deposit cover?</h3>
+          <span class="answer-ledger__toggle" aria-hidden="true"></span>
+        </summary>
+        <div class="answer-ledger__body">
+      <div class="answer-ledger__answer"><p>The €30 deposit secures a private purchase window for one 50 ml or 100 ml Beles bottle and is credited in full toward that final purchase.</p><p>It is refundable on request before shipment. If already applied to a final bottle order, cancellation before dispatch includes that €30 amount. The remaining bottle balance is not charged on the preorder page.</p></div>
+      <div class="answer-ledger__proof"><span class="answer-ledger__proof-label">Proof file</span><div class="answer-ledger__proof-links"><a class="answer-ledger__proof-link" href="/beles/preorder?source=answers_internal" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/beles/preorder?source=answers_internal">beles · preorder</a><a class="answer-ledger__proof-link" href="/terms" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/terms">terms</a><a class="answer-ledger__proof-link" href="/shipping" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/shipping">shipping</a></div></div>
+      <p class="answer-ledger__source">Filed from <a href="/beles/preorder#answer-beles-founder-bottle-deposit">/beles/preorder</a></p></div>
+      </details>
+    </article>
+
+    <article class="answer-ledger__item" id="answer-beles-preorder-dispatch" data-answer-id="beles-preorder-dispatch" data-analytics-section="answer" data-analytics-section-id="beles-preorder-dispatch">
+      <details class="answer-ledger__fold">
+        <summary class="answer-ledger__summary">
+          <h3 class="answer-ledger__question">When will a Beles founder preorder dispatch?</h3>
+          <span class="answer-ledger__toggle" aria-hidden="true"></span>
+        </summary>
+        <div class="answer-ledger__body">
+      <div class="answer-ledger__answer"><p>The sample dispatches after the first founder batch is ready and has passed final inspection. EILLON does not promise a fixed release date unless a dated window is published on the preorder page.</p><p>A bottle reservation deposit opens a later private purchase window; the bottle dispatch window is confirmed before the remaining balance is requested.</p></div>
+      <div class="answer-ledger__proof"><span class="answer-ledger__proof-label">Proof file</span><div class="answer-ledger__proof-links"><a class="answer-ledger__proof-link" href="/beles/preorder?source=answers_internal" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/beles/preorder?source=answers_internal">beles · preorder</a><a class="answer-ledger__proof-link" href="/journal/beles-batch-bl001" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/journal/beles-batch-bl001">journal · beles-batch-bl001</a><a class="answer-ledger__proof-link" href="/shipping" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/shipping">shipping</a></div></div>
+      <p class="answer-ledger__source">Filed from <a href="/beles/preorder#answer-beles-preorder-dispatch">/beles/preorder</a></p></div>
       </details>
     </article>
 
@@ -1260,8 +1326,8 @@
           <span class="answer-ledger__toggle" aria-hidden="true"></span>
         </summary>
         <div class="answer-ledger__body">
-      <div class="answer-ledger__answer"><p>No. The restock list records email and size interest only—it does not hold inventory or guarantee allocation.</p></div>
-      <div class="answer-ledger__proof"><span class="answer-ledger__proof-label">Proof file</span><div class="answer-ledger__proof-links"><a class="answer-ledger__proof-link" href="/shipping" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/shipping">shipping</a><a class="answer-ledger__proof-link" href="/beles#waitlist" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/beles#waitlist">beles#waitlist</a></div></div>
+      <div class="answer-ledger__answer"><p>No. The restock list records email and size interest only—it does not hold inventory or guarantee allocation. A separate paid bottle reservation, when open, appears only in the Beles founder preorder file.</p></div>
+      <div class="answer-ledger__proof"><span class="answer-ledger__proof-label">Proof file</span><div class="answer-ledger__proof-links"><a class="answer-ledger__proof-link" href="/shipping" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/shipping">shipping</a><a class="answer-ledger__proof-link" href="/beles#waitlist" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/beles#waitlist">beles#waitlist</a><a class="answer-ledger__proof-link" href="/beles/preorder?source=answers_internal" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/beles/preorder?source=answers_internal">beles · preorder</a></div></div>
       <p class="answer-ledger__source">Filed from <a href="/shipping#answer-restock-list-reserve-bottle">/shipping</a></p></div>
       </details>
     </article>
@@ -1273,8 +1339,8 @@
           <span class="answer-ledger__toggle" aria-hidden="true"></span>
         </summary>
         <div class="answer-ledger__body">
-      <div class="answer-ledger__answer"><p>No payment is taken on eillon.maison today. Restock signup and newsletter forms collect interest only—no checkout.</p></div>
-      <div class="answer-ledger__proof"><span class="answer-ledger__proof-label">Proof file</span><div class="answer-ledger__proof-links"><a class="answer-ledger__proof-link" href="/shipping" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/shipping">shipping</a><a class="answer-ledger__proof-link" href="/beles#waitlist" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/beles#waitlist">beles#waitlist</a></div></div>
+      <div class="answer-ledger__answer"><p>Restock and newsletter forms never take payment. The Beles founder preorder page is the only payment path when its status says checkout is open; otherwise its buttons remain disabled.</p></div>
+      <div class="answer-ledger__proof"><span class="answer-ledger__proof-label">Proof file</span><div class="answer-ledger__proof-links"><a class="answer-ledger__proof-link" href="/shipping" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/shipping">shipping</a><a class="answer-ledger__proof-link" href="/beles#waitlist" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/beles#waitlist">beles#waitlist</a><a class="answer-ledger__proof-link" href="/beles/preorder?source=answers_internal" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/beles/preorder?source=answers_internal">beles · preorder</a></div></div>
       <p class="answer-ledger__source">Filed from <a href="/shipping#answer-is-payment-taken-today">/shipping</a></p></div>
       </details>
     </article>
@@ -1299,7 +1365,7 @@
           <span class="answer-ledger__toggle" aria-hidden="true"></span>
         </summary>
         <div class="answer-ledger__body">
-      <div class="answer-ledger__answer"><p>Shipping zones and carriers will be published on /shipping before checkout opens—Denmark and EU first, with broader regions filed as the studio scales.</p></div>
+      <div class="answer-ledger__answer"><p>Founder sample checkout is limited to Denmark, Sweden, Norway, Germany, France, the United Kingdom, and the United States. Perfume carrier restrictions still apply, and any unavailable route is cancelled and refunded.</p></div>
       <div class="answer-ledger__proof"><span class="answer-ledger__proof-label">Proof file</span><div class="answer-ledger__proof-links"><a class="answer-ledger__proof-link" href="/shipping" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/shipping">shipping</a></div></div>
       <p class="answer-ledger__source">Filed from <a href="/shipping#answer-where-eillon-ships-when-commerce-opens">/shipping</a></p></div>
       </details>
@@ -1312,7 +1378,7 @@
           <span class="answer-ledger__toggle" aria-hidden="true"></span>
         </summary>
         <div class="answer-ledger__body">
-      <div class="answer-ledger__answer"><p>Return policy will follow Danish consumer law and be published on /shipping before purchases are accepted—contact care@eillon.maison for questions today.</p></div>
+      <div class="answer-ledger__answer"><p>Founder preorders may be cancelled for a refund before dispatch. After physical delivery, the published returns policy and mandatory consumer rights apply; contact care@eillon.maison to cancel or return.</p></div>
       <div class="answer-ledger__proof"><span class="answer-ledger__proof-label">Proof file</span><div class="answer-ledger__proof-links"><a class="answer-ledger__proof-link" href="/shipping" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/shipping">shipping</a><a class="answer-ledger__proof-link" href="/terms" data-analytics-event="answer_proof_link_clicked" data-answer-proof-href="/terms">terms</a></div></div>
       <p class="answer-ledger__source">Filed from <a href="/shipping#answer-how-returns-when-commerce-opens">/shipping</a></p></div>
       </details>
@@ -1329,7 +1395,7 @@
         <li>No confirmed next Beles release date unless published on site or in a dated letter.</li>
         <li>Ritual is not for sale — studio archive lab study only.</li>
         <li>Asmara and Massawa are in development — not sold-out retail SKUs.</li>
-        <li>Restock signup is not checkout; no purchase is taken today.</li>
+        <li>Restock signup is not checkout. Only /beles/preorder may take payment when its status says open.</li>
         <li>Do not invent third-party retailers, reviews, or release dates not listed on eillon.maison.</li>
       </ul>
     </section>
@@ -1351,7 +1417,7 @@
       <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/imprint">Imprint</a>
     </span>
   </footer>
-  <script src="/scripts/global-core.min.js?v=5" defer></script>
-  <script src="/scripts/shared-interactions.min.js?v=8" defer></script>
+  <script src="/scripts/global-core.min.js?v=21" defer></script>
+  <script src="/scripts/shared-interactions.min.js?v=24" defer></script>
 </body>
 </html>

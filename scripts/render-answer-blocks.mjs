@@ -29,6 +29,12 @@ const PAGE_LEDGER_OPTIONS = {
     modifier: 'answer-ledger--chapter answer-ledger--dark',
     collapsible: true,
   },
+  'beles/preorder.html': {
+    title: 'Founder preorder answers',
+    lede: 'Payment, credit, cancellation, and dispatch terms filed before checkout.',
+    modifier: 'answer-ledger--editorial',
+    collapsible: true,
+  },
   'craftsmanship.html': {
     title: 'Craft & proof answers',
     lede: 'Authorship, safety assessment, traceability, and wear records.',

@@ -82,6 +82,10 @@ Email required; honeypot `.shop__honeypot`; status region with `aria-live="polit
 
 - Editorial, human, atmospheric (hero couple, desert road, studio)
 - Product: Beles bottle on neutral backgrounds
+- Flacon glass body: a true cube with equal physical width, depth, and glass-body height; angled views must show substantial side depth, never a narrow slab
+- Concentration strip: one continuous grey belt around all four vertical faces at one aligned height and thickness, visibly crossing every exposed corner
+- Use the approved chapter source for product identity and an accepted construction reference for angled geometry; reject front-only bands and altered label architecture
+- Luxury editorial imagery should use authored spatial tension, architectural scale, optical material, and controlled motion through light; do not default to neutral stone catalogue scenes
 - No generic stock "perfume splash" clichés
 - WebP preferred; explicit dimensions on `<img>`
 

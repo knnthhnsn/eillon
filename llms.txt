@@ -2,8 +2,8 @@
 
 > Afro-Mediterranean memory perfumery. Oil-rich parfums composed in Copenhagen, Denmark.
 
-Last updated: 2026-06-23
-Answers version: 2.0.0
+Last updated: 2026-07-10
+Answers version: 2.1.0
 
 ## Brand
 - Name: EILLON

@@ -15,7 +15,10 @@ const CHECKS = [
   { key: 'siteShadersJs', pattern: /site-shaders\.js\?v=(\d+)/g },
   { key: 'sharedInteractionsJs', pattern: /shared-interactions\.min\.js\?v=(\d+)/g },
   { key: 'globalCoreJs', pattern: /global-core\.min\.js\?v=(\d+)/g },
+  { key: 'belesShopJs', pattern: /beles-shop\.min\.js\?v=(\d+)/g },
   { key: 'productsJs', pattern: /products\.js\?v=(\d+)/g },
+  { key: 'preorderMinCss', pattern: /preorder\.min\.css\?v=(\d+)/g },
+  { key: 'preorderJs', pattern: /preorder\.min\.js\?v=(\d+)/g },
 ];
 
 function walkHtml(dir, out = []) {

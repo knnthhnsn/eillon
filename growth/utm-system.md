@@ -17,7 +17,7 @@ Captured client-side → `sessionStorage` key `eillon_utm` → attached to waitl
 `social` · `pin` · `video` · `story` · `bio` · `referral` · `email` · `organic` · `campaign`
 
 ### utm_campaign
-`beles_restock` · `prickly_pear_parfum` · `skin_scent` · `oil_rich_parfum` · `copenhagen_appointments` · `the_letter` · `fico_d_india` · `visual_search` · `private_studio`
+`beles_restock` · `beles_founder_preorder` · `prickly_pear_parfum` · `skin_scent` · `oil_rich_parfum` · `copenhagen_appointments` · `the_letter` · `fico_d_india` · `visual_search` · `private_studio`
 
 ### utm_content
 - Short lowercase slug describing creative variant
@@ -33,6 +33,7 @@ Captured client-side → `sessionStorage` key `eillon_utm` → attached to waitl
 | Campaign | Primary destination | Secondary |
 |---|---|---|
 | beles_restock | `/beles#waitlist` | `/store` |
+| beles_founder_preorder | `/beles/preorder` | `/beles#proof` |
 | prickly_pear_parfum | `/beles` | `/journal/fico-d-india` |
 | fico_d_india | `/journal/fico-d-india` | `/beles#waitlist` |
 | the_letter | `/about` (newsletter) | `/` footer form |

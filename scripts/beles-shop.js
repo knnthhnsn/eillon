@@ -114,9 +114,9 @@
     shopVideoPrimeQueued = true;
     const run = () => {
       if ('requestIdleCallback' in window) {
-        requestIdleCallback(primeShopVideo, { timeout: 1800 });
+        requestIdleCallback(primeShopVideo, { timeout: 800 });
       } else {
-        setTimeout(primeShopVideo, 500);
+        setTimeout(primeShopVideo, 200);
       }
     };
     run();
@@ -132,6 +132,10 @@
     }
     if (shouldPlay) {
       shopVideo.preload = 'auto';
+      if (!shopVideoPrimed) {
+        primeShopVideo();
+        return;
+      }
       playVideoSafe(shopVideo);
     }
     else shopVideo.pause();

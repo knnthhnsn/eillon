@@ -44,6 +44,8 @@
 | EXP-038 | Production parity release gate | automation_os | 5 | 5 | 4 | 5 | 0 | 500 | done |
 | EXP-039 | Journal → Beles proof/restock bridge | internal_linking | 4 | 4 | 4 | 5 | 0 | 320 | next |
 | EXP-037 | Beles Dispatch → Restock micro-funnel dashboard | analytics_measurement | 5 | 4 | 3 | 5 | 1 | 150 | next |
+| EXP-040 | Approved cubic flacon web + social visual system | brand_system | 4 | 5 | 3 | 5 | 1 | 150 | done |
+| EXP-041 | Luxury Motion editorial replacement pack | brand_system | 4 | 5 | 3 | 5 | 1 | 150 | done |
 
 ## Top 10 next (after EXP-001/002)
 

@@ -52,6 +52,9 @@ if (!/size_interest_selected/.test(scriptJs)) {
 }
 
 const analytics = read('scripts/analytics.js');
+const preorder = read('scripts/preorder.js');
+const preorderWebhook = read('api/stripe-webhook.js');
+const serverAnalytics = read('lib/server-analytics.js');
 if (!/POSTHOG_BRIDGE_EVENTS/.test(analytics)) {
   failures.push('scripts/analytics.js: missing PostHog bridge event allowlist');
 }
@@ -64,11 +67,38 @@ if (!/EILLON_ANALYTICS_CONFIG/.test(analytics)) {
 if (!/sanitizeBridgeProps/.test(analytics)) {
   failures.push('scripts/analytics.js: missing PII sanitization for PostHog bridge');
 }
+if (!/isLikelyPiiValue/.test(analytics) || !/sanitizeAnalyticsProps/.test(analytics) || !/sanitizeAttribution/.test(analytics)) {
+  failures.push('scripts/analytics.js: missing frontend PII-value filtering for events and UTM context');
+}
 if (!/restock_anchor_reached/.test(analytics)) {
   failures.push('scripts/analytics.js: missing restock_anchor_reached tracking');
 }
 if (!/proof_link_clicked/.test(analytics)) {
   failures.push('scripts/analytics.js: missing proof_link_clicked tracking');
+}
+
+for (const event of [
+  'preorder_page_viewed',
+  'preorder_offer_selected',
+  'preorder_checkout_started',
+  'preorder_checkout_returned_success',
+  'preorder_checkout_cancelled',
+  'preorder_proof_link_clicked',
+]) {
+  if (!preorder.includes(event)) {
+    failures.push(`scripts/preorder.js: missing ${event} tracking`);
+  }
+  if (!analytics.includes(`'${event}'`)) {
+    failures.push(`scripts/analytics.js: POSTHOG_BRIDGE_EVENTS missing ${event}`);
+  }
+}
+
+if (!serverAnalytics.includes('preorder_paid_completed') || !preorderWebhook.includes('trackPreorderPaid')) {
+  failures.push('Stripe webhook: missing preorder_paid_completed server event');
+}
+
+if (/\b(email|customer_email|stripe_session_id|stripe_payment_intent)\s*:/.test(preorder)) {
+  failures.push('scripts/preorder.js: frontend analytics or checkout payload must not include PII/payment identifiers');
 }
 
 const requiredBindings = [

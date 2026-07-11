@@ -191,6 +191,11 @@
 .editorial-page .footer {
   padding: clamp(72px, 9vw, 130px) var(--pad) 0;
 }
+/* Keep footer content readable if an older shader bundle mounts a canvas. */
+.editorial-page .footer > .mv-shader,
+.editorial-page footer.editorial-page__footer > .mv-shader {
+  display: none !important;
+}
 .editorial-page .footer__top {
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
@@ -376,6 +381,10 @@
   position: relative;
   z-index: 1;
   background: transparent;
+}
+.store-page > .footer,
+.store-page > footer.editorial-page__footer {
+  z-index: 2;
 }
 .store-page .store-frost-bg {
   position: fixed;
@@ -3717,6 +3726,72 @@
   color: #062840;
 }
 
+/* Founder preorder bridge — shared by Beles traffic journals. */
+.editorial-page .preorder-bridge {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(170px, 0.75fr);
+  gap: 10px 36px;
+  align-items: center;
+  text-align: left;
+  border-radius: 2px;
+}
+
+.editorial-page .preorder-bridge .eyebrow,
+.editorial-page .preorder-bridge__title,
+.editorial-page .preorder-bridge__actions {
+  grid-column: 1 / -1;
+}
+
+.editorial-page .preorder-bridge__title {
+  max-width: 15ch;
+  margin: 8px 0 20px;
+  color: rgba(248, 246, 240, 0.96);
+  font-family: var(--serif);
+  font-size: 2.35rem;
+  font-weight: 350;
+  line-height: 1.05;
+  letter-spacing: 0;
+}
+
+.editorial-page .journal-shader-band--article .preorder-bridge__title {
+  color: rgba(248, 246, 240, 0.96);
+}
+
+.editorial-page .preorder-bridge__offer {
+  margin: 0;
+  padding: 14px 0;
+  border-top: 1px solid rgba(248, 246, 240, 0.18);
+  border-bottom: 1px solid rgba(248, 246, 240, 0.18);
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.editorial-page .preorder-bridge__actions {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+
+@media (max-width: 700px) {
+  .editorial-page .preorder-bridge {
+    grid-template-columns: 1fr;
+  }
+
+  .editorial-page .preorder-bridge .eyebrow,
+  .editorial-page .preorder-bridge__title,
+  .editorial-page .preorder-bridge__actions {
+    grid-column: auto;
+  }
+
+  .editorial-page .preorder-bridge__title {
+    font-size: 1.95rem;
+  }
+}
+
 /* =====================================================
    JOURNAL — water shader (index feed)
    ===================================================== */
@@ -4830,4 +4905,3 @@ footer.editorial-page__footer > *:not(.mv-shader) {
 .page-hero--compact {
   min-height: clamp(280px, 40vh, 420px);
 }
-

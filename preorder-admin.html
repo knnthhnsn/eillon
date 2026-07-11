@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en-DK">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="eillon-asset-stamp" content="74.28.24.19.171.11" />
+  <script>/* eillon-asset-stamp */(function(){try{var m=document.querySelector('meta[name=eillon-asset-stamp]');if(!m)return;var s=m.content,k='eillon:assets:'+location.pathname,p=sessionStorage.getItem(k);sessionStorage.setItem(k,s);if(p&&p!==s&&!/[?&]refresh=1/.test(location.search)){location.replace(location.pathname+'?refresh=1'+location.hash);}}catch(e){}})();</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>EILLON — Preorder Admin</title>
+  <link rel="stylesheet" href="/styles.min.css?v=171" />
+  <style>
+    body { padding: 48px 24px 80px; background: var(--bg); color: var(--ink); }
+    .admin { max-width: 1180px; margin: 0 auto; }
+    .admin__head { display: flex; justify-content: space-between; gap: 24px; align-items: end; margin-bottom: 32px; }
+    .admin__head h1 { margin: 0 0 8px; font-family: var(--serif); font-size: 40px; font-weight: 300; letter-spacing: 0; }
+    .admin__head p { margin: 0; color: var(--ink-soft); font-family: var(--serif); font-style: italic; }
+    .admin__export { min-height: 40px; padding: 8px 14px; border: 1px solid var(--ink); background: transparent; font: inherit; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; cursor: pointer; }
+    .admin__export:disabled { opacity: .4; cursor: not-allowed; }
+    .admin__gate { display: flex; gap: 12px; align-items: end; max-width: 520px; margin-bottom: 28px; padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+    .admin__gate label { flex: 1; display: flex; flex-direction: column; gap: 8px; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-faint); }
+    .admin__gate input { border: 0; border-bottom: 1px solid var(--line); background: transparent; font: inherit; font-size: 15px; padding: 8px 0; color: var(--ink); outline: none; }
+    .admin__gate button { min-height: 40px; padding: 8px 16px; border: 1px solid var(--ink); background: var(--ink); color: var(--bg); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
+    .admin__status { min-height: 24px; color: var(--ink-soft); font-family: var(--serif); font-style: italic; }
+    .admin__summary { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 24px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .admin__metric { padding: 20px 18px 20px 0; }
+    .admin__metric + .admin__metric { padding-left: 18px; border-left: 1px solid var(--line); }
+    .admin__metric dt { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-faint); }
+    .admin__metric dd { margin: 10px 0 0; font-family: var(--serif); font-size: 30px; font-weight: 300; }
+    .admin__meta { margin: 0 0 16px; font-size: 13px; color: var(--ink-soft); }
+    .admin__table-wrap { overflow-x: auto; border: 1px solid var(--line); }
+    table { width: 100%; min-width: 1040px; border-collapse: collapse; font-size: 13px; }
+    th, td { padding: 13px 14px; text-align: left; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+    th { font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint); font-weight: 500; }
+    tr:last-child td { border-bottom: 0; }
+    .admin__empty { padding: 32px 16px; text-align: center; color: var(--ink-soft); font-family: var(--serif); font-style: italic; }
+    @media (max-width: 720px) {
+      .admin__head { align-items: flex-start; flex-direction: column; }
+      .admin__summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .admin__metric:nth-child(3) { border-left: 0; border-top: 1px solid var(--line); }
+      .admin__metric:nth-child(4) { border-top: 1px solid var(--line); }
+    }
+  </style>
+</head>
+<body>
+  <main class="admin">
+    <header class="admin__head">
+      <div>
+        <span class="eyebrow">EILLON studio</span>
+        <h1>Beles founder preorders</h1>
+        <p>Paid sample preorders and refundable bottle deposits.</p>
+      </div>
+      <button class="admin__export" id="exportCsv" type="button" disabled>Export CSV</button>
+    </header>
+
+    <form class="admin__gate" id="gateForm">
+      <label>Admin key <input type="password" id="adminKey" autocomplete="current-password" required /></label>
+      <button type="submit">Load</button>
+    </form>
+
+    <p class="admin__status" id="status" aria-live="polite"></p>
+    <dl class="admin__summary" id="summary" hidden>
+      <div class="admin__metric"><dt>Total paid</dt><dd id="totalPaid">0</dd></div>
+      <div class="admin__metric"><dt>Sample preorders</dt><dd id="sampleCount">0</dd></div>
+      <div class="admin__metric"><dt>Bottle deposits</dt><dd id="depositCount">0</dd></div>
+      <div class="admin__metric"><dt>Paid total</dt><dd id="paidTotal">€0</dd></div>
+    </dl>
+    <p class="admin__meta" id="meta" hidden></p>
+
+    <div class="admin__table-wrap" id="tableWrap" hidden>
+      <table>
+        <thead>
+          <tr>
+            <th>Created</th>
+            <th>Email</th>
+            <th>Offer</th>
+            <th>Size</th>
+            <th>Amount</th>
+            <th>Payment</th>
+            <th>Fulfillment</th>
+            <th>Source / UTM</th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <script>
+    const storageKey = 'eillon-waitlist-admin-key';
+    const gateForm = document.getElementById('gateForm');
+    const adminKeyInput = document.getElementById('adminKey');
+    const statusEl = document.getElementById('status');
+    const summaryEl = document.getElementById('summary');
+    const metaEl = document.getElementById('meta');
+    const tableWrap = document.getElementById('tableWrap');
+    const rowsEl = document.getElementById('rows');
+    const exportButton = document.getElementById('exportCsv');
+    let currentPreorders = [];
+
+    const formatDate = (value) => {
+      try {
+        return new Intl.DateTimeFormat('en-GB', {
+          dateStyle: 'medium', timeStyle: 'short', timeZone: 'Europe/Copenhagen',
+        }).format(new Date(value));
+      } catch { return value; }
+    };
+
+    const formatMoney = (amount, currency = 'eur') => new Intl.NumberFormat('en-DK', {
+      style: 'currency', currency: String(currency).toUpperCase(),
+    }).format((Number(amount) || 0) / 100);
+
+    const appendCell = (row, value) => {
+      const cell = document.createElement('td');
+      cell.textContent = value || '—';
+      row.appendChild(cell);
+    };
+
+    const renderRows = (preorders) => {
+      rowsEl.replaceChildren();
+      if (!preorders.length) {
+        const row = document.createElement('tr');
+        const cell = document.createElement('td');
+        cell.colSpan = 8;
+        cell.className = 'admin__empty';
+        cell.textContent = 'No preorder records yet.';
+        row.appendChild(cell);
+        rowsEl.appendChild(row);
+      } else {
+        preorders.forEach((preorder) => {
+          const row = document.createElement('tr');
+          const source = [preorder.source, preorder.utm_source, preorder.utm_medium, preorder.utm_campaign]
+            .filter(Boolean).join(' · ');
+          appendCell(row, formatDate(preorder.created_at));
+          appendCell(row, preorder.customer_email);
+          appendCell(row, preorder.preorder_type);
+          appendCell(row, preorder.size_interest);
+          appendCell(row, formatMoney(preorder.amount_total, preorder.currency));
+          appendCell(row, preorder.payment_status);
+          appendCell(row, preorder.fulfillment_status);
+          appendCell(row, source);
+          rowsEl.appendChild(row);
+        });
+      }
+      tableWrap.hidden = false;
+    };
+
+    const loadPreorders = async (key) => {
+      statusEl.textContent = 'Loading…';
+      summaryEl.hidden = true;
+      metaEl.hidden = true;
+      tableWrap.hidden = true;
+      exportButton.disabled = true;
+
+      const response = await fetch('/api/preorder-admin?limit=500', { headers: { 'x-admin-key': key } });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        statusEl.textContent = data.error === 'Unauthorized' ? 'Wrong admin key.' : 'Could not load preorders.';
+        return;
+      }
+
+      try { sessionStorage.setItem(storageKey, key); } catch {}
+      currentPreorders = data.preorders || [];
+      const summary = data.summary || {};
+      document.getElementById('totalPaid').textContent = summary.total_paid_preorders || 0;
+      document.getElementById('sampleCount').textContent = summary.sample_preorder_count || 0;
+      document.getElementById('depositCount').textContent = summary.bottle_deposit_count || 0;
+      document.getElementById('paidTotal').textContent = formatMoney(summary.paid_amount_total, summary.currency);
+      statusEl.textContent = '';
+      summaryEl.hidden = false;
+      const shown = currentPreorders.length;
+      const total = data.total || 0;
+      metaEl.textContent = shown < total
+        ? `${shown} of ${total} records shown; export contains the shown records`
+        : `${total} total record${total === 1 ? '' : 's'}`;
+      metaEl.hidden = false;
+      exportButton.disabled = !currentPreorders.length;
+      renderRows(currentPreorders);
+    };
+
+    const safeCsv = (value) => {
+      let text = String(value ?? '');
+      if (/^[=+\-@]/.test(text)) text = `'${text}`;
+      return `"${text.replace(/"/g, '""')}"`;
+    };
+
+    exportButton.addEventListener('click', () => {
+      const header = ['created_at', 'email', 'preorder_type', 'size_interest', 'amount_total', 'currency', 'payment_status', 'fulfillment_status', 'source', 'utm_source', 'utm_medium', 'utm_campaign'];
+      const lines = [header.map(safeCsv).join(',')];
+      currentPreorders.forEach((item) => {
+        lines.push([
+          item.created_at, item.customer_email, item.preorder_type, item.size_interest,
+          item.amount_total, item.currency, item.payment_status, item.fulfillment_status,
+          item.source, item.utm_source, item.utm_medium, item.utm_campaign,
+        ].map(safeCsv).join(','));
+      });
+      const blob = new Blob([`${lines.join('\n')}\n`], { type: 'text/csv;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `eillon-beles-preorders-${new Date().toISOString().slice(0, 10)}.csv`;
+      link.click();
+      URL.revokeObjectURL(url);
+    });
+
+    gateForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      loadPreorders(adminKeyInput.value.trim());
+    });
+
+    try {
+      const saved = sessionStorage.getItem(storageKey);
+      if (saved) { adminKeyInput.value = saved; loadPreorders(saved); }
+    } catch {}
+  </script>
+</body>
+</html>

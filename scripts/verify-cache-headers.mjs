@@ -23,7 +23,9 @@ function matchVersion(text, pattern) {
 
 function homeJsPath() {
   const index = read('index.html');
-  const v = matchVersion(index, /home\.js\?v=(\d+)/);
+  const loadAfterHero = read('scripts/load-after-hero.js');
+  const v = matchVersion(index, /home\.js\?v=(\d+)/)
+    || matchVersion(loadAfterHero, /home\.js\?v=(\d+)/);
   const cssV = matchVersion(index, /home\.min\.css\?v=(\d+)/);
   return {
     homeJs: v ? `/scripts/home.js?v=${v}` : '/scripts/home.js',

@@ -73,3 +73,21 @@
 
 - Autonomy default L1–L2; no auto-merge.
 - Favicon switched to `images/favicon.jpeg` (ensure committed for prod).
+
+## Paid preorder architecture (2026-07-10)
+
+- The codebase now contains a Beles-only hosted Stripe Checkout path at `/beles/preorder`; it is not a general cart.
+- The 2026-06-28 "no checkout" fact remains true for production until this work is deployed and `ENABLE_PAID_PREORDERS=true` with complete Stripe, webhook, site-origin, and Neon configuration.
+- Founder offers are a €28 2 ml sample preorder and a €30 refundable bottle reservation deposit. No full-bottle balance is collected on this page.
+- Signed Stripe webhooks, not the browser success page, create the Neon preorder record and drive paid-completion analytics.
+- The generated sitemap now contains 23 routes, including the indexable founder file; success and admin views remain `noindex`.
+
+## Product image construction truth (2026-07-10)
+
+- The current catalog in `data/products.js` contains six products: Beles, Oliva, Asmara, Massawa, Petricor, and Ritual.
+- The clear flacon body is a true cube: physical width, depth, and glass-body height are equal. Angled imagery must show substantial side depth, never a narrow slab.
+- The grey concentration strip is one continuous belt around all four vertical faces at one aligned height and thickness; it must visibly cross each exposed corner.
+- Approved `-final` source files currently exist for Asmara, Massawa, Petricor, and Ritual. Beles and Oliva use their current approved sources.
+- For new angled renders, use `images/campaigns/cubic-flacon-2026-07/masters/angles/beles-cube-wraparound-master.png` as the construction reference and reject any shallow-side or front-only-band draft.
+- Social publishing remains human-led; generated campaign imagery is an editorial asset, not evidence of stock or manufacturing tolerances.
+- The neutral stone/catalogue direction in EXP-040 was rejected for new editorial and social use. The accepted replacement language is optical tension, architectural scale, asymmetric movement, controlled chromatic refraction, and dark negative space; use `content/campaigns/luxury-motion-visual-system.md` for selection.

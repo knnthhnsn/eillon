@@ -370,7 +370,7 @@
   }
 
   /* ---------- 9. WAITLIST ---------- */
-  const CONSENT_NOTICE_VERSION = '2026-06-29';
+  const CONSENT_NOTICE_VERSION = '2026-07-10';
 
   const waitlistMessages = {
     beles: 'You are on the Beles restock list — we write when the next batch is ready.',

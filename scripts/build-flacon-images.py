@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Copy Eillon-flacon source PNGs into images/ and generate WebP display variants."""
+"""Copy approved Eillon-flacon PNGs into images/ and generate WebP variants."""
 
 from __future__ import annotations
 
@@ -30,7 +30,8 @@ def resize_to_width(im: Image.Image, max_width: int) -> Image.Image:
 
 def main() -> None:
     for slug in SLUGS:
-        src = SRC / f"{slug}.png"
+        final_src = SRC / f"{slug}-final.png"
+        src = final_src if final_src.is_file() else SRC / f"{slug}.png"
         if not src.is_file():
             raise SystemExit(f"missing source: {src}")
         im = Image.open(src)
