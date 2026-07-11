@@ -61,7 +61,7 @@ Restock signup records size interest and email — it is not checkout. No purcha
 ## Key product facts (Beles)
 - Type: Oil-rich parfum
 - Accord: Prickly pear, cactus water, hibiscus, mineral air, soft musk
-- Sizes shown: 2 ml sample (€28), 50 ml (€170), 100 ml (€240) — size-interest references
+- Sizes shown: 2 ml sample (€60), 50 ml (€380), 100 ml (€620) — size-interest references
 - Made in: Copenhagen, Denmark
 - Batch proof: BL-001 pilot file (see journal)
 

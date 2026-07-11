@@ -117,9 +117,9 @@ if (!existsSync(preorderPagePath)) {
   const text = visibleText(html);
   for (const phrase of [
     'Beles Restock Sample',
-    '€28',
+    '€60',
     'Beles Bottle Reservation',
-    '€30',
+    '€90',
     'No full bottle payment today',
   ]) {
     if (!text.includes(phrase)) failures.push(`beles/preorder.html: missing visible paid copy "${phrase}"`);

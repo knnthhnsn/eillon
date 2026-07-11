@@ -1,7 +1,7 @@
 /** EILLON canonical answers — source of truth for AEO blocks, schema, and llms files. */
 
-export const EILLON_ANSWERS_VERSION = '2.1.0';
-export const EILLON_ANSWERS_LAST_REVIEWED = '2026-07-10';
+export const EILLON_ANSWERS_VERSION = '2.2.0';
+export const EILLON_ANSWERS_LAST_REVIEWED = '2026-07-11';
 
 /** @typedef {'FAQPage'|'QAPage'|'HowTo'|'Product'|'Organization'|'Article'|'none'} SchemaType */
 
@@ -135,7 +135,7 @@ export const EILLON_ANSWERS = [
     group: 'beles',
     question: 'Is Beles available to buy?',
     shortAnswer:
-      'Beles full bottles are not in open boutique stock. The separate next-restock file states whether a €28 restock sample or €30 refundable bottle reservation is open; no full-bottle payment is taken there.',
+      'Beles full bottles are not in open boutique stock. The separate next-restock file states whether a €60 restock sample or €90 refundable bottle reservation is open; no full-bottle payment is taken there.',
     sourcePage: '/beles',
     sourceAnchor: '#answer-is-beles-available',
     schemaType: 'FAQPage',
@@ -161,7 +161,7 @@ export const EILLON_ANSWERS = [
     group: 'beles',
     question: 'What sizes and prices are shown for Beles?',
     shortAnswer:
-      'The Beles chapter displays 2 ml, 50 ml, and 100 ml reference sizes. The next-restock file separately offers only a €28 restock sample or a €30 refundable bottle reservation when checkout is marked open.',
+      'The Beles chapter displays a 2 ml sample at €60, a 50 ml bottle at €380, and a 100 ml bottle at €620. The next-restock file separately offers the €60 sample or a €90 refundable bottle reservation when checkout is marked open.',
     sourcePage: '/beles',
     sourceAnchor: '#answer-beles-sizes-prices',
     schemaType: 'FAQPage',
@@ -174,7 +174,7 @@ export const EILLON_ANSWERS = [
     group: 'beles',
     question: 'Is there a Beles sample?',
     shortAnswer:
-      'A 2 ml Beles restock sample can be ordered for €28 only when the next-restock page says checkout is open. It dispatches with the next ready batch and is credited toward one 50 ml or 100 ml bottle bought within 30 days after sample dispatch.',
+      'A 2 ml Beles restock sample can be ordered for €60 only when the next-restock page says checkout is open. It dispatches with the next ready batch and is credited in full toward one 50 ml or 100 ml bottle bought within 30 days after sample dispatch.',
     sourcePage: '/beles',
     sourceAnchor: '#answer-beles-sample',
     schemaType: 'FAQPage',
@@ -187,7 +187,7 @@ export const EILLON_ANSWERS = [
     group: 'beles',
     question: 'How does the Beles next restock work?',
     shortAnswer:
-      'The next-restock file has two paid paths when checkout is open: a €28 restock sample, or a €30 refundable deposit for a private 50 ml or 100 ml purchase window.',
+      'The next-restock file has two paid paths when checkout is open: a €60 restock sample, or a €90 refundable deposit for a private 50 ml or 100 ml purchase window.',
     longAnswer:
       'The deposit is credited to the later bottle purchase. No full 50 ml or 100 ml bottle payment is taken on the restock page, and the page shows its live status before any Stripe redirect.',
     sourcePage: '/beles/preorder',
@@ -200,11 +200,11 @@ export const EILLON_ANSWERS = [
   {
     id: 'beles-founder-bottle-deposit',
     group: 'beles',
-    question: 'What does the €30 Beles bottle reservation deposit cover?',
+    question: 'What does the €90 Beles bottle reservation deposit cover?',
     shortAnswer:
-      'The €30 deposit secures a private purchase window for one 50 ml or 100 ml Beles bottle and is credited in full toward that final purchase.',
+      'The €90 deposit secures a private purchase window for one 50 ml or 100 ml Beles bottle and is credited in full toward that final purchase.',
     longAnswer:
-      'It is refundable on request before shipment. If already applied to a final bottle order, cancellation before dispatch includes that €30 amount. The remaining bottle balance is not charged on the restock page.',
+      'It is refundable on request before shipment. If already applied to a final bottle order, cancellation before dispatch includes that €90 amount. The remaining bottle balance is not charged on the restock page.',
     sourcePage: '/beles/preorder',
     sourceAnchor: '#answer-beles-founder-bottle-deposit',
     schemaType: 'FAQPage',

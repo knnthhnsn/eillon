@@ -64,11 +64,11 @@
   const sectionHref = (hash) => (isHome ? hash : `/${hash}`);
 
   const links = [
-    { id: 'maison', href: sectionHref('#maison'), label: 'Maison', i18n: 'nav.maison' },
-    { id: 'about', href: '/about', label: 'About', i18n: 'nav.about' },
-    { id: 'collection', href: sectionHref('#collection'), label: 'Collection', i18n: 'nav.collection' },
-    { id: 'palette', href: sectionHref('#palette'), label: 'Palette', i18n: 'nav.palette' },
-    { id: 'boutique', href: '/store', label: 'Boutique', i18n: 'nav.boutique' },
+    { id: 'beles', href: '/beles', label: 'Beles', i18n: 'nav.beles' },
+    { id: 'collection', href: '/store#chapters', label: 'Collection', i18n: 'nav.collection' },
+    { id: 'journal', href: '/journal', label: 'Journal', i18n: 'nav.journal' },
+    { id: 'craft', href: '/craftsmanship', label: 'Craft', i18n: 'nav.craft' },
+    { id: 'maison', href: '/about', label: 'Maison', i18n: 'nav.maison' },
   ];
 
   const currentAttr = (id) => (current === id ? ' aria-current="page"' : '');
@@ -96,7 +96,6 @@
       </nav>
 
       <div class="nav__actions">
-        <button class="nav__story" type="button" data-maison-story-open aria-haspopup="dialog">Our story</button>
         <button class="nav__menu" type="button" aria-label="Menu" data-i18n-aria="nav.menu" aria-controls="mobileNav" aria-expanded="false" id="menuToggle">
           <span></span>
           <span></span>
@@ -107,7 +106,7 @@
             <line x1="20" y1="20" x2="16" y2="16"></line>
           </svg>
         </button>
-        <a class="nav__waitlist" href="${preorderHref}?source=site_nav" data-i18n="nav.preorder">Restock</a>
+        <a class="nav__waitlist" href="${preorderHref}?source=site_nav" data-i18n="nav.preorder">Next restock</a>
       </div>
     </div>
   </header>
@@ -116,8 +115,7 @@
     <button class="mobile-nav__backdrop" type="button" tabindex="-1" data-menu-close aria-label="Close menu"></button>
     <div class="mobile-nav__panel">
       ${mobileLinks}
-      <a href="${preorderHref}?source=mobile_nav" data-menu-link data-i18n="nav.preorder">Restock</a>
-      <button type="button" class="mobile-nav__story" data-maison-story-open data-i18n="nav.story">Our story</button>
+      <a href="${preorderHref}?source=mobile_nav" data-menu-link data-i18n="nav.preorder">Next restock</a>
     </div>
   </div>
 
@@ -130,7 +128,7 @@
       </div>
       <label class="search-panel__field">
         <span class="sr-only">Search the site</span>
-        <input type="search" id="siteSearch" placeholder="Try palette, bottle, boutique..." autocomplete="off" />
+        <input type="search" id="siteSearch" placeholder="Try Beles, batches, craft..." autocomplete="off" />
       </label>
       <div class="search-panel__results" id="searchResults" aria-live="polite">
         <a href="${sectionHref('#palette')}" data-search-item data-search-keywords="palette maison scent worlds desert fruit rain stone red sea citrus resin">
@@ -182,7 +180,7 @@
           <small>Studio notes and articles</small>
         </a>
         <a href="/store" data-search-item data-search-keywords="store boutique collection beles asmara massawa ritual chapters">
-          <span>The Boutique</span>
+          <span>The Collection</span>
           <small>All fragrance chapters</small>
         </a>
         <a href="${waitlistHref}" data-search-item data-search-keywords="restock beles fico d'india awaiting release join list">

@@ -101,8 +101,8 @@ async function endpointDisabledCheck() {
     ];
     if (PREORDER_PRODUCTS.length !== 2
       || PREORDER_PRODUCTS.some((product) => requiredProductFields.some((field) => !Object.hasOwn(product, field)))
-      || PREORDER_PRODUCTS[0].type !== 'sample_preorder' || PREORDER_PRODUCTS[0].price !== 28
-      || PREORDER_PRODUCTS[1].type !== 'bottle_deposit' || PREORDER_PRODUCTS[1].price !== 30) {
+      || PREORDER_PRODUCTS[0].type !== 'sample_preorder' || PREORDER_PRODUCTS[0].price !== 60
+      || PREORDER_PRODUCTS[1].type !== 'bottle_deposit' || PREORDER_PRODUCTS[1].price !== 90) {
       throw new Error('Preorder catalog does not match the two required typed offers');
     }
     const sample = getPreorderProductById('beles-founder-sample');
@@ -147,14 +147,14 @@ async function endpointDisabledCheck() {
       active: true,
       type: 'one_time',
       recurring: null,
-      unit_amount: 2800,
+      unit_amount: 6000,
       currency: 'eur',
     }, sample, 'price_test_sample');
     let mismatchRejected = false;
     try {
       checkout.validateStripePriceMatchesOffer({
         id: 'price_test_sample', active: true, type: 'one_time', recurring: null,
-        unit_amount: 3000, currency: 'eur',
+        unit_amount: 6100, currency: 'eur',
       }, sample, 'price_test_sample');
     } catch {
       mismatchRejected = true;
@@ -215,7 +215,7 @@ async function runtimeReadinessCheck() {
           active: true,
           type: 'one_time',
           recurring: null,
-          unit_amount: id === complete.STRIPE_PRICE_BELES_SAMPLE_PREORDER ? 2800 : 3000,
+          unit_amount: id === complete.STRIPE_PRICE_BELES_SAMPLE_PREORDER ? 6000 : 9000,
           currency: 'eur',
         }),
       };
@@ -382,14 +382,14 @@ async function webhookLifecycleCheck() {
   const metadata = {
     preorder_type: 'sample_preorder', product_slug: 'beles', size_interest: 'sample',
     source: 'smoke', utm_source: 'test', utm_medium: 'test', utm_campaign: 'preorder_smoke',
-    consent_version: '2026-07-10',
+    consent_version: '2026-07-11',
   };
   const completed = {
     id: 'evt_preorder_completed_smoke', object: 'event', type: 'checkout.session.completed',
     created: Math.floor(Date.now() / 1000),
     data: { object: {
       id: 'cs_test_preorder_smoke', payment_intent: 'pi_preorder_smoke',
-      customer_details: { email: 'founder-smoke@example.invalid' }, amount_total: 2800,
+      customer_details: { email: 'founder-smoke@example.invalid' }, amount_total: 6000,
       currency: 'eur', payment_status: 'paid', created: Math.floor(Date.now() / 1000), metadata,
     } },
   };
@@ -402,7 +402,7 @@ async function webhookLifecycleCheck() {
       throw new Error('Stripe webhook rejected a correctly signed completed event');
     }
     if (!record || record.product_slug !== 'beles' || record.preorder_type !== 'sample_preorder'
-      || record.customer_email !== 'founder-smoke@example.invalid' || record.amount_total !== 2800
+      || record.customer_email !== 'founder-smoke@example.invalid' || record.amount_total !== 6000
       || record.fulfillment_status !== 'pending' || record.source !== 'smoke'
       || lastCreateInput?.metadata?.utm_campaign !== 'preorder_smoke') {
       throw new Error('Completed webhook did not map required preorder fields');
@@ -423,8 +423,8 @@ async function webhookLifecycleCheck() {
       id: 'evt_preorder_refunded_smoke', object: 'event', type: 'charge.refunded',
       created: completed.created,
       data: { object: {
-        id: 'ch_preorder_smoke', payment_intent: 'pi_preorder_smoke', amount: 2800,
-        amount_refunded: 2800, refunded: true, metadata,
+        id: 'ch_preorder_smoke', payment_intent: 'pi_preorder_smoke', amount: 6000,
+        amount_refunded: 6000, refunded: true, metadata,
       } },
     };
     res = await invokeSignedWebhook(webhook, refunded, secret);
@@ -565,8 +565,8 @@ try {
   for (const file of journalFiles) {
     const html = readFileSync(new URL(`../${file}`, import.meta.url), 'utf8');
     for (const marker of [
-      'Enter the next Beles restock', 'Restock sample €28',
-      'Bottle reservation deposit €30', '/beles/preorder?source=journal_internal',
+      'Enter the next Beles restock', 'Restock sample €60',
+      'Bottle reservation deposit €90', '/beles/preorder?source=journal_internal',
     ]) {
       if (!html.includes(marker)) failures.push(`${file} missing Beles restock module marker: ${marker}`);
     }

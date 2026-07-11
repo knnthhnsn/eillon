@@ -1,5 +1,5 @@
 /** Beles paid restock catalog shared by the browser and Vercel functions. */
-const EILLON_PREORDER_CONSENT_VERSION = '2026-07-10';
+const EILLON_PREORDER_CONSENT_VERSION = '2026-07-11';
 
 const EILLON_PREORDER_PRODUCTS = [
   {
@@ -7,15 +7,15 @@ const EILLON_PREORDER_PRODUCTS = [
     productSlug: 'beles',
     title: 'Beles Restock Sample',
     type: 'sample_preorder',
-    price: 28,
+    price: 60,
     currency: 'EUR',
-    description: 'A 2 ml discovery vial from the next ready Beles batch.',
+    description: 'A 2 ml Beles sample from the next ready batch, fully credited toward a future full-size bottle.',
     expectedShipWindow:
       'Next ready Beles batch - dispatch begins after batch readiness and final inspection. No fixed release date is guaranteed.',
     refundPolicySummary:
       'Refundable on request before dispatch. After delivery, the published returns policy and mandatory consumer rights apply.',
     creditPolicy:
-      'The EUR 28 sample payment is credited toward one 50 ml or 100 ml Beles bottle purchased within 30 days after sample dispatch.',
+      'The EUR 60 sample payment is credited in full toward one 50 ml or 100 ml Beles bottle purchased within 30 days after sample dispatch.',
     stripePriceEnvKey: 'STRIPE_PRICE_BELES_SAMPLE_PREORDER',
     enabled: true,
   },
@@ -24,16 +24,16 @@ const EILLON_PREORDER_PRODUCTS = [
     productSlug: 'beles',
     title: 'Beles Bottle Reservation',
     type: 'bottle_deposit',
-    price: 30,
+    price: 90,
     currency: 'EUR',
     description:
-      'A refundable deposit securing a private purchase window for one 50 ml or 100 ml Beles bottle.',
+      'A fully refundable deposit securing a private purchase window for one 50 ml or 100 ml Beles bottle.',
     expectedShipWindow:
       'Private purchase timing follows the next ready Beles batch. The bottle dispatch window is confirmed before any final balance is requested.',
     refundPolicySummary:
-      'The EUR 30 deposit is refundable on request before shipment. If already applied to a final bottle order, a cancellation before dispatch includes that EUR 30 amount.',
+      'The EUR 90 deposit is refundable on request before shipment. If already applied to a final bottle order, a cancellation before dispatch includes that EUR 90 amount.',
     creditPolicy:
-      'The EUR 30 deposit is credited in full toward the final 50 ml or 100 ml purchase price.',
+      'The EUR 90 deposit is credited in full toward the final 50 ml or 100 ml purchase price.',
     stripePriceEnvKey: 'STRIPE_PRICE_BELES_BOTTLE_DEPOSIT',
     enabled: true,
   },

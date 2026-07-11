@@ -27,9 +27,9 @@
     '100': '100 ml',
   };
   const priceMap = {
-    'sample': 28,
-    '50': 170,
-    '100': 240,
+    'sample': 60,
+    '50': 380,
+    '100': 620,
   };
   const imageLabelMap = {
     'sample': 'SAMPLE',

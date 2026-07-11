@@ -33,9 +33,9 @@ window.EILLON_PRODUCTS = [
     ctaHover: 'We write when Beles returns',
     waitlistEnabled: true,
     formats: [
-      { id: 'sample', label: '2 ml sample', price: 28, currency: 'EUR', status: 'awaiting-next-release' },
-      { id: '50', label: '50 ml', price: 170, currency: 'EUR', status: 'awaiting-next-release' },
-      { id: '100', label: '100 ml', price: 240, currency: 'EUR', status: 'awaiting-next-release' },
+      { id: 'sample', label: '2 ml sample', price: 60, currency: 'EUR', status: 'awaiting-next-release' },
+      { id: '50', label: '50 ml', price: 380, currency: 'EUR', status: 'awaiting-next-release' },
+      { id: '100', label: '100 ml', price: 620, currency: 'EUR', status: 'awaiting-next-release' },
     ],
   },
   {

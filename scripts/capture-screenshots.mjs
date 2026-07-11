@@ -276,7 +276,7 @@ try {
       status: 'paid',
       preorder_type: 'sample_preorder',
       product_slug: 'beles',
-      amount_total: 2800,
+      amount_total: 6000,
       currency: 'eur',
       fulfillment_status: 'pending',
       size_interest: 'sample',
