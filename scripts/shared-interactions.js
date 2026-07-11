@@ -114,16 +114,88 @@
     img.decoding = 'async';
   };
 
-  const buildAccordCollage = (sources) => {
+  const appendDeferredHoverImage = (img, src, alt, options = {}) => {
+    img.dataset.hoverSrc = withImageVersion(src);
+    if (options.srcset) img.dataset.hoverSrcset = options.srcset;
+    if (options.sizes) img.sizes = options.sizes;
+    if (options.width) img.width = options.width;
+    if (options.height) img.height = options.height;
+    img.alt = alt;
+    img.loading = 'lazy';
+    img.decoding = 'async';
+    img.fetchPriority = 'low';
+  };
+
+  const buildAccordCollage = (sources, { deferred = false } = {}) => {
     const collage = document.createElement('div');
     collage.className = 'chapter-scent-collage';
     collage.setAttribute('aria-hidden', 'true');
     sources.forEach((src) => {
       const img = document.createElement('img');
-      appendLazyImage(img, src, '');
+      if (deferred) {
+        appendDeferredHoverImage(img, src, '', { width: 550, height: 550 });
+      } else {
+        appendLazyImage(img, src, '');
+      }
       collage.appendChild(img);
     });
     return collage;
+  };
+
+  const slugifyImageAsset = (value) => value
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+
+  const flattenProductNotes = (notes) => [
+    ...(notes?.top || []),
+    ...(notes?.heart || []),
+    ...(notes?.base || []),
+  ];
+
+  const buildShopHoverScene = (product) => {
+    if (!product.accordCollage?.length || !product.notes) return null;
+
+    const scene = document.createElement('div');
+    scene.className = 'product-card__hover-scene';
+    scene.setAttribute('aria-hidden', 'true');
+
+    const backdrop = buildAccordCollage(product.accordCollage, { deferred: true });
+    backdrop.classList.add('product-card__hover-backdrop');
+
+    const veil = document.createElement('span');
+    veil.className = 'product-card__hover-veil';
+
+    const noteField = document.createElement('span');
+    noteField.className = 'product-card__note-field';
+    flattenProductNotes(product.notes).forEach((note, index) => {
+      const noteImage = document.createElement('img');
+      noteImage.className = `product-card__note product-card__note--${index + 1}`;
+      noteImage.dataset.note = note;
+      appendDeferredHoverImage(
+        noteImage,
+        `images/store/notes/${product.slug}/${slugifyImageAsset(note)}-224.webp`,
+        '',
+        { width: 224, height: 224 }
+      );
+      noteField.appendChild(noteImage);
+    });
+
+    const bottle = document.createElement('img');
+    bottle.className = 'product-card__hover-bottle';
+    const bottleSmall = `images/store/bottles/${product.slug}-transparent-360.webp`;
+    const bottleLarge = `images/store/bottles/${product.slug}-transparent-720.webp`;
+    appendDeferredHoverImage(bottle, bottleSmall, '', {
+      srcset: `${withImageVersion(bottleSmall)} 360w, ${withImageVersion(bottleLarge)} 720w`,
+      sizes: '(max-width: 767px) 42vw, 300px',
+      width: 360,
+      height: 360,
+    });
+
+    scene.append(backdrop, veil, noteField, bottle);
+    return scene;
   };
 
   const CHAPTER_SIGNUP_SLUGS = new Set(['beles', 'oliva', 'asmara', 'massawa', 'petricor', 'ritual']);
@@ -142,14 +214,53 @@
     media.className = `product-card__media product-card__media--flacon chapter-cap-well chapter-cap-well--${product.slug}`;
 
     const img = document.createElement('img');
-    img.className = 'product-card__flacon';
+    img.className = 'product-card__flacon product-card__flacon--default';
     const cardImage = `images/flacon-${product.slug}-400.webp`;
     appendLazyImage(img, cardImage, `EILLON ${product.name} · ${product.subtitle} flacon`);
     img.srcset = `${withImageVersion(cardImage)} 400w, ${withImageVersion(product.image)} 900w`;
     img.sizes = '(max-width: 767px) calc((100vw - 52px) / 2), (max-width: 1100px) 46vw, 340px';
+    img.width = 400;
+    img.height = 500;
 
     media.appendChild(img);
+    const hoverScene = buildShopHoverScene(product);
+    if (hoverScene) media.appendChild(hoverScene);
     return media;
+  };
+
+  const hydrateShopHoverAssets = (card) => {
+    if (card.dataset.hoverAssetsReady === 'true') return;
+    card.dataset.hoverAssetsReady = 'true';
+
+    card.querySelectorAll('img[data-hover-src]').forEach((img) => {
+      img.src = img.dataset.hoverSrc;
+      if (img.dataset.hoverSrcset) img.srcset = img.dataset.hoverSrcset;
+      delete img.dataset.hoverSrc;
+      delete img.dataset.hoverSrcset;
+      img.decode?.().catch(() => {});
+    });
+  };
+
+  const initShopCardHoverAssets = (container) => {
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+    const cards = container.querySelectorAll('.product-card--shop');
+    const observer = 'IntersectionObserver' in window
+      ? new IntersectionObserver((entries, currentObserver) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            hydrateShopHoverAssets(entry.target);
+            currentObserver.unobserve(entry.target);
+          });
+        }, { rootMargin: '240px 0px', threshold: 0.01 })
+      : null;
+
+    cards.forEach((card) => {
+      card.addEventListener('pointerenter', () => hydrateShopHoverAssets(card), { once: true });
+      card.addEventListener('focus', () => hydrateShopHoverAssets(card), { once: true });
+      if (observer) observer.observe(card);
+      else hydrateShopHoverAssets(card);
+    });
   };
 
   const formatShopPrice = (product) => {
@@ -469,6 +580,7 @@
         products.forEach((product) => {
           container.appendChild(createShopProductCard(product));
         });
+        initShopCardHoverAssets(container);
         document.dispatchEvent(new Event('eillon:shop-grid-ready'));
         const mountShopShaders = () => {
           if (typeof window.__EILLON_MOUNT_SHADERS__ === 'function') {

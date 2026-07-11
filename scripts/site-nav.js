@@ -12,7 +12,13 @@
     };
     appendScript('/scripts/analytics.js?v=3');
     var loadShaders = function () {
-      appendScript('/scripts/site-shaders.js?v=61');
+      if (window.__EILLON_SITE_SHADERS_LOADING__) return;
+      if (document.querySelector('script[src*="/scripts/site-shaders.js"]')) {
+        window.__EILLON_SITE_SHADERS_LOADING__ = true;
+        return;
+      }
+      window.__EILLON_SITE_SHADERS_LOADING__ = true;
+      appendScript('/scripts/site-shaders.js?v=70');
     };
     var shaderTargets = document.querySelectorAll('.mv-shader, .mv-house, .mv-land, .mv-shader-band');
     if (document.body.dataset.navHome === 'true' && shaderTargets.length && 'IntersectionObserver' in window) {

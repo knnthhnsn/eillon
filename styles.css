@@ -5200,8 +5200,7 @@ a.product-card--link:focus-visible {
   box-shadow: inset 0 0 0 1px rgba(248, 246, 240, 0.14);
 }
 
-.product-card--shop .product-card__media--flacon img,
-.product-card--shop .product-card__flacon {
+.product-card--shop .product-card__media--flacon > .product-card__flacon {
   position: relative;
   inset: auto;
   display: block;
@@ -5218,6 +5217,179 @@ a.product-card--link:focus-visible {
 .product-card--shop:hover .product-card__flacon,
 .product-card--shop:focus-visible .product-card__flacon {
   transform: scale(1.03);
+}
+
+/* Store card scent reveal: scene imagery, transparent flacon, and note field. */
+.product-card--shop .product-card__flacon--default {
+  z-index: 2;
+  opacity: 1;
+  transition:
+    opacity 0.32s ease,
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.product-card__hover-scene {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.42s ease, visibility 0.42s ease;
+}
+
+.product-card__hover-backdrop.chapter-scent-collage {
+  z-index: 1;
+  opacity: 0.98;
+  transform: scale(1.06);
+  transition: transform 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.product-card__hover-backdrop.chapter-scent-collage img {
+  position: relative;
+  inset: auto;
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+  object-fit: cover !important;
+  object-position: center;
+}
+
+.product-card__hover-veil {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: rgba(7, 8, 7, 0.25);
+}
+
+.product-card__hover-bottle {
+  position: absolute;
+  z-index: 4;
+  left: 50%;
+  top: 50%;
+  display: block;
+  width: 84% !important;
+  height: 84% !important;
+  max-width: none !important;
+  max-height: none !important;
+  object-fit: contain !important;
+  object-position: center;
+  opacity: 0;
+  filter: drop-shadow(0 18px 16px rgba(0, 0, 0, 0.28));
+  transform: translate3d(-50%, -45%, 0) scale(0.9);
+  transition:
+    opacity 0.32s ease 0.04s,
+    transform 0.72s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.product-card__note-field {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+}
+
+.product-card__note {
+  --note-size: 20%;
+  --note-rotation: 0deg;
+  --note-duration: 4.4s;
+  --note-delay: 0s;
+  --note-from-x: -4px;
+  --note-from-y: 5px;
+  --note-to-x: 5px;
+  --note-to-y: -6px;
+  position: absolute;
+  display: block;
+  width: var(--note-size) !important;
+  height: auto !important;
+  max-width: none !important;
+  max-height: none !important;
+  aspect-ratio: 1;
+  object-fit: contain !important;
+  opacity: 0;
+  filter: drop-shadow(0 7px 8px rgba(0, 0, 0, 0.24));
+  transform: translate3d(var(--note-from-x), var(--note-from-y), 0)
+    rotate(var(--note-rotation)) scale(0.72);
+  transition: opacity 0.28s ease, transform 0.46s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.product-card__note--1 { --note-size: 23%; --note-rotation: -8deg; --note-delay: -0.7s; top: 2%; left: 1%; }
+.product-card__note--2 { --note-size: 18%; --note-rotation: 5deg; --note-duration: 5.1s; --note-delay: -2.1s; top: 1%; left: 41%; }
+.product-card__note--3 { --note-size: 22%; --note-rotation: 8deg; --note-duration: 4.7s; --note-delay: -1.2s; top: 3%; right: 1%; }
+.product-card__note--4 { --note-size: 21%; --note-rotation: -10deg; --note-duration: 5.3s; --note-delay: -2.8s; top: 35%; left: -4%; }
+.product-card__note--5 { --note-size: 20%; --note-rotation: 9deg; --note-duration: 4.1s; --note-delay: -0.9s; top: 35%; right: -4%; }
+.product-card__note--6 { --note-size: 19%; --note-rotation: -6deg; --note-duration: 4.9s; --note-delay: -3.1s; bottom: 26%; left: 1%; }
+.product-card__note--7 { --note-size: 20%; --note-rotation: 7deg; --note-duration: 5.4s; --note-delay: -1.6s; bottom: 25%; right: 0; }
+.product-card__note--8 { --note-size: 20%; --note-rotation: -5deg; --note-duration: 4.3s; --note-delay: -2.4s; bottom: 1%; left: 17%; }
+.product-card__note--9 { --note-size: 21%; --note-rotation: 6deg; --note-duration: 5s; --note-delay: -0.3s; bottom: 1%; right: 16%; }
+
+@keyframes store-note-drift {
+  from {
+    transform: translate3d(var(--note-from-x), var(--note-from-y), 0)
+      rotate(calc(var(--note-rotation) - 2deg)) scale(0.94);
+  }
+  to {
+    transform: translate3d(var(--note-to-x), var(--note-to-y), 0)
+      rotate(calc(var(--note-rotation) + 3deg)) scale(1.04);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .product-card--shop:hover .product-card__flacon--default,
+  .product-card--shop:focus-visible .product-card__flacon--default {
+    opacity: 0;
+    transform: scale(1.035);
+  }
+
+  .product-card--shop:hover .product-card__hover-scene,
+  .product-card--shop:focus-visible .product-card__hover-scene {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .product-card--shop:hover .product-card__hover-backdrop,
+  .product-card--shop:focus-visible .product-card__hover-backdrop {
+    transform: scale(1);
+  }
+
+  .product-card--shop:hover .product-card__hover-bottle,
+  .product-card--shop:focus-visible .product-card__hover-bottle {
+    opacity: 1;
+    transform: translate3d(-50%, -50%, 0) scale(1);
+  }
+
+  .product-card--shop:hover .product-card__note,
+  .product-card--shop:focus-visible .product-card__note {
+    opacity: 0.76;
+    animation: store-note-drift var(--note-duration) ease-in-out var(--note-delay) infinite alternate;
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .product-card__hover-scene { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product-card__hover-scene,
+  .product-card__hover-backdrop,
+  .product-card__hover-bottle,
+  .product-card__note,
+  .product-card__flacon--default {
+    transition-duration: 0.15s !important;
+  }
+
+  .product-card--shop:hover .product-card__hover-backdrop,
+  .product-card--shop:focus-visible .product-card__hover-backdrop {
+    transform: none;
+  }
+
+  .product-card--shop:hover .product-card__note,
+  .product-card--shop:focus-visible .product-card__note {
+    animation: none;
+    transform: rotate(var(--note-rotation)) scale(1);
+  }
 }
 
 .product-card__shop-body {
