@@ -1663,8 +1663,8 @@
   });
 
   const belesRestockSticky = document.getElementById('belesRestockSticky');
-  const belesProofLayer = document.getElementById('proof');
-  if (belesRestockSticky && belesProofLayer) {
+  const belesStickyAnchor = shopImage || document.getElementById('proof');
+  if (belesRestockSticky && belesStickyAnchor) {
     const stickyMobileMq = window.matchMedia('(max-width: 900px)');
     const syncSticky = (visible) => {
       belesRestockSticky.hidden = !visible;
@@ -1676,11 +1676,11 @@
           syncSticky(false);
           return;
         }
-        syncSticky(!entry.isIntersecting);
+        syncSticky(!entry.isIntersecting && entry.boundingClientRect.bottom <= 0);
       },
       { threshold: 0 },
     );
-    stickyObserver.observe(belesProofLayer);
+    stickyObserver.observe(belesStickyAnchor);
     stickyMobileMq.addEventListener('change', () => {
       if (!stickyMobileMq.matches) syncSticky(false);
     });

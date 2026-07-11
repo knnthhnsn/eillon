@@ -2318,11 +2318,20 @@ body[data-nav-home="true"] .hero__cta .btn--primary:hover {
 .shop__image::after {
   content: attr(data-selected-volume);
   position: absolute;
-  bottom: 24px; right: 24px;
+  right: 20px;
+  bottom: 20px;
+  z-index: 4;
+  padding: 7px 8px 7px 11px;
   font-size: 10.5px;
-  letter-spacing: 0.24em;
-  color: var(--ink-faint);
+  line-height: 1;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.94);
   font-weight: 500;
+  background: rgba(8, 14, 10, 0.64);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 22px rgba(8, 14, 10, 0.18);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 .shop__image-inner {
   position: absolute;
@@ -2389,22 +2398,22 @@ body[data-nav-home="true"] .hero__cta .btn--primary:hover {
   width: auto;
 }
 .shop__image[data-product-size="sample"] .shop__image-layer--bottle img.shop__image-product-cutout {
-  width: min(88%, 340px);
+  width: min(48%, 220px);
   height: auto;
-  max-width: min(88%, 340px);
+  max-width: min(48%, 220px);
   max-height: none;
 }
 .shop__image[data-product-size="50"] .shop__image-layer--bottle img.shop__image-product-cutout {
-  width: min(72%, 340px);
+  width: min(82%, 410px);
   height: auto;
-  max-width: min(72%, 340px);
-  max-height: min(72%, 560px);
+  max-width: min(82%, 410px);
+  max-height: min(84%, 620px);
 }
 .shop__image[data-product-size="100"] .shop__image-layer--bottle img.shop__image-product-cutout {
-  width: min(84%, 420px);
+  width: min(96%, 500px);
   height: auto;
-  max-width: min(84%, 420px);
-  max-height: min(86%, 680px);
+  max-width: min(96%, 500px);
+  max-height: min(94%, 720px);
 }
 .shop__image[data-product-size="sample"] .shop__image-layer--setting {
   opacity: 0 !important;
@@ -2445,6 +2454,22 @@ body[data-nav-home="true"] .hero__cta .btn--primary:hover {
   opacity: 0;
   transform: scale(1.02);
   z-index: 0;
+}
+.shop__image--still-reveal .shop__image-layer--setting picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.shop__image--still-reveal .shop__image-layer--setting::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(18, 20, 15, 0.08), rgba(18, 20, 15, 0.3));
+  pointer-events: none;
+}
+.shop__image--still-reveal .shop__image-layer--setting img {
+  filter: saturate(0.86) contrast(0.94);
+  object-position: center center;
 }
 
 .shop__image-layer--atmosphere {
@@ -4419,9 +4444,13 @@ body.is-loaded .scroll-progress { opacity: 1; }
   .shop__image-layer--bottle img {
     margin-inline: auto;
   }
-  .shop__image[data-product-size="50"] .shop__image-layer--bottle img,
-  .shop__image[data-product-size="100"] .shop__image-layer--bottle img {
-    max-width: min(78%, 320px);
+  .shop--beles .shop__image[data-product-size="50"] .shop__image-layer--bottle img.shop__image-product-cutout {
+    width: min(86%, 380px);
+    max-width: min(86%, 380px);
+  }
+  .shop--beles .shop__image[data-product-size="100"] .shop__image-layer--bottle img.shop__image-product-cutout {
+    width: min(96%, 480px);
+    max-width: min(96%, 480px);
   }
 
   .footer__top { grid-template-columns: 1fr; }
@@ -4630,6 +4659,24 @@ body.is-loaded .scroll-progress { opacity: 1; }
   }
 }
 
+@keyframes beles-mobile-bottle-on-still {
+  from {
+    transform: scale(1);
+    filter: drop-shadow(0 28px 52px rgba(28, 28, 26, 0.16));
+  }
+  to {
+    transform: translateY(-1%) scale(1.03);
+    filter: drop-shadow(0 22px 42px rgba(10, 12, 8, 0.4));
+  }
+}
+
+@media (max-width: 900px) {
+  .shop--beles .shop__image--still-reveal[data-product-size="50"].is-beles-revealing .shop__image-layer--bottle img,
+  .shop--beles .shop__image--still-reveal[data-product-size="100"].is-beles-revealing .shop__image-layer--bottle img {
+    animation-name: beles-mobile-bottle-on-still;
+  }
+}
+
 @media (max-width: 720px) {
   .search-panel { place-items: stretch; }
   .search-panel__results a {
@@ -4780,6 +4827,38 @@ body.is-loaded .scroll-progress { opacity: 1; }
     transform: none;
     object-position: left bottom;
     filter: drop-shadow(0 6px 14px rgba(28, 28, 26, 0.2));
+  }
+
+  .shop--beles .shop__image--still-reveal[data-product-size="50"]:hover .shop__image-layer--bottle picture,
+  .shop--beles .shop__image--still-reveal[data-product-size="100"]:hover .shop__image-layer--bottle picture {
+    position: static;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .shop--beles .shop__image--still-reveal[data-product-size="50"]:hover .shop__image-layer--bottle img {
+    width: min(82%, 410px);
+    height: auto;
+    max-width: min(82%, 410px);
+    max-height: min(84%, 620px);
+    margin: auto;
+    object-position: center;
+    transform: translateY(-1%) scale(1.03);
+    filter: drop-shadow(0 24px 46px rgba(10, 12, 8, 0.42));
+  }
+
+  .shop--beles .shop__image--still-reveal[data-product-size="100"]:hover .shop__image-layer--bottle img {
+    width: min(96%, 500px);
+    height: auto;
+    max-width: min(96%, 500px);
+    max-height: min(94%, 720px);
+    margin: auto;
+    object-position: center;
+    transform: translateY(-1%) scale(1.03);
+    filter: drop-shadow(0 24px 46px rgba(10, 12, 8, 0.42));
   }
 
   body.is-loaded .hero__bottle-link:hover .hero__bottle,
