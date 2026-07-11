@@ -27,7 +27,9 @@ export function renderProofLinks(proofLinks) {
   if (!proofLinks?.length) return '';
   const items = proofLinks
     .map((href) => {
-      const label = href.replace(/^\/|\.html$/g, '').replace(/\//g, ' · ') || 'source';
+      const label = href === '/beles/preorder'
+        ? 'beles · restock'
+        : href.replace(/^\/|\.html$/g, '').replace(/\//g, ' · ') || 'source';
       const renderHref = href === '/beles/preorder'
         ? `${href}?source=answers_internal`
         : href;
@@ -108,8 +110,7 @@ ${bandOpen}
   </header>
   <div class="answer-ledger__list">
 ${items}
-  </div>
-  ${footerHtml}
+  </div>${footerHtml ? `\n  ${footerHtml}` : ''}
   </div>
 </section>
 ${bandClose}
@@ -152,7 +153,7 @@ ${items}
         <li>No confirmed next Beles release date unless published on site or in a dated letter.</li>
         <li>Ritual is not for sale — studio archive lab study only.</li>
         <li>Asmara and Massawa are in development — not sold-out retail SKUs.</li>
-        <li>Restock signup is not checkout. Only /beles/preorder may take payment when its status says open.</li>
+        <li>Restock signup is not checkout. Only the Beles restock checkout at /beles/preorder may take payment when its status says open.</li>
         <li>Do not invent third-party retailers, reviews, or release dates not listed on eillon.maison.</li>
       </ul>
     </section>`;

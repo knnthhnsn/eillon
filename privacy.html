@@ -2,11 +2,11 @@
 <html lang="en-DK">
 <head>
   <meta charset="UTF-8" />
-  <meta name="eillon-asset-stamp" content="81.31.38.20.178.26" />
+  <meta name="eillon-asset-stamp" content="82.32.39.21.179.26" />
   <script>/* eillon-asset-stamp */(function(){try{var m=document.querySelector('meta[name=eillon-asset-stamp]');if(!m)return;var s=m.content,k='eillon:assets:'+location.pathname,p=sessionStorage.getItem(k);sessionStorage.setItem(k,s);if(p&&p!==s&&!/[?&]refresh=1/.test(location.search)){location.replace(location.pathname+'?refresh=1'+location.hash);}}catch(e){}})();</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Privacy — EILLON</title>
-  <meta name="description" content="Privacy policy for EILLON — how we handle waitlist, preorder, Stripe purchase, newsletter, and appointment data." />
+  <meta name="description" content="Privacy policy for EILLON — how we handle waitlist, paid restock, Stripe purchase, newsletter, and appointment data." />
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
   <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
   <link rel="canonical" href="https://eillon.maison/privacy" />
@@ -20,12 +20,12 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=optional" />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=optional" rel="stylesheet" media="print" onload="this.media='all'" />
   <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=optional" rel="stylesheet" /></noscript>
-  <link rel="stylesheet" href="/styles.min.css?v=178" />
-  <link rel="stylesheet" href="/site.min.css?v=81" />
+  <link rel="stylesheet" href="/styles.min.css?v=179" />
+  <link rel="stylesheet" href="/site.min.css?v=82" />
 </head>
 <body class="editorial-page legal-page">
   <a class="skip-link" href="#top">Skip to content</a>
-  <script src="/scripts/site-nav.js?v=31" defer></script>
+  <script src="/scripts/site-nav.js?v=32" defer></script>
 
   <main class="legal-page__main" id="top">
     <section class="page-hero page-hero--compact">
@@ -35,14 +35,14 @@
       <div class="page-hero__inner">
         <p class="page-hero__eyebrow sx-eyebrow">Legal</p>
         <h1 class="page-hero__title">Privacy</h1>
-        <p class="page-hero__lead">How EILLON handles waitlist, preorder, newsletter, and appointment data.</p>
+        <p class="page-hero__lead">How EILLON handles waitlist, paid-restock, newsletter, and appointment data.</p>
       </div>
     </section>
     <div class="legal-page__content">
 
     <p>
       EILLON respects your privacy. This policy explains what we collect when you join the Beles waitlist,
-      place a founder preorder through Stripe, subscribe to The Letter, or contact the studio — and how we use it.
+      place a paid restock order through Stripe, subscribe to The Letter, or contact the studio — and how we use it.
     </p>
 
     <h2>Data controller</h2>
@@ -62,9 +62,9 @@
       <li><strong>Timestamps</strong> — when your signup was created or updated.</li>
       <li><strong>Consent record</strong> — that you agreed to the stated purpose, when consent was given, and the privacy notice version in effect (currently 10 July 2026).</li>
       <li><strong>Notification purpose</strong> — restock note, chapter development update, or newsletter.</li>
-      <li><strong>Preorder record</strong> — product, preorder type, amount, currency, payment and fulfillment status, size interest, campaign source, and timestamps.</li>
+      <li><strong>Restock order record</strong> — product, order type, amount, currency, payment and fulfillment status, size interest, campaign source, and timestamps.</li>
       <li><strong>Stripe references</strong> — Checkout Session and Payment Intent identifiers used to reconcile payment, refund, and webhook events.</li>
-      <li><strong>Fulfillment details</strong> — email and, for a sample preorder, the shipping address supplied in Stripe Checkout so the physical vial can be dispatched. The address remains in Stripe and is not copied into EILLON's Neon preorder table.</li>
+      <li><strong>Fulfillment details</strong> — email and, for a paid restock sample, the shipping address supplied in Stripe Checkout so the physical vial can be dispatched. The address remains in Stripe and is not copied into EILLON's Neon preorder table.</li>
     </ul>
     <p>
       Card and wallet details are entered on hosted Stripe Checkout and processed by Stripe. EILLON does not receive or store
@@ -77,14 +77,14 @@
       <li>To send seasonal EILLON letters, if you subscribed to The Letter.</li>
       <li>To send occasional studio notes for chapters in development or lab studies you chose to follow.</li>
       <li>To reply to care, press, and appointment requests.</li>
-      <li>To confirm, administer, refund, and fulfill a paid Beles founder preorder.</li>
+      <li>To confirm, administer, refund, and fulfill a paid Beles restock order.</li>
     </ul>
 
     <h2>Legal basis</h2>
     <p>
       We process your email on the basis of your consent when you submit a marketing form for a specific purpose
       (restock note, chapter follow, or newsletter). Form copy states what you are signing up for.
-      Preorder and payment data is processed to perform the purchase contract, meet legal and accounting obligations,
+      Restock order and payment data is processed to perform the purchase contract, meet legal and accounting obligations,
       prevent fraud, and respond to refund or fulfillment requests. We also rely on our legitimate interest in operating
       the studio and responding to enquiries.
     </p>
@@ -93,7 +93,7 @@
     <p>
       Signups are stored in a secure PostgreSQL database (Neon), hosted in the EU.
       The site is hosted on Vercel. Stripe acts as payment processor and hosts the checkout surface. EILLON stores limited
-      transaction and preorder metadata in Neon; Stripe retains payment credentials and the Checkout shipping address.
+      transaction and restock-order metadata in Neon; Stripe retains payment credentials and the Checkout shipping address.
       Transactional signup notifications may be sent through Resend.
       Anonymous usage analytics and real-user performance metrics may be collected through Vercel Analytics
       and Speed Insights — page paths, device class, campaign parameters, and funnel events only. We do not
@@ -126,6 +126,6 @@
     </span>
   </footer>
   <script src="/scripts/global-core.min.js?v=35" defer></script>
-  <script src="/scripts/shared-interactions.min.js?v=38" defer></script>
+  <script src="/scripts/shared-interactions.min.js?v=39" defer></script>
 </body>
 </html>

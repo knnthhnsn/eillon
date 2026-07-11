@@ -22,6 +22,13 @@ const SPLITS = [
   { name: 'preorder', src: 'preorder.js' },
 ];
 
+const existingBundles = new Map(
+  SPLITS.map(({ name }) => {
+    const path = join(scriptsDir, `${name}.min.js`);
+    return [name, existsSync(path) ? readFileSync(path, 'utf8') : ''];
+  }),
+);
+
 function minify(inputPath, outputPath) {
   execSync(`npx terser "${inputPath}" -o "${outputPath}" -c -m`, {
     cwd: root,
@@ -74,14 +81,18 @@ for (const split of SPLITS) {
 
 buildLegacyScript();
 
-const stamp = `/* EILLON JS splits v${BUNDLE_VERSION} — built ${new Date().toISOString()} */\n`;
+const freshStamp = `/* EILLON JS splits v${BUNDLE_VERSION} — built ${new Date().toISOString()} */`;
 for (const split of SPLITS) {
   const minPath = join(scriptsDir, `${split.name}.min.js`);
   if (existsSync(minPath)) {
     const content = readFileSync(minPath, 'utf8');
-    if (!content.startsWith('/* EILLON')) {
-      writeFileSync(minPath, stamp + content);
-    }
+    const previous = existingBundles.get(split.name) || '';
+    const previousStamp = previous.match(/^(\/\* EILLON JS splits[^\n]+\*\/)/)?.[1];
+    const previousBody = previous
+      .replace(/^\/\* EILLON JS splits[^\n]+\*\/\r?\n/, '')
+      .replace(/\r?\n$/, '');
+    const stamp = previousStamp && previousBody === content ? previousStamp : freshStamp;
+    writeFileSync(minPath, `${stamp}\n${content}`);
   }
 }
 

@@ -860,17 +860,11 @@
   ];
 
   const buildShopHoverScene = (product) => {
-    if (!product.accordCollage?.length || !product.notes) return null;
+    if (!product.notes) return null;
 
     const scene = document.createElement('div');
     scene.className = 'product-card__hover-scene';
     scene.setAttribute('aria-hidden', 'true');
-
-    const backdrop = buildAccordCollage(product.accordCollage, { deferred: true });
-    backdrop.classList.add('product-card__hover-backdrop');
-
-    const veil = document.createElement('span');
-    veil.className = 'product-card__hover-veil';
 
     const noteField = document.createElement('span');
     noteField.className = 'product-card__note-field';
@@ -898,7 +892,7 @@
       height: 360,
     });
 
-    scene.append(backdrop, veil, noteField, bottle);
+    scene.append(noteField, bottle);
     return scene;
   };
 

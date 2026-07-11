@@ -1,17 +1,17 @@
-/** Beles founder preorder catalog shared by the browser and Vercel functions. */
+/** Beles paid restock catalog shared by the browser and Vercel functions. */
 const EILLON_PREORDER_CONSENT_VERSION = '2026-07-10';
 
 const EILLON_PREORDER_PRODUCTS = [
   {
     id: 'beles-founder-sample',
     productSlug: 'beles',
-    title: 'Founder Sample Preorder',
+    title: 'Beles Restock Sample',
     type: 'sample_preorder',
     price: 28,
     currency: 'EUR',
-    description: 'A 2 ml discovery vial from the first Beles founder batch.',
+    description: 'A 2 ml discovery vial from the next ready Beles batch.',
     expectedShipWindow:
-      'First founder batch - dispatch begins after batch readiness and final inspection. No fixed release date is guaranteed.',
+      'Next ready Beles batch - dispatch begins after batch readiness and final inspection. No fixed release date is guaranteed.',
     refundPolicySummary:
       'Refundable on request before dispatch. After delivery, the published returns policy and mandatory consumer rights apply.',
     creditPolicy:
@@ -22,14 +22,14 @@ const EILLON_PREORDER_PRODUCTS = [
   {
     id: 'beles-founder-bottle-deposit',
     productSlug: 'beles',
-    title: 'Founder Bottle Reservation',
+    title: 'Beles Bottle Reservation',
     type: 'bottle_deposit',
     price: 30,
     currency: 'EUR',
     description:
       'A refundable deposit securing a private purchase window for one 50 ml or 100 ml Beles bottle.',
     expectedShipWindow:
-      'Private purchase timing follows the first founder batch. The bottle dispatch window is confirmed before any final balance is requested.',
+      'Private purchase timing follows the next ready Beles batch. The bottle dispatch window is confirmed before any final balance is requested.',
     refundPolicySummary:
       'The EUR 30 deposit is refundable on request before shipment. If already applied to a final bottle order, a cancellation before dispatch includes that EUR 30 amount.',
     creditPolicy:

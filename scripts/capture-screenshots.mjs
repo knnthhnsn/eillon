@@ -219,7 +219,7 @@ try {
   await wait(800);
   captured.push(await snap(mobile, 'beles-shop-mobile', { fullPage: false }));
 
-  /* Beles founder preorder (feature disabled by default) */
+  /* Beles paid restock (feature disabled by default) */
   await desktop.goto(`${BASE}/beles/preorder`, { waitUntil: 'networkidle', timeout: 45000 });
   await wait(800);
   const desktopPreorderState = await desktop.evaluate(() => ({
@@ -296,7 +296,7 @@ try {
       storedUtm: sessionStorage.getItem('eillon_utm'),
     };
   });
-  if (openState.buttonCount !== 2 || !openState.allEnabled || openState.status !== 'Founder preorder checkout is open') {
+  if (openState.buttonCount !== 2 || !openState.allEnabled || openState.status !== 'Next restock checkout is open') {
     throw new Error('Launch-ready preorder config did not enable both visible checkout controls.');
   }
   if (openState.schema?.offers?.availability !== 'https://schema.org/PreOrder') {

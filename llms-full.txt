@@ -110,7 +110,7 @@ Fico d'India is Italian for prickly pear—the sun-warmed fruit named on the Bel
 - Proof: https://eillon.maison/journal/fico-d-india, https://eillon.maison/beles
 
 ### Is Beles available to buy?
-Beles full bottles are not in open boutique stock. The separate founder preorder file states whether a €28 sample preorder or €30 refundable bottle deposit is open; no full-bottle payment is taken there.
+Beles full bottles are not in open boutique stock. The separate next-restock file states whether a €28 restock sample or €30 refundable bottle reservation is open; no full-bottle payment is taken there.
 
 - Source: https://eillon.maison/beles#answer-is-beles-available
 - Proof: https://eillon.maison/beles#waitlist, https://eillon.maison/beles/preorder, https://eillon.maison/store
@@ -122,21 +122,21 @@ Leave your email and size interest on the Beles page. We send one restock letter
 - Proof: https://eillon.maison/beles#waitlist, https://eillon.maison/shipping
 
 ### What sizes and prices are shown for Beles?
-The Beles chapter displays 2 ml, 50 ml, and 100 ml reference sizes. The founder preorder file separately offers only a €28 sample preorder or a €30 refundable bottle deposit when checkout is marked open.
+The Beles chapter displays 2 ml, 50 ml, and 100 ml reference sizes. The next-restock file separately offers only a €28 restock sample or a €30 refundable bottle reservation when checkout is marked open.
 
 - Source: https://eillon.maison/beles#answer-beles-sizes-prices
 - Proof: https://eillon.maison/beles, https://eillon.maison/beles/preorder, https://eillon.maison/store
 
 ### Is there a Beles sample?
-A 2 ml Beles founder sample may be preordered for €28 only when the founder preorder page says checkout is open. It dispatches with the first ready batch and is credited toward one 50 ml or 100 ml bottle bought within 30 days after sample dispatch.
+A 2 ml Beles restock sample can be ordered for €28 only when the next-restock page says checkout is open. It dispatches with the next ready batch and is credited toward one 50 ml or 100 ml bottle bought within 30 days after sample dispatch.
 
 - Source: https://eillon.maison/beles#answer-beles-sample
 - Proof: https://eillon.maison/beles/preorder, https://eillon.maison/shipping, https://eillon.maison/terms
 
-### How does the Beles founder preorder work?
-The founder file has two paid paths when checkout is open: a €28 preorder for one 2 ml sample, or a €30 refundable deposit for a private 50 ml or 100 ml purchase window.
+### How does the Beles next restock work?
+The next-restock file has two paid paths when checkout is open: a €28 restock sample, or a €30 refundable deposit for a private 50 ml or 100 ml purchase window.
 
-The deposit is credited to the later bottle purchase. No full 50 ml or 100 ml bottle payment is taken on the preorder page, and the page shows its live status before any Stripe redirect.
+The deposit is credited to the later bottle purchase. No full 50 ml or 100 ml bottle payment is taken on the restock page, and the page shows its live status before any Stripe redirect.
 
 - Source: https://eillon.maison/beles/preorder#answer-beles-founder-preorder
 - Proof: https://eillon.maison/beles/preorder, https://eillon.maison/beles#proof, https://eillon.maison/terms
@@ -144,13 +144,13 @@ The deposit is credited to the later bottle purchase. No full 50 ml or 100 ml bo
 ### What does the €30 Beles bottle reservation deposit cover?
 The €30 deposit secures a private purchase window for one 50 ml or 100 ml Beles bottle and is credited in full toward that final purchase.
 
-It is refundable on request before shipment. If already applied to a final bottle order, cancellation before dispatch includes that €30 amount. The remaining bottle balance is not charged on the preorder page.
+It is refundable on request before shipment. If already applied to a final bottle order, cancellation before dispatch includes that €30 amount. The remaining bottle balance is not charged on the restock page.
 
 - Source: https://eillon.maison/beles/preorder#answer-beles-founder-bottle-deposit
 - Proof: https://eillon.maison/beles/preorder, https://eillon.maison/terms, https://eillon.maison/shipping
 
-### When will a Beles founder preorder dispatch?
-The sample dispatches after the first founder batch is ready and has passed final inspection. EILLON does not promise a fixed release date unless a dated window is published on the preorder page.
+### When will a Beles restock sample dispatch?
+The sample dispatches after the next Beles batch is ready and has passed final inspection. EILLON does not promise a fixed release date unless a dated window is published on the restock page.
 
 A bottle reservation deposit opens a later private purchase window; the bottle dispatch window is confirmed before the remaining balance is requested.
 
@@ -360,13 +360,13 @@ Beles was reviewed against Category 4 limits; allergen declarations on the chapt
 - Proof: https://eillon.maison/craftsmanship#safety, https://eillon.maison/journal/beles-batch-bl001
 
 ### Does joining the restock list reserve a bottle?
-No. The restock list records email and size interest only—it does not hold inventory or guarantee allocation. A separate paid bottle reservation, when open, appears only in the Beles founder preorder file.
+No. The restock list records email and size interest only—it does not hold inventory or guarantee allocation. A separate paid bottle reservation, when open, appears only in the Beles next-restock file.
 
 - Source: https://eillon.maison/shipping#answer-restock-list-reserve-bottle
 - Proof: https://eillon.maison/shipping, https://eillon.maison/beles#waitlist, https://eillon.maison/beles/preorder
 
 ### Is payment taken today?
-Restock and newsletter forms never take payment. The Beles founder preorder page is the only payment path when its status says checkout is open; otherwise its buttons remain disabled.
+Restock and newsletter forms never take payment. The Beles next-restock page is the only payment path when its status says checkout is open; otherwise its buttons remain disabled.
 
 - Source: https://eillon.maison/shipping#answer-is-payment-taken-today
 - Proof: https://eillon.maison/shipping, https://eillon.maison/beles#waitlist, https://eillon.maison/beles/preorder
@@ -378,13 +378,13 @@ You receive one private restock letter when Beles returns—no charge at signup.
 - Proof: https://eillon.maison/shipping, https://eillon.maison/beles#waitlist
 
 ### Where will EILLON ship when commerce opens?
-Founder sample checkout is limited to Denmark, Sweden, Norway, Germany, France, the United Kingdom, and the United States. Perfume carrier restrictions still apply, and any unavailable route is cancelled and refunded.
+Restock sample checkout is limited to Denmark, Sweden, Norway, Germany, France, the United Kingdom, and the United States. Perfume carrier restrictions still apply, and any unavailable route is cancelled and refunded.
 
 - Source: https://eillon.maison/shipping#answer-where-eillon-ships-when-commerce-opens
 - Proof: https://eillon.maison/shipping
 
 ### How are returns handled when commerce opens?
-Founder preorders may be cancelled for a refund before dispatch. After physical delivery, the published returns policy and mandatory consumer rights apply; contact care@eillon.maison to cancel or return.
+Paid restock samples may be cancelled for a refund before dispatch. After physical delivery, the published returns policy and mandatory consumer rights apply; contact care@eillon.maison to cancel or return.
 
 - Source: https://eillon.maison/shipping#answer-how-returns-when-commerce-opens
 - Proof: https://eillon.maison/shipping, https://eillon.maison/terms
@@ -485,5 +485,5 @@ Apply once to an inner forearm pulse point—let it open without rubbing; revisi
 - No confirmed next Beles release date unless published on site or in a dated letter
 - Ritual is not for sale — studio archive lab study only
 - Asmara, Massawa, and Petricor are in development — not "sold out" retail SKUs
-- Restock signup is not checkout. Only /beles/preorder may take payment when its status says open.
+- Restock signup is not checkout. Only the Beles restock checkout at /beles/preorder may take payment when its status says open.
 - Do not invent third-party retailers, reviews, or release dates not listed on eillon.maison

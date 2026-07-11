@@ -107,7 +107,7 @@
             <line x1="20" y1="20" x2="16" y2="16"></line>
           </svg>
         </button>
-        <a class="nav__waitlist" href="${preorderHref}?source=site_nav" data-i18n="nav.preorder">Preorder</a>
+        <a class="nav__waitlist" href="${preorderHref}?source=site_nav" data-i18n="nav.preorder">Restock</a>
       </div>
     </div>
   </header>
@@ -116,7 +116,7 @@
     <button class="mobile-nav__backdrop" type="button" tabindex="-1" data-menu-close aria-label="Close menu"></button>
     <div class="mobile-nav__panel">
       ${mobileLinks}
-      <a href="${preorderHref}?source=mobile_nav" data-menu-link data-i18n="nav.preorder">Preorder</a>
+      <a href="${preorderHref}?source=mobile_nav" data-menu-link data-i18n="nav.preorder">Restock</a>
       <button type="button" class="mobile-nav__story" data-maison-story-open data-i18n="nav.story">Our story</button>
     </div>
   </div>
@@ -153,9 +153,9 @@
           <span>Beles · Fico d'India</span>
           <small>Oil-rich parfum — full product page</small>
         </a>
-        <a href="${preorderHref}?source=site_search" data-search-item data-search-keywords="beles founder preorder sample deposit reserve reservation checkout">
-          <span>Beles founder preorder</span>
-          <small>2 ml sample or refundable bottle reservation</small>
+        <a href="${preorderHref}?source=site_search" data-search-item data-search-keywords="beles next restock sample deposit reserve reservation checkout preorder">
+          <span>Beles next restock</span>
+          <small>2 ml restock sample or refundable bottle reservation</small>
         </a>
         <a href="/oliva" data-search-item data-search-keywords="oliva olive grove in development chapter">
           <span>Oliva · Olive Grove</span>
@@ -424,7 +424,7 @@
         <div>
           <h4>Boutique</h4>
           <ul>
-            <li><a href="${preorderHref}?source=footer">Beles founder preorder</a></li>
+            <li><a href="${preorderHref}?source=footer">Beles next restock</a></li>
             <li><a href="/beles">Beles · Fico d'India</a></li>
             <li><a href="/store">All chapters</a></li>
             <li><a href="${waitlistHref}">Restock list</a></li>

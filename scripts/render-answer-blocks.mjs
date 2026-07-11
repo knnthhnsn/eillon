@@ -30,7 +30,7 @@ const PAGE_LEDGER_OPTIONS = {
     collapsible: true,
   },
   'beles/preorder.html': {
-    title: 'Founder preorder answers',
+    title: 'Next restock answers',
     lede: 'Payment, credit, cancellation, and dispatch terms filed before checkout.',
     modifier: 'answer-ledger--editorial',
     collapsible: true,

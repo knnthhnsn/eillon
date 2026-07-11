@@ -28,7 +28,7 @@ window.EILLON_PRODUCTS = [
     image: 'images/flacon-beles-1100.webp',
     fallbackImage: 'images/beles-luxury-1254.jpg',
     url: '/beles',
-    storeStatusLabel: 'Founder preorder',
+    storeStatusLabel: 'Next restock',
     ctaLabel: 'Join restock list',
     ctaHover: 'We write when Beles returns',
     waitlistEnabled: true,

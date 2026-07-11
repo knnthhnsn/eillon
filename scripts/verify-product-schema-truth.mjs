@@ -90,8 +90,8 @@ for (const file of htmlFiles) {
   if (hasPreorder && path !== 'beles/preorder.html') {
     failures.push(`${path}: PreOrder schema is allowed only on beles/preorder.html`);
   }
-  if (hasPreorder && !/(paid founder preorder|paid offer|paid validation window)/i.test(text)) {
-    failures.push(`${path}: PreOrder schema has no visible paid preorder copy`);
+  if (hasPreorder && !/(paid restock|pre-order contract|paid offer|paid validation window)/i.test(text)) {
+    failures.push(`${path}: PreOrder schema has no visible paid restock disclosure`);
   }
 }
 
@@ -116,9 +116,9 @@ if (!existsSync(preorderPagePath)) {
   const html = readFileSync(preorderPagePath, 'utf8');
   const text = visibleText(html);
   for (const phrase of [
-    'Founder Sample Preorder',
+    'Beles Restock Sample',
     '€28',
-    'Founder Bottle Reservation',
+    'Beles Bottle Reservation',
     '€30',
     'No full bottle payment today',
   ]) {

@@ -719,16 +719,22 @@
 /* Grey transparent label on glass — boutique cap carousel band */
 .store-label-strip {
   --label-band-h: clamp(34px, 4vw, 48px);
+  --label-band-overlap: clamp(17px, 2vw, 24px);
   position: relative;
   z-index: 4;
+  display: grid;
+  align-items: center;
+  height: var(--label-band-h);
   width: 100vw;
   max-width: 100vw;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
+  margin-top: calc(-1 * var(--label-band-overlap));
+  margin-bottom: calc(-1 * var(--label-band-overlap));
   overflow-x: clip;
   overflow-y: visible;
   isolation: isolate;
-  padding: clamp(36px, 6vw, 64px) 0;
+  padding: 0;
   background: transparent;
   border: none;
   box-shadow: none;
@@ -798,6 +804,9 @@
 .store-label-strip__rail {
   position: relative;
   z-index: 2;
+  display: flex;
+  align-items: center;
+  min-height: var(--label-band-h);
   overflow: visible;
   padding: 0;
 }
@@ -3100,7 +3109,7 @@
   color: var(--paper);
 }
 
-/* Founder preorder path — chapter-theme surface, legible across every shader frame */
+/* Paid restock path — chapter-theme surface, legible across every shader frame */
 .editorial-page .chapter-shader-band .shop__preorder-path {
   padding: 20px;
   border-color: rgba(248,246,240,0.2);
@@ -3815,7 +3824,7 @@
   color: #062840;
 }
 
-/* Founder preorder bridge — shared by Beles traffic journals. */
+/* Paid restock bridge — shared by Beles traffic journals. */
 .editorial-page .preorder-bridge {
   display: grid;
   grid-template-columns: minmax(0, 1.25fr) minmax(170px, 0.75fr);

@@ -506,13 +506,13 @@ try {
   if (!adminRes.ok) failures.push('preorder admin page does not exist');
   if ((page.match(/data-preorder-checkout=/g) || []).length !== 2) failures.push('expected two checkout controls');
   if ((page.match(/data-preorder-checkout=[^>]+disabled/g) || []).length !== 2) failures.push('checkout controls are not disabled by default');
-  if (!/Checking founder preorder/i.test(page)) failures.push('preorder availability-checking copy missing');
+  if (!/Checking next restock/i.test(page)) failures.push('restock availability-checking copy missing');
   if (!/No full bottle payment today/i.test(page)) failures.push('no-full-bottle-payment disclosure missing');
-  if (!/By continuing to secure checkout/i.test(page) || !/founder preorder terms/i.test(page)) failures.push('checkout terms acknowledgement missing');
+  if (!/By continuing to secure checkout/i.test(page) || !/paid restock terms/i.test(page)) failures.push('checkout terms acknowledgement missing');
   for (const marker of [
-    'Beles <em>founder release</em>', 'What exists', 'Locked at pilot scale', 'BL-001 on file', 'Pilot flacons exist',
-    'Secure founder preorder', 'Expected shipping window', 'Cancel or refund',
-    'Beles proof', 'Craftsmanship', 'Shipping', 'Terms', 'Founder file · FAQ',
+    'Beles <em>next restock</em>', 'What exists', 'Locked at pilot scale', 'BL-001 on file', 'Pilot flacons exist',
+    'Secure the next restock', 'Expected shipping window', 'Cancel or refund',
+    'Beles proof', 'Craftsmanship', 'Shipping', 'Terms', 'Restock file · FAQ',
   ]) {
     if (!page.includes(marker)) failures.push(`preorder page section missing: ${marker}`);
   }
@@ -531,17 +531,17 @@ try {
   if (!/server-side Stripe webhook/i.test(success)) failures.push('success page does not explain webhook confirmation');
   if (/Stripe will send your receipt/i.test(preorderJs)) failures.push('success flow promises an unconfigured Stripe receipt email');
   if (!/payment confirmation from Stripe/i.test(preorderJs)) failures.push('success flow lacks neutral Stripe confirmation guidance');
-  if (!/Founder Bottle Reservation/i.test(terms) || !/refundable before shipment/i.test(terms)
+  if (!/Beles Bottle Reservation/i.test(terms) || !/pre-order contract/i.test(terms) || !/refundable before shipment/i.test(terms)
     || !/No full bottle payment today/i.test(terms) || !/must match the amount shown by Stripe/i.test(terms)
     || !/does not guarantee a release date/i.test(terms)) {
     failures.push('terms do not cover the complete preorder contract');
   }
   if (!/Stripe acts as payment processor/i.test(privacy) || !/does not receive or store[\s\S]*full card number/i.test(privacy)
-    || !/Preorder record/i.test(privacy) || !/not copied into EILLON's Neon preorder table/i.test(privacy)
+    || !/Restock order record/i.test(privacy) || !/not copied into EILLON's Neon preorder table/i.test(privacy)
     || !/currently 10 July 2026/i.test(privacy) || !/Notice version 2026-07-10/i.test(privacy)) {
     failures.push('privacy does not accurately cover Stripe and preorder data boundaries');
   }
-  if (!/Founder preorder dispatch/i.test(shipping) || !/dangerous-goods/i.test(shipping)
+  if (!/Next-restock dispatch/i.test(shipping) || !/dangerous-goods/i.test(shipping)
     || !/Denmark, Sweden, Norway/i.test(page) || !/Returns/i.test(shipping)
     || !/does not imply a fixed date/i.test(shipping)) {
     failures.push('shipping does not cover regions, limitations, returns, and readiness timing');
@@ -565,14 +565,14 @@ try {
   for (const file of journalFiles) {
     const html = readFileSync(new URL(`../${file}`, import.meta.url), 'utf8');
     for (const marker of [
-      'Reserve the first Beles release', 'Founder sample preorder €28',
+      'Enter the next Beles restock', 'Restock sample €28',
       'Bottle reservation deposit €30', '/beles/preorder?source=journal_internal',
     ]) {
-      if (!html.includes(marker)) failures.push(`${file} missing founder preorder module marker: ${marker}`);
+      if (!html.includes(marker)) failures.push(`${file} missing Beles restock module marker: ${marker}`);
     }
   }
   if (!/\/beles\/preorder\?source=answers_internal/.test(readFileSync(new URL('../answers.html', import.meta.url), 'utf8'))) {
-    failures.push('answers.html is missing the Beles founder preorder link');
+    failures.push('answers.html is missing the Beles restock link');
   }
 
   const keywords = readFileSync(new URL('../growth/ad-keywords.csv', import.meta.url), 'utf8');

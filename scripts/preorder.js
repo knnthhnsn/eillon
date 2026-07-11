@@ -72,7 +72,7 @@
       '@context': 'https://schema.org',
       '@type': 'Product',
       '@id': `https://eillon.maison${PREORDER_PATH}#founder-sample`,
-      name: 'Beles Founder Sample Preorder',
+      name: 'Beles Restock Sample',
       description: product.description,
       image: 'https://eillon.maison/images/flacon-beles-1100.webp',
       sku: product.id,
@@ -94,7 +94,7 @@
       headers: { Accept: 'application/json' },
       cache: 'no-store',
     });
-    if (!response.ok) throw new Error('Preorder status unavailable');
+    if (!response.ok) throw new Error('Restock status unavailable');
     return response.json();
   }
 
@@ -115,9 +115,9 @@
 
     const setStatus = (state) => {
       const text = state === 'open'
-        ? 'Founder preorder checkout is open'
+        ? 'Next restock checkout is open'
         : state === 'closed'
-          ? 'Founder preorder opening soon'
+          ? 'Next restock opening soon'
           : state === 'unavailable'
             ? 'Checkout status is temporarily unavailable'
             : 'Checking secure checkout';
@@ -258,10 +258,10 @@
           const preorder = await response.json();
           if (preorder.status === 'paid') {
             if (title) title.textContent = 'Payment received';
-            if (status) status.textContent = 'Your founder preorder is recorded in the EILLON studio file.';
+            if (status) status.textContent = 'Your Beles restock order is recorded in the EILLON studio file.';
             if (detail) {
               detail.textContent = preorder.preorder_type === 'sample_preorder'
-                ? 'Keep the payment confirmation from Stripe. We will write again when the first sample batch has passed final inspection and is ready to dispatch.'
+                ? 'Keep the payment confirmation from Stripe. We will write again when the next sample batch has passed final inspection and is ready to dispatch.'
                 : 'Keep the payment confirmation from Stripe. We will write with your private bottle purchase window; no remaining bottle balance has been charged today.';
             }
             return;

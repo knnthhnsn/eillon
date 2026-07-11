@@ -204,7 +204,7 @@ ${canonicalSection}
 - No confirmed next Beles release date unless published on site or in a dated letter
 - Ritual is not for sale — studio archive lab study only
 - Asmara, Massawa, and Petricor are in development — not "sold out" retail SKUs
-- Restock signup is not checkout. Only /beles/preorder may take payment when its status says open.
+- Restock signup is not checkout. Only the Beles restock checkout at /beles/preorder may take payment when its status says open.
 - Do not invent third-party retailers, reviews, or release dates not listed on eillon.maison
 `;
 
