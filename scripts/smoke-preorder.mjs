@@ -506,15 +506,26 @@ try {
   if (!adminRes.ok) failures.push('preorder admin page does not exist');
   if ((page.match(/data-preorder-checkout=/g) || []).length !== 2) failures.push('expected two checkout controls');
   if ((page.match(/data-preorder-checkout=[^>]+disabled/g) || []).length !== 2) failures.push('checkout controls are not disabled by default');
-  if (!/Founder preorder opening soon/i.test(page)) failures.push('feature-off opening-soon copy missing');
+  if (!/Checking founder preorder/i.test(page)) failures.push('preorder availability-checking copy missing');
   if (!/No full bottle payment today/i.test(page)) failures.push('no-full-bottle-payment disclosure missing');
   if (!/By continuing to secure checkout/i.test(page) || !/founder preorder terms/i.test(page)) failures.push('checkout terms acknowledgement missing');
   for (const marker of [
     'Beles <em>founder release</em>', 'What exists', 'Locked at pilot scale', 'BL-001 on file', 'Pilot flacons exist',
-    'What you are paying for', 'Expected shipping window', 'Cancel or refund',
+    'Secure founder preorder', 'Expected shipping window', 'Cancel or refund',
     'Beles proof', 'Craftsmanship', 'Shipping', 'Terms', 'Founder file · FAQ',
   ]) {
     if (!page.includes(marker)) failures.push(`preorder page section missing: ${marker}`);
+  }
+  if (page.indexOf('id="offers"') > page.indexOf('id="founder-file"')) {
+    failures.push('paid offers must appear before the founder proof file');
+  }
+  for (const offerId of ['founder-sample', 'founder-bottle']) {
+    const start = page.indexOf(`id="${offerId}"`);
+    const end = page.indexOf('</article>', start);
+    const offer = page.slice(start, end);
+    if (offer.indexOf('data-preorder-checkout=') > offer.indexOf('preorder-offer__details')) {
+      failures.push(`${offerId} checkout action must appear before detailed terms`);
+    }
   }
   if (/countdown/i.test(page)) failures.push('preorder page contains countdown language');
   if (!/server-side Stripe webhook/i.test(success)) failures.push('success page does not explain webhook confirmation');

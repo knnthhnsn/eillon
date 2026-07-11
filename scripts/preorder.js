@@ -113,11 +113,16 @@
     let checkoutEnabled = false;
     let liveProducts = new Map();
 
-    const setStatus = (enabled) => {
+    const setStatus = (state) => {
+      const text = state === 'open'
+        ? 'Founder preorder checkout is open'
+        : state === 'closed'
+          ? 'Founder preorder opening soon'
+          : state === 'unavailable'
+            ? 'Checkout status is temporarily unavailable'
+            : 'Checking secure checkout';
       statusNodes.forEach((node) => {
-        node.textContent = enabled
-          ? 'Founder preorder checkout is open'
-          : 'Founder preorder opening soon';
+        node.textContent = text;
       });
     };
 
@@ -192,7 +197,7 @@
       });
     });
 
-    setStatus(false);
+    setStatus('checking');
     track('preorder_page_viewed', { source });
 
     readConfig()
@@ -201,7 +206,7 @@
         products.forEach(setProductCopy);
         liveProducts = new Map(products.map((product) => [product.id, product]));
         checkoutEnabled = config.enabled === true;
-        setStatus(checkoutEnabled);
+        setStatus(checkoutEnabled ? 'open' : 'closed');
 
         buttons.forEach((button) => {
           const product = liveProducts.get(button.dataset.preorderCheckout);
@@ -219,7 +224,13 @@
       })
       .catch(() => {
         checkoutEnabled = false;
-        setStatus(false);
+        setStatus('unavailable');
+        buttons.forEach((button) => {
+          button.disabled = true;
+          button.setAttribute('aria-disabled', 'true');
+          const label = button.querySelector('[data-button-label]');
+          if (label) label.textContent = 'Checkout unavailable';
+        });
       });
   }
 

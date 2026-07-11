@@ -80,8 +80,8 @@
     <div class="nav__inner">
       <a href="${homeHref}" class="nav__brand" aria-label="EILLON home">
         <picture>
-          <source type="image/webp" srcset="/images/eillon_logo_nav.webp" />
-          <img class="nav__brand-logo" src="/images/eillon_logo_nav.webp" width="200" height="64" alt="EILLON" decoding="async" fetchpriority="low" />
+          <source type="image/webp" srcset="/images/eillon_logo_nav-120.webp 120w, /images/eillon_logo_nav-240.webp 240w, /images/eillon_logo_nav.webp 400w" sizes="52px" />
+          <img class="nav__brand-logo" src="/images/eillon_logo_nav-120.webp" width="120" height="90" alt="EILLON" decoding="async" fetchpriority="low" />
         </picture>
       </a>
 

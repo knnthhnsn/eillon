@@ -38,18 +38,18 @@
   };
   const shopImageMap = {
     sample: {
-      webp: 'images/samples.webp',
-      png: 'images/samples.png',
-      alt: 'EILLON Beles · Fico d\'India 2 ml discovery sample vials',
+      webp: 'images/samples/beles-sample-transparent-480.webp 480w, images/samples/beles-sample-transparent-960.webp 960w',
+      png: 'images/samples/beles-sample-transparent.png',
+      alt: 'EILLON Beles · Fico d\'India 2 ml sample vial',
     },
     '50': {
-      webp: 'images/flacon-beles-1100.webp?v=2',
-      png: 'images/flacon-beles-1100.webp?v=2',
+      webp: 'images/flacons-transparent/flacon-beles-50ml-transparent-gpt-480.webp 480w, images/flacons-transparent/flacon-beles-50ml-transparent-gpt-960.webp 960w',
+      png: 'images/flacons-transparent/flacon-beles-50ml-transparent-gpt.png',
       alt: 'EILLON Beles · Fico d\'India 50 ml parfum',
     },
     '100': {
-      webp: 'images/flacon-beles-1100.webp?v=2',
-      png: 'images/flacon-beles-1100.webp?v=2',
+      webp: 'images/flacons-transparent/flacon-beles-transparent-gpt-480.webp 480w, images/flacons-transparent/flacon-beles-transparent-gpt-960.webp 960w',
+      png: 'images/flacons-transparent/flacon-beles-transparent-gpt.png',
       alt: 'EILLON Beles · Fico d\'India 100 ml parfum',
     },
   };

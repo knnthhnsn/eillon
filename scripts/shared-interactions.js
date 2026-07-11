@@ -103,9 +103,12 @@
 
   const IMAGE_CACHE_BUST = '5';
 
+  const withImageVersion = (src) => (
+    src && !/\?/.test(src) ? `${src}?v=${IMAGE_CACHE_BUST}` : src
+  );
+
   const appendLazyImage = (img, src, alt) => {
-    const busted = src && !/\?/.test(src) ? `${src}?v=${IMAGE_CACHE_BUST}` : src;
-    img.src = busted;
+    img.src = withImageVersion(src);
     img.alt = alt;
     img.loading = 'lazy';
     img.decoding = 'async';
@@ -140,7 +143,10 @@
 
     const img = document.createElement('img');
     img.className = 'product-card__flacon';
-    appendLazyImage(img, product.image, `EILLON ${product.name} · ${product.subtitle} flacon`);
+    const cardImage = `images/flacon-${product.slug}-400.webp`;
+    appendLazyImage(img, cardImage, `EILLON ${product.name} · ${product.subtitle} flacon`);
+    img.srcset = `${withImageVersion(cardImage)} 400w, ${withImageVersion(product.image)} 900w`;
+    img.sizes = '(max-width: 767px) calc((100vw - 52px) / 2), (max-width: 1100px) 46vw, 340px';
 
     media.appendChild(img);
     return media;
@@ -175,31 +181,29 @@
     const meta = document.createElement('div');
     meta.className = 'product-card__shop-meta';
 
+    const summary = document.createElement('span');
+    summary.className = 'product-card__shop-summary';
+
     const price = formatShopPrice(product);
     if (product.storeStatusLabel) {
       const status = document.createElement('span');
       status.className = `product-card__shop-status product-card__shop-status--${product.status}`;
       status.textContent = product.storeStatusLabel;
-      meta.appendChild(status);
-
-      if (product.storeOfferLabel) {
-        meta.appendChild(document.createTextNode(' · '));
-        const offer = document.createElement('span');
-        offer.className = 'product-card__shop-price';
-        offer.textContent = product.storeOfferLabel;
-        meta.appendChild(offer);
-      }
-    } else if (price) {
-      const priceEl = document.createElement('span');
-      priceEl.className = 'product-card__shop-price';
-      priceEl.textContent = price;
-      meta.appendChild(priceEl);
+      summary.appendChild(status);
     } else {
       const status = document.createElement('span');
       status.className = `product-card__shop-status product-card__shop-status--${product.status}`;
       status.textContent = product.statusLabel;
-      meta.appendChild(status);
+      summary.appendChild(status);
     }
+
+    const highestPrice = document.createElement('span');
+    highestPrice.className = `product-card__shop-highest-price${price ? '' : ' product-card__shop-highest-price--unset'}`;
+    highestPrice.textContent = price
+      ? `${price} · 100 ml bottle`
+      : 'Bottle price · Not yet set';
+
+    meta.append(highestPrice, summary);
 
     body.append(title, subtitle, meta);
     card.appendChild(body);
@@ -492,7 +496,8 @@
 
   const initStoreHeroFlacons = () => {
     const products = window.EILLON_PRODUCTS;
-    if (!Array.isArray(products)) return;
+    const supportsPreciseHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if (!Array.isArray(products) || !supportsPreciseHover) return;
 
     document.querySelectorAll('.store-hero__flacon-well[data-chapter]').forEach((well) => {
       if (well.dataset.collageReady === 'true') return;

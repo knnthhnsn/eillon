@@ -2,7 +2,7 @@
 <html lang="en-DK">
 <head>
   <meta charset="UTF-8" />
-  <meta name="eillon-asset-stamp" content="74.28.24.19.171.11" />
+  <meta name="eillon-asset-stamp" content="78.30.35.20.175.22" />
   <script>/* eillon-asset-stamp */(function(){try{var m=document.querySelector('meta[name=eillon-asset-stamp]');if(!m)return;var s=m.content,k='eillon:assets:'+location.pathname,p=sessionStorage.getItem(k);sessionStorage.setItem(k,s);if(p&&p!==s&&!/[?&]refresh=1/.test(location.search)){location.replace(location.pathname+'?refresh=1'+location.hash);}}catch(e){}})();</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>EILLON — Afro-Mediterranean Memory Perfumery · Copenhagen</title>
@@ -18,8 +18,8 @@
   <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
   <meta name="theme-color" content="#FFFFFF" />
   <meta name="color-scheme" content="light" />
-  <link rel="icon" href="images/favicon.jpeg" type="image/jpeg" />
-  <link rel="apple-touch-icon" href="images/favicon.jpeg" />
+  <link rel="icon" href="/images/favicon-64.png" type="image/png" sizes="64x64" />
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon-180.png" sizes="180x180" />
 
   <!-- Geo / local signals (Copenhagen studio) -->
   <meta name="geo.region" content="DK-84" />
@@ -50,7 +50,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" href="styles.min.css?v=171" as="style" />
+  <link rel="preload" href="styles.min.css?v=175" as="style" />
   <link rel="preload" href="home.min.css?v=42" as="style" />
   <link rel="preload" as="image"
     href="images/cowboy-cowgirl-720.webp"
@@ -118,9 +118,6 @@
         font-family: Georgia, 'Times New Roman', serif !important;
         font-weight: 400 !important;
       }
-      html.fonts-cormorant .mv-hero__word {
-        font-family: 'Cormorant Garamond', Georgia, serif !important;
-      }
       .mv-hero__img { object-position: 46% 28%; }
     }
     /* Letters archive — layout shell until deferred bundle loads */
@@ -171,7 +168,7 @@
       .mv-letters__archive { min-height: clamp(980px, 210vw, 1280px); max-width: 400px; }
     }
   </style>
-  <link rel="stylesheet" href="styles.min.css?v=171" />
+  <link rel="stylesheet" href="styles.min.css?v=175" />
   <link rel="preload" href="home.min.css?v=42" as="style" onload="this.onload=null;this.rel='stylesheet'" />
   <noscript><link rel="stylesheet" href="home.min.css?v=42" /></noscript>
   <noscript><link rel="stylesheet" href="letters.min.css?v=42" /></noscript>
@@ -775,8 +772,8 @@
     </div>
   </footer>
 
-  <script src="/scripts/site-nav.js?v=28" defer></script>
-  <script src="/scripts/global-core.min.js?v=21" defer></script>
+  <script src="/scripts/site-nav.js?v=30" defer></script>
+  <script src="/scripts/global-core.min.js?v=32" defer></script>
   <script src="/scripts/home-critical.min.js?v=1" defer></script>
   <script src="/scripts/letters-lazy.js?v=1" defer></script>
   <script src="/scripts/load-after-hero.js?v=4" defer></script>
@@ -812,7 +809,7 @@
         script.onload = next || function () {};
         document.body.appendChild(script);
       }
-      function kickProducts() { loadScript('data/products.js?v=19'); }
+      function kickProducts() { loadScript('data/products.js?v=20'); }
       if ('requestIdleCallback' in window) requestIdleCallback(kickProducts, { timeout: 3200 });
       else window.addEventListener('load', function () { setTimeout(kickProducts, 400); });
     })();

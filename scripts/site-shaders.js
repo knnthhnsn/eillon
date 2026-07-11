@@ -17,6 +17,7 @@
     { sel: '.page-hero', mount: '.page-hero__media', before: '.page-hero__veil', key: 'pageHero', blend: 'overlay', layer: 'photo' },
     { sel: '.article-hero', mount: '.article-hero__media', before: '.article-hero__veil', key: 'pageHero', blend: 'overlay', layer: 'photo' },
     { sel: '.product-intro', mount: '.product-intro__media', before: '.product-intro__veil', key: 'pageHero', blend: 'overlay', layer: 'photo' },
+    { sel: '.preorder-hero', mount: '.preorder-hero__media', before: '.preorder-hero__veil', key: 'belesNotes', blend: 'overlay', layer: 'photo' },
     { sel: '.about-shader-band--leopard', key: 'leopardWarm', mode: 'leopardTone', prepend: true, blend: 'overlay' },
     { sel: '.about-people-shader-band', key: 'peopleFrost', mode: 'leopardTone', prepend: true, blend: 'soft-light' },
     { sel: '.craft-shader-band--studio', key: 'productionStill', mode: 'studioSettle', prepend: true, blend: 'overlay' },

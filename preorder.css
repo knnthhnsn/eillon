@@ -236,7 +236,32 @@
 }
 
 .preorder-offers {
-  background: var(--preorder-paper);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: #0a1208;
+  color: rgba(248, 246, 240, 0.9);
+}
+
+.preorder-offers > *:not(.mv-shader) {
+  position: relative;
+  z-index: 2;
+}
+
+.preorder-offers .preorder-section__eyebrow {
+  color: rgba(220, 184, 106, 0.82);
+}
+
+.preorder-offers .preorder-section__title {
+  color: #f8f6f0;
+}
+
+.preorder-offers .preorder-section__title em {
+  color: rgba(205, 222, 184, 0.9);
+}
+
+.preorder-offers .preorder-section__lede {
+  color: rgba(248, 246, 240, 0.7);
 }
 
 .preorder-notice {
@@ -249,6 +274,7 @@
   border-top: 1px solid var(--preorder-pink);
   border-bottom: 1px solid var(--preorder-line);
   background: rgba(157, 64, 85, 0.06);
+  color: var(--preorder-ink);
 }
 
 .preorder-notice[hidden] {
@@ -278,12 +304,24 @@
   border-bottom: 1px solid var(--preorder-line);
 }
 
+.preorder-offers .preorder-status {
+  border-color: rgba(248, 246, 240, 0.18);
+}
+
+.preorder-offers .preorder-status__label {
+  color: rgba(248, 246, 240, 0.58);
+}
+
 .preorder-status__value {
   color: var(--preorder-green);
   font-family: var(--serif, Georgia, serif);
   font-size: 1.05rem;
   font-style: italic;
   text-align: right;
+}
+
+.preorder-offers .preorder-status__value {
+  color: #cfe0ba;
 }
 
 .preorder-offers__grid {
@@ -293,13 +331,13 @@
 }
 
 .preorder-offer {
-  display: flex;
-  flex-direction: column;
-  min-height: 620px;
+  display: block;
+  min-height: 0;
   padding: 34px;
   border: 1px solid var(--preorder-line);
   border-radius: 2px;
   background: #f8f5ee;
+  color: var(--preorder-ink);
 }
 
 .preorder-offer:nth-child(2) {
@@ -307,11 +345,48 @@
 }
 
 .preorder-offer__index {
-  color: rgba(23, 21, 15, 0.5);
+  color: rgba(23, 21, 15, 0.7);
+}
+
+.preorder-offer__media {
+  height: 210px;
+  margin: 18px 0 26px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-bottom: 1px solid var(--preorder-line);
+  background: var(--preorder-paper-deep);
+}
+
+.preorder-offer__media picture {
+  display: contents;
+}
+
+.preorder-offer__media img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.preorder-offer__media--sample img {
+  width: min(72%, 220px);
+  height: auto;
+  filter: drop-shadow(0 16px 18px rgba(23, 21, 15, 0.14));
+}
+
+.preorder-offer__media--bottle {
+  background: #dfe3d8;
+}
+
+.preorder-offer__media--bottle img {
+  width: auto;
+  height: 100%;
+  filter: drop-shadow(0 18px 20px rgba(23, 21, 15, 0.14));
 }
 
 .preorder-offer__title {
-  margin: 30px 0 8px;
+  margin: 0 0 8px;
   font-family: var(--serif, Georgia, serif);
   font-size: 2.1rem;
   font-weight: 350;
@@ -346,6 +421,42 @@
 .preorder-offer__ledger {
   margin: 0;
   border-top: 1px solid var(--preorder-line);
+}
+
+.preorder-offer__details {
+  margin-top: 18px;
+  border-top: 1px solid var(--preorder-line);
+}
+
+.preorder-offer__details summary {
+  position: relative;
+  padding: 16px 28px 16px 0;
+  list-style: none;
+  cursor: pointer;
+  font-family: var(--sans, Inter, sans-serif);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.preorder-offer__details summary::-webkit-details-marker {
+  display: none;
+}
+
+.preorder-offer__details summary::after {
+  content: '+';
+  position: absolute;
+  top: 50%;
+  right: 2px;
+  transform: translateY(-50%);
+  font-family: var(--serif, Georgia, serif);
+  font-size: 1.2rem;
+  font-weight: 300;
+}
+
+.preorder-offer__details[open] summary::after {
+  content: '−';
 }
 
 .preorder-offer__ledger div {
@@ -428,7 +539,7 @@
 .preorder-offer__action {
   width: 100%;
   min-height: 50px;
-  margin-top: auto;
+  margin-top: 18px;
   padding: 12px 18px;
   border: 1px solid var(--preorder-ink);
   border-radius: 2px;
@@ -472,6 +583,11 @@
   line-height: 1.55;
 }
 
+.preorder-offers .preorder-offers__truth {
+  border-left-color: #cfe0ba;
+  color: rgba(248, 246, 240, 0.9);
+}
+
 .preorder-offers__consent {
   max-width: 78ch;
   margin: 18px 0 0;
@@ -479,6 +595,10 @@
   font-family: var(--sans, Inter, sans-serif);
   font-size: 0.76rem;
   line-height: 1.7;
+}
+
+.preorder-offers .preorder-offers__consent {
+  color: rgba(248, 246, 240, 0.62);
 }
 
 .preorder-offers__consent a {
@@ -575,6 +695,12 @@
   background: transparent;
 }
 
+.preorder-faq .answer-ledger__proof-label,
+.preorder-faq .answer-ledger__source,
+.preorder-faq .answer-ledger__source a {
+  color: rgba(23, 21, 15, 0.7);
+}
+
 .preorder-success {
   min-height: 64svh;
   padding-top: 150px;
@@ -633,6 +759,13 @@
   color: rgba(248, 246, 240, 0.7);
 }
 
+.preorder-page .footer .waitlist-consent,
+.preorder-page .footer .waitlist-consent a,
+.preorder-success-page .footer .waitlist-consent,
+.preorder-success-page .footer .waitlist-consent a {
+  color: rgba(248, 246, 240, 0.72);
+}
+
 @media (max-width: 900px) {
   .preorder-hero__title {
     font-size: 4.35rem;
@@ -677,7 +810,7 @@
   }
 
   .preorder-offer {
-    min-height: 560px;
+    min-height: 0;
   }
 
   .preorder-proof__links {
@@ -742,6 +875,10 @@
   .preorder-offer {
     min-height: 0;
     padding: 26px 22px;
+  }
+
+  .preorder-offer__media {
+    height: 190px;
   }
 
   .preorder-offer__ledger div {

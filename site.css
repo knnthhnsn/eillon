@@ -575,6 +575,7 @@
   min-height: clamp(300px, 40vw, 500px);
 }
 .store-hero__flacon {
+  --sample-hover-rotation: 7deg;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -583,6 +584,7 @@
   color: var(--ink-faint);
   transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), color 0.35s ease;
 }
+.store-hero__flacon:nth-child(even) { --sample-hover-rotation: -7deg; }
 .store-hero__flacon:nth-child(odd) { transform: translateY(-14px); }
 .store-hero__flacon:nth-child(even) { transform: translateY(6px); }
 .store-hero__flacon:hover,
@@ -633,6 +635,14 @@
   object-fit: contain;
   object-position: center center;
   transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.store-hero__flacon img.store-hero__sample {
+  width: 178%;
+  max-width: none;
+  max-height: none;
+  transform-origin: 50% 54%;
+  filter: drop-shadow(0 14px 14px rgba(23, 21, 15, 0.18));
+  will-change: transform;
 }
 .store-hero__flacon:hover img,
 .store-hero__flacon:focus-visible img { transform: scale(1.05); }
@@ -1579,11 +1589,11 @@
 }
 
 @media (hover: hover) {
-  .store-hero__flacon:hover .chapter-cap-well > img,
-  .store-hero__flacon:focus-visible .chapter-cap-well > img {
-    opacity: 0;
-    visibility: hidden;
-    transform: scale(0.94);
+  .store-hero__flacon:hover .chapter-cap-well > img.store-hero__sample,
+  .store-hero__flacon:focus-visible .chapter-cap-well > img.store-hero__sample {
+    opacity: 1;
+    visibility: visible;
+    transform: rotate(var(--sample-hover-rotation)) scale(1.04);
   }
 }
 
@@ -1598,6 +1608,11 @@
   .chapter-cap-well > .product-card__flacon,
   .chapter-cap-well > img {
     transition: opacity 0.2s ease, visibility 0.2s ease;
+  }
+
+  .store-hero__flacon:hover .chapter-cap-well > img.store-hero__sample,
+  .store-hero__flacon:focus-visible .chapter-cap-well > img.store-hero__sample {
+    transform: none;
   }
 }
 
@@ -3041,6 +3056,36 @@
   color: var(--paper);
 }
 
+/* Founder preorder path — chapter-theme surface, legible across every shader frame */
+.editorial-page .chapter-shader-band .shop__preorder-path {
+  padding: 20px;
+  border-color: rgba(248,246,240,0.2);
+  background: rgba(6,13,20,0.28);
+  box-shadow: inset 0 1px 0 rgba(248,246,240,0.04);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.editorial-page .chapter-shader-band .shop__preorder-kicker {
+  color: rgba(226,203,142,0.88);
+}
+.editorial-page .chapter-shader-band .shop__preorder-path p {
+  color: rgba(248,246,240,0.82);
+}
+.editorial-page .chapter-shader-band .shop__preorder-path .btn--primary {
+  background: var(--paper);
+  border-color: var(--paper);
+  color: var(--ink);
+}
+.editorial-page .chapter-shader-band .shop__preorder-path .btn--primary::before {
+  display: none;
+}
+.editorial-page .chapter-shader-band .shop__preorder-path .btn--primary:hover,
+.editorial-page .chapter-shader-band .shop__preorder-path .btn--primary:focus-visible {
+  background: var(--gold-light);
+  border-color: var(--gold-light);
+  color: var(--ink);
+}
+
 /* Waitlist + CTA */
 .editorial-page .chapter-shader-band .shop__waitlist-field { border-bottom-color: rgba(248,246,240,0.22); }
 .editorial-page .chapter-shader-band .shop__waitlist-field input {
@@ -4311,6 +4356,10 @@ footer.editorial-page__footer {
 footer.editorial-page__footer > *:not(.mv-shader) {
   position: relative;
   z-index: 2;
+}
+.editorial-page .footer .waitlist-consent,
+.editorial-page .footer .waitlist-consent a {
+  color: rgba(248,246,240,0.72);
 }
 
 @media (prefers-reduced-motion: reduce) {
