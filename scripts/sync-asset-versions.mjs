@@ -12,12 +12,14 @@ const versionsPath = join(root, 'data/asset-versions.json');
 
 const TRACKED = [
   { key: 'stylesMinCss', file: 'styles.min.css', patterns: [/styles\.min\.css\?v=\d+/g] },
+  { key: 'homeBaseMinCss', file: 'home-base.min.css', patterns: [/home-base\.min\.css\?v=\d+/g] },
   { key: 'siteMinCss', file: 'site.min.css', patterns: [/site\.min\.css\?v=\d+/g] },
   { key: 'homeMinCss', file: 'home.min.css', patterns: [/home\.min\.css\?v=\d+/g] },
   { key: 'lettersMinCss', file: 'letters.min.css', patterns: [/letters\.min\.css\?v=\d+/g] },
   { key: 'siteNavJs', file: 'scripts/site-nav.js', patterns: [/site-nav\.js\?v=\d+/g] },
   { key: 'siteShadersJs', file: 'scripts/site-shaders.js', patterns: [/site-shaders\.js\?v=\d+/g] },
   { key: 'sharedInteractionsJs', file: 'scripts/shared-interactions.min.js', patterns: [/shared-interactions\.min\.js\?v=\d+/g] },
+  { key: 'chapterInteractionsJs', file: 'scripts/chapter-interactions.min.js', patterns: [/chapter-interactions\.min\.js\?v=\d+/g] },
   { key: 'globalCoreJs', file: 'scripts/global-core.min.js', patterns: [/global-core\.min\.js\?v=\d+/g] },
   { key: 'belesShopJs', file: 'scripts/beles-shop.min.js', patterns: [/beles-shop\.min\.js\?v=\d+/g] },
   { key: 'productsJs', file: 'data/products.js', patterns: [/products\.js\?v=\d+/g] },
@@ -26,6 +28,7 @@ const TRACKED = [
 ];
 
 const JS_PATCHES = [
+  { key: 'siteShadersJs', file: 'scripts/site-nav.js', pattern: /site-shaders\.js\?v=\d+/g },
   { key: 'lettersMinCss', file: 'scripts/letters-lazy.js', pattern: /letters\.min\.css\?v=\d+/g },
 ];
 
@@ -54,7 +57,7 @@ function replaceVersion(text, patterns, version) {
   return next;
 }
 
-const ASSET_STAMP_KEYS = ['siteMinCss', 'siteNavJs', 'sharedInteractionsJs', 'productsJs', 'stylesMinCss', 'belesShopJs'];
+const ASSET_STAMP_KEYS = ['siteMinCss', 'siteNavJs', 'sharedInteractionsJs', 'chapterInteractionsJs', 'productsJs', 'stylesMinCss', 'homeBaseMinCss', 'belesShopJs'];
 
 const ASSET_STAMP_BLOCK_RE =
   /<meta name="eillon-asset-stamp" content="[^"]*" \/>\s*<script>\/\* eillon-asset-stamp \*\/[\s\S]*?<\/script>\s*/;

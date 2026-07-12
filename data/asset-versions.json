@@ -1,11 +1,12 @@
 {
   "stylesMinCss": 179,
-  "siteMinCss": 82,
-  "homeMinCss": 42,
+  "siteMinCss": 94,
+  "homeMinCss": 44,
   "lettersMinCss": 42,
-  "siteNavJs": 33,
-  "siteShadersJs": 70,
-  "sharedInteractionsJs": 39,
+  "siteNavJs": 37,
+  "siteShadersJs": 72,
+  "sharedInteractionsJs": 40,
+  "chapterInteractionsJs": 2,
   "globalCoreJs": 35,
   "belesShopJs": 26,
   "productsJs": 22,
@@ -13,16 +14,19 @@
   "preorderJs": 32,
   "hashes": {
     "styles.min.css": "c134fdb51953",
-    "site.min.css": "ce1ed7a27847",
-    "home.min.css": "a5e8de4e313c",
+    "site.min.css": "04c4ef7779b4",
+    "home.min.css": "4d4bf7050d9a",
     "letters.min.css": "7799946c5745",
-    "scripts/site-shaders.js": "282a62f64452",
-    "scripts/shared-interactions.min.js": "55c06c82bbe3",
+    "scripts/site-shaders.js": "ca367e4ea1f7",
+    "scripts/shared-interactions.min.js": "3f37d591af09",
     "scripts/global-core.min.js": "5ea17cd160b3",
     "data/products.js": "3b055781512a",
     "preorder.min.css": "862989c7bb03",
     "scripts/preorder.min.js": "9395839da69e",
     "scripts/beles-shop.min.js": "66d262323661",
-    "scripts/site-nav.js": "93c52f0bc112"
-  }
+    "scripts/site-nav.js": "3ed19885ce85",
+    "scripts/chapter-interactions.min.js": "f19aeee0e98d",
+    "home-base.min.css": "733f252803c5"
+  },
+  "homeBaseMinCss": 1
 }

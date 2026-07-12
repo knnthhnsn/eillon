@@ -5,6 +5,7 @@
   if (!document.body || document.body.dataset.navHome !== 'true') return;
 
   var MAX_MS = 3200;
+  var ENHANCEMENT_FALLBACK_MS = 20000;
   var HOME_INTERACTIONS = '/scripts/home-interactions.min.js?v=1';
   var SCRIPTS = [
     '/scripts/vendor/gsap.min.js?v=1',
@@ -13,6 +14,8 @@
   ];
   var fired = false;
   var interactionsQueued = false;
+  var enhancementsStarted = false;
+  var enhancementTimer = 0;
 
   function loadScript(src, onload) {
     var script = document.createElement('script');
@@ -65,14 +68,32 @@
     loadScript(HOME_INTERACTIONS);
   }
 
+  function startEnhancements() {
+    if (enhancementsStarted) return;
+    enhancementsStarted = true;
+    window.clearTimeout(enhancementTimer);
+    window.removeEventListener('wheel', startEnhancements);
+    window.removeEventListener('touchstart', startEnhancements);
+    window.removeEventListener('keydown', startEnhancements);
+    deferHouseStairs();
+    loadChain(0);
+    loadHomeInteractions();
+  }
+
+  function queueEnhancements() {
+    var passiveOnce = { passive: true, once: true };
+    window.addEventListener('wheel', startEnhancements, passiveOnce);
+    window.addEventListener('touchstart', startEnhancements, passiveOnce);
+    window.addEventListener('keydown', startEnhancements, { once: true });
+    enhancementTimer = window.setTimeout(startEnhancements, ENHANCEMENT_FALLBACK_MS);
+  }
+
   function markReady() {
     if (fired) return;
     fired = true;
     window.__EILLON_HERO_READY__ = true;
     window.dispatchEvent(new CustomEvent('eillon:hero-ready'));
-    deferHouseStairs();
-    loadChain(0);
-    loadHomeInteractions();
+    queueEnhancements();
   }
 
   function watchHero() {
@@ -104,9 +125,4 @@
 
   setTimeout(markReady, MAX_MS);
 
-  if ('requestIdleCallback' in window) {
-    requestIdleCallback(loadHomeInteractions, { timeout: 3800 });
-  } else {
-    setTimeout(loadHomeInteractions, 3800);
-  }
 })();

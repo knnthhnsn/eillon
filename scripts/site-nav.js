@@ -18,9 +18,9 @@
         return;
       }
       window.__EILLON_SITE_SHADERS_LOADING__ = true;
-      appendScript('/scripts/site-shaders.js?v=70');
+      appendScript('/scripts/site-shaders.js?v=72');
     };
-    var shaderTargets = document.querySelectorAll('.mv-shader, .mv-house, .mv-land, .mv-shader-band');
+    var shaderTargets = document.querySelectorAll('.mv-shader, .mv-house, .mv-land, .mv-chapter, .mv-shader-band');
     if (document.body.dataset.navHome === 'true' && shaderTargets.length && 'IntersectionObserver' in window) {
       var shadersLoaded = false;
       var loadOnce = function () {
@@ -31,7 +31,7 @@
       };
       var observer = new IntersectionObserver(function (entries) {
         if (entries.some(function (entry) { return entry.isIntersecting; })) loadOnce();
-      }, { rootMargin: '180px 0px' });
+      }, { rootMargin: '0px' });
       shaderTargets.forEach(function (target) { observer.observe(target); });
     } else if (document.readyState === 'complete') {
       if ('requestIdleCallback' in window) {

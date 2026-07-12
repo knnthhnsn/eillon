@@ -9,6 +9,144 @@
   const ensureLazyVideoSource = E.ensureLazyVideoSource || (() => false);
   const saveData = E.saveData ?? navigator.connection?.saveData === true;
 
+  /* ---------- SCENT ARCHITECTURE: autonomous composition field ---------- */
+  const scentAssetSlug = (note) => String(note || '')
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+
+  const scentArchitecturePositions = [
+    { x: '10%', y: '17%', size: 'clamp(88px, 10vw, 148px)', duration: '18s', delay: '-7s', path: 'a' },
+    { x: '49%', y: '13%', size: 'clamp(94px, 11vw, 164px)', duration: '23s', delay: '-16s', path: 'b' },
+    { x: '88%', y: '20%', size: 'clamp(82px, 9vw, 136px)', duration: '20s', delay: '-11s', path: 'c' },
+    { x: '17%', y: '50%', size: 'clamp(96px, 12vw, 174px)', duration: '24s', delay: '-18s', path: 'c' },
+    { x: '52%', y: '48%', size: 'clamp(108px, 13vw, 190px)', duration: '19s', delay: '-5s', path: 'a' },
+    { x: '83%', y: '52%', size: 'clamp(90px, 10vw, 154px)', duration: '22s', delay: '-14s', path: 'b' },
+    { x: '11%', y: '82%', size: 'clamp(84px, 10vw, 144px)', duration: '21s', delay: '-9s', path: 'b' },
+    { x: '47%', y: '84%', size: 'clamp(100px, 12vw, 178px)', duration: '25s', delay: '-20s', path: 'c' },
+    { x: '89%', y: '80%', size: 'clamp(92px, 11vw, 160px)', duration: '20s', delay: '-3s', path: 'a' },
+  ];
+
+  const mountScentArchitecture = () => {
+    const stage = document.querySelector('[data-scent-architecture]');
+    const chapterSlug = document.body.dataset.chapterSlug;
+    const products = window.EILLON_PRODUCTS;
+    if (!stage || !chapterSlug || !Array.isArray(products)) return false;
+    if (stage.dataset.mounted === 'true') return true;
+
+    const product = products.find((item) => item.slug === chapterSlug);
+    if (!product?.notes) return false;
+    stage.dataset.mounted = 'true';
+
+    const fragment = document.createDocumentFragment();
+    const frame = document.createElement('span');
+    frame.className = 'scent-architecture__frame';
+    const spine = document.createElement('span');
+    spine.className = 'scent-architecture__spine';
+    const scan = document.createElement('span');
+    scan.className = 'scent-architecture__scan';
+    fragment.append(frame, spine, scan);
+
+    const groups = [
+      ['top', product.notes.top],
+      ['heart', product.notes.heart],
+      ['base', product.notes.base],
+    ];
+
+    let assetIndex = 0;
+    groups.forEach(([groupName, notes], groupIndex) => {
+      const rail = document.createElement('span');
+      rail.className = `scent-architecture__rail scent-architecture__rail--${groupName}`;
+      rail.dataset.register = `0${groupIndex + 1}`;
+      fragment.appendChild(rail);
+
+      (notes || []).forEach((note) => {
+        const position = scentArchitecturePositions[assetIndex];
+        if (!position) return;
+
+        const asset = document.createElement('span');
+        asset.className = `scent-architecture__asset scent-architecture__asset--${position.path}`;
+        asset.dataset.group = groupName;
+        asset.style.setProperty('--asset-x', position.x);
+        asset.style.setProperty('--asset-y', position.y);
+        asset.style.setProperty('--asset-size', position.size);
+        asset.style.setProperty('--asset-duration', position.duration);
+        asset.style.setProperty('--asset-delay', position.delay);
+
+        const image = document.createElement('img');
+        image.width = 224;
+        image.height = 224;
+        image.alt = '';
+        image.loading = 'lazy';
+        image.decoding = 'async';
+        image.fetchPriority = 'low';
+        image.draggable = false;
+        image.dataset.src = `/images/store/notes/${chapterSlug}/${scentAssetSlug(note)}-224.webp`;
+        image.addEventListener('error', () => asset.remove(), { once: true });
+
+        asset.appendChild(image);
+        fragment.appendChild(asset);
+        assetIndex += 1;
+      });
+    });
+
+    stage.appendChild(fragment);
+
+    let assetsLoaded = false;
+    let stageInView = false;
+    const loadAssets = () => {
+      if (assetsLoaded) return;
+      assetsLoaded = true;
+      stage.querySelectorAll('img[data-src]').forEach((image) => {
+        image.src = image.dataset.src;
+        delete image.dataset.src;
+      });
+    };
+    const syncMotion = () => {
+      stage.classList.toggle('is-active', stageInView && !document.hidden && !prefersReduced);
+    };
+
+    if (prefersReduced) {
+      stage.classList.add('is-reduced');
+      loadAssets();
+      return true;
+    }
+
+    if (!('IntersectionObserver' in window)) {
+      loadAssets();
+      stageInView = true;
+      syncMotion();
+      return true;
+    }
+
+    const assetObserver = new IntersectionObserver(
+      ([entry], observer) => {
+        if (!entry.isIntersecting) return;
+        loadAssets();
+        observer.disconnect();
+      },
+      { rootMargin: '600px 0px', threshold: 0.01 }
+    );
+    const motionObserver = new IntersectionObserver(
+      ([entry]) => {
+        stageInView = entry.isIntersecting;
+        syncMotion();
+      },
+      { rootMargin: '8% 0px', threshold: 0.08 }
+    );
+
+    assetObserver.observe(stage);
+    motionObserver.observe(stage);
+    document.addEventListener('visibilitychange', syncMotion);
+    return true;
+  };
+
+  if (!mountScentArchitecture()) {
+    document.addEventListener('eillon:products-ready', mountScentArchitecture, { once: true });
+  }
+
   /* ---------- 7b. HERO BOTTLE VIDEO — poster first; video after idle ---------- */
   const scheduleHeroVideo = (fn) => {
     const timeout = mobileLayout.matches ? 8000 : 5000;

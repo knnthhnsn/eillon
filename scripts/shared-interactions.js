@@ -126,22 +126,6 @@
     img.fetchPriority = 'low';
   };
 
-  const buildAccordCollage = (sources, { deferred = false } = {}) => {
-    const collage = document.createElement('div');
-    collage.className = 'chapter-scent-collage';
-    collage.setAttribute('aria-hidden', 'true');
-    sources.forEach((src) => {
-      const img = document.createElement('img');
-      if (deferred) {
-        appendDeferredHoverImage(img, src, '', { width: 550, height: 550 });
-      } else {
-        appendLazyImage(img, src, '');
-      }
-      collage.appendChild(img);
-    });
-    return collage;
-  };
-
   const slugifyImageAsset = (value) => value
     .normalize('NFKD')
     .replace(/[\u0300-\u036f]/g, '')
@@ -600,17 +584,169 @@
     });
   };
 
+  const buildStoreHeroNotesLayer = (product) => {
+    const layer = document.createElement('div');
+    layer.className = `store-hero__notes-layer store-hero__notes-layer--${product.slug}`;
+    layer.dataset.chapter = product.slug;
+
+    const caption = document.createElement('span');
+    caption.className = 'store-hero__notes-caption';
+    const chapter = document.createElement('strong');
+    chapter.textContent = `${product.chapter} · ${product.name}`;
+    const subtitle = document.createElement('em');
+    subtitle.textContent = product.subtitle;
+    caption.append(chapter, subtitle);
+    layer.appendChild(caption);
+
+    flattenProductNotes(product.notes).forEach((note, index) => {
+      const image = document.createElement('img');
+      const path = ['a', 'b', 'c'][index % 3];
+      image.className = `store-hero__note store-hero__note--${index + 1} store-hero__note--path-${path}`;
+      image.width = 224;
+      image.height = 224;
+      image.alt = '';
+      image.loading = 'lazy';
+      image.decoding = 'async';
+      image.fetchPriority = 'low';
+      image.draggable = false;
+      image.dataset.storeNoteSrc = withImageVersion(
+        `images/store/notes/${product.slug}/${slugifyImageAsset(note)}-224.webp`
+      );
+      image.addEventListener('error', () => image.remove(), { once: true });
+      layer.appendChild(image);
+    });
+
+    return layer;
+  };
+
+  const loadStoreHeroNotesLayer = (layer) => {
+    if (!layer || layer.dataset.assetsReady === 'true') return;
+    layer.dataset.assetsReady = 'true';
+    layer.querySelectorAll('img[data-store-note-src]').forEach((image) => {
+      image.src = image.dataset.storeNoteSrc;
+      delete image.dataset.storeNoteSrc;
+      image.decode?.().catch(() => {});
+    });
+  };
+
   const initStoreHeroFlacons = () => {
     const products = window.EILLON_PRODUCTS;
-    const supportsPreciseHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-    if (!Array.isArray(products) || !supportsPreciseHover) return;
+    const hero = document.querySelector('[data-store-hero]');
+    const stage = hero?.querySelector('[data-store-notes-stage]');
+    const vitrine = hero?.querySelector('[data-store-hero-vitrine]');
+    if (!Array.isArray(products) || !hero || !stage || !vitrine) return;
+    if (hero.dataset.notesMounted === 'true') return;
 
-    document.querySelectorAll('.store-hero__flacon-well[data-chapter]').forEach((well) => {
-      if (well.dataset.collageReady === 'true') return;
-      const product = products.find((p) => p.slug === well.dataset.chapter);
-      if (!product?.accordCollage?.length) return;
-      well.dataset.collageReady = 'true';
-      well.insertBefore(buildAccordCollage(product.accordCollage), well.firstChild);
+    const entries = Array.from(vitrine.querySelectorAll('.store-hero__flacon')).map((flacon) => {
+      const slug = flacon.querySelector('[data-chapter]')?.dataset.chapter;
+      const product = products.find((item) => item.slug === slug);
+      if (!product?.notes) return null;
+      const layer = buildStoreHeroNotesLayer(product);
+      stage.appendChild(layer);
+      return { flacon, layer, product };
+    }).filter(Boolean);
+    if (!entries.length) return;
+
+    hero.dataset.notesMounted = 'true';
+    const supportsPreciseHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    const sequenceDelay = 4800;
+    let activeIndex = 0;
+    let lastHoveredIndex = 0;
+    let sequenceTimer = 0;
+    let pointerPaused = false;
+    let focusPaused = false;
+    let heroInView = false;
+
+    const clearSequence = () => {
+      window.clearTimeout(sequenceTimer);
+      sequenceTimer = 0;
+    };
+    const prefetchNext = (index) => {
+      const next = entries[(index + 1) % entries.length]?.layer;
+      if (!next || next.dataset.assetsReady === 'true') return;
+      const load = () => loadStoreHeroNotesLayer(next);
+      if ('requestIdleCallback' in window) requestIdleCallback(load, { timeout: 1400 });
+      else window.setTimeout(load, 500);
+    };
+    const activate = (index, source = 'auto') => {
+      activeIndex = (index + entries.length) % entries.length;
+      if (source === 'user') lastHoveredIndex = activeIndex;
+      entries.forEach(({ flacon, layer }, entryIndex) => {
+        const active = entryIndex === activeIndex;
+        flacon.classList.toggle('is-active', active);
+        flacon.dataset.active = active ? 'true' : 'false';
+        layer.classList.toggle('is-active', active);
+      });
+      const activeEntry = entries[activeIndex];
+      stage.dataset.activeChapter = activeEntry.product.slug;
+      loadStoreHeroNotesLayer(activeEntry.layer);
+      prefetchNext(activeIndex);
+    };
+    const sequencePaused = () => pointerPaused || focusPaused || !heroInView || document.hidden || prefersReduced;
+    const scheduleSequence = () => {
+      clearSequence();
+      if (sequencePaused()) return;
+      sequenceTimer = window.setTimeout(() => {
+        activate(activeIndex + 1);
+        scheduleSequence();
+      }, sequenceDelay);
+    };
+    const syncVisibility = (visible) => {
+      heroInView = visible;
+      stage.classList.toggle('is-inview', visible && !document.hidden);
+      scheduleSequence();
+    };
+
+    activate(0);
+
+    if (supportsPreciseHover) {
+      vitrine.addEventListener('pointerenter', () => {
+        pointerPaused = true;
+        clearSequence();
+      });
+      vitrine.addEventListener('pointerleave', () => {
+        pointerPaused = false;
+        activate(lastHoveredIndex);
+        scheduleSequence();
+      });
+      entries.forEach(({ flacon }, index) => {
+        flacon.addEventListener('pointerenter', () => {
+          pointerPaused = true;
+          clearSequence();
+          activate(index, 'user');
+        });
+      });
+    }
+
+    vitrine.addEventListener('focusin', (event) => {
+      const index = entries.findIndex(({ flacon }) => flacon === event.target || flacon.contains(event.target));
+      if (index < 0) return;
+      focusPaused = true;
+      clearSequence();
+      activate(index, 'user');
+    });
+    vitrine.addEventListener('focusout', () => {
+      requestAnimationFrame(() => {
+        if (vitrine.contains(document.activeElement)) return;
+        focusPaused = false;
+        activate(lastHoveredIndex);
+        scheduleSequence();
+      });
+    });
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(
+        ([entry]) => syncVisibility(entry.isIntersecting),
+        { threshold: 0.12 }
+      );
+      observer.observe(hero);
+    } else {
+      syncVisibility(true);
+    }
+
+    document.addEventListener('visibilitychange', () => {
+      stage.classList.toggle('is-inview', heroInView && !document.hidden);
+      scheduleSequence();
     });
   };
 

@@ -2,7 +2,7 @@
 <html lang="en-DK">
 <head>
   <meta charset="UTF-8" />
-  <meta name="eillon-asset-stamp" content="82.33.39.22.179.26" />
+  <meta name="eillon-asset-stamp" content="94.37.40.2.22.179.1.26" />
   <script>/* eillon-asset-stamp */(function(){try{var m=document.querySelector('meta[name=eillon-asset-stamp]');if(!m)return;var s=m.content,k='eillon:assets:'+location.pathname,p=sessionStorage.getItem(k);sessionStorage.setItem(k,s);if(p&&p!==s&&!/[?&]refresh=1/.test(location.search)){location.replace(location.pathname+'?refresh=1'+location.hash);}}catch(e){}})();</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>The Boutique — EILLON Afro-Mediterranean Memory Perfumery</title>
@@ -38,7 +38,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@300;400;500;600&display=optional" rel="stylesheet" media="print" onload="this.media='all'" />
   <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@300;400;500;600&display=optional" rel="stylesheet" /></noscript>
   <link rel="stylesheet" href="styles.min.css?v=179" />
-  <link rel="stylesheet" href="site.min.css?v=82" />
+  <link rel="stylesheet" href="site.min.css?v=94" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -181,23 +181,61 @@
 </head>
 <body class="editorial-page store-page" data-nav-current="collection">
   <a class="skip-link" href="#top">Skip to content</a>
-  <script src="/scripts/site-nav.js?v=33" defer></script>
+  <script src="/scripts/site-nav.js?v=37" defer></script>
 
   <main class="editorial-page__main boutique-page__main" id="top">
     <div class="store-frost-bg" aria-hidden="true"></div>
-    <!-- Boutique hero — light shader vitrine -->
+
+    <!-- Product collection — primary boutique experience -->
+    <section id="chapters" aria-label="Fragrance collection">
+      <div class="boutique-shader-band boutique-shader-band--collection">
+        <div class="store-shop">
+          <header class="store-shop__head" data-reveal="up">
+            <div>
+              <p class="sx-eyebrow">The Collection</p>
+              <h1>Six chapters · <em>endlessly you.</em></h1>
+            </div>
+            <p class="store-shop__count">Beles next restock · four in development · Ritual in the archive</p>
+          </header>
+
+          <div class="product-grid product-grid--shop" data-product-grid data-product-grid-mode="shop" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="store-label-strip" aria-hidden="true">
+      <span class="store-label-strip__sheen" aria-hidden="true"></span>
+      <div class="store-label-strip__rail">
+        <div class="store-label-strip__track" data-marquee>
+          <span class="store-label-strip__word">EILLON</span>
+          <span class="store-label-strip__mark"><img src="images/logo-mark-160.webp" width="160" height="90" alt="" decoding="async" loading="lazy" /></span>
+          <span class="store-label-strip__word">EILLON</span>
+          <span class="store-label-strip__mark"><img src="images/logo-mark-160.webp" width="160" height="90" alt="" decoding="async" loading="lazy" /></span>
+          <span class="store-label-strip__word">EILLON</span>
+          <span class="store-label-strip__mark"><img src="images/logo-mark-160.webp" width="160" height="90" alt="" decoding="async" loading="lazy" /></span>
+          <span class="store-label-strip__word">EILLON</span>
+          <span class="store-label-strip__mark"><img src="images/logo-mark-160.webp" width="160" height="90" alt="" decoding="async" loading="lazy" /></span>
+          <span class="store-label-strip__word">EILLON</span>
+          <span class="store-label-strip__mark"><img src="images/logo-mark-160.webp" width="160" height="90" alt="" decoding="async" loading="lazy" /></span>
+          <span class="store-label-strip__word">EILLON</span>
+          <span class="store-label-strip__mark"><img src="images/logo-mark-160.webp" width="160" height="90" alt="" decoding="async" loading="lazy" /></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Boutique scene — light shader vitrine -->
     <section class="store-hero-band" aria-label="The Boutique">
       <picture class="store-hero-band__backdrop" aria-hidden="true">
         <source media="(max-width: 720px)" srcset="images/store/store-hero-atelier-960.webp" />
-        <img src="images/store/store-hero-atelier-1600.webp" srcset="images/store/store-hero-atelier-960.webp 960w, images/store/store-hero-atelier-1600.webp 1600w" sizes="100vw" width="1600" height="900" alt="" loading="eager" decoding="async" fetchpriority="low" />
+        <img src="images/store/store-hero-atelier-1600.webp" srcset="images/store/store-hero-atelier-960.webp 960w, images/store/store-hero-atelier-1600.webp 1600w" sizes="100vw" width="1600" height="900" alt="" loading="lazy" decoding="async" fetchpriority="low" />
       </picture>
-      <div class="store-hero">
+      <div class="store-hero" data-store-hero>
         <div class="store-hero__copy" data-reveal="up">
           <p class="sx-eyebrow store-hero__eyebrow">The Boutique</p>
-          <h1 class="store-hero__title">
+          <h2 class="store-hero__title">
             <span class="store-hero__title-primary">Oil-rich<br />parfums</span>
             <em class="store-hero__title-accent">endlessly you.</em>
-          </h1>
+          </h2>
           <p class="store-hero__lead">Six fragrance chapters composed slowly in Copenhagen — desert fruit, olive grove, rain on stone, and wet earth, hand-finished as oil-rich parfums.</p>
           <div class="store-hero__actions">
             <a class="sx-btn" href="/beles/preorder?source=store_hero">Beles next restock</a>
@@ -223,80 +261,39 @@
           </dl>
         </div>
 
-        <div class="store-hero__vitrine" aria-label="Chapter flacons">
+        <div class="store-hero__notes-stage" data-store-notes-stage aria-hidden="true"></div>
+
+        <div class="store-hero__vitrine" aria-label="Chapter flacons" data-store-hero-vitrine>
           <a class="store-hero__flacon" href="/beles" aria-label="Beles · Fico d'India">
-            <span class="store-hero__flacon-well chapter-cap-well chapter-cap-well--beles" data-chapter="beles">
-              <img class="store-hero__sample" src="images/samples/beles-sample-transparent-240.webp" srcset="images/samples/beles-sample-transparent-240.webp 240w, images/samples/beles-sample-transparent-480.webp 480w" sizes="(max-width: 1080px) 165px, 210px" width="240" height="240" loading="eager" decoding="async" alt="" />
+            <span class="store-hero__flacon-well" data-chapter="beles">
+              <img class="store-hero__sample" src="images/samples/beles-sample-transparent-240.webp" srcset="images/samples/beles-sample-transparent-240.webp 240w, images/samples/beles-sample-transparent-480.webp 480w" sizes="(max-width: 1080px) 165px, 210px" width="240" height="240" loading="lazy" decoding="async" alt="" />
             </span>
-            <span class="store-hero__flacon-label">Beles</span>
           </a>
           <a class="store-hero__flacon" href="/oliva" aria-label="Oliva · Olive Grove">
-            <span class="store-hero__flacon-well chapter-cap-well chapter-cap-well--oliva" data-chapter="oliva">
-              <img class="store-hero__sample" src="images/samples/oliva-sample-transparent-240.webp" srcset="images/samples/oliva-sample-transparent-240.webp 240w, images/samples/oliva-sample-transparent-480.webp 480w" sizes="(max-width: 1080px) 165px, 210px" width="240" height="240" loading="eager" decoding="async" alt="" />
+            <span class="store-hero__flacon-well" data-chapter="oliva">
+              <img class="store-hero__sample" src="images/samples/oliva-sample-transparent-240.webp" srcset="images/samples/oliva-sample-transparent-240.webp 240w, images/samples/oliva-sample-transparent-480.webp 480w" sizes="(max-width: 1080px) 165px, 210px" width="240" height="240" loading="lazy" decoding="async" alt="" />
             </span>
-            <span class="store-hero__flacon-label">Oliva</span>
           </a>
           <a class="store-hero__flacon" href="/asmara" aria-label="Asmara · Rain on Stone">
-            <span class="store-hero__flacon-well chapter-cap-well chapter-cap-well--asmara" data-chapter="asmara">
-              <img class="store-hero__sample" src="images/samples/asmara-sample-transparent-240.webp" srcset="images/samples/asmara-sample-transparent-240.webp 240w, images/samples/asmara-sample-transparent-480.webp 480w" sizes="(max-width: 1080px) 165px, 210px" width="240" height="240" loading="eager" decoding="async" alt="" />
+            <span class="store-hero__flacon-well" data-chapter="asmara">
+              <img class="store-hero__sample" src="images/samples/asmara-sample-transparent-240.webp" srcset="images/samples/asmara-sample-transparent-240.webp 240w, images/samples/asmara-sample-transparent-480.webp 480w" sizes="(max-width: 1080px) 165px, 210px" width="240" height="240" loading="lazy" decoding="async" alt="" />
             </span>
-            <span class="store-hero__flacon-label">Asmara</span>
           </a>
           <a class="store-hero__flacon" href="/massawa" aria-label="Massawa · Red Sea Citrus">
-            <span class="store-hero__flacon-well chapter-cap-well chapter-cap-well--massawa" data-chapter="massawa">
-              <img class="store-hero__sample" src="images/samples/massawa-sample-transparent-240.webp" srcset="images/samples/massawa-sample-transparent-240.webp 240w, images/samples/massawa-sample-transparent-480.webp 480w" sizes="(max-width: 1080px) 165px, 210px" width="240" height="240" loading="eager" decoding="async" alt="" />
+            <span class="store-hero__flacon-well" data-chapter="massawa">
+              <img class="store-hero__sample" src="images/samples/massawa-sample-transparent-240.webp" srcset="images/samples/massawa-sample-transparent-240.webp 240w, images/samples/massawa-sample-transparent-480.webp 480w" sizes="(max-width: 1080px) 165px, 210px" width="240" height="240" loading="lazy" decoding="async" alt="" />
             </span>
-            <span class="store-hero__flacon-label">Massawa</span>
           </a>
           <a class="store-hero__flacon" href="/petricor" aria-label="Petricor · Wet Earth">
-            <span class="store-hero__flacon-well chapter-cap-well chapter-cap-well--petricor" data-chapter="petricor">
-              <img class="store-hero__sample" src="images/samples/petricor-sample-transparent-240.webp" srcset="images/samples/petricor-sample-transparent-240.webp 240w, images/samples/petricor-sample-transparent-480.webp 480w" sizes="(max-width: 1080px) 165px, 210px" width="240" height="240" loading="eager" decoding="async" alt="" />
+            <span class="store-hero__flacon-well" data-chapter="petricor">
+              <img class="store-hero__sample" src="images/samples/petricor-sample-transparent-240.webp" srcset="images/samples/petricor-sample-transparent-240.webp 240w, images/samples/petricor-sample-transparent-480.webp 480w" sizes="(max-width: 1080px) 165px, 210px" width="240" height="240" loading="lazy" decoding="async" alt="" />
             </span>
-            <span class="store-hero__flacon-label">Petricor</span>
           </a>
           <a class="store-hero__flacon" href="/ritual" aria-label="Ritual · Frankincense &amp; Myrrh">
-            <span class="store-hero__flacon-well chapter-cap-well chapter-cap-well--ritual" data-chapter="ritual">
-              <img class="store-hero__sample" src="images/samples/ritual-sample-transparent-240.webp" srcset="images/samples/ritual-sample-transparent-240.webp 240w, images/samples/ritual-sample-transparent-480.webp 480w" sizes="(max-width: 1080px) 165px, 210px" width="240" height="240" loading="eager" decoding="async" alt="" />
+            <span class="store-hero__flacon-well" data-chapter="ritual">
+              <img class="store-hero__sample" src="images/samples/ritual-sample-transparent-240.webp" srcset="images/samples/ritual-sample-transparent-240.webp 240w, images/samples/ritual-sample-transparent-480.webp 480w" sizes="(max-width: 1080px) 165px, 210px" width="240" height="240" loading="lazy" decoding="async" alt="" />
             </span>
-            <span class="store-hero__flacon-label">Ritual</span>
           </a>
-        </div>
-      </div>
-    </section>
-
-    <div class="store-label-strip" aria-hidden="true">
-      <span class="store-label-strip__sheen" aria-hidden="true"></span>
-      <div class="store-label-strip__rail">
-        <div class="store-label-strip__track" data-marquee>
-          <span class="store-label-strip__word">EILLON</span>
-          <span class="store-label-strip__mark"><img src="images/logo-mark-160.webp" width="160" height="90" alt="" decoding="async" loading="lazy" /></span>
-          <span class="store-label-strip__word">EILLON</span>
-          <span class="store-label-strip__mark"><img src="images/logo-mark-160.webp" width="160" height="90" alt="" decoding="async" loading="lazy" /></span>
-          <span class="store-label-strip__word">EILLON</span>
-          <span class="store-label-strip__mark"><img src="images/logo-mark-160.webp" width="160" height="90" alt="" decoding="async" loading="lazy" /></span>
-          <span class="store-label-strip__word">EILLON</span>
-          <span class="store-label-strip__mark"><img src="images/logo-mark-160.webp" width="160" height="90" alt="" decoding="async" loading="lazy" /></span>
-          <span class="store-label-strip__word">EILLON</span>
-          <span class="store-label-strip__mark"><img src="images/logo-mark-160.webp" width="160" height="90" alt="" decoding="async" loading="lazy" /></span>
-          <span class="store-label-strip__word">EILLON</span>
-          <span class="store-label-strip__mark"><img src="images/logo-mark-160.webp" width="160" height="90" alt="" decoding="async" loading="lazy" /></span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Product collection — Shopify-style grid -->
-    <section id="chapters" aria-label="Fragrance collection">
-      <div class="boutique-shader-band boutique-shader-band--collection">
-        <div class="store-shop">
-          <header class="store-shop__head" data-reveal="up">
-            <div>
-              <p class="sx-eyebrow">The Collection</p>
-              <h2>Six chapters · <em>endlessly you.</em></h2>
-            </div>
-            <p class="store-shop__count">Beles next restock · four in development · Ritual in the archive</p>
-          </header>
-
-          <div class="product-grid product-grid--shop" data-product-grid data-product-grid-mode="shop" aria-live="polite"></div>
         </div>
       </div>
     </section>
@@ -515,6 +512,6 @@
 
   <script src="data/products.js?v=22" defer></script>
   <script src="/scripts/global-core.min.js?v=35" defer></script>
-  <script src="/scripts/shared-interactions.min.js?v=39" defer></script>
+  <script src="/scripts/shared-interactions.min.js?v=40" defer></script>
 </body>
 </html>

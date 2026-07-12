@@ -13,6 +13,7 @@
     { sel: '.mv-name', key: 'name', mode: 'nameLight', prepend: true, blend: 'overlay' },
     { sel: '.mv-house', key: 'house', prepend: true, blend: 'overlay', layer: 'mid' },
     { sel: '.mv-land', mount: '.mv-land__media', before: '.mv-land__grad', key: 'land', blend: 'overlay', layer: 'photo' },
+    { sel: '.mv-chapter', key: 'belesChapter', prepend: true },
     { sel: '.mv-object', key: 'object', prepend: true },
     { sel: '.page-hero', mount: '.page-hero__media', before: '.page-hero__veil', key: 'pageHero', blend: 'overlay', layer: 'photo' },
     { sel: '.article-hero', mount: '.article-hero__media', before: '.article-hero__veil', key: 'pageHero', blend: 'overlay', layer: 'photo' },
@@ -47,6 +48,7 @@
     name:     { c1: [0.94, 0.97, 1.0], c2: [0.04, 0.42, 0.96], c3: [1.0, 1.0, 1.0], opacity: 0.72, baseAlpha: 0.76, scale: 1.28, speed: 1.32 },
     house:    { c1: [0.08, 0.07, 0.06], c2: [0.42, 0.38, 0.34], c3: [0.92, 0.72, 0.38], opacity: 1, baseAlpha: 0.38, scale: 1.2, speed: 1.35 },
     land:     { c1: [0.04, 0.12, 0.06], c2: [0.20, 0.48, 0.26], c3: [0.82, 0.58, 0.14], opacity: 0.68, scale: 1.35, speed: 1.45 },
+    belesChapter: { c1: [0.01, 0.06, 0.04], c2: [0.12, 0.42, 0.14], c3: [0.98, 0.58, 0.06], opacity: 1, baseAlpha: 0.88, scale: 1.30, speed: 1.18, spot: [0.72, 0.30, 0.42, 0.58] },
     object:   { c1: [0.02, 0.04, 0.07], c2: [0.08, 0.14, 0.20], c3: [0.20, 0.26, 0.30], opacity: 0.55, scale: 1.25, speed: 1.05 },
     pageHero: { c1: [0.01, 0.04, 0.12], c2: [0.06, 0.32, 0.68], c3: [0.86, 0.52, 0.14], opacity: 0.56, scale: 1.35, speed: 1.65 },
     leopardWarm:  { c1: [0.0, 0.0, 0.0], c2: [0.78, 0.54, 0.30], c3: [0.96, 0.84, 0.58], opacity: 0.52, baseAlpha: 0.48, scale: 1.14, speed: 0.86 },
@@ -303,9 +305,12 @@
 
   var layers = [];
   var io = null;
+  var lazyIo = null;
   var mountObserver = null;
   var frameStarted = false;
   var listenersBound = false;
+  var lastFrameTime = -Infinity;
+  var FRAME_INTERVAL = 1000 / 30;
 
   function compileShader(gl, type, src) {
     var shader = gl.createShader(type);
@@ -325,7 +330,7 @@
       antialias: false,
       depth: false,
       stencil: false,
-      preserveDrawingBuffer: true,
+      preserveDrawingBuffer: false,
       powerPreference: 'low-power',
     });
     if (!gl) return null;
@@ -376,6 +381,11 @@
     this.config = config;
     this.root = root;
     this.theme = theme;
+    this.colors = {
+      c1: new Float32Array(theme.c1),
+      c2: new Float32Array(theme.c2),
+      c3: new Float32Array(theme.c3),
+    };
     this.animate = !reduceMq.matches;
     if (!this.root || !theme) return;
 
@@ -412,7 +422,8 @@
 
   ShaderLayer.prototype.resize = function () {
     if (!this.state) return;
-    var dpr = mobileMq.matches ? 1 : Math.min(window.devicePixelRatio || 1, 1.75);
+    var nativeDpr = mobileMq.matches ? 1 : Math.min(window.devicePixelRatio || 1, 1.75);
+    var dpr = nativeDpr * (mobileMq.matches ? 0.8 : 0.82);
     var w = this.config.viewport ? window.innerWidth : this.mount.clientWidth;
     var h = this.config.viewport ? window.innerHeight : this.mount.clientHeight;
     if (w < 2 || h < 2) return;
@@ -444,9 +455,9 @@
     gl.uniform1f(s.uTime, time * 0.001);
     gl.uniform1f(s.uSpeed, theme.speed || 1);
     gl.uniform2f(s.uScale, theme.scale, theme.scale);
-    gl.uniform3fv(s.uC1, new Float32Array(theme.c1));
-    gl.uniform3fv(s.uC2, new Float32Array(theme.c2));
-    gl.uniform3fv(s.uC3, new Float32Array(theme.c3));
+    gl.uniform3fv(s.uC1, this.colors.c1);
+    gl.uniform3fv(s.uC2, this.colors.c2);
+    gl.uniform3fv(s.uC3, this.colors.c3);
     if (s.uSpot) {
       var spot = theme.spot || [0, 0, 0, 0];
       gl.uniform4f(s.uSpot, spot[0], spot[1], spot[2], spot[3] || 0);
@@ -469,11 +480,58 @@
         { root: null, rootMargin: '10% 0px', threshold: 0 },
       );
     }
+    if (!lazyIo) {
+      lazyIo = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            lazyIo.unobserve(entry.target);
+            delete entry.target.dataset.mvShaderObserved;
+            mountLayer(entry.target.__mvShaderConfig, entry.target);
+          });
+        },
+        { root: null, rootMargin: '160px 0px', threshold: 0 },
+      );
+    }
     if (!mountObserver && window.ResizeObserver) {
       mountObserver = new ResizeObserver(function () {
         layers.forEach(function (layer) { layer.resize(); });
       });
     }
+  }
+
+  function isNearView(el) {
+    var rect = el.getBoundingClientRect();
+    return rect.bottom > -160 && rect.top < window.innerHeight + 160;
+  }
+
+  function startFrameLoop() {
+    if (frameStarted || !layers.some(function (layer) { return layer.animate; })) return;
+    frameStarted = true;
+    window.requestAnimationFrame(function frame(time) {
+      if (!document.hidden && time - lastFrameTime >= FRAME_INTERVAL) {
+        lastFrameTime = time;
+        layers.forEach(function (layer) {
+          if (!layer.animate) return;
+          if (!layer.config.viewport && !layer.root.__mvShaderActive) return;
+          layer.draw(time);
+        });
+      }
+      window.requestAnimationFrame(frame);
+    });
+  }
+
+  function mountLayer(target, root) {
+    if (!target || !root || root.dataset.mvShaderMounted === 'true') return;
+    var layer = new ShaderLayer(target, root);
+    if (!layer.state) return;
+
+    root.dataset.mvShaderMounted = 'true';
+    layers.push(layer);
+    layer.root.__mvShaderActive = target.viewport ? true : isInView(layer.root);
+    if (!target.viewport) io.observe(layer.root);
+    if (mountObserver) mountObserver.observe(layer.mount);
+    startFrameLoop();
   }
 
   function mountAll() {
@@ -482,34 +540,19 @@
     TARGETS.forEach(function (target) {
       if ((target.sel === '.mv-hero' || target.sel === '.mv-land') && mobileMq.matches) return;
       document.querySelectorAll(target.sel).forEach(function (root) {
-        if (root.dataset.mvShaderMounted === 'true') return;
-
-        var layer = new ShaderLayer(target, root);
-        if (!layer.state) return;
-
-        root.dataset.mvShaderMounted = 'true';
-        layers.push(layer);
-        layer.root.__mvShaderActive = target.viewport ? true : isInView(layer.root);
-        if (!target.viewport) io.observe(layer.root);
-        if (mountObserver) mountObserver.observe(layer.mount);
+        if (root.dataset.mvShaderMounted === 'true' || root.dataset.mvShaderObserved === 'true') return;
+        root.__mvShaderConfig = target;
+        if (target.viewport || isNearView(root)) {
+          mountLayer(target, root);
+        } else {
+          root.dataset.mvShaderObserved = 'true';
+          lazyIo.observe(root);
+        }
       });
     });
 
     if (!layers.length) return;
-
-    if (!frameStarted) {
-      frameStarted = true;
-      (function frame(time) {
-        layers.forEach(function (layer) {
-          if (!layer.animate) return;
-          if (!layer.config.viewport && !layer.root.__mvShaderActive) return;
-          layer.draw(time);
-        });
-        window.requestAnimationFrame(frame);
-      })(0);
-    } else {
-      layers.forEach(function (layer) { layer.resize(); });
-    }
+    layers.forEach(function (layer) { layer.resize(); });
   }
 
   function bindListeners() {
