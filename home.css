@@ -2332,3 +2332,25 @@ body[data-nav-home="true"] .footer__legal a:hover { color: #fff; }
   color: rgba(248, 246, 240, 0.88);
   font-size: 0.88rem;
 }
+
+@media (max-width: 900px) {
+  .nav__menu,
+  .nav__icon {
+    width: 40px;
+    height: 40px;
+  }
+  body[data-nav-home="true"] .footer__form input[type="email"],
+  .sx-letter__form input[type="email"] {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 560px) {
+  .nav__actions { gap: 6px; }
+  .nav__waitlist {
+    min-height: 40px;
+    padding-inline: 12px;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+  }
+}

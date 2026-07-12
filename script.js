@@ -471,14 +471,30 @@
 
   const waitlistMessages = {
     beles: 'You are on the Beles restock list — we write when the next batch is ready.',
+    oliva: 'We will send studio notes as Oliva develops.',
     asmara: 'We will send studio notes as Asmara develops.',
     massawa: 'We will send studio notes as Massawa develops.',
+    petricor: 'We will send studio notes as Petricor develops.',
     ritual: 'You are following the Ritual lab study.',
     all: 'You are on the letter list.',
   };
 
+  const buildWaitlistConfirmation = ({ productSlug, size, signup }) => {
+    if (productSlug === 'all') return 'You are subscribed to The Letter.';
+
+    const product = window.EILLON_PRODUCTS?.find((item) => item.slug === productSlug);
+    const format = product?.formats?.find((item) => item.id === size);
+    const localSelection = product && format
+      ? `${product.name} · ${product.subtitle} · ${format.label} · €${format.price}`
+      : product?.name || productSlug;
+    const selection = signup?.selection_label || localSelection;
+    const followUp = waitlistMessages[productSlug] || 'We will write when this chapter advances.';
+    return `Signed up for ${selection}. ${followUp}`;
+  };
+
   const setWaitlistJoined = ({ form, emailInput, submitButton, statusEl, message, isNewsletter }) => {
     if (form) {
+      form.dataset.waitlistJoined = 'true';
       form.querySelectorAll('input:not([type="hidden"]), select, textarea').forEach((field) => {
         field.disabled = true;
       });
@@ -513,6 +529,7 @@
         utm_campaign: utm.utm_campaign || null,
         consent_marketing: consent_marketing === true,
         consent_notice_version: CONSENT_NOTICE_VERSION,
+        page_path: window.location.pathname,
       }),
     });
     const data = await res.json().catch(() => ({}));
@@ -552,20 +569,28 @@
 
     const statusEl = form.querySelector('[aria-live="polite"]')
       || form.querySelector('.shop__waitlist-status')
-      || form.querySelector('.beles-waitlist-status');
+      || form.querySelector('.beles-waitlist-status')
+      || form.parentElement?.querySelector('.shop__waitlist-status, .beles-waitlist-status, [data-waitlist-status]');
     const submitButton = form.querySelector('button[type="submit"]');
     const emailInput = form.querySelector('input[type="email"]');
     const storageKey = `eillon-waitlist-${productSlug}`;
-    const successMessage = waitlistMessages[productSlug] || 'You are on the list.';
+    const fallbackSuccessMessage = waitlistMessages[productSlug] || 'You are on the list.';
 
     try {
-      if (window.localStorage.getItem(storageKey) === 'true') {
+      const storedSignup = window.localStorage.getItem(storageKey);
+      if (storedSignup && storedSignup !== 'true') {
+        let storedMessage = fallbackSuccessMessage;
+        try {
+          storedMessage = JSON.parse(storedSignup).message || storedMessage;
+        } catch {
+          // A malformed local marker should not block a fresh exact signup.
+        }
         setWaitlistJoined({
           form,
           emailInput,
           submitButton,
           statusEl,
-          message: successMessage,
+          message: storedMessage,
           isNewsletter,
         });
       }
@@ -602,13 +627,15 @@
       if (submitButton) submitButton.disabled = true;
       if (statusEl) statusEl.textContent = '';
 
-      const sizeInput = form.querySelector('[name="size"]');
-      const size = sizeInput?.value || (productSlug === 'beles' ? selectedSize : null);
+      const sizeInput = form.querySelector(
+        '[name="size"]:checked, select[name="size"], input[name="size"]:not([type="radio"])',
+      );
+      const size = sizeInput?.value || form.dataset.defaultSize || null;
       const nameInput = form.querySelector('[name="name"]');
       const name = nameInput?.value?.trim() || null;
 
       try {
-        await submitWaitlistSignup({
+        const result = await submitWaitlistSignup({
           email: emailInput.value.trim(),
           source,
           size,
@@ -616,8 +643,17 @@
           name,
           consent_marketing: formHasConsent(form),
         });
+        const successMessage = buildWaitlistConfirmation({
+          productSlug,
+          size,
+          signup: result.signup,
+        });
         try {
-          window.localStorage.setItem(storageKey, 'true');
+          window.localStorage.setItem(storageKey, JSON.stringify({
+            productSlug,
+            size,
+            message: successMessage,
+          }));
         } catch {
           // Ignore storage failures.
         }
@@ -714,6 +750,25 @@
   const E = window.EILLON || {};
   const prefersReduced = E.prefersReduced ?? window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const playVideoSafe = E.playVideoSafe || (() => {});
+
+  const enhanceResponsiveTables = () => {
+    document.querySelectorAll('.info-page__table').forEach((table) => {
+      const headings = Array.from(table.querySelectorAll('thead th')).map((cell) => cell.textContent.trim());
+
+      table.querySelectorAll('tbody tr').forEach((row) => {
+        Array.from(row.children).forEach((cell, index) => {
+          const fallbackLabel = cell.matches('th[scope="row"]') ? 'Detail' : 'Value';
+          cell.dataset.label = headings[index] || fallbackLabel;
+        });
+      });
+
+      table.dataset.responsiveTable = 'true';
+      table.closest('.info-page__table-wrap')?.classList.add('info-page__table-wrap--responsive');
+    });
+  };
+
+  enhanceResponsiveTables();
+
   /* ---------- 10. PRODUCT GRID RENDER ---------- */
   const isOutOfStock = (product) => (
     ['awaiting-next-release', 'in-development', 'studio-archive', 'out-of-stock', 'waitlist-open'].includes(product.status)
@@ -737,6 +792,97 @@
     return 'Notify when back in stock';
   };
 
+  const formatEuro = (amount) => `\u20ac${amount}`;
+
+  const mountChapterFormats = (product) => {
+    if (product.slug === 'beles' || !product.formats?.length) return;
+
+    const info = document.querySelector('.shop--chapter .shop__info');
+    const form = info?.querySelector('[data-waitlist-form]');
+    if (!info || !form || form.querySelector('[data-chapter-formats]')) return;
+
+    const defaultFormat = product.formats.find((format) => format.id === '100')
+      || product.formats.at(-1);
+    const availabilityLabel = product.status === 'studio-archive'
+      ? 'archive format'
+      : 'planned release format';
+
+    const priceLine = document.createElement('p');
+    priceLine.className = 'shop__price chapter-formats__price';
+    priceLine.setAttribute('aria-live', 'polite');
+
+    const amount = document.createElement('span');
+    const volume = document.createElement('span');
+    volume.className = 'shop__price-meta';
+    priceLine.append(amount, volume);
+
+    const fieldset = document.createElement('fieldset');
+    fieldset.className = 'chapter-formats';
+    fieldset.dataset.chapterFormats = '';
+
+    const legend = document.createElement('legend');
+    legend.className = 'chapter-formats__legend';
+    const legendTitle = document.createElement('span');
+    legendTitle.textContent = 'Preferred format';
+    const legendNote = document.createElement('small');
+    legendNote.textContent = 'Records interest only';
+    legend.append(legendTitle, legendNote);
+
+    const options = document.createElement('div');
+    options.className = 'chapter-formats__options';
+
+    const selection = document.createElement('p');
+    selection.className = 'chapter-formats__selection';
+    selection.setAttribute('aria-live', 'polite');
+
+    const selectFormat = (format, track = false) => {
+      amount.textContent = formatEuro(format.price);
+      volume.textContent = `${format.label} \u00b7 ${availabilityLabel}`;
+      selection.textContent = `Interest choice: ${product.name} \u00b7 ${format.label} \u00b7 ${formatEuro(format.price)}`;
+      form.dataset.defaultSize = format.id;
+      if (track) {
+        window.EILLON_ANALYTICS?.track?.('size_interest_selected', {
+          chapter: product.slug,
+          size: format.id,
+          price: format.price,
+        });
+      }
+    };
+
+    product.formats.forEach((format) => {
+      const label = document.createElement('label');
+      label.className = 'chapter-formats__option';
+
+      const input = document.createElement('input');
+      input.type = 'radio';
+      input.name = 'size';
+      input.value = format.id;
+      input.checked = format.id === defaultFormat.id;
+      input.disabled = form.dataset.waitlistJoined === 'true';
+
+      const copy = document.createElement('span');
+      copy.className = 'chapter-formats__option-copy';
+      const formatLabel = document.createElement('strong');
+      formatLabel.textContent = format.label;
+      const price = document.createElement('small');
+      price.textContent = formatEuro(format.price);
+      copy.append(formatLabel, price);
+
+      input.addEventListener('change', () => {
+        if (input.checked) selectFormat(format, true);
+      });
+      label.append(input, copy);
+      options.appendChild(label);
+    });
+
+    fieldset.append(legend, options, selection);
+    form.prepend(fieldset);
+
+    const description = info.querySelector('.shop__desc');
+    info.insertBefore(priceLine, description || form);
+    selectFormat(defaultFormat);
+  };
+
   const applyChapterPageStatus = () => {
     const slug = document.body.dataset.chapterSlug;
     if (!slug || !Array.isArray(window.EILLON_PRODUCTS)) return;
@@ -752,9 +898,12 @@
 
     const submitHover = document.querySelector('[data-waitlist-form] .btn__hover');
     if (submitHover && product.ctaHover) submitHover.textContent = product.ctaHover;
+
+    mountChapterFormats(product);
   };
 
   document.addEventListener('eillon:products-ready', applyChapterPageStatus);
+  applyChapterPageStatus();
 
   const buildStoreCardCaption = (product) => {
     const caption = document.createElement('div');
@@ -1540,6 +1689,7 @@
   const shopImage = document.querySelector('.shop__image');
   const guideButtons = document.querySelectorAll('[data-guide-size]');
   const guideText = document.getElementById('sizeGuideText');
+  const waitlistSizeInput = document.querySelector('[data-waitlist-form][data-product-slug="beles"] [name="size"]');
   const canHover = window.matchMedia('(hover: hover) and (pointer: fine)');
   let selectedSize = '100';
   const volumeMap = {
@@ -1751,6 +1901,7 @@
     const amount = btn.dataset.amount;
     const size   = btn.dataset.size;
     selectedSize = size || selectedSize;
+    if (waitlistSizeInput && size) waitlistSizeInput.value = size;
     window.EILLON_ANALYTICS?.track?.('size_interest_selected', { chapter: 'beles', size });
     if (priceEl  && amount)              priceEl.textContent  = `€ ${amount}`;
     if (volumeEl && volumeMap[size])     volumeEl.textContent = volumeMap[size];

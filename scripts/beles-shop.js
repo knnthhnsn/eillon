@@ -14,6 +14,7 @@
   const shopImage = document.querySelector('.shop__image');
   const guideButtons = document.querySelectorAll('[data-guide-size]');
   const guideText = document.getElementById('sizeGuideText');
+  const waitlistSizeInput = document.querySelector('[data-waitlist-form][data-product-slug="beles"] [name="size"]');
   const canHover = window.matchMedia('(hover: hover) and (pointer: fine)');
   let selectedSize = '100';
   const volumeMap = {
@@ -225,6 +226,7 @@
     const amount = btn.dataset.amount;
     const size   = btn.dataset.size;
     selectedSize = size || selectedSize;
+    if (waitlistSizeInput && size) waitlistSizeInput.value = size;
     window.EILLON_ANALYTICS?.track?.('size_interest_selected', { chapter: 'beles', size });
     if (priceEl  && amount)              priceEl.textContent  = `€ ${amount}`;
     if (volumeEl && volumeMap[size])     volumeEl.textContent = volumeMap[size];

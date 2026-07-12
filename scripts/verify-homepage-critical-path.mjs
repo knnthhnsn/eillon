@@ -40,6 +40,22 @@ if (!existsSync(indexPath)) fail('index.html missing');
 
 const indexHtml = readFileSync(indexPath, 'utf8');
 
+const atlasSources = Array.from(
+  indexHtml.matchAll(/<img\b[^>]*class=["'][^"']*mv-atlas__img[^"']*["'][^>]*src=["']([^"']+)["']/gi),
+  (match) => match[1].split('?')[0],
+);
+if (atlasSources.length !== 6) {
+  fail(`scent atlas must contain 6 images, found ${atlasSources.length}`);
+}
+if (new Set(atlasSources).size !== atlasSources.length) {
+  fail('scent atlas contains repeated imagery');
+}
+for (const source of atlasSources) {
+  if (!existsSync(join(root, source.replace(/^\//, '')))) {
+    fail(`scent atlas image missing: ${source}`);
+  }
+}
+
 for (const token of FORBIDDEN_HOME_SCRIPTS) {
   if (indexHtml.includes(token)) {
     fail(`index.html references forbidden script "${token}"`);

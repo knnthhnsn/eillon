@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="robots" content="noindex, nofollow" />
   <title>EILLON — Waitlist Admin</title>
-  <link rel="stylesheet" href="styles.min.css?v=179" />
+  <link rel="stylesheet" href="styles.min.css?v=182" />
   <style>
     body { padding: 48px 24px 80px; background: var(--bg); color: var(--ink); }
-    .admin { max-width: 920px; margin: 0 auto; }
+    .admin { max-width: 1240px; margin: 0 auto; }
     .admin__head { margin-bottom: 32px; }
     .admin__head h1 {
       font-family: var(--serif);
@@ -66,7 +66,15 @@
       font-weight: 500;
     }
     tr:last-child td { border-bottom: 0; }
+    .admin__selection { min-width: 230px; font-family: var(--serif); }
+    .admin__intent { white-space: nowrap; }
     .admin__empty { padding: 32px 16px; text-align: center; color: var(--ink-soft); font-family: var(--serif); font-style: italic; }
+    @media (max-width: 700px) {
+      body { padding: 28px 16px 56px; }
+      .admin__gate { flex-direction: column; align-items: stretch; }
+      .admin__gate input { font-size: 16px; }
+      th, td { padding: 12px; }
+    }
   </style>
 </head>
 <body>
@@ -74,7 +82,7 @@
     <div class="admin__head">
       <span class="eyebrow">EILLON studio</span>
       <h1>Waitlist signups</h1>
-      <p>Private view of signups across products and The Letter.</p>
+      <p>Exact chapter, format, price, intent, and entry point for every signup.</p>
     </div>
 
     <form class="admin__gate" id="gateForm">
@@ -94,10 +102,11 @@
           <tr>
             <th>Name</th>
             <th>Email</th>
-            <th>Product</th>
-            <th>Source</th>
-            <th>Size</th>
-            <th>Signed up</th>
+            <th>Signed up for</th>
+            <th>Intent</th>
+            <th>Entry point</th>
+            <th>Page</th>
+            <th>Last activity</th>
           </tr>
         </thead>
         <tbody id="rows"></tbody>
@@ -126,10 +135,23 @@
       }
     };
 
-    const appendCell = (row, value) => {
+    const appendCell = (row, value, className = '') => {
       const cell = document.createElement('td');
       cell.textContent = value || '—';
+      if (className) cell.className = className;
       row.appendChild(cell);
+    };
+
+    const intentLabels = {
+      next_restock: 'Next restock',
+      future_release: 'Future release',
+      studio_study: 'Studio study',
+      letter: 'The Letter',
+    };
+
+    const fallbackSelection = (signup) => {
+      const size = signup.size === 'sample' ? '2 ml sample' : signup.size ? `${signup.size} ml` : null;
+      return [signup.product_slug, size].filter(Boolean).join(' · ');
     };
 
     const renderRows = (signups) => {
@@ -138,7 +160,7 @@
         tableWrap.hidden = false;
         const row = document.createElement('tr');
         const cell = document.createElement('td');
-        cell.colSpan = 6;
+        cell.colSpan = 7;
         cell.className = 'admin__empty';
         cell.textContent = 'No signups yet.';
         row.appendChild(cell);
@@ -150,10 +172,11 @@
         const row = document.createElement('tr');
         appendCell(row, signup.name);
         appendCell(row, signup.email);
-        appendCell(row, signup.product_slug);
+        appendCell(row, signup.selection_label || fallbackSelection(signup), 'admin__selection');
+        appendCell(row, intentLabels[signup.signup_intent] || signup.signup_intent, 'admin__intent');
         appendCell(row, signup.source);
-        appendCell(row, signup.size);
-        appendCell(row, formatDate(signup.created_at));
+        appendCell(row, signup.page_path);
+        appendCell(row, formatDate(signup.updated_at || signup.created_at));
         rowsEl.appendChild(row);
       });
       tableWrap.hidden = false;

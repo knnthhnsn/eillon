@@ -10,6 +10,25 @@
   const E = window.EILLON || {};
   const prefersReduced = E.prefersReduced ?? window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const playVideoSafe = E.playVideoSafe || (() => {});
+
+  const enhanceResponsiveTables = () => {
+    document.querySelectorAll('.info-page__table').forEach((table) => {
+      const headings = Array.from(table.querySelectorAll('thead th')).map((cell) => cell.textContent.trim());
+
+      table.querySelectorAll('tbody tr').forEach((row) => {
+        Array.from(row.children).forEach((cell, index) => {
+          const fallbackLabel = cell.matches('th[scope="row"]') ? 'Detail' : 'Value';
+          cell.dataset.label = headings[index] || fallbackLabel;
+        });
+      });
+
+      table.dataset.responsiveTable = 'true';
+      table.closest('.info-page__table-wrap')?.classList.add('info-page__table-wrap--responsive');
+    });
+  };
+
+  enhanceResponsiveTables();
+
   /* ---------- 10. PRODUCT GRID RENDER ---------- */
   const isOutOfStock = (product) => (
     ['awaiting-next-release', 'in-development', 'studio-archive', 'out-of-stock', 'waitlist-open'].includes(product.status)
@@ -33,6 +52,97 @@
     return 'Notify when back in stock';
   };
 
+  const formatEuro = (amount) => `\u20ac${amount}`;
+
+  const mountChapterFormats = (product) => {
+    if (product.slug === 'beles' || !product.formats?.length) return;
+
+    const info = document.querySelector('.shop--chapter .shop__info');
+    const form = info?.querySelector('[data-waitlist-form]');
+    if (!info || !form || form.querySelector('[data-chapter-formats]')) return;
+
+    const defaultFormat = product.formats.find((format) => format.id === '100')
+      || product.formats.at(-1);
+    const availabilityLabel = product.status === 'studio-archive'
+      ? 'archive format'
+      : 'planned release format';
+
+    const priceLine = document.createElement('p');
+    priceLine.className = 'shop__price chapter-formats__price';
+    priceLine.setAttribute('aria-live', 'polite');
+
+    const amount = document.createElement('span');
+    const volume = document.createElement('span');
+    volume.className = 'shop__price-meta';
+    priceLine.append(amount, volume);
+
+    const fieldset = document.createElement('fieldset');
+    fieldset.className = 'chapter-formats';
+    fieldset.dataset.chapterFormats = '';
+
+    const legend = document.createElement('legend');
+    legend.className = 'chapter-formats__legend';
+    const legendTitle = document.createElement('span');
+    legendTitle.textContent = 'Preferred format';
+    const legendNote = document.createElement('small');
+    legendNote.textContent = 'Records interest only';
+    legend.append(legendTitle, legendNote);
+
+    const options = document.createElement('div');
+    options.className = 'chapter-formats__options';
+
+    const selection = document.createElement('p');
+    selection.className = 'chapter-formats__selection';
+    selection.setAttribute('aria-live', 'polite');
+
+    const selectFormat = (format, track = false) => {
+      amount.textContent = formatEuro(format.price);
+      volume.textContent = `${format.label} \u00b7 ${availabilityLabel}`;
+      selection.textContent = `Interest choice: ${product.name} \u00b7 ${format.label} \u00b7 ${formatEuro(format.price)}`;
+      form.dataset.defaultSize = format.id;
+      if (track) {
+        window.EILLON_ANALYTICS?.track?.('size_interest_selected', {
+          chapter: product.slug,
+          size: format.id,
+          price: format.price,
+        });
+      }
+    };
+
+    product.formats.forEach((format) => {
+      const label = document.createElement('label');
+      label.className = 'chapter-formats__option';
+
+      const input = document.createElement('input');
+      input.type = 'radio';
+      input.name = 'size';
+      input.value = format.id;
+      input.checked = format.id === defaultFormat.id;
+      input.disabled = form.dataset.waitlistJoined === 'true';
+
+      const copy = document.createElement('span');
+      copy.className = 'chapter-formats__option-copy';
+      const formatLabel = document.createElement('strong');
+      formatLabel.textContent = format.label;
+      const price = document.createElement('small');
+      price.textContent = formatEuro(format.price);
+      copy.append(formatLabel, price);
+
+      input.addEventListener('change', () => {
+        if (input.checked) selectFormat(format, true);
+      });
+      label.append(input, copy);
+      options.appendChild(label);
+    });
+
+    fieldset.append(legend, options, selection);
+    form.prepend(fieldset);
+
+    const description = info.querySelector('.shop__desc');
+    info.insertBefore(priceLine, description || form);
+    selectFormat(defaultFormat);
+  };
+
   const applyChapterPageStatus = () => {
     const slug = document.body.dataset.chapterSlug;
     if (!slug || !Array.isArray(window.EILLON_PRODUCTS)) return;
@@ -48,9 +158,12 @@
 
     const submitHover = document.querySelector('[data-waitlist-form] .btn__hover');
     if (submitHover && product.ctaHover) submitHover.textContent = product.ctaHover;
+
+    mountChapterFormats(product);
   };
 
   document.addEventListener('eillon:products-ready', applyChapterPageStatus);
+  applyChapterPageStatus();
 
   const buildStoreCardCaption = (product) => {
     const caption = document.createElement('div');

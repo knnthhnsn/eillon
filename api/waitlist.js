@@ -2,6 +2,7 @@ const { ensureTable, upsertSignup } = require('../lib/db');
 const { notifyWaitlistSignup } = require('../lib/waitlist-notify');
 const { getClientIp, checkRateLimit } = require('../lib/rate-limit');
 const { CONSENT_NOTICE_VERSION } = require('../lib/consent');
+const { getInterestSelection } = require('../lib/product-interest');
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const VALID_PRODUCTS = new Set(['beles', 'oliva', 'asmara', 'massawa', 'petricor', 'ritual', 'all']);
@@ -10,6 +11,19 @@ const VALID_SIZES = new Set(['sample', '50', '100']);
 
 function normalizeEmail(value) {
   return String(value || '').trim().toLowerCase();
+}
+
+function normalizePagePath(value, referer) {
+  let path = String(value || '').trim();
+  if (!path && referer) {
+    try {
+      path = new URL(referer).pathname;
+    } catch {
+      path = '';
+    }
+  }
+  if (!path.startsWith('/')) return null;
+  return path.replace(/[\u0000-\u001f\u007f]/g, '').slice(0, 180) || null;
 }
 
 function json(res, status, body) {
@@ -81,7 +95,9 @@ module.exports = async (req, res) => {
   const productSlug = VALID_PRODUCTS.has(payload.product_slug) ? payload.product_slug : 'beles';
   const source = VALID_SOURCES.has(payload.source) ? payload.source : 'waitlist';
   const size = VALID_SIZES.has(payload.size) ? payload.size : null;
+  const interest = getInterestSelection(productSlug, size);
   const name = String(payload.name || '').trim().slice(0, 120) || null;
+  const pagePath = normalizePagePath(payload.page_path, req.headers?.referer);
   const utm = {
     utm_source: payload.utm_source || null,
     utm_medium: payload.utm_medium || null,
@@ -105,14 +121,31 @@ module.exports = async (req, res) => {
     const signup = await upsertSignup({
       email,
       source,
-      size,
+      size: interest.size,
       productSlug,
       name,
+      signupIntent: interest.signupIntent,
+      selectionLabel: interest.selectionLabel,
+      formatPrice: interest.formatPrice,
+      currency: interest.currency,
+      pagePath,
       utm,
       consentMarketing,
       consentNoticeVersion: payload.consent_notice_version || CONSENT_NOTICE_VERSION,
     });
-    json(res, 200, { ok: true });
+    json(res, 200, {
+      ok: true,
+      signup: {
+        product_slug: signup.productSlug,
+        size: signup.size,
+        signup_intent: signup.signupIntent,
+        intent_label: interest.intentLabel,
+        selection_label: signup.selectionLabel,
+        format_price: signup.formatPrice,
+        currency: signup.currency,
+        page_path: signup.pagePath,
+      },
+    });
 
     notifyWaitlistSignup(signup).catch((err) => {
       console.error('waitlist notify failed', err);

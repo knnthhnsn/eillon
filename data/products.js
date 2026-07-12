@@ -67,7 +67,11 @@ window.EILLON_PRODUCTS = [
     ctaLabel: 'Follow the chapter',
     ctaHover: 'Studio notes when Oliva advances',
     waitlistEnabled: true,
-    formats: [],
+    formats: [
+      { id: 'sample', label: '2 ml sample', price: 60, currency: 'EUR', status: 'in-development' },
+      { id: '50', label: '50 ml', price: 390, currency: 'EUR', status: 'in-development' },
+      { id: '100', label: '100 ml', price: 640, currency: 'EUR', status: 'in-development' },
+    ],
   },
   {
     slug: 'asmara',
@@ -97,7 +101,11 @@ window.EILLON_PRODUCTS = [
     ctaLabel: 'Follow the chapter',
     ctaHover: 'Studio notes when Asmara advances',
     waitlistEnabled: true,
-    formats: [],
+    formats: [
+      { id: 'sample', label: '2 ml sample', price: 68, currency: 'EUR', status: 'in-development' },
+      { id: '50', label: '50 ml', price: 430, currency: 'EUR', status: 'in-development' },
+      { id: '100', label: '100 ml', price: 710, currency: 'EUR', status: 'in-development' },
+    ],
   },
   {
     slug: 'massawa',
@@ -127,7 +135,11 @@ window.EILLON_PRODUCTS = [
     ctaLabel: 'Follow the chapter',
     ctaHover: 'Studio notes when Massawa advances',
     waitlistEnabled: true,
-    formats: [],
+    formats: [
+      { id: 'sample', label: '2 ml sample', price: 58, currency: 'EUR', status: 'in-development' },
+      { id: '50', label: '50 ml', price: 370, currency: 'EUR', status: 'in-development' },
+      { id: '100', label: '100 ml', price: 600, currency: 'EUR', status: 'in-development' },
+    ],
   },
   {
     slug: 'petricor',
@@ -157,7 +169,11 @@ window.EILLON_PRODUCTS = [
     ctaLabel: 'Follow the chapter',
     ctaHover: 'Studio notes when Petricor advances',
     waitlistEnabled: true,
-    formats: [],
+    formats: [
+      { id: 'sample', label: '2 ml sample', price: 64, currency: 'EUR', status: 'in-development' },
+      { id: '50', label: '50 ml', price: 410, currency: 'EUR', status: 'in-development' },
+      { id: '100', label: '100 ml', price: 680, currency: 'EUR', status: 'in-development' },
+    ],
   },
   {
     slug: 'ritual',
@@ -187,7 +203,11 @@ window.EILLON_PRODUCTS = [
     ctaLabel: 'Follow the study',
     ctaHover: 'Studio notes only — not for sale',
     waitlistEnabled: true,
-    formats: [],
+    formats: [
+      { id: 'sample', label: '2 ml sample', price: 72, currency: 'EUR', status: 'studio-archive' },
+      { id: '50', label: '50 ml', price: 460, currency: 'EUR', status: 'studio-archive' },
+      { id: '100', label: '100 ml', price: 760, currency: 'EUR', status: 'studio-archive' },
+    ],
   },
 ];
 

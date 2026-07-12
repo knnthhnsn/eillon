@@ -374,14 +374,30 @@
 
   const waitlistMessages = {
     beles: 'You are on the Beles restock list — we write when the next batch is ready.',
+    oliva: 'We will send studio notes as Oliva develops.',
     asmara: 'We will send studio notes as Asmara develops.',
     massawa: 'We will send studio notes as Massawa develops.',
+    petricor: 'We will send studio notes as Petricor develops.',
     ritual: 'You are following the Ritual lab study.',
     all: 'You are on the letter list.',
   };
 
+  const buildWaitlistConfirmation = ({ productSlug, size, signup }) => {
+    if (productSlug === 'all') return 'You are subscribed to The Letter.';
+
+    const product = window.EILLON_PRODUCTS?.find((item) => item.slug === productSlug);
+    const format = product?.formats?.find((item) => item.id === size);
+    const localSelection = product && format
+      ? `${product.name} · ${product.subtitle} · ${format.label} · €${format.price}`
+      : product?.name || productSlug;
+    const selection = signup?.selection_label || localSelection;
+    const followUp = waitlistMessages[productSlug] || 'We will write when this chapter advances.';
+    return `Signed up for ${selection}. ${followUp}`;
+  };
+
   const setWaitlistJoined = ({ form, emailInput, submitButton, statusEl, message, isNewsletter }) => {
     if (form) {
+      form.dataset.waitlistJoined = 'true';
       form.querySelectorAll('input:not([type="hidden"]), select, textarea').forEach((field) => {
         field.disabled = true;
       });
@@ -416,6 +432,7 @@
         utm_campaign: utm.utm_campaign || null,
         consent_marketing: consent_marketing === true,
         consent_notice_version: CONSENT_NOTICE_VERSION,
+        page_path: window.location.pathname,
       }),
     });
     const data = await res.json().catch(() => ({}));
@@ -455,20 +472,28 @@
 
     const statusEl = form.querySelector('[aria-live="polite"]')
       || form.querySelector('.shop__waitlist-status')
-      || form.querySelector('.beles-waitlist-status');
+      || form.querySelector('.beles-waitlist-status')
+      || form.parentElement?.querySelector('.shop__waitlist-status, .beles-waitlist-status, [data-waitlist-status]');
     const submitButton = form.querySelector('button[type="submit"]');
     const emailInput = form.querySelector('input[type="email"]');
     const storageKey = `eillon-waitlist-${productSlug}`;
-    const successMessage = waitlistMessages[productSlug] || 'You are on the list.';
+    const fallbackSuccessMessage = waitlistMessages[productSlug] || 'You are on the list.';
 
     try {
-      if (window.localStorage.getItem(storageKey) === 'true') {
+      const storedSignup = window.localStorage.getItem(storageKey);
+      if (storedSignup && storedSignup !== 'true') {
+        let storedMessage = fallbackSuccessMessage;
+        try {
+          storedMessage = JSON.parse(storedSignup).message || storedMessage;
+        } catch {
+          // A malformed local marker should not block a fresh exact signup.
+        }
         setWaitlistJoined({
           form,
           emailInput,
           submitButton,
           statusEl,
-          message: successMessage,
+          message: storedMessage,
           isNewsletter,
         });
       }
@@ -505,13 +530,15 @@
       if (submitButton) submitButton.disabled = true;
       if (statusEl) statusEl.textContent = '';
 
-      const sizeInput = form.querySelector('[name="size"]');
-      const size = sizeInput?.value || (productSlug === 'beles' ? selectedSize : null);
+      const sizeInput = form.querySelector(
+        '[name="size"]:checked, select[name="size"], input[name="size"]:not([type="radio"])',
+      );
+      const size = sizeInput?.value || form.dataset.defaultSize || null;
       const nameInput = form.querySelector('[name="name"]');
       const name = nameInput?.value?.trim() || null;
 
       try {
-        await submitWaitlistSignup({
+        const result = await submitWaitlistSignup({
           email: emailInput.value.trim(),
           source,
           size,
@@ -519,8 +546,17 @@
           name,
           consent_marketing: formHasConsent(form),
         });
+        const successMessage = buildWaitlistConfirmation({
+          productSlug,
+          size,
+          signup: result.signup,
+        });
         try {
-          window.localStorage.setItem(storageKey, 'true');
+          window.localStorage.setItem(storageKey, JSON.stringify({
+            productSlug,
+            size,
+            message: successMessage,
+          }));
         } catch {
           // Ignore storage failures.
         }
